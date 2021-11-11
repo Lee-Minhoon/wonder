@@ -1,0 +1,33 @@
+$content-width: 1170px;
+$light-gray:#CCC;
+$dark-gray:#333;
+$theme-color: #0099ff;
+
+@mixin location($top, $right, $bottom, $left) {
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+}
+
+@mixin size($width, $height) {
+    width: $width;
+    height: $height;
+}
+
+@mixin font($color, $style, $weight, $size) {
+    color: $color;
+    font: {
+        display: swap;
+        family: 'Roboto', 'Noto Sans KR', sans-serif;
+        style: $style;
+        weight: $weight;
+        size: $size;
+    }
+}
+
+@mixin flex-center() {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,0 +1,44 @@
+@import '/styles/util.module.scss';
+
+
+.login {
+    width: 350px;
+    box-shadow: 0 1px 3px 0 $light-gray;
+    border: 1px solid $light-gray;
+    form {
+        padding: 30px;
+        text-align: center;
+        width: 100%;
+        header {
+            margin-bottom: 20px;
+        }
+        div {
+            @include size(100%, 40px);
+            border: 1px solid $light-gray;
+            input {
+                @include font(black, normal, 300, 1.6rem);
+                padding: 0 10px;
+                @include size(100%, 100%);
+                border: none;
+                outline: none;
+            }
+            &:focus-within {
+                border: 1px solid $theme-color;
+            }
+            margin-bottom: 10px;
+        }
+        button {
+            @include size(100%, 40px);
+            border: 0px;
+            background-color: $theme-color;
+            @include font(white, normal, 300, 1.6rem);
+            &:hover {
+                cursor: pointer;
+            }
+        }
+        footer {
+            margin-top: 20px;
+            @include font($light-gray, normal, 300, 1.4rem);
+        }
+    }
+}

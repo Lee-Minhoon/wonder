@@ -1,0 +1,67 @@
+@import '/styles/util.module.scss';
+
+.util {
+    display:flex;
+    justify-content: flex-end;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.banner {
+    height: 100px;
+    background-color: $light-gray;
+    text-align: center;
+    @include font(white, normal, 400, 3rem);
+}
+
+.list {
+    width: 770px;
+    border-top: 2px solid $theme-color;
+    border-bottom: 1px solid $theme-color;
+    th {
+        height: 35px;
+        border-bottom: 1px solid $dark-gray;
+        @include font($dark-gray, normal, 400, 1.6rem);
+    }
+    tr:not(:last-child) {
+        td {
+            border-bottom: 1px solid $light-gray;
+        }
+    }
+}
+
+.item {
+    height: 30px;
+    @include font(black, normal, 300, 1.4rem);
+    td:not(:nth-child(3)) {
+        text-align: center;
+    }
+}
+
+.page {
+    @include flex-center();
+    height: 50px;
+}
+
+.search {
+    margin: 0px auto;
+    width: 300px;
+    height: 30px;
+    border: 2px solid $theme-color;
+    @include flex-center();
+    input {
+        padding: 0 10px;
+        border: none;
+        height: 100%;
+        width: 260px;
+        @include font(black, normal, 300, 1.6rem);
+        outline: none;
+    }
+    button {
+        height: 100%;
+        border: 0px;
+        width: 40px;
+        background-color: $theme-color;
+        @include font(white, normal, 300, 1.6rem);
+    }
+}

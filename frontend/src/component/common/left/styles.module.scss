@@ -1,0 +1,18 @@
+@import '/styles/util.module.scss';
+
+.left {
+    width: 190px;
+    margin-right: 10px;
+    border: 1px solid black;
+}
+
+.lnb {
+    ul {
+        padding-inline-start: 0px;
+        list-style-type: none;
+    }
+    li {
+        margin: 10px 0;
+        @include font(black, normal, 300, 1.6rem);
+    }
+}
