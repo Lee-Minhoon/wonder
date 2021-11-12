@@ -1,17 +1,24 @@
 import { createStore, applyMiddleware, combineReducers, AnyAction } from 'redux';
 import { HYDRATE, createWrapper, MakeStore, Context } from "next-redux-wrapper";
-import count from './count/reducer'
+import count from './count'
+import category from './category'
 
 // create a makeStore function
 const combinedReducer = combineReducers({
-    count
+    count,
+    category,
 })
 
 const reducer = (state, action: AnyAction) => {
     if (action.type === HYDRATE) {
-        return { ...state, ...action.payload };
+        const nextState = {
+            ...state, // use previous state
+            ...action.payload, // apply delta from hydration
+        }
+        if (state.count.count) nextState.count.count = state.count.count // preserve count value on client side navigation
+        return nextState
     } else {
-        return combinedReducer(state, action);
+        return combinedReducer(state, action)
     }
 };
 

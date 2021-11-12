@@ -1,17 +1,28 @@
 import Link from 'next/link';
 import styles from './styles.module.scss';
+import { useSelector } from 'react-redux';
+import { category } from 'global/variable';
 
 export default function Lnb() {
-    const titles = ["전체보기", "게시판", "게시판", "게시판", "게시판"];
+    const main = useSelector((state) => state.category.main);
+    const sub = useSelector((state) => state.category.sub);
+    const lnb = category.map((parent) => {
+        if (parent.url === main) {
+            return (
+                parent.sub.map((child) =>
+                    <li>
+                        <Link href={{ query: { main: parent.url, sub: child.url } }}><a>{child.title}</a></Link>
+                    </li>
+                )
+            )
+        }
+    })
+
     return (
         <nav className={styles.lnb}>
             <h1>게시판</h1>
             <ul>
-                {titles.map((item) =>
-                    <li>
-                        <Link href="test"><a>{item}</a></Link>
-                    </li>
-                )}
+                {lnb}
             </ul>
         </nav>
     )

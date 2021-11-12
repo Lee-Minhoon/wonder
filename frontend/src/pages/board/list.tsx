@@ -2,11 +2,18 @@ import axios from 'axios';
 import Left from 'component/common/left';
 import Board from 'component/layout/board';
 import Right from "component/common/right";
+import { useDispatch } from 'react-redux';
+import { move } from 'redux/category/action';
+import { useEffect } from 'react';
 
 export default function Page(props) {
     // const url = 'http://localhost:8081/hello-api?name=asdf';
     // axios.get(url).then(reponse => console.log(reponse));
-    console.log(props.main);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(move(props.main, props.sub));
+    })
 
     return (
         <div className="flex">
@@ -18,11 +25,10 @@ export default function Page(props) {
 }
 
 export async function getServerSideProps({ query }) {
-    console.log(query.main);
-
     return {
         props: {
-            main: query.main
+            main: query.main,
+            sub: query.sub
         }
     };
 }

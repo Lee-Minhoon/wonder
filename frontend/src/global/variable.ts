@@ -1,6 +1,4 @@
-NODE_ENV===development
-
-CATEGORY = [
+export const category = [
     {
         title: "Q&A", url: "qna", sub: [
             { title: "전체보기", url: "all" },
