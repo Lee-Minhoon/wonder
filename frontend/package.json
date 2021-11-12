@@ -8,6 +8,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@toast-ui/react-editor": "^3.1.1",
     "axios": "^0.24.0",
     "next": "12.0.2",
     "next-redux-wrapper": "^7.0.5",

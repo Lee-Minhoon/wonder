@@ -9,7 +9,10 @@ class MyDocument extends Document {
     render() {
         return (
             <Html lang="ko">
-                <Head />
+                <Head>
+                    <link rel="stylesheet" href="lib/codemirror.css" />
+                    <script src="lib/codemirror.js"></script>
+                </Head>
                 <body>
                     <Main />
                     <NextScript />

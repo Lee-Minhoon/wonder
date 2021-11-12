@@ -28,10 +28,6 @@ a {
     text-decoration: none;
 }
 
-h1 {
-    @include font($theme-color, normal, 400, 2.4rem);
-}
-
 * {
     box-sizing: border-box;
     margin: 0px;

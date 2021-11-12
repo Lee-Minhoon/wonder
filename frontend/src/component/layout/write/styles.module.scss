@@ -1,0 +1,7 @@
+@import 'global/util.module.scss';
+
+.editor {
+    height: 500px;
+    width: calc($content-width - 400px);
+    border: 1px solid black;
+}
