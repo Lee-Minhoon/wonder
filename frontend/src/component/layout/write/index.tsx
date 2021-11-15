@@ -1,15 +1,31 @@
 import Left from 'component/common/left';
 import Right from "component/common/right";
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, forwardRef, useCallback } from 'react';
 import styles from './styles.module.scss';
 import dynamic from 'next/dynamic';
 
 const Editor = dynamic(() => import('./editor'), { ssr: false });
+const EditorWithForwardedRef = forwardRef((props, ref) => (
+    <Editor {...props} forwardedRef={ref} />
+))
 
-export default function Write() {
+export default function Write(props) {
+    const editorRef = useRef(null);
+    const handleChange = useCallback(() => {
+        if (!editorRef) {
+            return;
+        }
+        console.log(editorRef.current);
+        const instance = editorRef.current.getInstance();
+    })
     return (
         <div>
-            <Editor />
+            <Editor
+                {...props}
+                height="600px"
+                initialEditType="wysiwyg"
+                ref={editorRef}
+            />
         </div>
     )
 }
