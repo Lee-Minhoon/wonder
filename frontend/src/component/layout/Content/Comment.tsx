@@ -1,7 +1,5 @@
 import styles from './styles.module.scss';
-import Link from 'next/link';
-import Article from './content';
-import List from './list';
+import CommentList from './CommentList';
 
 export default function Comment() {
     return (
@@ -10,7 +8,7 @@ export default function Comment() {
                 몇개의 댓글
                 등록순
             </header>
-            <List />
+            <CommentList />
             <form>
                 <div>
                     <input type="text"></input>

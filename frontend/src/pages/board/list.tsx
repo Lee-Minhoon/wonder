@@ -1,12 +1,12 @@
 import axios from 'axios';
 import Left from 'component/common/left';
-import Board from 'component/layout/board';
+import Board from 'component/layout/Board';
 import Right from "component/common/right";
 import { useDispatch } from 'react-redux';
 import { move } from 'redux/category/action';
 import { useEffect } from 'react';
 
-export default function Page(props) {
+export default function list(props) {
     // const url = 'http://localhost:8081/hello-api?name=asdf';
     // axios.get(url).then(reponse => console.log(reponse));
     const dispatch = useDispatch();

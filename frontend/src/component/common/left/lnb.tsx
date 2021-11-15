@@ -3,7 +3,7 @@ import styles from './styles.module.scss';
 import { useSelector } from 'react-redux';
 import { category } from 'global/variable';
 
-export default function Lnb() {
+export default function LNB() {
     const main = useSelector((state) => state.category.main);
     const sub = useSelector((state) => state.category.sub);
     const lnb = category.map((parent) => {
@@ -11,7 +11,7 @@ export default function Lnb() {
             return (
                 parent.sub.map((child) =>
                     <li>
-                        <Link href={{ query: { main: parent.url, sub: child.url } }}><a>{child.title}</a></Link>
+                        <Link href={{ pathname: "/board/list", query: { main: parent.url, sub: child.url } }}><a>{child.title}</a></Link>
                     </li>
                 )
             )

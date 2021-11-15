@@ -4,7 +4,7 @@ import { useDispatch, useSelector, DefaultRootState } from 'react-redux';
 import { addCount, add } from 'redux/count/action';
 import reducer from '../../../redux/count';
 
-export default function Util() {
+export default function PostUtil() {
     const dispatch = useDispatch();
     const count = useSelector((state) => state.count.count);
     return (
@@ -16,9 +16,6 @@ export default function Util() {
                     글쓰기
                 </a>
             </Link>
-            <p> = {count}</p>
-            <button onClick={() => dispatch(add())}>add</button>
-            <button onClick={() => dispatch(addCount())}>addCount</button>
         </div>
     )
 }

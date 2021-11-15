@@ -1,10 +1,10 @@
 import Title from 'component/common/title';
-import Banner from './banner';
-import List from './list';
-import Page from './page';
-import Search from './search';
+import Banner from './Banner';
+import PostList from './PostList';
+import Pagination from './Pagination';
+import PostSearchBar from './PostSearchBar';
 import styles from './styles.module.scss';
-import Util from './util';
+import PostUtil from './PostUtil';
 
 export default function Board() {
     return (
@@ -12,12 +12,12 @@ export default function Board() {
             <header>
                 <Title />
                 <Banner />
-                <Util />
+                <PostUtil />
             </header>
-            <List />
+            <PostList />
             <footer className={styles.footer}>
-                <Page />
-                <Search />
+                <Pagination />
+                <PostSearchBar />
             </footer>
         </section>
     )

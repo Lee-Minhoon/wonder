@@ -1,6 +1,6 @@
 import styles from './styles.module.scss';
 
-export default function Info() {
+export default function PostInfo() {
     return (
         <div className={styles.info}>
             <div className={styles.left}>

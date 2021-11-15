@@ -1,7 +1,7 @@
 import styles from './styles.module.scss';
-import Item from './item';
+import PostItem from './PostItem';
 
-export default function List() {
+export default function PostList() {
     const titles = ["Q&A", "커뮤니티", "강의실", "구인구직", "외주",
         "Q&A", "커뮤니티", "강의실", "구인구직", "외주",
         "Q&A", "커뮤니티", "강의실", "구인구직", "외주",
@@ -30,7 +30,7 @@ export default function List() {
             </thead>
             <tbody>
                 {titles.map((item) =>
-                    <Item />
+                    <PostItem />
                 )}
             </tbody>
         </table>

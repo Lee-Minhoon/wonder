@@ -1,7 +1,7 @@
 import styles from './styles.module.scss';
 import Link from 'next/link';
 
-export default function Footer() {
+export default function Index() {
     const next = 'https://nextjs.org/';
     const spring = 'https://spring.io/';
     const github = 'https://github.com/Lee-Minhoon';

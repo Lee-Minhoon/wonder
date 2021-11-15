@@ -2,7 +2,7 @@ import Link from 'next/link';
 import styles from './styles.module.scss';
 import { category } from 'global/variable';
 
-export default function Gnb() {
+export default function GNB() {
     return (
         <nav className={styles.gnb}>
             <ul>

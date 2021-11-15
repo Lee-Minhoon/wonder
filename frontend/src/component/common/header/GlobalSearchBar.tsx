@@ -1,7 +1,6 @@
-import Link from 'next/link';
 import styles from './styles.module.scss';
 
-export default function Search() {
+export default function GlobalSearchBar() {
     return (
         <div className={styles.search}>
             <input type="text"></input>

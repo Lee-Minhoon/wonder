@@ -1,7 +1,7 @@
 import styles from './styles.module.scss';
-import Info from './info';
+import Info from './PostInfo';
 
-export default function Article() {
+export default function Post() {
     return (
         <article className={styles.content}>
             <header>

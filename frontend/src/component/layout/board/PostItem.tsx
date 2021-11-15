@@ -1,7 +1,7 @@
 import styles from './styles.module.scss';
 import Link from 'next/link';
 
-export default function item() {
+export default function PostItem() {
     return (
         <tr className={styles.item}>
             <td>카테고리</td>

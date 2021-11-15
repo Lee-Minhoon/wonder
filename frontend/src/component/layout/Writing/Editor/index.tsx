@@ -1,31 +1,37 @@
-import Left from 'component/common/left';
-import Right from "component/common/right";
 import { useRef, useEffect, forwardRef, useCallback } from 'react';
 import styles from './styles.module.scss';
 import dynamic from 'next/dynamic';
 
-const Editor = dynamic(() => import('./editor'), { ssr: false });
+const WrappedEditor = dynamic(() => import('./WrappedEditor'), { ssr: false });
+
+// EditorWithForwardedRef는 전달된 ref를 얻는다.
 const EditorWithForwardedRef = forwardRef((props, ref) => (
-    <Editor {...props} forwardedRef={ref} />
+    // 전달받은 ref는 props를 통해 Editor로 전달됨
+    <WrappedEditor {...props} forwardedRef={ref} />
 ))
 
-export default function Write(props) {
+export default function Editor(props) {
     const editorRef = useRef(null);
+
     const handleChange = useCallback(() => {
-        if (!editorRef) {
+        if (!editorRef.current) {
             return;
         }
-        console.log(editorRef.current);
         const instance = editorRef.current.getInstance();
-    })
+        console.log(instance.getHTML());
+    }, [props, editorRef]);
+
     return (
         <div>
-            <Editor
+            <textarea />
+            <EditorWithForwardedRef
                 {...props}
                 height="600px"
                 initialEditType="wysiwyg"
-                ref={editorRef}
+                ref={editorRef} // EditorWithForwardedRef컴포넌트로 ref를 전달
+            // onChange={handleChange}
             />
+            <button onClick={handleChange}>sd</button>
         </div>
     )
 }

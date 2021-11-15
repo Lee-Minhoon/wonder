@@ -1,5 +1,3 @@
-import Lnb from "../component/common/left/lnb";
-
 export default function Index() {
     const test: number = 8;
     return (

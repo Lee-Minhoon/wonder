@@ -1,8 +1,8 @@
 import axios from 'axios';
-import Login from 'component/layout/login/container';
+import Login from 'component/layout/Login';
 
 
-export default function Page() {
+export default function login() {
     // const url = 'http://localhost:8081/auth/login';
     // axios.post(url, null, {
     //     params: {
