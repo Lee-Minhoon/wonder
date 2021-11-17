@@ -8,13 +8,11 @@ function WrappedEditor(props) {
     const { forwardedRef } = props;
 
     return (
-        <>
-            <Editor
-                {...props}
-                ref={forwardedRef}
-                plugins={[colorSyntax]}
-            />
-        </>
+        <Editor
+            {...props}
+            ref={forwardedRef}
+            plugins={[colorSyntax]}
+        />
     )
 }
 
@@ -25,4 +23,4 @@ WrappedEditor.propTypes = {
     }).isRequired
 }
 
-export default Editor;
+export default WrappedEditor;

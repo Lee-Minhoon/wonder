@@ -11,28 +11,23 @@ const EditorWithForwardedRef = forwardRef((props, ref) => (
 ))
 
 export default function Editor(props) {
-    const editorRef = useRef(null);
+    const ref = useRef(null);
 
-    const handleChange = useCallback(() => {
-        if (!editorRef.current) {
+    const onChange = useCallback(() => {
+        if (!ref.current) {
             return;
         }
-        const instance = editorRef.current.getInstance();
-        console.log(instance.getHTML());
-    }, [props, editorRef]);
+
+        const instance = ref.current.getInstance();
+        props.applyData(instance.getHTML());
+    }, [props, ref]);
 
     return (
-        <div>
-            <textarea />
-            <EditorWithForwardedRef
-                {...props}
-                height="600px"
-                initialEditType="wysiwyg"
-                ref={editorRef} // EditorWithForwardedRef컴포넌트로 ref를 전달
-            // onChange={handleChange}
-            />
-            <button onClick={handleChange}>sd</button>
-        </div>
+        <EditorWithForwardedRef
+            {...props}
+            ref={ref} // EditorWithForwardedRef컴포넌트로 ref를 전달
+            onChange={onChange}
+        />
     )
 }
 
