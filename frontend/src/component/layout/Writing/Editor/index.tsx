@@ -1,5 +1,4 @@
 import { useRef, useEffect, forwardRef, useCallback } from 'react';
-import styles from './styles.module.scss';
 import dynamic from 'next/dynamic';
 
 const WrappedEditor = dynamic(() => import('./WrappedEditor'), { ssr: false });

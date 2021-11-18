@@ -1,7 +1,16 @@
 @import 'global/util.module.scss';
 
-.editor {
-    height: 500px;
-    width: calc($content-width - 400px);
-    border: 1px solid black;
+.writing {
+    input {
+        width: 100%;
+        height: 40px;
+        padding: 0 10px;
+        border: 1px solid $light-gray;
+        margin-bottom: 10px;  
+        @include font(black, normal, 300, 1.4rem);
+        outline: none;
+        &:focus {
+            border: 1px solid black;
+        }
+    }
 }

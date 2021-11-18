@@ -1,7 +1,7 @@
 import styles from './styles.module.scss';
 import Post from './Post';
 import Comment from './Comment';
-import Title from '../../common/title';
+import Title from '../../common/BoardTitle';
 
 export default function Content() {
     return (

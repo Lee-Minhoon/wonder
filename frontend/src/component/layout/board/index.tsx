@@ -1,4 +1,4 @@
-import Title from 'component/common/title';
+import Title from 'component/common/BoardTitle';
 import Banner from './Banner';
 import PostList from './PostList';
 import Pagination from './Pagination';

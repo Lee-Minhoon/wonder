@@ -1,14 +1,14 @@
-<<<<<<< HEAD
 package wonder.backend.domain;
 
 import javax.persistence.*;
 
 @Entity
-public class Member {
+public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long number;
     private String id;
     private String password;
+    private String nickname;
 
     @Column
     public Long getNumber() {
@@ -34,11 +34,12 @@ public class Member {
     public void setPassword(String password) {
         this.password = password;
     }
-=======
-package wonder.backend.domain;public class Member {
-<<<<<<< HEAD
->>>>>>> fc35de2 (게시판 수정 및 redux 설정중..)
-=======
->>>>>>> fc35de2f44e4e25b1b932768c7c1ad233ae84a1c
->>>>>>> 6b9ed98aaaa6c6ab375ebef65ee47e470f77acee
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
 }
