@@ -36,6 +36,12 @@ public class JdbcTemplateUserRepository implements UserRepository {
     }
 
     @Override
+    public Optional<User> findByNumber(Long number) {
+        List<User> result = jdbcTemplate.query("select * from user where number= ?", memberRowMapper(), number);
+        return result.stream().findAny();
+    }
+
+    @Override
     public Optional<User> findById(String id) {
         List<User> result = jdbcTemplate.query("select * from user where id = ?", memberRowMapper(), id);
         return result.stream().findAny();

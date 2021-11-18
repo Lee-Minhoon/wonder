@@ -7,19 +7,41 @@ import { useRouter } from 'next/router';
 export default function Signup() {
     const [id, setId] = useState(null);
     const [password, setPassword] = useState(null);
+    const [check, setCheck] = useState(null);
     const [nickname, setNickname] = useState(null);
     const router = useRouter();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/user`, null, {
-            params: {
-                id: id, password: password, nickname: nickname
-            }
-        }).then(reponse => {
-            alert(`${reponse.data.nickname}님 가입을 환영합니다.`);
-            router.push('/');
-        });
+        if (validate()) {
+            axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/user`, null, {
+                params: {
+                    id: id, password: password, nickname: nickname
+                }
+            }).then(reponse => {
+                console.log(reponse);
+                // alert(`${reponse.data.nickname}님 가입을 환영합니다.`);
+                router.push('/');
+            });
+        } else {
+            console.log('test');
+        }
+    }
+
+    const validate = () => {
+        if (!id || !password || !nickname) {
+            alert("빈 칸이 있습니다.");
+            return false;
+        }
+        else if (password.length < 8) {
+            alert("비밀번호를 8자 이상 입력하세요.");
+            return false;
+        }
+        else if (password != check) {
+            alert("비밀번호가 일치하지 않습니다.");
+            return false;
+        }
+        return true;
     }
 
     return (
@@ -38,7 +60,7 @@ export default function Signup() {
                 </div>
                 <label>비밀번호 확인</label>
                 <div>
-                    <input type="password" />
+                    <Input type="check" name="check" setState={setCheck} />
                 </div>
                 <label>닉네임</label>
                 <div>

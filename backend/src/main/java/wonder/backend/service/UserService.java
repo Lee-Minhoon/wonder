@@ -16,17 +16,15 @@ public class UserService {
     /**
      * 회원 가입
      **/
-    public Long signup(User user) {
-        validateDuplicateUser(user); // 중복 회원 검증
-        userRepository.save(user);
-        return user.getNumber();
-    }
-
-    private void validateDuplicateUser(User user) {
-        userRepository.findById(user.getId())
-                .ifPresent(m -> {
-                    throw new IllegalStateException("이미 존재하는 회원입니다.");
-                });
+    public boolean signup(User user) {
+        boolean result = userRepository.findById(user.getId()).isEmpty();
+        if (result) {
+            userRepository.save(user);
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     /**

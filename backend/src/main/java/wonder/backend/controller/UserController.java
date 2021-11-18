@@ -2,10 +2,9 @@ package wonder.backend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import wonder.backend.common.Response;
+import wonder.backend.common.ResponseMessage;
 import wonder.backend.domain.User;
 import wonder.backend.service.UserService;
 
@@ -20,7 +19,7 @@ public class UserController {
 
     @PostMapping("user")
     @ResponseBody
-    public User singup(
+    public Response<User> singup(
             @RequestParam("id") String id,
             @RequestParam("password") String password,
             @RequestParam("nickname") String nickname
@@ -30,10 +29,11 @@ public class UserController {
         user.setPassword(password);
         user.setNickname(nickname);
 
-        userService.signup(user);
-
-        System.out.println("test");
-
-        return user;
+        if(userService.signup(user)) {
+            return new Response<User>(ResponseMessage.SIGNUP_SUCCESS, user);
+        }
+        else {
+            return new Response<User>(ResponseMessage.ID_DUPLICATE, user);
+        }
     }
 }

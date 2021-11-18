@@ -1,5 +1,7 @@
 package wonder.backend.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,6 +9,7 @@ public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long number;
     private String id;
+    @JsonIgnore
     private String password;
     private String nickname;
 
