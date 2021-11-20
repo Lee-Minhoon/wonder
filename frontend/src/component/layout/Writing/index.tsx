@@ -3,29 +3,35 @@ import styles from './styles.module.scss';
 import Editor from './Editor';
 import Title from 'component/common/BoardTitle';
 
-export default function Writing() {
-    const title = useRef(null);
-    const [data, setData] = useState(null);
+const Writing = () => {
+    const [title, setTitle] = useState('');
+    const [data, setData] = useState('');
 
     const applyData = (Data) => {
         setData(() => Data);
     }
 
-    const save = () => {
-        console.log(title.current.value);
+    const handleChange = (e) => {
+        setTitle(e.target.value);
+    }
+
+    const write = () => {
+        console.log(title);
         console.log(data);
     }
 
     return (
         <div className={styles.writing}>
             <Title />
-            <input type="text" ref={title} placeholder="제목을 입력하세요." />
+            <input type="text" placeholder="제목을 입력하세요." onChange={handleChange} />
             <Editor
                 height="600px"
                 initialEditType="wysiwyg"
                 applyData={applyData}
             />
-            <button onClick={save}>글쓰기</button>
+            <button onClick={write}>글쓰기</button>
         </div>
     )
 }
+
+export default Writing;

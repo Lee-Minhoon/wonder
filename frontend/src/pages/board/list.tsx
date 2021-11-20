@@ -1,14 +1,11 @@
-import axios from 'axios';
-import Left from 'component/common/left';
-import Board from 'component/layout/Board';
-import Right from "component/common/right";
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { move } from 'redux/category/action';
-import { useEffect } from 'react';
+import Left from 'component/common/left';
+import Right from "component/common/right";
+import Board from 'component/layout/Board';
 
-export default function list(props) {
-    // const url = 'http://localhost:8081/hello-api?name=asdf';
-    // axios.get(url).then(reponse => console.log(reponse));
+const list = (props) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -32,3 +29,5 @@ export async function getServerSideProps({ query }) {
         }
     };
 }
+
+export default list;
