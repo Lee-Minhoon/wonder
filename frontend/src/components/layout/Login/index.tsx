@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Input from 'component/common/Input';
+import Input from 'components/common/Input';
 import styles from './styles.module.scss';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';

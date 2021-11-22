@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import Link from 'next/link';
-import { category } from 'global/variable';
+import { category } from 'global/config';
 import styles from './styles.module.scss';
 
 export default function LNB() {

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import styles from './styles.module.scss';
-import { category } from 'global/variable';
+import { category } from 'global/config';
 
 export default function GNB() {
     return (

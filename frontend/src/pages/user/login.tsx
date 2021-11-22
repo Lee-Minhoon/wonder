@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Login from 'component/layout/Login';
+import Login from 'components/layout/Login';
 
 
 export default function login() {

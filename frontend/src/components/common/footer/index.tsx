@@ -6,6 +6,7 @@ export default function Index() {
     const spring = 'https://spring.io/';
     const github = 'https://github.com/Lee-Minhoon';
     const repo = 'https://github.com/Lee-Minhoon/wonder';
+
     return (
         <footer className={styles.footer}>
             <div className={styles.container}>

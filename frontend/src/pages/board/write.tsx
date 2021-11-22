@@ -1,6 +1,6 @@
-import Left from 'component/common/left';
-import Right from "component/common/right";
-import Writing from 'component/layout/Writing';
+import Left from 'components/common/left';
+import Right from "components/common/right";
+import Writing from 'components/layout/Writing';
 
 export default function write() {
     return (

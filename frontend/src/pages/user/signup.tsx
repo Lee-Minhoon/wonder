@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Signup from 'component/layout/Signup';
+import Signup from 'components/layout/Signup';
 
 export default function signup() {
     return (

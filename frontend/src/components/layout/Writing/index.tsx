@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect, forwardRef, useCallback } from 'react';
 import styles from './styles.module.scss';
 import Editor from './Editor';
-import Title from 'component/common/BoardTitle';
+import Title from 'components/common/BoardTitle';
 
 const Writing = () => {
     const [title, setTitle] = useState('');

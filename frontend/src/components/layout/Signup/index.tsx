@@ -1,7 +1,7 @@
 import axios from 'axios';
 import styles from './styles.module.scss';
 import { useState, useEffect } from 'react';
-import Input from 'component/common/Input';
+import Input from 'components/common/Input';
 import { useRouter } from 'next/router';
 
 export default function Signup() {
