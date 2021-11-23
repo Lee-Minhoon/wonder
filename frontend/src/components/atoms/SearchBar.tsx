@@ -1,6 +1,6 @@
 import styles from "./styles.module.scss";
 
-export default function SearchBar(props) {
+const SearchBar = (props) => {
     const { width, height } = props;
 
     return (
@@ -9,4 +9,6 @@ export default function SearchBar(props) {
             <button type="submit">＠</button>
         </div>
     );
-}
+};
+
+export default SearchBar;

@@ -8,16 +8,15 @@
 }
 
 .container {
-    padding: 20px;
     width: 1170px;
+    padding: 20px;
+    line-height: 2;
     text-align: center;
     @include font(black, normal, 300, 1.4rem);
-    line-height: 2;
     a {
         @include font($theme-color, normal, 400, 1.4rem);
         &:hover {
             text-decoration: underline;
         }
-
     }
 }

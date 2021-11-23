@@ -7,7 +7,6 @@ import Board from "components/layout/Board";
 
 const list = (props) => {
     const dispatch = useDispatch();
-
     useEffect(() => {
         dispatch(move(props.main, props.sub));
     });

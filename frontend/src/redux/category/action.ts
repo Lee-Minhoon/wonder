@@ -1,6 +1,6 @@
 export const types = {
-    MOVE: 'MOVE'
-}
+    MOVE: "MOVE",
+};
 
 // export const addCount = () => (dispatch) => {
 //     return dispatch({ type: types.ADD_COUNT })
@@ -9,5 +9,5 @@ export const types = {
 export const move = (main, sub) => ({
     type: types.MOVE,
     main,
-    sub
+    sub,
 });

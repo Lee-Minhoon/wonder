@@ -1,5 +1,4 @@
 import styles from "./styles.module.scss";
-import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import useInput from "hooks/useInput";
 import signup from "service/signup";
@@ -16,20 +15,6 @@ export default function Signup() {
         if (signup(id.value, password.value, check.value, nickname.value)) {
             router.push("/");
         }
-    };
-
-    const validate = () => {
-        if (!id.value || !password.value || !nickname.value) {
-            alert("빈 칸이 있습니다.");
-            return false;
-        } else if (password.value.length < 8) {
-            alert("비밀번호를 8자 이상 입력하세요.");
-            return false;
-        } else if (password.value != check.value) {
-            alert("비밀번호가 일치하지 않습니다.");
-            return false;
-        }
-        return true;
     };
 
     return (

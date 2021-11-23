@@ -3,26 +3,34 @@
 .header {
     display: flex;
     align-items: center;
+    margin-top: 10px;
     flex-direction: column;
-    padding-top: 10px;
 }
 
-.util {
-    @include size($content-width, 25px);
+.userUtil {
     display: flex;
+    width: $content-width;
     justify-content: flex-end;
+    margin-bottom: 10px;
+    ul {
+        padding-inline-start: 0px;
+    }
     li {
-        display: inline-block;
+        display: inline-flex;
         margin-left: 10px;
         @include font(black, normal, 300, 1.2rem);
+        &:hover {
+            color: $theme-color;
+        }
     }
 }
 
 .container {
-    @include size($content-width, 60px);
     display: flex;
+    width: $content-width;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 10px;
 }
 
 .logo {
@@ -30,15 +38,15 @@
 }
 
 .gnb {
-    @include size(100%, 40px);
     border-top: 1px solid $light-gray;
     border-bottom: 1px solid $light-gray;
+    @include size(100%, 40px);
     @include flex-center();
     ul {
         padding-inline-start: 0px;
     }
     li {
-        display: inline-block;
+        display: inline-flex;
         margin: 0 10px;
         @include font($dark-gray, normal, 400, 1.6rem);
         &:hover {

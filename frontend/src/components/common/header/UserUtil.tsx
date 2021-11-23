@@ -1,9 +1,9 @@
 import Link from "next/link";
 import styles from "./styles.module.scss";
 
-export default function Util() {
+const UserUtil = () => {
     return (
-        <nav className={styles.util}>
+        <nav className={styles.userUtil}>
             <ul>
                 <li>
                     <Link href="/user/login">
@@ -18,4 +18,6 @@ export default function Util() {
             </ul>
         </nav>
     );
-}
+};
+
+export default UserUtil;

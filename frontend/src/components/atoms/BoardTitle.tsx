@@ -1,14 +1,16 @@
-import styles from "./styles.module.scss";
 import Link from "next/link";
+import styles from "./styles.module.scss";
 
-export default function BoardTitle(props) {
-    const title = props.title;
+const BoardTitle = (props) => {
+    const { title, url } = props;
 
     return (
         <div className={styles.boardTitle}>
-            <Link href="/board/list">
+            <Link href={{ pathname: "/board/list", query: { main: url, sub: "all" } }}>
                 <a>{title}</a>
             </Link>
         </div>
     );
-}
+};
+
+export default BoardTitle;
