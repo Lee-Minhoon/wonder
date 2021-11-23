@@ -1,8 +1,8 @@
-import UserUtil from './UserUtil';
-import Logo from './Logo';
-import GlobalSearchBar from './GlobalSearchBar';
-import GNB from './GNB';
-import styles from './styles.module.scss';
+import UserUtil from "./UserUtil";
+import Logo from "./Logo";
+import SearchBar from "components/atoms/SearchBar";
+import GNB from "./GNB";
+import styles from "./styles.module.scss";
 
 export default function Header() {
     return (
@@ -10,9 +10,9 @@ export default function Header() {
             <UserUtil />
             <div className={styles.container}>
                 <Logo />
-                <GlobalSearchBar />
+                <SearchBar width="300px" height="40px" />
             </div>
             <GNB />
         </header>
-    )
+    );
 }

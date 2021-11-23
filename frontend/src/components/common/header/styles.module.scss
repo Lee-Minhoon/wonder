@@ -1,9 +1,9 @@
-@import 'global/util.module.scss';
+@import "styles/util.module.scss";
 
 .header {
     display: flex;
     align-items: center;
-    flex-flow: column;
+    flex-direction: column;
     padding-top: 10px;
 }
 
@@ -13,7 +13,7 @@
     justify-content: flex-end;
     li {
         display: inline-block;
-        margin-left:10px;
+        margin-left: 10px;
         @include font(black, normal, 300, 1.2rem);
     }
 }
@@ -27,25 +27,6 @@
 
 .logo {
     @include font($theme-color, normal, 500, 4rem);
-}
-
-.search {
-    @include size(300px, 40px);
-    border: 2px solid $theme-color;
-    display: flex;
-    input {
-        padding: 0 10px;
-        border: none;
-        @include size(260px, 100%);
-        @include font(black, normal, 300, 1.6rem);
-        outline: none;
-    }
-    button {
-        border: 0px;
-        @include size(40px, 100%);
-        background-color: $theme-color;
-        @include font(white, normal, 300, 1.6rem);
-    }
 }
 
 .gnb {

@@ -1,0 +1,29 @@
+@import "styles/util.module.scss";
+
+.searchBar {
+    @include size(var(--width), var(--height));
+    border: 2px solid $theme-color;
+    display: flex;
+    input {
+        padding: 0 10px;
+        border: none;
+        @include size(calc(var(--width) - 40px), 100%);
+        @include font(black, normal, 300, 1.6rem);
+        outline: none;
+    }
+    button {
+        border: 0px;
+        @include size(40px, 100%);
+        background-color: $theme-color;
+        @include font(white, normal, 300, 1.6rem);
+    }
+}
+
+.boardTitle {
+    padding-bottom: 10px;
+    border-bottom: 2px solid $theme-color;
+    margin-bottom: 10px;
+    a {
+        @include font($theme-color, normal, 400, 2.4rem);
+    }
+}

@@ -1,4 +1,4 @@
-import styles from './styles.module.scss';
+import styles from "./styles.module.scss";
 
 export default function PostSearchBar() {
     return (
@@ -6,5 +6,5 @@ export default function PostSearchBar() {
             <input type="text" />
             <button type="submit">＠</button>
         </div>
-    )
+    );
 }

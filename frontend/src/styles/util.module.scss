@@ -1,6 +1,6 @@
 $content-width: 1170px;
-$light-gray:#CCC;
-$dark-gray:#333;
+$light-gray: #ccc;
+$dark-gray: #333;
 $theme-color: #0099ff;
 
 @mixin location($top, $right, $bottom, $left) {
@@ -19,7 +19,7 @@ $theme-color: #0099ff;
     color: $color;
     font: {
         display: swap;
-        family: 'Roboto', 'Noto Sans KR', sans-serif;
+        family: "Roboto", "Noto Sans KR", sans-serif;
         style: $style;
         weight: $weight;
         size: $size;

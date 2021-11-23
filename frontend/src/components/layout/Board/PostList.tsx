@@ -1,13 +1,39 @@
-import styles from './styles.module.scss';
-import PostItem from './PostItem';
+import styles from "./styles.module.scss";
+import PostItem from "./PostItem";
 
 export default function PostList() {
-    const titles = ["Q&A", "커뮤니티", "강의실", "구인구직", "외주",
-        "Q&A", "커뮤니티", "강의실", "구인구직", "외주",
-        "Q&A", "커뮤니티", "강의실", "구인구직", "외주",
-        "Q&A", "커뮤니티", "강의실", "구인구직", "외주",
-        "Q&A", "커뮤니티", "강의실", "구인구직", "외주",
-        "Q&A", "커뮤니티", "강의실", "구인구직", "외주"];
+    const titles = [
+        "Q&A",
+        "커뮤니티",
+        "강의실",
+        "구인구직",
+        "외주",
+        "Q&A",
+        "커뮤니티",
+        "강의실",
+        "구인구직",
+        "외주",
+        "Q&A",
+        "커뮤니티",
+        "강의실",
+        "구인구직",
+        "외주",
+        "Q&A",
+        "커뮤니티",
+        "강의실",
+        "구인구직",
+        "외주",
+        "Q&A",
+        "커뮤니티",
+        "강의실",
+        "구인구직",
+        "외주",
+        "Q&A",
+        "커뮤니티",
+        "강의실",
+        "구인구직",
+        "외주",
+    ];
     return (
         <table className={styles.list} cellSpacing="0">
             <colgroup>
@@ -29,10 +55,10 @@ export default function PostList() {
                 <th>추천</th>
             </thead>
             <tbody>
-                {titles.map((item) =>
+                {titles.map((item) => (
                     <PostItem />
-                )}
+                ))}
             </tbody>
         </table>
-    )
+    );
 }

@@ -1,7 +1,13 @@
-@import 'global/util.module.scss';
+@import "styles/util.module.scss";
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 .util {
-    display:flex;
+    display: flex;
     justify-content: flex-end;
     margin-top: 5px;
     margin-bottom: 5px;
@@ -39,29 +45,5 @@
 }
 
 .page {
-    @include flex-center();
     height: 50px;
-}
-
-.search {
-    margin: 0px auto;
-    width: 300px;
-    height: 30px;
-    border: 2px solid $theme-color;
-    @include flex-center();
-    input {
-        padding: 0 10px;
-        border: none;
-        height: 100%;
-        width: 260px;
-        @include font(black, normal, 300, 1.6rem);
-        outline: none;
-    }
-    button {
-        height: 100%;
-        border: 0px;
-        width: 40px;
-        background-color: $theme-color;
-        @include font(white, normal, 300, 1.6rem);
-    }
 }
