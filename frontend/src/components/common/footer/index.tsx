@@ -1,6 +1,6 @@
-import styles from "./styles.module.scss";
 import Link from "next/link";
 import footer from "constants/footer";
+import styles from "./styles.module.scss";
 
 export default function Index() {
     return (

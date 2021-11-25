@@ -1,6 +1,6 @@
 import Link from "next/link";
-import styles from "./styles.module.scss";
 import category from "constants/category";
+import styles from "./styles.module.scss";
 
 const GNB = () => {
     return (
