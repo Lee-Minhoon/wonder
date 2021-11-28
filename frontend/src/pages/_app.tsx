@@ -9,12 +9,10 @@ import { RouterGuard } from 'components/dependecy';
 const App: FC<AppProps> = ({ Component, pageProps }) => (
     <div>
         <Header />
-        <RouterGuard>
-            <div className="container flex">
-                <Component {...pageProps} />
-            </div>
-            <Footer />
-        </RouterGuard>
+        <div className="container flex">
+            <Component {...pageProps} />
+        </div>
+        <Footer />
     </div>
 );
 

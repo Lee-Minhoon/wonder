@@ -1,8 +1,8 @@
-import Left from "components/common/left";
-import Right from "components/common/right";
-import Content from "components/layout/Content";
+import Left from 'components/common/left';
+import Right from 'components/common/right';
+import Content from 'components/layout/Content';
 
-export default function view() {
+const View = () => {
     return (
         <>
             <Left />
@@ -10,4 +10,6 @@ export default function view() {
             <Right />
         </>
     );
-}
+};
+
+export default View;

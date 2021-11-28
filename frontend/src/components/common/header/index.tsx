@@ -1,10 +1,13 @@
-import UserUtil from "./UserUtil";
-import Logo from "./Logo";
-import SearchBar from "components/atoms/SearchBar";
-import GNB from "./GNB";
-import styles from "./styles.module.scss";
+// import components
+import UserUtil from './UserUtil';
+import Logo from './Logo';
+import SearchBar from 'components/atoms/SearchBar';
+import GNB from './GNB';
 
-export default function Header() {
+// import styles
+import styles from './styles.module.scss';
+
+const Header = () => {
     return (
         <header className={styles.header}>
             <UserUtil />
@@ -15,4 +18,6 @@ export default function Header() {
             <GNB />
         </header>
     );
-}
+};
+
+export default Header;

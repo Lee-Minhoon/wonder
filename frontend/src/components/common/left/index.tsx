@@ -1,10 +1,15 @@
-import LNB from "./LNB";
-import styles from "./styles.module.scss";
+// import components
+import LNB from './LNB';
 
-export default function Left() {
+// import styles
+import styles from './styles.module.scss';
+
+const Left = () => {
     return (
         <div className={styles.left}>
             <LNB />
         </div>
     );
-}
+};
+
+export default Left;

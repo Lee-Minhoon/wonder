@@ -1,16 +1,17 @@
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 
 // import service
-import signup from "service/signup";
+import signup from 'service/signup';
 
 // import hooks
-import useInput from "hooks/useInput";
+import useInput from 'hooks/useInput';
 
 // import styles
-import styles from "./styles.module.scss";
-import React, { useCallback } from "react";
+import styles from './styles.module.scss';
+import React, { useCallback } from 'react';
+import { report } from 'process';
 
-export interface sigunInput {
+export interface signupInput {
     id: any;
     password: any;
     check: any;
@@ -18,25 +19,28 @@ export interface sigunInput {
 }
 
 export default function Signup() {
-    const id = useInput("");
-    const password = useInput("");
-    const check = useInput("");
-    const nickname = useInput("");
     const router = useRouter();
+    const id = useInput('');
+    const password = useInput('');
+    const check = useInput('');
+    const nickname = useInput('');
 
     const handleSubmit = useCallback(
         async (e) => {
             e.preventDefault();
-            // 이부분이 로직이 좀 바뀌면 좋을거 같음
-            // const signupInputValue = {
-            //     id: id.value,
-            //     password: password.value,
-            //     check: check.value,
-            //     nickname: nickname.value,
-            // };
-            // const response = await signup(signupInputValue);
-            if (signup(id.value, password.value, check.value, nickname.value)) {
-                router.push("/");
+            const signupInputValue: signupInput = {
+                id: id.value,
+                password: password.value,
+                check: check.value,
+                nickname: nickname.value,
+            };
+            const response = await signup(signupInputValue);
+            console.log(response);
+            if (response.statusCode === 200) {
+                alert(response.data.nickname + '님 환영합니다.');
+                router.push('/');
+            } else if (response.statusCode === 409) {
+                alert('아이디 중복입니다.');
             }
         },
         [router, id, password, check, nickname]
@@ -54,11 +58,11 @@ export default function Signup() {
                 </div>
                 <label>비밀번호</label>
                 <div>
-                    <input type="text" {...password} />
+                    <input type="password" {...password} />
                 </div>
                 <label>비밀번호 확인</label>
                 <div>
-                    <input type="text" {...check} />
+                    <input type="password" {...check} />
                 </div>
                 <label>닉네임</label>
                 <div>

@@ -1,15 +1,16 @@
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
 // import constants
-import category from "constants/category";
+import category from 'constants/category';
 
 // import components
-import BoardTitle from "components/atoms/BoardTitle";
-import Post from "./children/Post";
-import Comment from "./children/Comment";
+import BoardTitle from 'components/atoms/BoardTitle';
+import Divider from 'components/atoms/Divider';
+import Post from './children/Post';
+import Comment from './children/Comment';
 
 // import styles
-import styles from "./styles.module.scss";
+import styles from './styles.module.scss';
 
 const Content = () => {
     const loc = useSelector((state) => state.category!.main);
@@ -21,6 +22,7 @@ const Content = () => {
                 <div className={styles.view}>
                     <header>
                         <BoardTitle title={main.title} url={main.url} />
+                        <Divider />
                     </header>
                     <Post />
                     <Comment />

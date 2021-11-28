@@ -1,8 +1,8 @@
-import Left from "components/common/left";
-import Right from "components/common/right";
-import Writing from "components/layout/Writing";
+import Left from 'components/common/left';
+import Right from 'components/common/right';
+import Writing from 'components/layout/Writing';
 
-export default function write() {
+const Write = () => {
     return (
         <>
             <Left />
@@ -10,4 +10,6 @@ export default function write() {
             <Right />
         </>
     );
-}
+};
+
+export default Write;

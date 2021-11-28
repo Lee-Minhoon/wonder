@@ -1,27 +1,27 @@
-import { useRef, useState, useEffect, forwardRef, useCallback } from "react";
-import { useSelector } from "react-redux";
+import { useRef, useState, useEffect, forwardRef, useCallback } from 'react';
+import { useSelector } from 'react-redux';
 
 // import constants
-import category from "constants/category";
+import category from 'constants/category';
 
 // import hooks
-import useInput from "hooks/useInput";
-import useEditor from "hooks/useEditor";
+import useInput from 'hooks/useInput';
+import useEditor from 'hooks/useEditor';
 
 // import components
-import BoardTitle from "components/atoms/BoardTitle";
-import Divider from "components/atoms/Divider";
-import Editor from "./Editor";
+import BoardTitle from 'components/atoms/BoardTitle';
+import Divider from 'components/atoms/Divider';
+import Editor from './Editor';
 
 // import styles
-import styles from "./styles.module.scss";
+import styles from './styles.module.scss';
 
 const Writing = () => {
     const loc = useSelector((state) => state.category.main);
     const main = category.find((item) => item.url === loc);
 
-    const title = useInput("");
-    const data = useEditor("");
+    const title = useInput('');
+    const data = useEditor('');
 
     const write = () => {
         console.log(title.value);

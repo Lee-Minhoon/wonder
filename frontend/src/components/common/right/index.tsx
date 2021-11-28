@@ -1,9 +1,10 @@
 import Link from 'next/link';
+
+// import styles
 import styles from './styles.module.scss';
 
-export default function Right() {
-    return (
-        <div className={styles.right}>
-        </div>
-    )
-}
+const Right = () => {
+    return <div className={styles.right}></div>;
+};
+
+export default Right;

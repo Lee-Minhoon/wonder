@@ -2,8 +2,8 @@ import axios, { AxiosInstance } from 'axios';
 
 export class AxiosService {
     static readonly instance: AxiosInstance = axios.create({
-        baseURL: '자바 스프링 주소',
-        timeout: 10000, // 10 s
+        baseURL: process.env.NEXT_PUBLIC_SERVER_URL,
+        timeout: 10000,
         headers: {
             'Content-Type': 'application/json',
         },

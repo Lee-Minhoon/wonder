@@ -1,18 +1,18 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import axios from 'axios';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 // import hooks
-import useInput from "hooks/useInput";
+import useInput from 'hooks/useInput';
 
 // import components
 
 // import styles
-import styles from "./styles.module.scss";
+import styles from './styles.module.scss';
 
 export default function Login() {
-    const id = useInput("");
-    const password = useInput("");
+    const id = useInput('');
+    const password = useInput('');
 
     const handleSubmit = (e) => {
         e.preventDefault();

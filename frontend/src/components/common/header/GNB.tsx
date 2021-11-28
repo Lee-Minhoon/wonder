@@ -1,6 +1,10 @@
-import Link from "next/link";
-import category from "constants/category";
-import styles from "./styles.module.scss";
+import Link from 'next/link';
+
+// import constants
+import category from 'constants/category';
+
+// import styles
+import styles from './styles.module.scss';
 
 const GNB = () => {
     return (
@@ -8,7 +12,7 @@ const GNB = () => {
             <ul>
                 {category.map((item) => (
                     <li key={item.id}>
-                        <Link href={{ pathname: "/board/list", query: { main: item.url, sub: "all" } }}>
+                        <Link href={{ pathname: '/board/list', query: { main: item.url, sub: 'all' } }}>
                             <a>{item.title}</a>
                         </Link>
                     </li>

@@ -1,32 +1,30 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { move } from "redux/category/action";
-import Left from "components/common/left";
-import Right from "components/common/right";
-import Board from "components/layout/Board";
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { move } from 'redux/category/action';
+import Left from 'components/common/left';
+import Right from 'components/common/right';
+import Board from 'components/layout/Board';
+import { useRouter } from 'next/router';
 
-const list = (props) => {
+const List = () => {
     const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(move(props.main, props.sub));
-    });
+    const router = useRouter();
+    const main = router.query.main;
+    const sub = router.query.sub;
+    dispatch(move(main, sub));
+    const loc = useSelector((state) => state.category.main);
 
     return (
         <>
-            <Left />
-            <Board />
-            <Right />
+            {loc && (
+                <>
+                    <Left />
+                    <Board />
+                    <Right />
+                </>
+            )}
         </>
     );
 };
 
-export async function getServerSideProps({ query }) {
-    return {
-        props: {
-            main: query.main,
-            sub: query.sub,
-        },
-    };
-}
-
-export default list;
+export default List;
