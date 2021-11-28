@@ -1,9 +1,14 @@
 import axios from "axios";
-import Input from "components/common/Input";
-import styles from "./styles.module.scss";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+
+// import hooks
 import useInput from "hooks/useInput";
+
+// import components
+
+// import styles
+import styles from "./styles.module.scss";
 
 export default function Login() {
     const id = useInput("");

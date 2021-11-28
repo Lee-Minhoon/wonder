@@ -1,7 +1,10 @@
-import styles from "./styles.module.scss";
+// import components
 import PostItem from "./PostItem";
 
-export default function PostList() {
+// import styles
+import styles from "../styles.module.scss";
+
+const PostList = () => {
     const titles = [
         "Q&A",
         "커뮤니티",
@@ -61,4 +64,6 @@ export default function PostList() {
             </tbody>
         </table>
     );
-}
+};
+
+export default PostList;

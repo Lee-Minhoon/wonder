@@ -1,7 +1,10 @@
-import CommentItem from './CommentItem';
-import styles from './styles.module.scss';
+// import components
+import CommentItem from "./CommentItem";
 
-export default function List() {
+// import styles
+import styles from "../styles.module.scss";
+
+const List = () => {
     return (
         <section className={styles.list}>
             <ul>
@@ -11,5 +14,7 @@ export default function List() {
                 <CommentItem />
             </ul>
         </section>
-    )
-}
+    );
+};
+
+export default List;

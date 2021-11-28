@@ -20,10 +20,12 @@
 }
 
 .boardTitle {
-    // padding-bottom: 10px;
-    // border-bottom: 2px solid $theme-color;
-    // margin-bottom: 10px;
     a {
         @include font($theme-color, normal, 400, 2.4rem);
     }
+    margin-bottom: 10px;
+}
+
+.divider {
+    border: 1px solid $theme-color;
 }

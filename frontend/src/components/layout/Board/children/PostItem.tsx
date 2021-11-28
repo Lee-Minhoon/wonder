@@ -1,7 +1,9 @@
-import styles from "./styles.module.scss";
 import Link from "next/link";
 
-export default function PostItem() {
+// import styles
+import styles from "../styles.module.scss";
+
+const PostItem = () => {
     return (
         <tr className={styles.item}>
             <td>카테고리</td>
@@ -21,4 +23,6 @@ export default function PostItem() {
             <td>100</td>
         </tr>
     );
-}
+};
+
+export default PostItem;

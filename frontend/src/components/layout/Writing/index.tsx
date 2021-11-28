@@ -1,42 +1,46 @@
 import { useRef, useState, useEffect, forwardRef, useCallback } from "react";
 import { useSelector } from "react-redux";
+
+// import constants
 import category from "constants/category";
-import styles from "./styles.module.scss";
-import Editor from "./Editor";
+
+// import hooks
+import useInput from "hooks/useInput";
+import useEditor from "hooks/useEditor";
+
+// import components
 import BoardTitle from "components/atoms/BoardTitle";
+import Divider from "components/atoms/Divider";
+import Editor from "./Editor";
+
+// import styles
+import styles from "./styles.module.scss";
 
 const Writing = () => {
     const loc = useSelector((state) => state.category.main);
-    if (loc) {
-        const main = category.find((item) => item.url === loc);
+    const main = category.find((item) => item.url === loc);
 
-        const [title, setTitle] = useState("");
-        const [data, setData] = useState("");
+    const title = useInput("");
+    const data = useEditor("");
 
-        const applyData = (Data) => {
-            setData(() => Data);
-        };
+    const write = () => {
+        console.log(title.value);
+        console.log(data.value);
+    };
 
-        const handleChange = (e) => {
-            setTitle(e.target.value);
-        };
-
-        const write = () => {
-            console.log(title);
-            console.log(data);
-        };
-
-        return (
-            <div className={styles.writing}>
-                <BoardTitle title={main.title} url={main.url} />
-                <input type="text" placeholder="제목을 입력하세요." onChange={handleChange} />
-                <Editor height="600px" initialEditType="wysiwyg" applyData={applyData} />
-                <button onClick={write}>글쓰기</button>
-            </div>
-        );
-    } else {
-        return null;
-    }
+    return (
+        <>
+            {main && (
+                <div className={styles.writing}>
+                    <BoardTitle title={main.title} url={main.url} />
+                    <Divider />
+                    <input type="text" placeholder="제목을 입력하세요." {...title} />
+                    <Editor height="600px" initialEditType="wysiwyg" {...data} />
+                    <button onClick={write}>글쓰기</button>
+                </div>
+            )}
+        </>
+    );
 };
 
 export default Writing;

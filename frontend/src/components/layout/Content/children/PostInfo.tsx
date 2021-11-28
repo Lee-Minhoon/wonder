@@ -1,6 +1,7 @@
-import styles from './styles.module.scss';
+// import styles
+import styles from "../styles.module.scss";
 
-export default function PostInfo() {
+const PostInfo = () => {
     return (
         <div className={styles.info}>
             <div className={styles.left}>
@@ -13,5 +14,7 @@ export default function PostInfo() {
                 <p>댓글</p>
             </div>
         </div>
-    )
-}
+    );
+};
+
+export default PostInfo;
