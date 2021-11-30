@@ -9,7 +9,6 @@ import useInput from 'hooks/useInput';
 // import styles
 import styles from './styles.module.scss';
 import React, { useCallback } from 'react';
-import { report } from 'process';
 
 export interface signupInput {
     id: any;
@@ -18,7 +17,7 @@ export interface signupInput {
     nickname: any;
 }
 
-export default function Signup() {
+const Signup = () => {
     const router = useRouter();
     const id = useInput('');
     const password = useInput('');
@@ -72,4 +71,6 @@ export default function Signup() {
             </form>
         </div>
     );
-}
+};
+
+export default Signup;

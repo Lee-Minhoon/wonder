@@ -1,5 +1,10 @@
 package wonder.backend.service;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import wonder.backend.common.Response;
+import wonder.backend.common.ResponseMessage;
+import wonder.backend.common.StatusCode;
 import wonder.backend.domain.User;
 import wonder.backend.repository.UserRepository;
 
@@ -16,16 +21,42 @@ public class UserService {
     /**
      * 회원 가입
      **/
-    public boolean signup(User user) {
+    public ResponseEntity<Response<User>> signup(User user) {
+
+        Response<User> body;
+
         boolean result = userRepository.findById(user.getId()).isEmpty();
         if (result) {
             userRepository.save(user);
-            return true;
+            body = new Response<User>(StatusCode.OK, ResponseMessage.SIGNUP_SUCCESS, user);
         }
         else {
-            return false;
+            body = new Response<User>(StatusCode.CONFLICT, ResponseMessage.ID_DUPLICATE, user);
         }
+
+        return new ResponseEntity<Response<User>>(body, null, HttpStatus.OK);
     }
+
+    public ResponseEntity<Response<String>> login(String id, String password) {
+
+        Response<String> body;
+
+        Optional<User> result = userRepository.findById(id);
+        if (result.isPresent()) {
+            boolean validation = result.stream().anyMatch(user -> user.getPassword().equals(password));
+            if (validation) {
+                body = new Response<String>(StatusCode.OK, ResponseMessage.LOGIN_SUCCESS, "success");
+            }
+            else {
+                body = new Response<String>(StatusCode.UNAUTHORIZED, ResponseMessage.LOGIN_FAIL_INVALID_PASSWORD, "fail");
+            }
+        } else {
+            body = new Response<String>(StatusCode.UNAUTHORIZED, ResponseMessage.LOGIN_FAIL_INVALID_ID, "fail");
+        }
+
+        return new ResponseEntity<Response<String>>(body, null, HttpStatus.OK);
+    }
+
 
     /**
      * 전체 회원 조회

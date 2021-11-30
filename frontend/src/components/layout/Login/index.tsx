@@ -2,23 +2,37 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
+// import service
+import login from 'service/login';
+
 // import hooks
 import useInput from 'hooks/useInput';
 
-// import components
-
 // import styles
 import styles from './styles.module.scss';
+import { useCallback } from 'react';
 
-export default function Login() {
+export interface loginInput {
+    id: any;
+    password: any;
+}
+
+const Login = () => {
     const id = useInput('');
     const password = useInput('');
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(id.value);
-        console.log(password.value);
-    };
+    const handleSubmit = useCallback(
+        async (e) => {
+            e.preventDefault();
+            const loginInputValue: loginInput = {
+                id: id.value,
+                password: password.value,
+            };
+            const response = await login(loginInputValue);
+            console.log(response);
+        },
+        [id, password]
+    );
 
     return (
         <div className={styles.login}>
@@ -40,4 +54,6 @@ export default function Login() {
             </form>
         </div>
     );
-}
+};
+
+export default Login;

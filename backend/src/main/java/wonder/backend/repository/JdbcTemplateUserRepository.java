@@ -37,26 +37,35 @@ public class JdbcTemplateUserRepository implements UserRepository {
 
     @Override
     public Optional<User> findByNumber(Long number) {
-        List<User> result = jdbcTemplate.query("select * from user where number= ?", memberRowMapper(), number);
+        List<User> result = jdbcTemplate.query("select * from user where number= ?", userRowMapper(), number);
         return result.stream().findAny();
     }
 
     @Override
     public Optional<User> findById(String id) {
-        List<User> result = jdbcTemplate.query("select * from user where id = ?", memberRowMapper(), id);
+        List<User> result = jdbcTemplate.query("select * from user where id = ?", userRowMapper(), id);
+        return result.stream().findAny();
+    }
+
+    @Override
+    public Optional<User> findByPassword(String id, String password) {
+        List<User> result = jdbcTemplate.query("select * from user where id = ? and password = ?", userRowMapper(), id, password);
         return result.stream().findAny();
     }
 
     @Override
     public List<User> findAll() {
-        return jdbcTemplate.query("select * from user", memberRowMapper());
+        return jdbcTemplate.query("select * from user", userRowMapper());
     }
 
-    private RowMapper<User> memberRowMapper() {
+    private RowMapper<User> userRowMapper() {
         return (rs, rowNum) -> {
-            User member = new User();
-
-            return member;
+            User user = new User();
+            user.setNumber(rs.getLong("number"));
+            user.setId(rs.getString("id"));
+            user.setPassword(rs.getString("password"));
+            user.setNickname(rs.getString("nickname"));
+            return user;
         };
     }
 
