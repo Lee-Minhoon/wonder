@@ -42,4 +42,11 @@ public class UserController {
 
         return new ResponseEntity<Response<User>>(body, null, HttpStatus.OK);
     }
+
+    @PostMapping("user/login")
+    public ResponseEntity<Response<User>> login(
+
+    ) {
+
+    }
 }
