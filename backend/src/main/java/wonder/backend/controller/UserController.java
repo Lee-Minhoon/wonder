@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import wonder.backend.common.Response;
+import wonder.backend.domain.Response;
 import wonder.backend.domain.User;
 import wonder.backend.service.UserService;
 
 @RestController
-@RequestMapping("user/")
+@RequestMapping("user")
 public class UserController {
     private final UserService userService;
 

@@ -1,4 +1,4 @@
-package wonder.backend.common;
+package wonder.backend.constants;
 
 public class ResponseMessage {
     public static final String LOGIN_SUCCESS = "로그인 성공";

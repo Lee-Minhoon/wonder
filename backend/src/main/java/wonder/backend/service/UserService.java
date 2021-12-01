@@ -2,9 +2,9 @@ package wonder.backend.service;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import wonder.backend.common.Response;
-import wonder.backend.common.ResponseMessage;
-import wonder.backend.common.StatusCode;
+import wonder.backend.domain.Response;
+import wonder.backend.constants.ResponseMessage;
+import wonder.backend.constants.StatusCode;
 import wonder.backend.domain.User;
 import wonder.backend.repository.UserRepository;
 

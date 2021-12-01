@@ -1,4 +1,4 @@
-package wonder.backend.common;
+package wonder.backend.domain;
 
 public class Response<T> {
     private int statusCode;
