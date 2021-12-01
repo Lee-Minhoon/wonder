@@ -2,6 +2,7 @@ package wonder.backend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +17,8 @@ public class UserController {
     private final UserService userService;
 
     @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public UserController(UserService userService) {
         this.userService = userService;
     }
@@ -28,7 +31,7 @@ public class UserController {
     ) {
         User user = new User();
         user.setId(id);
-        user.setPassword(password);
+        user.setPassword(passwordEncoder.encode(password));
         user.setNickname(nickname);
 
         return userService.signup(user);

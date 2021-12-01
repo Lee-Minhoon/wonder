@@ -1,15 +1,11 @@
 package wonder.backend.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import wonder.backend.domain.User;
 
-import java.util.List;
 import java.util.Optional;
 
-public interface UserRepository {
-    User save(User member);
-    Optional<User> findByNumber(Long number);
-    Optional<User> findById(String id);
-    Optional<User> findByPassword(String id, String password);
-    List<User> findAll();
+public interface UserRepository extends JpaRepository<User, Long> {
 
+    Optional<User> findById(String id);
 }

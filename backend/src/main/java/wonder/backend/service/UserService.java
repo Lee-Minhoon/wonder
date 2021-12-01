@@ -1,7 +1,10 @@
 package wonder.backend.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import wonder.backend.domain.Response;
 import wonder.backend.constants.ResponseMessage;
 import wonder.backend.constants.StatusCode;
@@ -11,6 +14,7 @@ import wonder.backend.repository.UserRepository;
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 public class UserService {
     private final UserRepository userRepository;
 
@@ -25,14 +29,16 @@ public class UserService {
 
         Response<User> body;
 
-        boolean result = userRepository.findById(user.getId()).isEmpty();
-        if (result) {
-            userRepository.save(user);
-            body = new Response<User>(StatusCode.OK, ResponseMessage.SIGNUP_SUCCESS, user);
-        }
-        else {
-            body = new Response<User>(StatusCode.CONFLICT, ResponseMessage.ID_DUPLICATE, user);
-        }
+//        boolean result = userRepository.findById(user.getId()).isEmpty();
+//        if (result) {
+//            userRepository.save(user);
+//            body = new Response<User>(StatusCode.OK, ResponseMessage.SIGNUP_SUCCESS, user);
+//        }
+//        else {
+//            body = new Response<User>(StatusCode.CONFLICT, ResponseMessage.ID_DUPLICATE, user);
+//        }
+        userRepository.save(user);
+        body = new Response<User>(StatusCode.OK, ResponseMessage.SIGNUP_SUCCESS, user);
 
         return new ResponseEntity<Response<User>>(body, null, HttpStatus.OK);
     }
