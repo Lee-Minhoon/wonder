@@ -8,7 +8,7 @@ const login = async (input: loginInput) => {
     try {
         var { data } = await AxiosService.instance.post('user/login', null, {
             params: {
-                username: input.id,
+                id: input.id,
                 password: input.password,
             },
         });

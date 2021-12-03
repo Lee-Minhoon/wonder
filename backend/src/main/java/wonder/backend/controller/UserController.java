@@ -1,5 +1,6 @@
 package wonder.backend.controller;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -38,11 +39,11 @@ public class UserController {
         return userService.signup(user);
     }
 
-//    @PostMapping("login")
-//    public ResponseEntity<Response<String>> login(
-//            @RequestParam("id") String id,
-//            @RequestParam("password") String password
-//    ) {
-//        return userService.login(id, password);
-//    }
+    @PostMapping("login")
+    public ResponseEntity<Response<User>> login(
+            @RequestParam("id") String id,
+            @RequestParam("password") String password
+    ) {
+        return userService.login(id, password);
+    }
 }

@@ -36,7 +36,7 @@ const Signup = () => {
             const response = await signup(signupInputValue);
             console.log(response);
             if (response.statusCode === 200) {
-                alert(response.data.nickname + '님 환영합니다.');
+                alert(nickname.value + '님 환영합니다.');
                 router.push('/');
             } else if (response.statusCode === 409) {
                 alert('아이디 중복입니다.');
