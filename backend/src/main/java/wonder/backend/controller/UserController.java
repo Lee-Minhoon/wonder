@@ -33,15 +33,16 @@ public class UserController {
         user.setId(id);
         user.setPassword(passwordEncoder.encode(password));
         user.setNickname(nickname);
+        user.setRole("USER");
 
         return userService.signup(user);
     }
 
-    @PostMapping("login")
-    public ResponseEntity<Response<String>> login(
-            @RequestParam("id") String id,
-            @RequestParam("password") String password
-    ) {
-        return userService.login(id, password);
-    }
+//    @PostMapping("login")
+//    public ResponseEntity<Response<String>> login(
+//            @RequestParam("id") String id,
+//            @RequestParam("password") String password
+//    ) {
+//        return userService.login(id, password);
+//    }
 }

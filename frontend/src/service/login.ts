@@ -5,12 +5,16 @@ import { AxiosService } from './defaultAxiosService';
 const login = async (input: loginInput) => {
     if (!validate(input)) return;
 
-    const { data } = await AxiosService.instance.post('user/login', null, {
-        params: {
-            id: input.id,
-            password: input.password,
-        },
-    });
+    try {
+        var { data } = await AxiosService.instance.post('user/login', null, {
+            params: {
+                username: input.id,
+                password: input.password,
+            },
+        });
+    } catch (err) {
+        console.log(err);
+    }
 
     // const token = data.token;
     // console.log(token);

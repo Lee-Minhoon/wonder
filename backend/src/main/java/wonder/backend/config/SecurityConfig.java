@@ -48,24 +48,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
 
-                // enable h2-console
-                .headers()
-                .frameOptions()
-                .sameOrigin()
+//                // enable h2-console
+//                .headers()
+//                .frameOptions()
+//                .sameOrigin()
+//
+//                // 세션을 사용하지 않기 때문에 STATELESS로 설정
+//                .and()
+//                .sessionManagement()
+//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
-                // 세션을 사용하지 않기 때문에 STATELESS로 설정
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-
-                .and()
                 .authorizeRequests()
-                .antMatchers("/api/hello").permitAll()
-                .antMatchers("/api/join").permitAll()
-                .antMatchers("/user/login").permitAll()
-                .antMatchers("/user/signup").permitAll()
+                .antMatchers("/asdf/**").authenticated()
+                .anyRequest().permitAll()
 
-                .anyRequest().authenticated();
+                .and()
+                .formLogin()
+                .loginProcessingUrl("/user/login")
+                .defaultSuccessUrl("http://localhost:3000/user/login");
 
     }
 

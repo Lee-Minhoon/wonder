@@ -43,25 +43,25 @@ public class UserService {
         return new ResponseEntity<Response<User>>(body, null, HttpStatus.OK);
     }
 
-    public ResponseEntity<Response<String>> login(String id, String password) {
-
-        Response<String> body;
-
-        Optional<User> result = userRepository.findById(id);
-        if (result.isPresent()) {
-            boolean validation = result.stream().anyMatch(user -> user.getPassword().equals(password));
-            if (validation) {
-                body = new Response<String>(StatusCode.OK, ResponseMessage.LOGIN_SUCCESS, "success");
-            }
-            else {
-                body = new Response<String>(StatusCode.UNAUTHORIZED, ResponseMessage.LOGIN_FAIL_INVALID_PASSWORD, "fail");
-            }
-        } else {
-            body = new Response<String>(StatusCode.UNAUTHORIZED, ResponseMessage.LOGIN_FAIL_INVALID_ID, "fail");
-        }
-
-        return new ResponseEntity<Response<String>>(body, null, HttpStatus.OK);
-    }
+//    public ResponseEntity<Response<String>> login(String id, String password) {
+//
+//        Response<String> body;
+//
+//        Optional<User> result = userRepository.findById(id);
+//        if (result.isPresent()) {
+//            boolean validation = result.stream().anyMatch(user -> user.getPassword().equals(password));
+//            if (validation) {
+//                body = new Response<String>(StatusCode.OK, ResponseMessage.LOGIN_SUCCESS, "success");
+//            }
+//            else {
+//                body = new Response<String>(StatusCode.UNAUTHORIZED, ResponseMessage.LOGIN_FAIL_INVALID_PASSWORD, "fail");
+//            }
+//        } else {
+//            body = new Response<String>(StatusCode.UNAUTHORIZED, ResponseMessage.LOGIN_FAIL_INVALID_ID, "fail");
+//        }
+//
+//        return new ResponseEntity<Response<String>>(body, null, HttpStatus.OK);
+//    }
 
 
     /**
