@@ -7,7 +7,7 @@ const signup = async (input: signupInput) => {
 
     const { data } = await AxiosService.instance.post('user/signup', null, {
         params: {
-            id: input.id,
+            email: input.email,
             password: input.password,
             nickname: input.nickname,
         },
@@ -20,7 +20,7 @@ const signup = async (input: signupInput) => {
 };
 
 const validate = (input: signupInput) => {
-    if (!input.id || !input.password || !input.check || !input.nickname) {
+    if (!input.email || !input.password || !input.check || !input.nickname) {
         alert('빈 칸이 있습니다.');
         return false;
     } else if (input.password.length < 8) {

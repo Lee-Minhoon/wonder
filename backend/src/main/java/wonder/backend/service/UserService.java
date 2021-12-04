@@ -12,6 +12,8 @@ import wonder.backend.domain.Response;
 import wonder.backend.domain.User;
 import wonder.backend.repository.UserRepository;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +32,7 @@ public class UserService {
 
         Response<User> body;
 
-        boolean result = userRepository.findById(user.getId()).isEmpty();
+        boolean result = userRepository.findByEmail(user.getEmail()).isEmpty();
         if (result) {
             userRepository.save(user);
             body = new Response<User>(StatusCode.OK, ResponseMessage.SIGNUP_SUCCESS);
@@ -41,13 +43,14 @@ public class UserService {
         return new ResponseEntity<Response<User>>(body, null, HttpStatus.OK);
     }
 
-    public ResponseEntity<Response<User>> login(String id, String password) {
+    public ResponseEntity<Response<User>> login(String email, String password) {
 
         Response<User> body;
 
-        Optional<User> result = userRepository.findById(id);
+        Optional<User> result = userRepository.findByEmail(email);
         if (result.isPresent()) {
             if (passwordEncoder.matches(password, result.get().getPassword())) {
+                result.get().setLoginDate(new Timestamp(System.currentTimeMillis()));
                 body = new Response<User>(StatusCode.UNAUTHORIZED, ResponseMessage.LOGIN_SUCCESS);
             } else {
                 body = new Response<User>(StatusCode.UNAUTHORIZED, ResponseMessage.LOGIN_FAIL_INVALID_PASSWORD);

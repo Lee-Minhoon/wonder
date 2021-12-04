@@ -11,7 +11,7 @@ import styles from './styles.module.scss';
 import React, { useCallback } from 'react';
 
 export interface signupInput {
-    id: any;
+    email: any;
     password: any;
     check: any;
     nickname: any;
@@ -19,7 +19,7 @@ export interface signupInput {
 
 const Signup = () => {
     const router = useRouter();
-    const id = useInput('');
+    const email = useInput('');
     const password = useInput('');
     const check = useInput('');
     const nickname = useInput('');
@@ -28,7 +28,7 @@ const Signup = () => {
         async (e) => {
             e.preventDefault();
             const signupInputValue: signupInput = {
-                id: id.value,
+                email: email.value,
                 password: password.value,
                 check: check.value,
                 nickname: nickname.value,
@@ -42,7 +42,7 @@ const Signup = () => {
                 alert('아이디 중복입니다.');
             }
         },
-        [router, id, password, check, nickname]
+        [router, email, password, check, nickname]
     );
 
     return (
@@ -53,7 +53,7 @@ const Signup = () => {
                 </header>
                 <label>아이디</label>
                 <div>
-                    <input type="text" {...id} />
+                    <input type="text" {...email} />
                 </div>
                 <label>비밀번호</label>
                 <div>

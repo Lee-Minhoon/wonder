@@ -13,25 +13,25 @@ import styles from './styles.module.scss';
 import { useCallback } from 'react';
 
 export interface loginInput {
-    id: any;
+    email: any;
     password: any;
 }
 
 const Login = () => {
-    const id = useInput('');
+    const email = useInput('');
     const password = useInput('');
 
     const handleSubmit = useCallback(
         async (e) => {
             e.preventDefault();
             const loginInputValue: loginInput = {
-                id: id.value,
+                email: email.value,
                 password: password.value,
             };
             const response = await login(loginInputValue);
             console.log(response);
         },
-        [id, password]
+        [email, password]
     );
 
     return (
@@ -41,7 +41,7 @@ const Login = () => {
                     <h1>LOGIN</h1>
                 </header>
                 <div>
-                    <input type="text" placeholder="아이디" {...id} />
+                    <input type="text" placeholder="아이디" {...email} />
                 </div>
                 <div>
                     <input type="password" placeholder="비밀번호" {...password} />

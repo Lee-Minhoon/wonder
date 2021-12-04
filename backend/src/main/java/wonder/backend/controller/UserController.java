@@ -25,13 +25,13 @@ public class UserController {
     }
 
     @PostMapping("signup")
-    public ResponseEntity<Response<User>> singup(
-            @RequestParam("id") String id,
+    public ResponseEntity<Response<User>> signup(
+            @RequestParam("email") String email,
             @RequestParam("password") String password,
             @RequestParam("nickname") String nickname
     ) {
         User user = new User();
-        user.setId(id);
+        user.setEmail(email);
         user.setPassword(passwordEncoder.encode(password));
         user.setNickname(nickname);
         user.setRole("USER");
@@ -41,9 +41,9 @@ public class UserController {
 
     @PostMapping("login")
     public ResponseEntity<Response<User>> login(
-            @RequestParam("id") String id,
+            @RequestParam("email") String email,
             @RequestParam("password") String password
     ) {
-        return userService.login(id, password);
+        return userService.login(email, password);
     }
 }
