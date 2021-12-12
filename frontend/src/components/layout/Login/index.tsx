@@ -11,6 +11,7 @@ import useInput from 'hooks/useInput';
 // import styles
 import styles from './styles.module.scss';
 import { useCallback } from 'react';
+import Link from 'next/link';
 
 export interface loginInput {
     email: any;
@@ -51,6 +52,9 @@ const Login = () => {
                     <a>아이디 찾기</a>
                     <a>비밀번호 찾기</a>
                 </footer>
+                <Link href={{ pathname: '/user/test' }}>
+                    <a>test</a>
+                </Link>
             </form>
         </div>
     );

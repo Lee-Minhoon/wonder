@@ -14,7 +14,7 @@ public class User {
     private String email;
     private String password;
     private String nickname;
-    private String role;
+    private String role = "ROLE_USER";
     @CreationTimestamp
     private Timestamp loginDate;
     @CreationTimestamp

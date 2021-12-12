@@ -4,7 +4,6 @@ import wrapper from 'redux/store';
 import Header from 'components/common/header';
 import Footer from 'components/common/footer';
 import 'styles/globals.scss';
-import { RouterGuard } from 'components/dependecy';
 
 const App: FC<AppProps> = ({ Component, pageProps }) => (
     <div>

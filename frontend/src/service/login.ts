@@ -7,9 +7,6 @@ const login = async (input: loginInput) => {
 
     try {
         var { data } = await AxiosService.instance.post('user/login', null, {
-            headers: {
-                Authorization: 'hello',
-            },
             params: {
                 email: input.email,
                 password: input.password,
@@ -19,9 +16,8 @@ const login = async (input: loginInput) => {
         console.log(err);
     }
 
-    // const token = data.token;
-    // console.log(token);
-    // AxiosService.addHeaderToken(token);
+    AxiosService.addHeaderToken(data);
+    console.log(AxiosService.instance.defaults.headers.common.Authorization);
     return data;
 };
 

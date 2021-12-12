@@ -1,38 +1,38 @@
 package wonder.backend.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wonder.backend.constants.ResponseMessage;
 import wonder.backend.constants.StatusCode;
+import wonder.backend.domain.PrincipalDetails;
 import wonder.backend.domain.Response;
 import wonder.backend.domain.User;
+import wonder.backend.jwt.TokenProvider;
 import wonder.backend.repository.UserRepository;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 @Service @Transactional
-public class UserService {
+@AllArgsConstructor
+public class UserService implements UserDetailsService {
+    private final Logger logger = LoggerFactory.getLogger(TokenProvider.class);
+
     private final UserRepository userRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
     public ResponseEntity<Response<User>> signup(User user) {
+        logger.info("Service:: UserService / call Signup");
 
         Response<User> body;
-
         boolean result = userRepository.findByEmail(user.getEmail()).isEmpty();
+
         if (result) {
             userRepository.save(user);
             body = new Response<User>(StatusCode.OK, ResponseMessage.SIGNUP_SUCCESS);
@@ -40,33 +40,23 @@ public class UserService {
             body = new Response<User>(StatusCode.CONFLICT, ResponseMessage.ID_DUPLICATE);
         }
 
+        logger.info("Service:: UserService / end Signup");
         return new ResponseEntity<Response<User>>(body, null, HttpStatus.OK);
     }
 
-    public ResponseEntity<Response<User>> login(String email, String password) {
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        logger.info("Service:: UserService / call loadUserByUsername");
+        Optional<User> user = userRepository.findByEmail(username).orElse(user.Entity());
 
-        Response<User> body;
+        Optional<User> user = userRepository.findByEmail(username)
+        user.orElse()
 
-        Optional<User> result = userRepository.findByEmail(email);
-        if (result.isPresent()) {
-            if (passwordEncoder.matches(password, result.get().getPassword())) {
-                result.get().setLoginDate(new Timestamp(System.currentTimeMillis()));
-                body = new Response<User>(StatusCode.UNAUTHORIZED, ResponseMessage.LOGIN_SUCCESS);
-            } else {
-                body = new Response<User>(StatusCode.UNAUTHORIZED, ResponseMessage.LOGIN_FAIL_INVALID_PASSWORD);
-            }
-        } else {
-            body = new Response<User>(StatusCode.UNAUTHORIZED, ResponseMessage.LOGIN_FAIL_INVALID_ID);
+        if(user.isEmpty()) {
+            return null;
         }
 
-        return new ResponseEntity<Response<User>>(body, null, HttpStatus.OK);
+        logger.info("Service:: UserService / end loadUserByUsername");
+        return new PrincipalDetails(user.get());
     }
-
-    public List<User> findMembers() {
-        return userRepository.findAll();
-    }
-
-//    public Optional<User> findOne(Long memberId) {
-//        return userRepository.findById(memberId);
-//    }
 }

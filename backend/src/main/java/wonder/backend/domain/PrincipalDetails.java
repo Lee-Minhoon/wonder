@@ -1,18 +1,14 @@
-package wonder.backend.config.auth;
+package wonder.backend.domain;
+
+import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-
-import lombok.Data;
-import wonder.backend.domain.User;
-
-// Authentication 객체에 저장할 수 있는 유일한 타입
 @Data
-public class PrincipalDetails implements UserDetails{
+public class PrincipalDetails implements UserDetails {
 
     private User user;
 
@@ -53,12 +49,8 @@ public class PrincipalDetails implements UserDetails{
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        System.out.println("asdfasdf");
-        Collection<GrantedAuthority> collet = new ArrayList<GrantedAuthority>();
-        collet.add(()->{ return user.getRole();});
-        return collet;
+        Collection<GrantedAuthority> collect = new ArrayList<GrantedAuthority>();
+        collect.add(()->{ return user.getRole();});
+        return collect;
     }
-
-
-
 }
