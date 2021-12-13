@@ -34,12 +34,10 @@ const Signup = () => {
                 nickname: nickname.value,
             };
             const response = await signup(signupInputValue);
-            console.log(response);
-            if (response.statusCode === 200) {
-                alert(nickname.value + '님 환영합니다.');
+            if (response != undefined) {
+                console.log(response);
+                alert(response.message);
                 router.push('/');
-            } else if (response.statusCode === 409) {
-                alert('아이디 중복입니다.');
             }
         },
         [router, email, password, check, nickname]

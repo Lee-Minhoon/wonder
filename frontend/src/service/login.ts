@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { loginInput } from 'components/layout/Login';
 import { AxiosService } from './defaultAxiosService';
 
@@ -13,17 +12,21 @@ const login = async (input: loginInput) => {
             },
         });
     } catch (err) {
-        console.log(err);
+        console.log(err.response.data);
+        alert(err.response.data.message);
     }
 
-    AxiosService.addHeaderToken(data);
-    console.log(AxiosService.instance.defaults.headers.common.Authorization);
+    AxiosService.addHeaderToken(data.data.token);
+
     return data;
 };
 
 const validate = (input: loginInput) => {
     if (!input.email || !input.password) {
         alert('빈 칸이 있습니다.');
+        return false;
+    } else if (input.password.length < 8) {
+        alert('비밀번호를 8자 이상 입력하세요.');
         return false;
     }
     return true;

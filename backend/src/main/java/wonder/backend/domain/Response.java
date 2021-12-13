@@ -1,18 +1,18 @@
 package wonder.backend.domain;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
 public class Response<T> {
-    private int statusCode;
-    private String responseMessage;
+    private String code;
+    private String message;
     private T data;
 
-    public Response(int statusCode, String responseMessage) {
-        this.statusCode = statusCode;
-        this.responseMessage = responseMessage;
-        this.data = null;
+    @Builder
+    public Response(String code, String message, T data) {
+        this.code = code;
+        this.message = message;
+        this.data = data;
     }
 }

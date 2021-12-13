@@ -19,6 +19,7 @@ export interface loginInput {
 }
 
 const Login = () => {
+    const router = useRouter();
     const email = useInput('');
     const password = useInput('');
 
@@ -30,9 +31,13 @@ const Login = () => {
                 password: password.value,
             };
             const response = await login(loginInputValue);
-            console.log(response);
+            if (response != undefined) {
+                console.log(response);
+                alert(response.message);
+                router.push('/');
+            }
         },
-        [email, password]
+        [router, email, password]
     );
 
     return (
