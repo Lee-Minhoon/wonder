@@ -1,0 +1,18 @@
+package wonder.backend.constants;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import org.springframework.http.HttpStatus;
+import wonder.backend.constants.ResponseCode;
+import wonder.backend.constants.ResponseMessage;
+
+@Getter @AllArgsConstructor
+public enum ExceptionEnum {
+    ID_DUPLICATE(HttpStatus.CONFLICT, ResponseCode.ID_DUPLICATE, ResponseMessage.ID_DUPLICATE),
+    INVALID_ID(HttpStatus.FORBIDDEN, ResponseCode.INVALID_ID, ResponseMessage.INVALID_ID),
+    INVALID_PASSWORD(HttpStatus.FORBIDDEN, ResponseCode.INVALID_PASSWORD, ResponseMessage.INVALID_PASSWORD);
+
+    private final HttpStatus status;
+    private final String code;
+    private final String message;
+}

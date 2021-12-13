@@ -1,21 +1,22 @@
-import axios from 'axios';
 import { signupInput } from 'components/layout/Signup';
 import { AxiosService } from './defaultAxiosService';
 
 const signup = async (input: signupInput) => {
     if (!validate(input)) return;
 
-    const { data } = await AxiosService.instance.post('user/signup', null, {
-        params: {
-            email: input.email,
-            password: input.password,
-            nickname: input.nickname,
-        },
-    });
+    try {
+        var { data } = await AxiosService.instance.post('user/signup', null, {
+            params: {
+                email: input.email,
+                password: input.password,
+                nickname: input.nickname,
+            },
+        });
+    } catch (err) {
+        console.log(err.response.data);
+        alert(err.response.data.message);
+    }
 
-    // const token = data.token;
-    // console.log(token);
-    // AxiosService.addHeaderToken(token);
     return data;
 };
 

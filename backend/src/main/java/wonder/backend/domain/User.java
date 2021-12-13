@@ -1,6 +1,8 @@
 package wonder.backend.domain;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;

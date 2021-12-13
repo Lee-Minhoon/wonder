@@ -1,8 +1,9 @@
 package wonder.backend.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
-@Data
+@Data @AllArgsConstructor
 public class Token {
     private String token;
 }
