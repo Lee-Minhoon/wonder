@@ -1,4 +1,4 @@
-import { signupInput } from 'components/layout/Signup';
+import { signupInput } from 'domain/SignupForm';
 import { AxiosService } from './defaultAxiosService';
 
 const signup = async (input: signupInput) => {
@@ -15,6 +15,7 @@ const signup = async (input: signupInput) => {
     } catch (err) {
         console.log(err.response.data);
         alert(err.response.data.message);
+        return;
     }
 
     return data;

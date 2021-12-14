@@ -1,15 +1,9 @@
-import Left from 'components/common/left';
-import Right from 'components/common/right';
-import Writing from 'components/layout/Writing';
+import Left from 'components/common/Left';
+import Right from 'components/common/Right';
+import Writing from 'domain/Writing';
 
 const Write = () => {
-    return (
-        <>
-            <Left />
-            <Writing />
-            <Right />
-        </>
-    );
+    return <Writing />;
 };
 
 export default Write;

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import category from 'constants/category';
 
 // import components
-import BoardTitle from 'components/atoms/BoardTitle';
+import BoardTitle from 'components/BoardTitle/BoardTitle';
 
 // import styles
 import styles from './styles.module.scss';

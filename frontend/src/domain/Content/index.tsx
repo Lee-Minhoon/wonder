@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux';
 import category from 'constants/category';
 
 // import components
-import BoardTitle from 'components/atoms/BoardTitle';
-import Divider from 'components/atoms/Divider';
+import BoardTitle from 'components/BoardTitle/BoardTitle';
+import Divider from 'components/Divider/Divider';
 import Post from './children/Post';
 import Comment from './children/Comment';
 
@@ -13,7 +13,7 @@ import Comment from './children/Comment';
 import styles from './styles.module.scss';
 
 const Content = () => {
-    const loc = useSelector((state) => state.category!.main);
+    const loc = useSelector((state) => state.category.main);
     const main = category.find((item) => item.url === loc);
 
     return (

@@ -31,7 +31,7 @@ const Login = () => {
                 password: password.value,
             };
             const response = await login(loginInputValue);
-            if (response != undefined) {
+            if (response) {
                 console.log(response);
                 alert(response.message);
                 router.push('/');

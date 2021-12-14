@@ -1,0 +1,8 @@
+@import 'styles/util.module.scss';
+
+.boardTitle {
+    a {
+        @include font($theme-color, normal, 400, 2.4rem);
+    }
+    margin-bottom: 10px;
+}

@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { move } from 'redux/category/action';
-import Left from 'components/common/left';
-import Right from 'components/common/right';
-import Board from 'components/layout/Board';
+import Board from 'domain/Board';
 import { useRouter } from 'next/router';
 
 const List = () => {
@@ -14,17 +12,7 @@ const List = () => {
     dispatch(move(main, sub));
     const loc = useSelector((state) => state.category.main);
 
-    return (
-        <>
-            {loc && (
-                <>
-                    <Left />
-                    <Board />
-                    <Right />
-                </>
-            )}
-        </>
-    );
+    return loc && <Board />;
 };
 
 export default List;

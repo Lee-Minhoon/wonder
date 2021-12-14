@@ -1,4 +1,4 @@
-import { loginInput } from 'components/layout/Login';
+import { loginInput } from 'domain/LoginForm';
 import { AxiosService } from './defaultAxiosService';
 
 const login = async (input: loginInput) => {
@@ -14,10 +14,10 @@ const login = async (input: loginInput) => {
     } catch (err) {
         console.log(err.response.data);
         alert(err.response.data.message);
+        return;
     }
 
     AxiosService.addHeaderToken(data.data.token);
-
     return data;
 };
 

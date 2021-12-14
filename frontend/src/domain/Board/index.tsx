@@ -4,12 +4,12 @@ import { useSelector } from 'react-redux';
 import category from 'constants/category';
 
 // import components
-import BoardTitle from 'components/atoms/BoardTitle';
-import Divider from 'components/atoms/Divider';
+import BoardTitle from 'components/BoardTitle/BoardTitle';
+import Divider from 'components/Divider/Divider';
 import Banner from './children/Banner';
 import PostList from './children/PostList';
 import Pagination from './children/Pagination';
-import SearchBar from 'components/atoms/SearchBar';
+import SearchBar from 'components/SearchBar/SearchBar';
 import PostUtil from './children/PostUtil';
 
 // import styles

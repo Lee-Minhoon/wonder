@@ -1,15 +1,9 @@
-import Left from 'components/common/left';
-import Right from 'components/common/right';
-import Content from 'components/layout/Content';
+import Left from 'components/common/Left';
+import Right from 'components/common/Right';
+import Content from 'domain/Content';
 
 const View = () => {
-    return (
-        <>
-            <Left />
-            <Content />
-            <Right />
-        </>
-    );
+    return <Content />;
 };
 
 export default View;

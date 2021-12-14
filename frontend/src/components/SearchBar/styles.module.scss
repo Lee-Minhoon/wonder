@@ -1,4 +1,4 @@
-@import "styles/util.module.scss";
+@import 'styles/util.module.scss';
 
 .searchBar {
     @include size(var(--width), var(--height));
@@ -17,15 +17,4 @@
         background-color: $theme-color;
         @include font(white, normal, 300, 1.6rem);
     }
-}
-
-.boardTitle {
-    a {
-        @include font($theme-color, normal, 400, 2.4rem);
-    }
-    margin-bottom: 10px;
-}
-
-.divider {
-    border: 1px solid $theme-color;
 }

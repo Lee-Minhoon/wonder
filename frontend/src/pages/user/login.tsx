@@ -1,6 +1,6 @@
 import axios from 'axios';
-import Login from 'components/layout/Login';
+import LoginForm from 'domain/LoginForm';
 
 export default function login() {
-    return <Login />;
+    return <LoginForm />;
 }

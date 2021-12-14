@@ -9,8 +9,8 @@ import useInput from 'hooks/useInput';
 import useEditor from 'hooks/useEditor';
 
 // import components
-import BoardTitle from 'components/atoms/BoardTitle';
-import Divider from 'components/atoms/Divider';
+import BoardTitle from 'components/BoardTitle/BoardTitle';
+import Divider from 'components/Divider/Divider';
 import Editor from './Editor';
 
 // import styles

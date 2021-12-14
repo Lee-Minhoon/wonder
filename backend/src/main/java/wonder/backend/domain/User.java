@@ -7,6 +7,8 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity @Data
 public class User {
@@ -16,9 +18,18 @@ public class User {
     private String email;
     private String password;
     private String nickname;
+    private String grade;
     private String role = "ROLE_USER";
     @CreationTimestamp
     private Timestamp loginDate;
     @CreationTimestamp
     private Timestamp createDate;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Post> posts = new HashSet<>();
+
+    public void add(Post post) {
+        post.setUser(this);
+        getPosts().add(post);
+    }
 }

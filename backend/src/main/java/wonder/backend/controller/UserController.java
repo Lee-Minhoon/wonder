@@ -20,6 +20,7 @@ import wonder.backend.jwt.TokenProvider;
 import wonder.backend.service.UserService;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
@@ -83,7 +84,9 @@ public class UserController {
     }
 
     @GetMapping("test")
-    public ResponseEntity test() {
+    public ResponseEntity test(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+        logger.info("asdasd: {}", bearerToken);
         return ResponseEntity.ok("test");
     }
 }
