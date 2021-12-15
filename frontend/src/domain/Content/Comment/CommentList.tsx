@@ -1,8 +1,8 @@
 // import components
-import CommentItem from "./CommentItem";
+import CommentItem from './CommentItem';
 
 // import styles
-import styles from "../styles.module.scss";
+import styles from '../styles.module.scss';
 
 const List = () => {
     return (

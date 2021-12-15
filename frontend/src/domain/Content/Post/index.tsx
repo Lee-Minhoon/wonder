@@ -1,8 +1,8 @@
 // import components
-import Info from "./PostInfo";
+import Info from './PostInfo';
 
 // import styles
-import styles from "../styles.module.scss";
+import styles from '../styles.module.scss';
 
 const Post = () => {
     return (

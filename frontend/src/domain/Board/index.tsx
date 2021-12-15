@@ -4,28 +4,28 @@ import { useSelector } from 'react-redux';
 import category from 'constants/category';
 
 // import components
-import BoardTitle from 'components/BoardTitle/BoardTitle';
-import Divider from 'components/Divider/Divider';
-import Banner from './children/Banner';
-import PostList from './children/PostList';
-import Pagination from './children/Pagination';
-import SearchBar from 'components/SearchBar/SearchBar';
-import PostUtil from './children/PostUtil';
+import BoardTitle from 'components/BoardTitle';
+import Divider from 'components/Divider';
+import Banner from 'components/Banner';
+import PostList from './PostList';
+import Pagination from './Pagination';
+import SearchBar from 'components/SearchBar';
+import Util from './PostUtil';
 
 // import styles
 import styles from './styles.module.scss';
+import useCategory from 'hooks/useCategory';
 
 const Board = () => {
-    const loc = useSelector((state) => state.category!.main);
-    const main = category.find((item) => item.url === loc);
+    const category = useCategory();
 
     return (
-        <div className={styles.board}>
+        <>
             <header>
-                <BoardTitle title={main.title} url={main.url} />
+                <BoardTitle title={category.main.title} url={category.main.url} />
                 <Divider />
                 <Banner />
-                <PostUtil />
+                <Util />
             </header>
             <section>
                 <PostList />
@@ -34,7 +34,7 @@ const Board = () => {
                 <Pagination />
                 <SearchBar width="300px" height="30px" />
             </footer>
-        </div>
+        </>
     );
 };
 

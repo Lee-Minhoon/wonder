@@ -1,8 +1,8 @@
 // import components
-import CommentList from "./CommentList";
+import CommentList from './CommentList';
 
 // import styles
-import styles from "../styles.module.scss";
+import styles from '../styles.module.scss';
 
 const Comment = () => {
     return (

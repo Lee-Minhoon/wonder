@@ -5,17 +5,17 @@ import Link from 'next/link';
 import category from 'constants/category';
 
 // import components
-import BoardTitle from 'components/BoardTitle/BoardTitle';
+import BoardTitle from 'components/BoardTitle';
 
 // import styles
 import styles from './styles.module.scss';
+import useCategory from 'hooks/useCategory';
 
 const LNB = () => {
-    const loc = useSelector((state) => state.category.main);
-    const main = category.find((item) => item.url === loc);
-    const lnb = main.sub.map((item) => (
+    const category = useCategory();
+    const list = category.main.sub.map((item) => (
         <li key={item.id}>
-            <Link href={{ pathname: '/board/list', query: { main: main.url, sub: item.url } }}>
+            <Link href={{ pathname: '/board/list', query: { main: category.main.url, sub: item.url } }}>
                 <a>{item.title}</a>
             </Link>
         </li>
@@ -23,8 +23,8 @@ const LNB = () => {
 
     return (
         <nav className={styles.lnb}>
-            <BoardTitle title={main.title} url={main.url} />
-            <ul>{lnb}</ul>
+            <BoardTitle title={category.main.title} url={category.main.url} />
+            <ul>{list}</ul>
         </nav>
     );
 };

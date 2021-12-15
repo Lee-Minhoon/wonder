@@ -4,31 +4,27 @@ import { useSelector } from 'react-redux';
 import category from 'constants/category';
 
 // import components
-import BoardTitle from 'components/BoardTitle/BoardTitle';
-import Divider from 'components/Divider/Divider';
-import Post from './children/Post';
-import Comment from './children/Comment';
+import BoardTitle from 'components/BoardTitle';
+import Divider from 'components/Divider';
+import Post from './Post';
+import Comment from './Comment';
 
 // import styles
 import styles from './styles.module.scss';
+import useCategory from 'hooks/useCategory';
 
 const Content = () => {
-    const loc = useSelector((state) => state.category.main);
-    const main = category.find((item) => item.url === loc);
+    const category = useCategory();
 
     return (
-        <>
-            {main && (
-                <div className={styles.view}>
-                    <header>
-                        <BoardTitle title={main.title} url={main.url} />
-                        <Divider />
-                    </header>
-                    <Post />
-                    <Comment />
-                </div>
-            )}
-        </>
+        <div className={styles.view}>
+            <header>
+                <BoardTitle title={category.main.title} url={category.main.url} />
+                <Divider />
+            </header>
+            <Post />
+            <Comment />
+        </div>
     );
 };
 

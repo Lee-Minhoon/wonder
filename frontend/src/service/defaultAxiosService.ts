@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import Cookies from 'js-cookie';
 
 export class AxiosService {
@@ -17,12 +17,11 @@ export class AxiosService {
 }
 
 AxiosService.instance.interceptors.request.use(
-    function (config) {
-        if (!config.headers.common['Authorization'] && Cookies.get('token')) {
-            console.log('Header 없음');
+    function (config: AxiosRequestConfig) {
+        if (!config.headers.common.Authorization && Cookies.get('token')) {
             const token = Cookies.get('token');
             AxiosService.addHeaderToken(token);
-            console.log('Header 입력됨', AxiosService.instance.defaults.headers.common.Authorization);
+            config.headers.common.Authorization = `Bearer ${token}`;
         }
         return config;
     },

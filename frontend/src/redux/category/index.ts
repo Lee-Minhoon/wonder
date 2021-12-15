@@ -1,8 +1,9 @@
-import { types } from "./action";
+import { types } from './action';
+import category from 'constants/category';
 
 const initialState = {
-    main: "",
-    sub: "",
+    main: '',
+    sub: '',
 };
 
 export default function reducer(state = initialState, action) {

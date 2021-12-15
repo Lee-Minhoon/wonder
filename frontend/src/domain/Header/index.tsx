@@ -1,7 +1,7 @@
 // import components
 import UserUtil from './UserUtil';
 import Logo from './Logo';
-import SearchBar from 'components/SearchBar/SearchBar';
+import SearchBar from 'components/SearchBar';
 import GNB from './GNB';
 
 // import styles
