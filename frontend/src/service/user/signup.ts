@@ -1,5 +1,5 @@
 import { signupInput } from 'domain/SignupForm';
-import { AxiosService } from './defaultAxiosService';
+import { AxiosService } from '../defaultAxiosService';
 
 const signup = async (input: signupInput) => {
     if (!validate(input)) return;

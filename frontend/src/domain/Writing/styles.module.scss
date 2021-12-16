@@ -6,7 +6,7 @@
         height: 40px;
         padding: 0 10px;
         border: 1px solid $light-gray;
-        margin-bottom: 10px;  
+        margin-bottom: 10px;
         @include font(black, normal, 300, 1.4rem);
         outline: none;
         &:focus {

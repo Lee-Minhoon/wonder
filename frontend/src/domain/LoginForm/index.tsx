@@ -1,9 +1,7 @@
-import axios from 'axios';
-import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 // import service
-import login from 'service/login';
+import login from 'service/user/login';
 
 // import hooks
 import useInput from 'hooks/useInput';

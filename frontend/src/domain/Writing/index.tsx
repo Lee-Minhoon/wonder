@@ -17,24 +17,46 @@ import Editor from './Editor';
 // import styles
 import styles from './styles.module.scss';
 import useCategory from './../../hooks/useCategory';
+import createPost from './../../service/post/createPost';
+
+export interface createPostInput {
+    title: any;
+    data: any;
+}
 
 const Writing = () => {
+    const router = useRouter();
+
     const category = useCategory();
     const title = useInput('');
     const data = useEditor('');
 
-    const write = () => {
-        console.log(title.value);
-        console.log(data.value);
-    };
+    const handleSubmit = useCallback(
+        async (e) => {
+            e.preventDefault();
+            const createPostInputValue: createPostInput = {
+                title: title.value,
+                data: data.value,
+            };
+            const response = await createPost(createPostInputValue);
+            if (response) {
+                console.log(response);
+                alert(response.message);
+                router.push('/');
+            }
+        },
+        [router, title, data]
+    );
 
     return (
         <div className={styles.writing}>
-            <BoardTitle title={category.main.title} url={category.main.url} />
-            <Divider />
-            <input type="text" placeholder="제목을 입력하세요." {...title} />
-            <Editor height="600px" initialEditType="wysiwyg" {...data} />
-            <button onClick={write}>글쓰기</button>
+            <form onSubmit={handleSubmit}>
+                <BoardTitle title={category.main.title} url={category.main.url} />
+                <Divider />
+                <input type="text" placeholder="제목을 입력하세요." {...title} />
+                <Editor height="600px" initialEditType="wysiwyg" {...data} />
+                <button type="submit">글쓰기</button>
+            </form>
         </div>
     );
 };

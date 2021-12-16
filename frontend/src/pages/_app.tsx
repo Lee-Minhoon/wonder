@@ -23,9 +23,7 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
             <>
                 <Header />
                 <div className="container flex">
-                    <div>
-                        <Component {...pageProps} />
-                    </div>
+                    <Component {...pageProps} />
                 </div>
                 <Footer />
             </>
@@ -36,7 +34,7 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
                 <Header />
                 <div className="container flex">
                     <Left />
-                    <div>
+                    <div style={{ width: '770px' }}>
                         <Component {...pageProps} />
                     </div>
                     <Right />

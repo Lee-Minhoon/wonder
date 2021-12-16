@@ -1,18 +1,9 @@
-@import "styles/util.module.scss";
+@import 'styles/util.module.scss';
 
 .util {
     display: flex;
     justify-content: flex-end;
-    margin-top: 5px;
     margin-bottom: 5px;
-}
-
-.banner {
-    height: 100px;
-    background-color: $light-gray;
-    text-align: center;
-    @include font(white, normal, 400, 3rem);
-    margin: 10px 0 10px 0;
 }
 
 .list {
