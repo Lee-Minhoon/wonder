@@ -55,8 +55,6 @@ public class TokenProvider implements InitializingBean {
         long now = (new Date()).getTime();
         Date validity = new Date(now + this.tokenValidityInMilliseconds);
 
-        System.out.println("GetName: " + authentication.getName());
-
         // 생성된 토큰 반환
         return Jwts.builder()
                 .setSubject(authentication.getName())
@@ -106,13 +104,13 @@ public class TokenProvider implements InitializingBean {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
-            logger.info("잘못된 JWT 서명입니다.");
+            logger.info("Invalid JWT");
         } catch (ExpiredJwtException e) {
-            logger.info("만료된 JWT 토큰입니다.");
+            logger.info("Expired JWT");
         } catch (UnsupportedJwtException e) {
-            logger.info("지원되지 않는 JWT 토큰입니다.");
+            logger.info("Unsupported JWT");
         } catch (IllegalArgumentException e) {
-            logger.info("JWT 토큰이 잘못되었습니다.");
+            logger.info("Wrong JWT");
         }
         return false;
     }

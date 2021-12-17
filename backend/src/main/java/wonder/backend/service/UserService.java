@@ -1,6 +1,7 @@
 package wonder.backend.service;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -21,21 +22,20 @@ import wonder.backend.repository.UserRepository;
 import java.util.Optional;
 
 @Service @Transactional
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserService implements UserDetailsService {
     private final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     private final UserRepository userRepository;
 
     public ResponseEntity signup(User user) {
-        logger.info("call Signup");
         validateDuplicateUser(user);
         userRepository.save(user);
-        logger.info("end Signup");
+
         return ResponseEntity.ok()
                 .body(Response.builder()
-                        .code(ResponseCode.SIGNUP_SUCCESS)
-                        .message(ResponseMessage.SIGNUP_SUCCESS)
+                        .code(ResponseCode.SUCCESS)
+                        .message(ResponseMessage.SUCCESS)
                         .build());
     }
 

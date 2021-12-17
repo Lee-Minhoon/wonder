@@ -42,13 +42,18 @@ public class UserController {
             @RequestParam("password") String password,
             @RequestParam("nickname") String nickname
     ) {
-        logger.info("call signup");
+        logger.info("Request to signup : {}", email);
+
+//        User user = User.builder()
+//                .email(email)
+//                .password(passwordEncoder.encode(password))
+//                .nickname(nickname)
+//                .build();
         User user = new User();
         user.setEmail(email);
         user.setPassword(passwordEncoder.encode(password));
         user.setNickname(nickname);
 
-        logger.info("end signup");
         return userService.signup(user);
     }
 
@@ -58,35 +63,26 @@ public class UserController {
             @RequestParam("email") String email,
             @RequestParam("password") String password
     ) {
+        logger.info("Request to login : {}", email);
+
         // 인증 객체 생성 및 반환
-        logger.info("call login");
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(email, password);
-        logger.info("authenticationToken: {}", authenticationToken);
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-        logger.info("authentication: {}", authentication);
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         // jwt 생성
         String jwt = tokenProvider.createToken(authentication);
-        logger.info("created jwt: {}", jwt);
+        logger.info("Created jwt: {}", jwt);
 
         // jwt 쿠키로 반환
         Cookie cookie = new Cookie("token", jwt);
         response.addCookie(cookie);
 
-        logger.info("end login");
         return ResponseEntity.ok()
                 .body(Response.builder()
-                        .code(ResponseCode.LOGIN_SUCCESS)
-                        .message(ResponseMessage.LOGIN_SUCCESS)
+                        .code(ResponseCode.SUCCESS)
+                        .message(ResponseMessage.SUCCESS)
                         .data(new Token(jwt))
                         .build());
-    }
-
-    @GetMapping("test")
-    public ResponseEntity test(HttpServletRequest request) {
-        String bearerToken = request.getHeader("Authorization");
-        logger.info("asdasd: {}", bearerToken);
-        return ResponseEntity.ok("test");
     }
 }

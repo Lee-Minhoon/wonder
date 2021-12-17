@@ -58,6 +58,9 @@ const Login = () => {
                 <Link href={{ pathname: '/user/test' }}>
                     <a>test</a>
                 </Link>
+                <Link href={{ pathname: '/user/cookie' }}>
+                    <a>test</a>
+                </Link>
             </form>
         </div>
     );

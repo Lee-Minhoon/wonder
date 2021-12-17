@@ -3,6 +3,10 @@ server:
 
 spring:
   datasource:
+#    url: jdbc:mysql://localhost:3306/wonder
+#    username: root
+#    password: 1234
+#    dirver-class-name: com.mysql.jdbc.Driver
     url: jdbc:h2:tcp://localhost/~/test
     driver-class-name: org.h2.Driver
     username: sa
@@ -18,3 +22,8 @@ jwt:
   header: Authorization
   secret: c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK
   token-validity-in-seconds: 86400
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+#    org.hibernate.type: trace

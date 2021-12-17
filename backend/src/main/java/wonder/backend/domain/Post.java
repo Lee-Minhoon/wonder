@@ -10,16 +10,16 @@ import java.sql.Timestamp;
 
 @Entity @Getter @Setter
 public class Post {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue
     private Long id;
     private String title;
+    private String content;
     private int views;
     @CreationTimestamp
     private Timestamp updateDate;
     @CreationTimestamp
     private Timestamp createDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 }

@@ -41,6 +41,13 @@ dependencies {
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
+
+	// sql db logger
+	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.7.1'
+
+	// mysql
+	implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.27'
+
 	testImplementation 'org.springframework.security:spring-security-test'
 }
 

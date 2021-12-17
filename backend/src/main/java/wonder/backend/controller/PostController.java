@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -17,6 +18,7 @@ import wonder.backend.domain.Post;
 import wonder.backend.domain.Response;
 import wonder.backend.domain.Token;
 import wonder.backend.domain.User;
+import wonder.backend.dto.PostsResponseDto;
 import wonder.backend.jwt.TokenProvider;
 import wonder.backend.service.PostService;
 import wonder.backend.service.UserService;
@@ -24,6 +26,7 @@ import wonder.backend.service.UserService;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @RestController
 @RequestMapping("post")
@@ -40,13 +43,30 @@ public class PostController {
     @PostMapping()
     public ResponseEntity createPost(
             HttpServletRequest request,
-            @RequestParam("title") String title
+            @RequestParam("title") String title,
+            @RequestParam("content") String content
     ) {
-        logger.info("call post");
+        logger.info("Request to create a post : {}", title);
+
         String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
         String userEmail = tokenProvider.getUserEmail(jwt);
 
-        logger.info("end post");
-        return postService.createPost(userEmail, title);
+        return postService.createPost(userEmail, title, content);
+    }
+
+    @GetMapping()
+    public List<PostsResponseDto> readAllPost(
+            @RequestParam("page") int page,
+            @RequestParam("size") int size
+    ) {
+        logger.info("Request to read all posts");
+
+        return postService.readAllPost(page, size);
+//        return ResponseEntity.ok()
+//                .body(Response.builder()
+//                        .code(ResponseCode.SUCCESS)
+//                        .message(ResponseMessage.SUCCESS)
+//                        .data(postService.readAllPost(page, size))
+//                        .build());
     }
 }

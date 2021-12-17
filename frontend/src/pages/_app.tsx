@@ -17,7 +17,8 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
         router.pathname === '/user/login' ||
         router.pathname === '/user/signup' ||
         router.pathname === '/' ||
-        router.pathname === '/user/test'
+        router.pathname === '/user/test' ||
+        router.pathname === '/user/cookie'
     ) {
         return (
             <>

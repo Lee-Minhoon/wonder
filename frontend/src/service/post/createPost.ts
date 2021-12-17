@@ -8,6 +8,7 @@ const createPost = async (input: createPostInput) => {
         var { data } = await AxiosService.instance.post('post', null, {
             params: {
                 title: input.title,
+                content: input.content,
             },
         });
     } catch (err) {

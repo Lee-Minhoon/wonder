@@ -1,10 +1,27 @@
 // import components
 import PostItem from './PostItem';
+import readAllPost from 'service/post/readAllPost';
 
 // import styles
 import styles from '../styles.module.scss';
+import { useEffect } from 'react';
+
+export interface readAllPostInput {
+    page: any;
+    size: any;
+}
 
 const PostList = () => {
+    useEffect(() => {
+        const readAllPostInputValue: readAllPostInput = {
+            page: 1,
+            size: 20,
+        };
+        readAllPost(readAllPostInputValue).then((res) => {
+            console.log(res);
+        });
+    }, []);
+
     const titles = [
         'Q&A',
         '커뮤니티',
