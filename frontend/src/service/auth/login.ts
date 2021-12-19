@@ -1,16 +1,18 @@
-import { loginInput } from 'domain/LoginForm';
+import { loginInput } from 'container/LoginForm';
 import { AxiosService } from '../defaultAxiosService';
 
 const login = async (input: loginInput) => {
     if (!validate(input)) return;
 
     try {
-        var { data } = await AxiosService.instance.post('user/login', null, {
-            params: {
+        var { data } = await AxiosService.instance.post(
+            'auth/login',
+            {
                 email: input.email,
                 password: input.password,
             },
-        });
+            null
+        );
     } catch (err) {
         console.log(err.response.data);
         alert(err.response.data.message);

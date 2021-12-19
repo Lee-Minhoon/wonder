@@ -1,6 +1,5 @@
 package wonder.backend.service;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,12 +13,10 @@ import wonder.backend.constants.ExceptionEnum;
 import wonder.backend.constants.ResponseCode;
 import wonder.backend.constants.ResponseMessage;
 import wonder.backend.domain.PrincipalDetails;
-import wonder.backend.domain.Response;
+import wonder.backend.dto.Response;
 import wonder.backend.domain.User;
 import wonder.backend.exception.CustomException;
 import wonder.backend.repository.UserRepository;
-
-import java.util.Optional;
 
 @Service @Transactional
 @RequiredArgsConstructor

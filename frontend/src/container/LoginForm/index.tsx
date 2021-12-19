@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 
 // import service
-import login from 'service/user/login';
+import login from 'service/auth/login';
 
 // import hooks
 import useInput from 'hooks/useInput';

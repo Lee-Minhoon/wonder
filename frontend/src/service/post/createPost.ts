@@ -1,4 +1,4 @@
-import { createPostInput } from 'domain/Writing';
+import { createPostInput } from 'container/Writing';
 import { AxiosService } from '../defaultAxiosService';
 
 const createPost = async (input: createPostInput) => {

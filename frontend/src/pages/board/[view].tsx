@@ -1,4 +1,4 @@
-import Content from 'domain/Content';
+import Content from 'container/Content';
 
 const View = () => {
     return <Content />;

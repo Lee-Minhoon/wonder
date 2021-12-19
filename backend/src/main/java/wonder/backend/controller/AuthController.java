@@ -13,21 +13,20 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import wonder.backend.constants.ResponseCode;
 import wonder.backend.constants.ResponseMessage;
-import wonder.backend.domain.Response;
-import wonder.backend.domain.Token;
+import wonder.backend.dto.Response;
+import wonder.backend.dto.TokenResponseDto;
 import wonder.backend.domain.User;
 import wonder.backend.jwt.TokenProvider;
 import wonder.backend.service.UserService;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
-@RequestMapping("user")
+@RequestMapping("auth")
 @AllArgsConstructor
-public class UserController {
-    private final Logger logger = LoggerFactory.getLogger(UserController.class);
+public class AuthController {
+    private final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     private final UserService userService;
     private final TokenProvider tokenProvider;
@@ -38,35 +37,26 @@ public class UserController {
 
     @PostMapping("signup")
     public ResponseEntity signup(
-            @RequestParam("email") String email,
-            @RequestParam("password") String password,
-            @RequestParam("nickname") String nickname
+            @RequestBody User user
     ) {
-        logger.info("Request to signup : {}", email);
+        logger.info("Request to signup : {}", user.getEmail());
 
-//        User user = User.builder()
-//                .email(email)
-//                .password(passwordEncoder.encode(password))
-//                .nickname(nickname)
-//                .build();
-        User user = new User();
-        user.setEmail(email);
-        user.setPassword(passwordEncoder.encode(password));
-        user.setNickname(nickname);
-
-        return userService.signup(user);
+        return userService.signup(User.builder()
+                .email(user.getEmail())
+                .password(passwordEncoder.encode(user.getPassword()))
+                .nickname(user.getNickname())
+                .build());
     }
 
     @PostMapping("login")
     public ResponseEntity login(
             HttpServletResponse response,
-            @RequestParam("email") String email,
-            @RequestParam("password") String password
+            @RequestBody User user
     ) {
-        logger.info("Request to login : {}", email);
+        logger.info("Request to login : {}", user.getEmail());
 
         // 인증 객체 생성 및 반환
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(email, password);
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
@@ -82,7 +72,7 @@ public class UserController {
                 .body(Response.builder()
                         .code(ResponseCode.SUCCESS)
                         .message(ResponseMessage.SUCCESS)
-                        .data(new Token(jwt))
+                        .data(new TokenResponseDto(jwt))
                         .build());
     }
 }

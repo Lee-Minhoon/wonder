@@ -51,13 +51,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/test/auth").permitAll()
-                .antMatchers("/test/hello").permitAll()
-                .antMatchers("/user/signup").permitAll()
-                .antMatchers("/user/login").permitAll()
+                .antMatchers("/auth/signup").permitAll()
+                .antMatchers("/auth/login").permitAll()
+                .antMatchers("/post/test").permitAll()
                 .antMatchers(HttpMethod.GET, "/post").permitAll()
+                .antMatchers(HttpMethod.GET, "/post/{id}").permitAll()
                 .antMatchers(HttpMethod.POST, "/post").access("hasAnyRole('USER, ADMIN')")
-                .antMatchers("/user/test").access("hasAnyRole('USER, ADMIN')")
                 .anyRequest().authenticated();
     }
 

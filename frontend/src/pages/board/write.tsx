@@ -1,4 +1,4 @@
-import Writing from 'domain/Writing';
+import Writing from 'container/Writing';
 
 const Write = () => {
     return <Writing />;

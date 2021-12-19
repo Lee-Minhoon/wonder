@@ -8,10 +8,10 @@ import wonder.backend.constants.ResponseMessage;
 
 @Getter @AllArgsConstructor
 public enum ExceptionEnum {
-    ID_DUPLICATE(HttpStatus.CONFLICT, ResponseCode.ID_DUPLICATE, ResponseMessage.ID_DUPLICATE),
+    ID_DUPLICATE(HttpStatus.CONFLICT, ResponseCode.DUPLICATE, ResponseMessage.DUPLICATE),
     INVALID_ID(HttpStatus.FORBIDDEN, ResponseCode.INVALID_ID, ResponseMessage.INVALID_ID),
     INVALID_PASSWORD(HttpStatus.FORBIDDEN, ResponseCode.INVALID_PASSWORD, ResponseMessage.INVALID_PASSWORD),
-    USER_NOT_FOUND(HttpStatus.NOT_FOUND, ResponseCode.USER_NOT_FOUND, ResponseMessage.USER_NOT_FOUND);
+    USER_NOT_FOUND(HttpStatus.NOT_FOUND, ResponseCode.NOT_FOUND, ResponseMessage.NOT_FOUND);
 
     private final HttpStatus status;
     private final String code;

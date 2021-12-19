@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { AppProps } from 'next/app';
 import wrapper from 'redux/store';
-import Header from 'domain/Header';
-import Footer from 'domain/Footer';
+import Header from 'container/Header';
+import Footer from 'container/Footer';
 import 'styles/globals.scss';
-import Left from 'domain/Left';
-import Right from 'domain/Right';
+import Left from 'container/Left';
+import Right from 'container/Right';
 import { useRouter } from 'next/router';
 import useCategory from 'hooks/useCategory';
 
@@ -18,7 +18,8 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
         router.pathname === '/user/signup' ||
         router.pathname === '/' ||
         router.pathname === '/user/test' ||
-        router.pathname === '/user/cookie'
+        router.pathname === '/user/cookie' ||
+        router.pathname === '/test'
     ) {
         return (
             <>

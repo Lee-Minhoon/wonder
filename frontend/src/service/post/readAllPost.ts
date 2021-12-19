@@ -1,5 +1,5 @@
 import { AxiosService } from '../defaultAxiosService';
-import { readAllPostInput } from 'domain/Board/PostList';
+import { readAllPostInput } from 'container/Board/PostList';
 
 const readAllPost = async (input: readAllPostInput) => {
     try {

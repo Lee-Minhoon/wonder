@@ -4,28 +4,17 @@ import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import wonder.backend.constants.ResponseCode;
 import wonder.backend.constants.ResponseMessage;
-import wonder.backend.domain.Post;
-import wonder.backend.domain.Response;
-import wonder.backend.domain.Token;
 import wonder.backend.domain.User;
-import wonder.backend.dto.PostsResponseDto;
+import wonder.backend.dto.PostResponseDto;
+import wonder.backend.dto.Response;
 import wonder.backend.jwt.TokenProvider;
 import wonder.backend.service.PostService;
-import wonder.backend.service.UserService;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -55,18 +44,29 @@ public class PostController {
     }
 
     @GetMapping()
-    public List<PostsResponseDto> readAllPost(
+    public ResponseEntity readAllPost(
             @RequestParam("page") int page,
             @RequestParam("size") int size
     ) {
         logger.info("Request to read all posts");
 
-        return postService.readAllPost(page, size);
-//        return ResponseEntity.ok()
-//                .body(Response.builder()
-//                        .code(ResponseCode.SUCCESS)
-//                        .message(ResponseMessage.SUCCESS)
-//                        .data(postService.readAllPost(page, size))
-//                        .build());
+        return ResponseEntity.ok()
+                .body(Response.builder()
+                        .code(ResponseCode.SUCCESS)
+                        .message(ResponseMessage.SUCCESS)
+                        .data(postService.readAllPost(page, size))
+                        .build());
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity readPost(
+            @PathVariable("id") Long id
+    ) {
+        return ResponseEntity.ok()
+                .body(Response.builder()
+                        .code(ResponseCode.SUCCESS)
+                        .message(ResponseMessage.SUCCESS)
+                        .data(postService.readPost(id))
+                        .build());
     }
 }

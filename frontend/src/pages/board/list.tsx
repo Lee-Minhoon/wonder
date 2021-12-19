@@ -1,4 +1,4 @@
-import Board from 'domain/Board';
+import Board from 'container/Board';
 
 const List = () => {
     return <Board />;

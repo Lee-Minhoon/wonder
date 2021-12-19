@@ -1,26 +1,18 @@
 package wonder.backend.service;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wonder.backend.constants.ExceptionEnum;
 import wonder.backend.constants.ResponseCode;
 import wonder.backend.constants.ResponseMessage;
 import wonder.backend.domain.Post;
-import wonder.backend.domain.PrincipalDetails;
-import wonder.backend.domain.Response;
+import wonder.backend.dto.Response;
 import wonder.backend.domain.User;
-import wonder.backend.dto.PostsResponseDto;
+import wonder.backend.dto.PostResponseDto;
 import wonder.backend.exception.CustomException;
 import wonder.backend.repository.PostRepository;
 import wonder.backend.repository.UserRepository;
@@ -56,12 +48,21 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public List<PostsResponseDto> readAllPost(int page, int size) {
+    public List<PostResponseDto> readAllPost(int page, int size) {
 //        PageRequest pageRequest = PageRequest.of(page, size);
         return postRepository.findAll()
                 .stream()
-                .map(posts -> new PostsResponseDto(posts))
-//                .map(PostsResponseDto::new)
+                .map(PostResponseDto::new)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public PostResponseDto readPost(Long id) {
+        Optional<Post> post = postRepository.findById(id);
+        post.orElseThrow(() -> new CustomException(ExceptionEnum.USER_NOT_FOUND));
+
+        return PostResponseDto.builder()
+                .post(postRepository.findById(id).get())
+                .build();
     }
 }

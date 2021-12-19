@@ -1,17 +1,19 @@
-import { signupInput } from 'domain/SignupForm';
+import { signupInput } from 'container/SignupForm';
 import { AxiosService } from '../defaultAxiosService';
 
 const signup = async (input: signupInput) => {
     if (!validate(input)) return;
 
     try {
-        var { data } = await AxiosService.instance.post('user/signup', null, {
-            params: {
+        var { data } = await AxiosService.instance.post(
+            'auth/signup',
+            {
                 email: input.email,
                 password: input.password,
                 nickname: input.nickname,
             },
-        });
+            null
+        );
     } catch (err) {
         console.log(err.response.data);
         alert(err.response.data.message);
