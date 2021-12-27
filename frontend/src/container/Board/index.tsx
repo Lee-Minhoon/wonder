@@ -15,6 +15,7 @@ import Util from './PostUtil';
 // import styles
 import styles from './styles.module.scss';
 import useCategory from 'hooks/useCategory';
+import { useRouter } from 'next/router';
 
 const Board = () => {
     const category = useCategory();

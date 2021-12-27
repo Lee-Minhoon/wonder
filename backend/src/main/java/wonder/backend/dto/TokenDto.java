@@ -4,6 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data @AllArgsConstructor
-public class TokenResponseDto {
+public class TokenDto {
     private String token;
 }

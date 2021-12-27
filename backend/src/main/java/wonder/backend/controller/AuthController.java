@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import wonder.backend.constants.ResponseCode;
 import wonder.backend.constants.ResponseMessage;
 import wonder.backend.dto.Response;
-import wonder.backend.dto.TokenResponseDto;
+import wonder.backend.dto.TokenDto;
 import wonder.backend.domain.User;
 import wonder.backend.jwt.TokenProvider;
-import wonder.backend.service.UserService;
+import wonder.backend.service.AuthService;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 public class AuthController {
     private final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
-    private final UserService userService;
+    private final AuthService userService;
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
@@ -72,7 +72,7 @@ public class AuthController {
                 .body(Response.builder()
                         .code(ResponseCode.SUCCESS)
                         .message(ResponseMessage.SUCCESS)
-                        .data(new TokenResponseDto(jwt))
+                        .data(new TokenDto(jwt))
                         .build());
     }
 }

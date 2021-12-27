@@ -8,12 +8,12 @@ const UserUtil = () => {
         <nav className={styles.userUtil}>
             <ul>
                 <li>
-                    <Link href="/user/login">
+                    <Link href="/auth/login">
                         <a>로그인</a>
                     </Link>
                 </li>
                 <li>
-                    <Link href="/user/signup">
+                    <Link href="/auth/signup">
                         <a>회원가입</a>
                     </Link>
                 </li>

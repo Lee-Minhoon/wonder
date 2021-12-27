@@ -14,11 +14,9 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
     const category = useCategory();
 
     if (
-        router.pathname === '/user/login' ||
-        router.pathname === '/user/signup' ||
+        router.pathname === '/auth/login' ||
+        router.pathname === '/auth/signup' ||
         router.pathname === '/' ||
-        router.pathname === '/user/test' ||
-        router.pathname === '/user/cookie' ||
         router.pathname === '/test'
     ) {
         return (

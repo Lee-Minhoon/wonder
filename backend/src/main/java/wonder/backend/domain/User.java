@@ -30,7 +30,6 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private Set<Post> posts = new HashSet<>();
-//    private List<Post> posts = new ArrayList<>();
 
     public void add(Post post) {
         post.setUser(this);

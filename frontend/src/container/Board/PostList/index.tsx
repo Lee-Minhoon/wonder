@@ -5,6 +5,8 @@ import readAllPost from 'service/post/readAllPost';
 // import styles
 import styles from '../styles.module.scss';
 import { useEffect } from 'react';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 export interface readAllPostInput {
     page: any;
@@ -12,48 +14,22 @@ export interface readAllPostInput {
 }
 
 const PostList = () => {
+    // const paging = usePaging();
+    const router = useRouter();
+    const page = router.query.page;
+    const size = router.query.size;
+    const [posts, setPosts] = useState([]);
     useEffect(() => {
+        if (!router.isReady) return;
         const readAllPostInputValue: readAllPostInput = {
-            page: 1,
-            size: 20,
+            page: page,
+            size: size,
         };
         readAllPost(readAllPostInputValue).then((res) => {
-            console.log(res);
+            setPosts(res.data);
         });
-    }, []);
+    }, [router, page, size]);
 
-    const titles = [
-        'Q&A',
-        '커뮤니티',
-        '강의실',
-        '구인구직',
-        '외주',
-        'Q&A',
-        '커뮤니티',
-        '강의실',
-        '구인구직',
-        '외주',
-        'Q&A',
-        '커뮤니티',
-        '강의실',
-        '구인구직',
-        '외주',
-        'Q&A',
-        '커뮤니티',
-        '강의실',
-        '구인구직',
-        '외주',
-        'Q&A',
-        '커뮤니티',
-        '강의실',
-        '구인구직',
-        '외주',
-        'Q&A',
-        '커뮤니티',
-        '강의실',
-        '구인구직',
-        '외주',
-    ];
     return (
         <table className={styles.list} cellSpacing="0">
             <colgroup>
@@ -75,8 +51,8 @@ const PostList = () => {
                 <th>추천</th>
             </thead>
             <tbody>
-                {titles.map((item) => (
-                    <PostItem />
+                {posts.map((item) => (
+                    <PostItem key={item.id} title={item.title} views={item.views} />
                 ))}
             </tbody>
         </table>

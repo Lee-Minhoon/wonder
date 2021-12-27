@@ -8,14 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import wonder.backend.constants.ResponseCode;
 import wonder.backend.constants.ResponseMessage;
-import wonder.backend.domain.User;
-import wonder.backend.dto.PostResponseDto;
 import wonder.backend.dto.Response;
 import wonder.backend.jwt.TokenProvider;
 import wonder.backend.service.PostService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @RestController
 @RequestMapping("post")
@@ -29,7 +26,7 @@ public class PostController {
     @Autowired
     private TokenProvider tokenProvider;
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity createPost(
             HttpServletRequest request,
             @RequestParam("title") String title,
@@ -43,7 +40,7 @@ public class PostController {
         return postService.createPost(userEmail, title, content);
     }
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity readAllPost(
             @RequestParam("page") int page,
             @RequestParam("size") int size
@@ -67,6 +64,18 @@ public class PostController {
                         .code(ResponseCode.SUCCESS)
                         .message(ResponseMessage.SUCCESS)
                         .data(postService.readPost(id))
+                        .build());
+    }
+
+    @GetMapping("test")
+    public ResponseEntity readTest(
+            @RequestParam("id") Long id
+    ) {
+        return ResponseEntity.ok()
+                .body(Response.builder()
+                        .code(ResponseCode.SUCCESS)
+                        .message(ResponseMessage.SUCCESS)
+                        .data(postService.readTest(id))
                         .build());
     }
 }
