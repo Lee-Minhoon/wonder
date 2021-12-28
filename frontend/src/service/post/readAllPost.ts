@@ -5,6 +5,7 @@ const readAllPost = async (input: readAllPostInput) => {
     try {
         var { data } = await AxiosService.instance.get('post', {
             params: {
+                category: input.category,
                 page: input.page,
                 size: input.size,
             },

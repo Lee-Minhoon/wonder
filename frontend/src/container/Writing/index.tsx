@@ -20,13 +20,13 @@ import useCategory from 'hooks/useCategory';
 import createPost from 'service/post/createPost';
 
 export interface createPostInput {
+    category: any;
     title: any;
     content: any;
 }
 
 const Writing = () => {
     const router = useRouter();
-
     const category = useCategory();
     const title = useInput('');
     const content = useEditor('');
@@ -34,7 +34,9 @@ const Writing = () => {
     const handleSubmit = useCallback(
         async (e) => {
             e.preventDefault();
+            console.log(category.sub.id);
             const createPostInputValue: createPostInput = {
+                category: category.sub.id,
                 title: title.value,
                 content: content.value,
             };
@@ -45,7 +47,7 @@ const Writing = () => {
                 router.push('/');
             }
         },
-        [router, title, content]
+        [router, category, title, content]
     );
 
     return (

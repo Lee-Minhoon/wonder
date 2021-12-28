@@ -9,21 +9,23 @@ const PostItem = (props) => {
 
     return (
         <tr className={styles.item}>
-            <td>카테고리</td>
-            <td>10000</td>
+            <td>{props.category}</td>
+            <td>{props.id}</td>
             <td>
-                <Link href={{ pathname: '/board/id', query: { main: category.main.url, sub: category.sub.url } }}>
+                <Link
+                    href={{ pathname: `/board/${props.id}`, query: { main: category.main.url, sub: category.sub.url } }}
+                >
                     <a>{props.title}</a>
                 </Link>
             </td>
             <td>
                 <Link href="/user/test">
-                    <a>이민훈</a>
+                    <a>{props.writer}</a>
                 </Link>
             </td>
-            <td>2021. 11. 09</td>
+            <td>{props.createDate}</td>
             <td>{props.views}</td>
-            <td>100</td>
+            <td>{props.likes}</td>
         </tr>
     );
 };

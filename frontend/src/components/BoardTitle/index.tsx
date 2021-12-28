@@ -6,7 +6,7 @@ const BoardTitle = (props) => {
 
     return (
         <div className={styles.boardTitle}>
-            <Link href={{ pathname: '/board/list', query: { main: url, sub: 'all' } }}>
+            <Link href={{ pathname: '/board/list', query: { main: url, sub: 'all', page: 0, size: 20 } }}>
                 <a>{title}</a>
             </Link>
         </div>

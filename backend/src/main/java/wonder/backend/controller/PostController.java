@@ -29,6 +29,7 @@ public class PostController {
     @PostMapping
     public ResponseEntity createPost(
             HttpServletRequest request,
+            @RequestParam("category") Long categoryId,
             @RequestParam("title") String title,
             @RequestParam("content") String content
     ) {
@@ -37,11 +38,12 @@ public class PostController {
         String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
         String userEmail = tokenProvider.getUserEmail(jwt);
 
-        return postService.createPost(userEmail, title, content);
+        return postService.createPost(userEmail, categoryId, title, content);
     }
 
     @GetMapping
     public ResponseEntity readAllPost(
+            @RequestParam("category") Long categoryId,
             @RequestParam("page") int page,
             @RequestParam("size") int size
     ) {
@@ -51,7 +53,7 @@ public class PostController {
                 .body(Response.builder()
                         .code(ResponseCode.SUCCESS)
                         .message(ResponseMessage.SUCCESS)
-                        .data(postService.readAllPost(page, size))
+                        .data(postService.readAllPost(categoryId, page, size))
                         .build());
     }
 
@@ -64,18 +66,6 @@ public class PostController {
                         .code(ResponseCode.SUCCESS)
                         .message(ResponseMessage.SUCCESS)
                         .data(postService.readPost(id))
-                        .build());
-    }
-
-    @GetMapping("test")
-    public ResponseEntity readTest(
-            @RequestParam("id") Long id
-    ) {
-        return ResponseEntity.ok()
-                .body(Response.builder()
-                        .code(ResponseCode.SUCCESS)
-                        .message(ResponseMessage.SUCCESS)
-                        .data(postService.readTest(id))
                         .build());
     }
 }

@@ -13,16 +13,13 @@ import wonder.backend.domain.Post;
 import wonder.backend.domain.Recommendation;
 import wonder.backend.domain.User;
 import wonder.backend.domain.id.RecommendationId;
-import wonder.backend.dto.RecommendationDto;
 import wonder.backend.dto.Response;
 import wonder.backend.exception.CustomException;
 import wonder.backend.repository.PostRepository;
 import wonder.backend.repository.RecommendationRepository;
 import wonder.backend.repository.UserRepository;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service @Transactional
 @RequiredArgsConstructor
@@ -38,18 +35,12 @@ public class RecommendationService {
         RecommendationId recommendationId = new RecommendationId(userId, postId);
         validateDuplicateRecommend(recommendationId);
 
-        Post post = getPost(postId);
-
         Recommendation recommendation = Recommendation.builder()
                 .recommendationId(recommendationId)
-                .user(getUser(userId))
+                .post(getPostById(postId))
+                .user(getUserById(userId))
                 .build();
-
-        post.add(recommendation);
         recommendationRepository.save(recommendation);
-
-        post.setLikes(post.getLikes() + 1);
-        postRepository.save(post);
 
         return ResponseEntity.ok()
                 .body(Response.builder()
@@ -71,17 +62,15 @@ public class RecommendationService {
         return like.isPresent() ? true : false;
     }
 
-    public User getUser(Long id) {
+    public User getUserById(Long id) {
         Optional<User> user = userRepository.findById(id);
         user.orElseThrow(() -> new CustomException(ExceptionEnum.NOT_FOUND));
-
         return user.get();
     }
 
-    public Post getPost(Long id) {
+    public Post getPostById(Long id) {
         Optional<Post> post = postRepository.findById(id);
         post.orElseThrow(() -> new CustomException(ExceptionEnum.NOT_FOUND));
-
         return post.get();
     }
 }

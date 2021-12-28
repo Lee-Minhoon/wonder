@@ -7,28 +7,30 @@ import styles from '../styles.module.scss';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import useCategory from 'hooks/useCategory';
 
 export interface readAllPostInput {
+    category: any;
     page: any;
     size: any;
 }
 
 const PostList = () => {
-    // const paging = usePaging();
     const router = useRouter();
-    const page = router.query.page;
-    const size = router.query.size;
+    const category = useCategory();
     const [posts, setPosts] = useState([]);
     useEffect(() => {
         if (!router.isReady) return;
         const readAllPostInputValue: readAllPostInput = {
-            page: page,
-            size: size,
+            category: category.sub.id,
+            page: router.query.page,
+            size: router.query.size,
         };
         readAllPost(readAllPostInputValue).then((res) => {
+            console.log(res.data);
             setPosts(res.data);
         });
-    }, [router, page, size]);
+    }, [router, category.sub.id]);
 
     return (
         <table className={styles.list} cellSpacing="0">
@@ -52,7 +54,16 @@ const PostList = () => {
             </thead>
             <tbody>
                 {posts.map((item) => (
-                    <PostItem key={item.id} title={item.title} views={item.views} />
+                    <PostItem
+                        key={item.id}
+                        category={item.category}
+                        id={item.id}
+                        title={item.title}
+                        writer={item.writer}
+                        createDate={item.createDate}
+                        views={item.views}
+                        likes={item.likes}
+                    />
                 ))}
             </tbody>
         </table>

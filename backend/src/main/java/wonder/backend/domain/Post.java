@@ -15,7 +15,6 @@ public class Post {
     private String title;
     private String content;
     private int views;
-    private int likes;
     @CreationTimestamp
     private Timestamp updateDate;
     @CreationTimestamp
@@ -24,13 +23,8 @@ public class Post {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private User user;
 
-    @OneToMany(mappedBy = "post")
-    private Set<Recommendation> likesses = new HashSet<>();
-
-    public void add(Recommendation recommendation) {
-        recommendation.setPost(this);
-        getLikesses().add(recommendation);
-    }
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private Category category;
 
     @OneToMany(mappedBy = "post")
     private Set<Comment> comments = new HashSet<>();
@@ -41,7 +35,8 @@ public class Post {
     }
 
     @Builder
-    public Post(String title, String content) {
+    public Post(Category category, String title, String content) {
+        this.category = category;
         this.title = title;
         this.content = content;
     }
