@@ -53,16 +53,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/auth/signup").permitAll()
                 .antMatchers("/auth/login").permitAll()
-                .antMatchers("/post/test").permitAll()
-                .antMatchers("/user/dimu").permitAll()
                 .antMatchers(HttpMethod.GET, "/user").permitAll()
                 .antMatchers(HttpMethod.GET, "/user/{id}").permitAll()
                 .antMatchers(HttpMethod.GET, "/post").permitAll()
                 .antMatchers(HttpMethod.GET, "/post/{id}").permitAll()
+                .antMatchers(HttpMethod.GET, "/comment").permitAll()
+
                 .antMatchers("/recommendation").permitAll()
                 .antMatchers("/recommendation/test").permitAll()
 
                 .antMatchers(HttpMethod.POST, "/post").access("hasAnyRole('USER, ADMIN')")
+                .antMatchers(HttpMethod.POST, "/comment").access("hasAnyRole('USER, ADMIN')")
                 .anyRequest().authenticated();
     }
 

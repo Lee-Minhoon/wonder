@@ -32,7 +32,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
             nativeQuery = true)
     Page<PostInterface> findAllPostByCategory(Long categoryId, Pageable pageable);
 
-    @Query(value = "SELECT p.id, p.title, p.content, p.views, p.create_date as createDate, u.nickname, count(r.post_id) as likes " +
+    @Query(value = "SELECT p.id, p.title, p.content, p.views, p.create_date as createDate, u.nickname as writer, count(r.post_id) as likes " +
             "FROM post as p " +
             "LEFT JOIN user as u " +
             "ON p.user_id = u.id " +

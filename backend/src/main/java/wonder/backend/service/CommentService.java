@@ -12,15 +12,15 @@ import org.springframework.transaction.annotation.Transactional;
 import wonder.backend.constants.ExceptionEnum;
 import wonder.backend.constants.ResponseCode;
 import wonder.backend.constants.ResponseMessage;
-import wonder.backend.domain.Category;
+import wonder.backend.domain.Comment;
 import wonder.backend.domain.Post;
 import wonder.backend.domain.User;
+import wonder.backend.dto.CommentDto;
 import wonder.backend.dto.PageDto;
-import wonder.backend.dto.PostDto;
 import wonder.backend.dto.Response;
-import wonder.backend.dto.mapper.PostInterface;
+import wonder.backend.dto.mapper.CommentInterface;
 import wonder.backend.exception.CustomException;
-import wonder.backend.repository.CategoryRepository;
+import wonder.backend.repository.CommentRepository;
 import wonder.backend.repository.PostRepository;
 import wonder.backend.repository.UserRepository;
 
@@ -29,24 +29,24 @@ import java.util.stream.Collectors;
 
 @Service @Transactional
 @RequiredArgsConstructor
-public class PostService {
-    private final Logger logger = LoggerFactory.getLogger(PostService.class);
+public class CommentService {
+    private final Logger logger = LoggerFactory.getLogger(CommentService.class);
 
     private final UserRepository userRepository;
     private final PostRepository postRepository;
-    private final CategoryRepository categoryRepository;
+    private final CommentRepository commentRepository;
 
-    public ResponseEntity createPost(String userEmail, Long categoryId, String title, String content) {
+    public ResponseEntity createComment(String userEmail, Long postId, String content) {
         User user = getUserByEmail(userEmail);
+        Post post = getPostById(postId);
 
-        Post post = Post.builder()
-                .category(getCategoryById(categoryId))
-                .title(title)
+        Comment comment = Comment.builder()
                 .content(content)
+                .user(user)
                 .build();
 
-        user.add(post);
-        postRepository.save(post);
+        post.add(comment);
+        commentRepository.save(comment);
 
         return ResponseEntity.ok()
                 .body(Response.builder()
@@ -56,27 +56,14 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public PostDto readPost(Long id) {
-        return PostDto.builder()
-                .postInterface(getPostById(id))
-                .build();
-    }
-
-    @Transactional(readOnly = true)
-    public PageDto readAllPost(Long categoryId, int page, int size) {
+    public PageDto readAllComment(Long postId, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<PostInterface> result = postRepository.findAllPostByCategory(categoryId, pageable);
+        Page<CommentInterface> result = commentRepository.findAllCommentByPost(postId, pageable);
         return PageDto.builder()
                 .pages(result.getTotalPages())
                 .count(result.getTotalElements())
-                .data(result.stream().map(PostDto::new).collect(Collectors.toList()))
+                .data(result.stream().map(CommentDto::new).collect(Collectors.toList()))
                 .build();
-    }
-
-    public Category getCategoryById(Long id) {
-        Optional<Category> category = categoryRepository.findById(id);
-        category.orElseThrow(() -> new CustomException(ExceptionEnum.NOT_FOUND));
-        return category.get();
     }
 
     public User getUserByEmail(String email) {
@@ -85,8 +72,8 @@ public class PostService {
         return user.get();
     }
 
-    public PostInterface getPostById(Long id) {
-        Optional<PostInterface> post = postRepository.findPost(id);
+    public Post getPostById(Long id) {
+        Optional<Post> post = postRepository.findById(id);
         post.orElseThrow(() -> new CustomException(ExceptionEnum.NOT_FOUND));
         return post.get();
     }

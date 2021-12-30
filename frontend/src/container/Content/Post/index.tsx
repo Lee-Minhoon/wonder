@@ -31,7 +31,7 @@ const Post = () => {
                 <h2>{post.title}</h2>
                 <div className={styles.info}>
                     <div>
-                        <a>{post.nickname}</a>
+                        <a>{post.writer}</a>
                         <p>{post.createDate}</p>
                     </div>
                     <div>

@@ -6,15 +6,15 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public class PostsDto {
+public class PageDto<T> {
     private int pages;
     private Long count;
-    private List<PostDto> posts;
+    private List<T> data;
 
     @Builder
-    public PostsDto(int pages, Long count, List<PostDto> posts) {
+    public PageDto(int pages, Long count, List<T> data) {
         this.pages = pages;
         this.count = count;
-        this.posts = posts;
+        this.data = data;
     }
 }

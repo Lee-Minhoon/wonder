@@ -124,7 +124,7 @@ const Board = () => {
                 </div>
             </header>
             <section>
-                <PostList posts={posts.posts} />
+                <PostList posts={posts.data} />
             </section>
             <footer className={styles.footer}>
                 <nav className={styles.page}>

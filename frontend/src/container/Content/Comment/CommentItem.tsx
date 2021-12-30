@@ -1,10 +1,12 @@
 // import styles
 import styles from '../styles.module.scss';
 
-const CommentItem = () => {
+const CommentItem = (props) => {
     return (
         <li className={styles.item}>
-            <div>댓글</div>
+            <div>{props.writer}</div>
+            <div>{props.createDate}</div>
+            <div>{props.content}</div>
         </li>
     );
 };

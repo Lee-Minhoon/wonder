@@ -4,14 +4,19 @@ import CommentItem from './CommentItem';
 // import styles
 import styles from '../styles.module.scss';
 
-const List = () => {
+const List = (props) => {
     return (
         <section className={styles.list}>
             <ul>
-                <CommentItem />
-                <CommentItem />
-                <CommentItem />
-                <CommentItem />
+                {props.comments &&
+                    props.comments.map((item) => (
+                        <CommentItem
+                            key={item.id}
+                            content={item.content}
+                            writer={item.writer}
+                            createDate={item.createDate}
+                        />
+                    ))}
             </ul>
         </section>
     );
