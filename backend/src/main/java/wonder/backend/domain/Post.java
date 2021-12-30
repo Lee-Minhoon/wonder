@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Entity @Getter @Setter @NoArgsConstructor
 public class Post {
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private String content;

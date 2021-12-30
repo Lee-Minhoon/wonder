@@ -13,7 +13,7 @@ import java.util.Set;
 
 @Entity @Getter @Setter @NoArgsConstructor
 public class Category {
-    @Id @GeneratedValue
+    @Id
     private Long id;
     private Long parentId;
     private String name;

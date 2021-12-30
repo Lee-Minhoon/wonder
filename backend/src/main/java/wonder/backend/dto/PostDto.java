@@ -5,7 +5,6 @@ import lombok.Getter;
 import wonder.backend.dto.mapper.PostInterface;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 @Getter
 public class PostDto {

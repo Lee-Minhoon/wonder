@@ -7,6 +7,7 @@ const category = [
             { id: 10, title: '전체보기', url: 'all' },
             { id: 11, title: '웹 개발', url: 'test1' },
             { id: 12, title: '앱 개발', url: 'test2' },
+            { id: 13, title: '서버 개발', url: 'test3' },
         ],
     },
     {

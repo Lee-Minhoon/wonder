@@ -13,7 +13,7 @@ const GNB = () => {
                 {category.map((item) => (
                     <li key={item.id}>
                         <Link
-                            href={{ pathname: '/board/list', query: { main: item.url, sub: 'all', page: 0, size: 20 } }}
+                            href={{ pathname: '/board/list', query: { main: item.url, sub: 'all', page: 1, size: 20 } }}
                         >
                             <a>{item.title}</a>
                         </Link>

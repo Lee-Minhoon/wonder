@@ -3,6 +3,7 @@ package wonder.backend.service;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import wonder.backend.constants.ResponseMessage;
 import wonder.backend.domain.Category;
 import wonder.backend.domain.Post;
 import wonder.backend.domain.User;
+import wonder.backend.dto.PostsDto;
 import wonder.backend.dto.PostDto;
 import wonder.backend.dto.Response;
 import wonder.backend.dto.mapper.PostInterface;
@@ -22,7 +24,6 @@ import wonder.backend.repository.CategoryRepository;
 import wonder.backend.repository.PostRepository;
 import wonder.backend.repository.UserRepository;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -62,12 +63,14 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public List<PostDto> readAllPost(Long categoryId, int page, int size) {
+    public PostsDto readAllPost(Long categoryId, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return postRepository.findAllPostByCategory(categoryId, pageable)
-                .stream()
-                .map(PostDto::new)
-                .collect(Collectors.toList());
+        Page<PostInterface> result = postRepository.findAllPostByCategory(categoryId, pageable);
+        return PostsDto.builder()
+                .pages(result.getTotalPages())
+                .count(result.getTotalElements())
+                .posts(result.stream().map(PostDto::new).collect(Collectors.toList()))
+                .build();
     }
 
     public Category getCategoryById(Long id) {

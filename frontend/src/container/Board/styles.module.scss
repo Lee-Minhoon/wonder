@@ -38,4 +38,15 @@
 
 .page {
     height: 50px;
+    ul {
+        padding-inline-start: 0px;
+    }
+    li {
+        display: inline-flex;
+        margin: 0 10px;
+        @include font($dark-gray, normal, 400, 1.6rem);
+        &:hover {
+            color: $theme-color;
+        }
+    }
 }

@@ -16,7 +16,7 @@ const LNB = () => {
     const list = category.main.sub.map((item) => (
         <li key={item.id}>
             <Link
-                href={{ pathname: '/board/list', query: { main: category.main.url, sub: item.url, page: 0, size: 20 } }}
+                href={{ pathname: '/board/list', query: { main: category.main.url, sub: item.url, page: 1, size: 20 } }}
             >
                 <a>{item.title}</a>
             </Link>

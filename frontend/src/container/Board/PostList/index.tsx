@@ -4,34 +4,10 @@ import readAllPost from 'service/post/readAllPost';
 
 // import styles
 import styles from '../styles.module.scss';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import { useRouter } from 'next/router';
 import useCategory from 'hooks/useCategory';
 
-export interface readAllPostInput {
-    category: any;
-    page: any;
-    size: any;
-}
-
-const PostList = () => {
-    const router = useRouter();
-    const category = useCategory();
-    const [posts, setPosts] = useState([]);
-    useEffect(() => {
-        if (!router.isReady) return;
-        const readAllPostInputValue: readAllPostInput = {
-            category: category.sub.id,
-            page: router.query.page,
-            size: router.query.size,
-        };
-        readAllPost(readAllPostInputValue).then((res) => {
-            console.log(res.data);
-            setPosts(res.data);
-        });
-    }, [router, category.sub.id]);
-
+const PostList = (props) => {
+    console.log(props.posts);
     return (
         <table className={styles.list} cellSpacing="0">
             <colgroup>
@@ -53,18 +29,19 @@ const PostList = () => {
                 <th>추천</th>
             </thead>
             <tbody>
-                {posts.map((item) => (
-                    <PostItem
-                        key={item.id}
-                        category={item.category}
-                        id={item.id}
-                        title={item.title}
-                        writer={item.writer}
-                        createDate={item.createDate}
-                        views={item.views}
-                        likes={item.likes}
-                    />
-                ))}
+                {props.posts &&
+                    props.posts.map((item) => (
+                        <PostItem
+                            key={item.id}
+                            category={item.category}
+                            id={item.id}
+                            title={item.title}
+                            writer={item.writer}
+                            createDate={item.createDate}
+                            views={item.views}
+                            likes={item.likes}
+                        />
+                    ))}
             </tbody>
         </table>
     );

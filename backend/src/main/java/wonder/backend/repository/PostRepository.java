@@ -24,10 +24,11 @@ public interface PostRepository extends JpaRepository<Post, Long> {
             "ON p.id = r.post_id " +
             "WHERE (:categoryId % 10 != 0 AND p.category_id = :categoryId) " +
             "OR (:categoryId % 10 = 0 AND p.category_id < :categoryId + 10 AND p.category_id > :categoryId) " +
-            "GROUP BY p.id",
-            countQuery = "SELECT * FROM post" +
+            "GROUP BY p.id, p.title " +
+            "ORDER BY p.id DESC",
+            countQuery = "SELECT * FROM post as p " +
                     "WHERE (:categoryId % 10 != 0 AND p.category_id = :categoryId) " +
-                    "OR (:categoryId % 10 = 0 AND :categoryId + 10 > p.category_id AND p.category_id > :categoryId) ",
+                    "OR (:categoryId % 10 = 0 AND :categoryId + 10 > p.category_id AND p.category_id > :categoryId)",
             nativeQuery = true)
     Page<PostInterface> findAllPostByCategory(Long categoryId, Pageable pageable);
 
