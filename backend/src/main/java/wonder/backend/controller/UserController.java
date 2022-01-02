@@ -18,30 +18,30 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping
-    public ResponseEntity signup(
-            @RequestParam("page") int page,
-            @RequestParam("size") int size
-    ) {
-        logger.info("Request to read all posts");
-
-        return ResponseEntity.ok()
-                .body(Response.builder()
-                        .code(ResponseCode.SUCCESS)
-                        .message(ResponseMessage.SUCCESS)
-                        .data(userService.readAllPost(page, size))
-                        .build());
-    }
+//    @GetMapping
+//    public ResponseEntity signup(
+//            @RequestParam("page") int page,
+//            @RequestParam("size") int size
+//    ) {
+//        logger.info("Request to read all posts");
+//
+//        return ResponseEntity.ok()
+//                .body(Response.builder()
+//                        .code(ResponseCode.SUCCESS)
+//                        .message(ResponseMessage.SUCCESS)
+//                        .data(userService.readAllPost(page, size))
+//                        .build());
+//    }
 
     @GetMapping("{id}")
-    public ResponseEntity login(
+    public ResponseEntity readUser(
             @PathVariable("id") Long id
     ) {
         return ResponseEntity.ok()
                 .body(Response.builder()
                         .code(ResponseCode.SUCCESS)
                         .message(ResponseMessage.SUCCESS)
-                        .data(userService.readPost(id))
+                        .data(userService.readUser(id))
                         .build());
     }
 }

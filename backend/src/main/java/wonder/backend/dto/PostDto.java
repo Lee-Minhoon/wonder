@@ -12,6 +12,7 @@ public class PostDto {
     private Long id;
     private String title;
     private String content;
+    private Long writerId;
     private String writer;
     private Timestamp createDate;
     private int views;
@@ -23,6 +24,7 @@ public class PostDto {
         this.id = postInterface.getId();
         this.title = postInterface.getTitle();
         this.content = postInterface.getContent();
+        this.writerId = postInterface.getWriterId();
         this.writer = postInterface.getWriter();
         this.createDate = postInterface.getCreateDate();
         this.views = postInterface.getViews();

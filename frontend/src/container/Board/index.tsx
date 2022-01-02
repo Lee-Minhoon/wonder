@@ -32,9 +32,9 @@ const Board = () => {
     useEffect(() => {
         if (!router.isReady) return;
         const readAllPostInputValue: readAllPostInput = {
-            category: category.sub.id,
-            page: router.query.page - 1,
-            size: router.query.size,
+            category: category.sub?.id,
+            page: router.query?.page - 1,
+            size: router.query?.size,
         };
         readAllPost(readAllPostInputValue).then((res) => {
             console.log(res.data);

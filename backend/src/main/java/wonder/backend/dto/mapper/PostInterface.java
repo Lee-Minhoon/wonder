@@ -7,6 +7,7 @@ public interface PostInterface {
     Long getId();
     String getTitle();
     String getContent();
+    Long getWriterId();
     String getWriter();
     Timestamp getCreateDate();
     int getViews();

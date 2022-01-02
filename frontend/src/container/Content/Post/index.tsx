@@ -1,6 +1,7 @@
 // import components
 import Info from './PostInfo';
 import readPost from 'service/post/readPost';
+import Link from 'next/link';
 
 // import styles
 import styles from '../styles.module.scss';
@@ -31,7 +32,9 @@ const Post = () => {
                 <h2>{post.title}</h2>
                 <div className={styles.info}>
                     <div>
-                        <a>{post.writer}</a>
+                        <Link href={`/user/${post.writerId}`}>
+                            <a>{post.writer}</a>
+                        </Link>
                         <p>{post.createDate}</p>
                     </div>
                     <div>

@@ -2,7 +2,10 @@ package wonder.backend.dto;
 
 import lombok.Builder;
 import lombok.Getter;
+import wonder.backend.domain.Post;
 import wonder.backend.domain.User;
+
+import java.util.Set;
 
 @Getter
 public class UserDto {

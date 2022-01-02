@@ -36,6 +36,7 @@ const PostList = (props) => {
                             category={item.category}
                             id={item.id}
                             title={item.title}
+                            writerId={item.writerId}
                             writer={item.writer}
                             createDate={item.createDate}
                             views={item.views}

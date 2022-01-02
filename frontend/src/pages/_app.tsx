@@ -8,18 +8,27 @@ import Left from 'container/Left';
 import Right from 'container/Right';
 import { useRouter } from 'next/router';
 import useCategory from 'hooks/useCategory';
+import Content from './../container/Content/index';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
+
+const NOT_USER_SIDE_BAR_PATHS = ['/auth/login', 'auth/signup', '/', '/test', '/user/[id]'];
 
 const App: FC<AppProps> = ({ Component, pageProps }) => {
     const router = useRouter();
+    const queryClient = new QueryClient();
+
     const category = useCategory();
 
+    let content;
     if (
         router.pathname === '/auth/login' ||
         router.pathname === '/auth/signup' ||
         router.pathname === '/' ||
-        router.pathname === '/test'
+        router.pathname === '/test' ||
+        router.pathname === '/user/[id]'
     ) {
-        return (
+        content = (
             <>
                 <Header />
                 <div className="container flex">
@@ -29,7 +38,7 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
             </>
         );
     } else if (category) {
-        return (
+        content = (
             <>
                 <Header />
                 <div className="container flex">
@@ -43,8 +52,15 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
             </>
         );
     } else {
-        return <>잘못된 요청입니다.</>;
+        content = <>잘못된 요청입니다.</>;
     }
+
+    return (
+        <QueryClientProvider client={queryClient}>
+            <ReactQueryDevtools position="bottom-right" initialIsOpen={true} />
+            {content}
+        </QueryClientProvider>
+    );
 };
 
 export default wrapper.withRedux(App);

@@ -3,13 +3,25 @@ import Link from 'next/link';
 // import styles
 import styles from '../styles.module.scss';
 import useCategory from 'hooks/useCategory';
+import categor from 'constants/category';
 
 const PostItem = (props) => {
     const category = useCategory();
+    const sub = category.main.sub.find((item) => item.title === props.category);
+    console.log(sub);
 
     return (
         <tr className={styles.item}>
-            <td>{props.category}</td>
+            <td>
+                <Link
+                    href={{
+                        pathname: '/board/list',
+                        query: { main: category.main.url, sub: sub.url, page: 1, size: 20 },
+                    }}
+                >
+                    <a>{props.category}</a>
+                </Link>
+            </td>
             <td>{props.id}</td>
             <td>
                 <Link
@@ -19,7 +31,7 @@ const PostItem = (props) => {
                 </Link>
             </td>
             <td>
-                <Link href="/user/test">
+                <Link href={`/user/${props.writerId}`}>
                     <a>{props.writer}</a>
                 </Link>
             </td>

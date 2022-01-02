@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wonder.backend.constants.ExceptionEnum;
+import wonder.backend.domain.Post;
 import wonder.backend.domain.User;
 import wonder.backend.dto.UserDto;
 import wonder.backend.exception.CustomException;
@@ -14,6 +15,7 @@ import wonder.backend.repository.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service @Transactional
@@ -33,12 +35,15 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public UserDto readPost(Long id) {
+    public UserDto readUser(Long id) {
+        return UserDto.builder()
+                .user(getUserById(id))
+                .build();
+    }
+
+    public User getUserById(Long id) {
         Optional<User> user = userRepository.findById(id);
         user.orElseThrow(() -> new CustomException(ExceptionEnum.NOT_FOUND));
-
-        return UserDto.builder()
-                .user(user.get())
-                .build();
+        return user.get();
     }
 }
