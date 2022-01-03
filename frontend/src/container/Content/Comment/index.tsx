@@ -1,13 +1,13 @@
 // import components
 import CommentList from './CommentList';
-import { useRef, useState, useEffect, forwardRef, useCallback } from 'react';
+import { useCallback } from 'react';
 import useInput from 'hooks/useInput';
 
 // import styles
 import styles from '../styles.module.scss';
 import { useRouter } from 'next/router';
 import createContent from 'service/comment/createContent';
-import readAllComment from './../../../service/comment/readAllComment';
+import useReadAllComment from 'hooks/comment/useReadAllComment';
 
 export interface createCommentInput {
     post: any;
@@ -40,19 +40,22 @@ const Comment = () => {
         [router, content]
     );
 
-    const [comments, setComments] = useState([]);
-    useEffect(() => {
-        if (!router.isReady) return;
-        const readAllCommentInputValue: readAllCommentInput = {
-            post: router.query.view,
-            page: 0,
-            size: 10,
-        };
-        readAllComment(readAllCommentInputValue).then((res) => {
-            console.log(res.data);
-            setComments(res.data);
-        });
-    }, [router]);
+    const readAllCommentInputValue: readAllCommentInput = {
+        post: router.query.view,
+        page: 0,
+        size: 10,
+    };
+    const { data, error, isLoading, isSuccess, isError } = useReadAllComment(readAllCommentInputValue);
+
+    if (isLoading) {
+        return <p>Loading......</p>;
+    }
+
+    if (isError) {
+        return <p>{error.response.data.message}</p>;
+    }
+
+    const comments = data.data;
 
     return (
         <section className={styles.comment}>

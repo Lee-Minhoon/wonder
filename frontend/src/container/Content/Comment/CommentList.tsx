@@ -8,15 +8,14 @@ const List = (props) => {
     return (
         <section className={styles.list}>
             <ul>
-                {props.comments &&
-                    props.comments.map((item) => (
-                        <CommentItem
-                            key={item.id}
-                            content={item.content}
-                            writer={item.writer}
-                            createDate={item.createDate}
-                        />
-                    ))}
+                {props.comments.map((item) => (
+                    <CommentItem
+                        key={item.id}
+                        content={item.content}
+                        writer={item.writer}
+                        createDate={item.createDate}
+                    />
+                ))}
             </ul>
         </section>
     );

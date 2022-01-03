@@ -1,6 +1,3 @@
-import { useSelector } from 'react-redux';
-import Link from 'next/link';
-
 // import constants
 import category from 'constants/category';
 
@@ -9,24 +6,26 @@ import BoardTitle from 'components/BoardTitle';
 
 // import styles
 import styles from './styles.module.scss';
-import useCategory from 'hooks/useCategory';
+import LinkList from 'components/LinkList';
+import { useRouter } from 'next/router';
 
 const LNB = () => {
-    const category = useCategory();
-    const list = category.main.sub.map((item) => (
-        <li key={item.id}>
-            <Link
-                href={{ pathname: '/board/list', query: { main: category.main.url, sub: item.url, page: 1, size: 20 } }}
-            >
-                <a>{item.title}</a>
-            </Link>
-        </li>
-    ));
+    const router = useRouter();
+    const main = category.find((item) => item.url === router.query.main);
 
     return (
         <nav className={styles.lnb}>
-            <BoardTitle title={category.main.title} url={category.main.url} />
-            <ul>{list}</ul>
+            <BoardTitle title={main.title} url={main.url} />
+            <ul>
+                {main.sub.map((item) => (
+                    <LinkList
+                        key={item.id}
+                        pathname="/board/list"
+                        query={{ ...router.query, sub: item.url, page: 1, size: 20 }}
+                        text={item.title}
+                    />
+                ))}
+            </ul>
         </nav>
     );
 };

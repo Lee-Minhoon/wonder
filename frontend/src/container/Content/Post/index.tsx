@@ -1,30 +1,32 @@
 // import components
-import Info from './PostInfo';
-import readPost from 'service/post/readPost';
+
 import Link from 'next/link';
 
 // import styles
 import styles from '../styles.module.scss';
 
-import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import useReadPost from 'hooks/post/useReadPost';
 export interface readPostInput {
     id: any;
 }
 
 const Post = () => {
     const router = useRouter();
-    const [post, setPost] = useState([]);
-    useEffect(() => {
-        if (!router.isReady) return;
-        const readPostInputValue: readPostInput = {
-            id: router.query.view,
-        };
-        readPost(readPostInputValue).then((res) => {
-            console.log(res.data);
-            setPost(res.data);
-        });
-    }, [router]);
+    const readPostInputValue: readPostInput = {
+        id: router.query.view,
+    };
+    const { data, error, isLoading, isSuccess, isError } = useReadPost(readPostInputValue);
+
+    if (isLoading) {
+        return <p>Loading......</p>;
+    }
+
+    if (isError) {
+        return <p>{error.response.data.message}</p>;
+    }
+
+    const post = data.data;
 
     return (
         <article className={styles.content}>

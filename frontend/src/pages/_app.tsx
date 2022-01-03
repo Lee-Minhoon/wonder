@@ -7,27 +7,18 @@ import 'styles/globals.scss';
 import Left from 'container/Left';
 import Right from 'container/Right';
 import { useRouter } from 'next/router';
-import useCategory from 'hooks/useCategory';
-import Content from './../container/Content/index';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
-const NOT_USER_SIDE_BAR_PATHS = ['/auth/login', 'auth/signup', '/', '/test', '/user/[id]'];
+const NOT_SIDE_BAR_PAGES = ['/auth/login', '/auth/signup', '/', '/user/[id]'];
+const SIDE_BAR_PAGES = ['/board/[view]', '/board/list', '/board/write'];
 
 const App: FC<AppProps> = ({ Component, pageProps }) => {
     const router = useRouter();
     const queryClient = new QueryClient();
 
-    const category = useCategory();
-
     let content;
-    if (
-        router.pathname === '/auth/login' ||
-        router.pathname === '/auth/signup' ||
-        router.pathname === '/' ||
-        router.pathname === '/test' ||
-        router.pathname === '/user/[id]'
-    ) {
+    if (NOT_SIDE_BAR_PAGES.find((item) => item === router.pathname)) {
         content = (
             <>
                 <Header />
@@ -37,7 +28,7 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
                 <Footer />
             </>
         );
-    } else if (category) {
+    } else if (SIDE_BAR_PAGES.find((item) => item === router.pathname)) {
         content = (
             <>
                 <Header />

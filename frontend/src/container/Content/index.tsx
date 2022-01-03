@@ -2,7 +2,6 @@ import { useSelector } from 'react-redux';
 import { useState } from 'react';
 
 // import constants
-import category from 'constants/category';
 
 // import components
 import BoardTitle from 'components/BoardTitle';
@@ -12,15 +11,17 @@ import Comment from './Comment';
 
 // import styles
 import styles from './styles.module.scss';
-import useCategory from 'hooks/useCategory';
+import category from 'constants/category';
+import { useRouter } from 'next/router';
 
 const Content = () => {
-    const category = useCategory();
+    const router = useRouter();
+    const main = category.find((item) => item.url === router.query.main);
 
     return (
         <div className={styles.view}>
             <header>
-                <BoardTitle title={category.main.title} url={category.main.url} />
+                <BoardTitle title={main.title} url={main.url} />
                 <Divider />
             </header>
             <Post />
