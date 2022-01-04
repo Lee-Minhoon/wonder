@@ -24,10 +24,10 @@ export interface readAllPostInput {
 const Board = () => {
     const router = useRouter();
     const main = category.find((item) => item.url === router.query.main);
-    const sub = main.sub.find((item) => item.url === router.query.sub);
+    const sub = main?.sub.find((item) => item.url === router.query.sub);
 
     const readAllPostInputValue: readAllPostInput = {
-        category: sub.id,
+        category: sub?.id,
         page: parseInt(router.query.page as string) - 1,
         size: parseInt(router.query.size as string),
     };

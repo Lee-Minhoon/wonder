@@ -5,7 +5,7 @@ import category from 'constants/category';
 import BoardTitle from 'components/BoardTitle';
 
 // import styles
-import styles from './styles.module.scss';
+import styles from '../styles.module.scss';
 import LinkList from 'components/LinkList';
 import { useRouter } from 'next/router';
 
@@ -15,9 +15,9 @@ const LNB = () => {
 
     return (
         <nav className={styles.lnb}>
-            <BoardTitle title={main.title} url={main.url} />
+            <BoardTitle title={main?.title} url={main?.url} />
             <ul>
-                {main.sub.map((item) => (
+                {main?.sub.map((item) => (
                     <LinkList
                         key={item.id}
                         pathname="/board/list"

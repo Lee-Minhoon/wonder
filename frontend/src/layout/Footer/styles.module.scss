@@ -8,10 +8,10 @@
 }
 
 .container {
-    width: 1170px;
     padding: 20px;
     line-height: 2;
     text-align: center;
+    @include responsive-width($content-width, 90%);
     @include font(black, normal, 300, 1.4rem);
     a {
         @include font($theme-color, normal, 400, 1.4rem);

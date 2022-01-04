@@ -9,6 +9,7 @@ const PostItem = (props) => {
     const router = useRouter();
     const main = category.find((item) => item.url === router.query.main);
     const sub = main.sub.find((item) => item.url === router.query.sub);
+    const date = new Date(props.createDate);
 
     return (
         <tr className={styles.item}>
@@ -28,7 +29,7 @@ const PostItem = (props) => {
                     <a>{props.writer}</a>
                 </Link>
             </td>
-            <td>{props.createDate}</td>
+            <td>{date}</td>
             <td>{props.views}</td>
             <td>{props.likes}</td>
         </tr>

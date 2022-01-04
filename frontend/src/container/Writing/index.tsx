@@ -27,7 +27,7 @@ export interface createPostInput {
 const Writing = () => {
     const router = useRouter();
     const main = category.find((item) => item.url === router.query.main);
-    const sub = main.sub.find((item) => item.url === router.query.sub);
+    const sub = main?.sub.find((item) => item.url === router.query.sub);
     const title = useInput('');
     const content = useEditor('');
     const createPost = useCreatePost();
@@ -42,13 +42,13 @@ const Writing = () => {
             };
             createPost.mutate(createPostInputValue);
         },
-        [sub.id, title.value, content.value, createPost]
+        [sub?.id, title.value, content.value, createPost]
     );
 
     return (
         <div className={styles.writing}>
             <form onSubmit={handleSubmit}>
-                <BoardTitle title={main.title} url={main.url} />
+                <BoardTitle title={main?.title} url={main?.url} />
                 <Divider />
                 <input type="text" placeholder="제목을 입력하세요." {...title} />
                 <Editor height="600px" initialEditType="wysiwyg" {...content} />

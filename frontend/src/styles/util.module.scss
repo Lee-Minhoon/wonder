@@ -19,7 +19,7 @@ $theme-color: #0099ff;
     color: $color;
     font: {
         display: swap;
-        family: "Roboto", "Noto Sans KR", sans-serif;
+        family: 'Roboto', 'Noto Sans KR', sans-serif;
         style: $style;
         weight: $weight;
         size: $size;
@@ -30,4 +30,40 @@ $theme-color: #0099ff;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+@mixin if-mobile() {
+    @media all and (max-width: 1170px) {
+        @content;
+    }
+}
+
+@mixin responsive-width($desktop, $mobile) {
+    width: $desktop;
+    @include if-mobile() {
+        width: $mobile;
+    }
+}
+
+@mixin responsive-size($desktop, $mobile, $ratio) {
+    @include size($desktop, calc(#{$desktop} / #{$ratio}));
+    @include if-mobile() {
+        @include size($mobile, calc(#{$mobile} / #{$ratio}));
+    }
+}
+
+@mixin media-content-align() {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: initial;
+    @include if-mobile() {
+        justify-content: center;
+    }
+}
+
+@mixin media-text-align() {
+    text-align: initial;
+    @include if-mobile() {
+        text-align: center;
+    }
 }

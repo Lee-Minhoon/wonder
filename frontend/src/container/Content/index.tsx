@@ -21,7 +21,7 @@ const Content = () => {
     return (
         <div className={styles.view}>
             <header>
-                <BoardTitle title={main.title} url={main.url} />
+                <BoardTitle title={main?.title} url={main?.url} />
                 <Divider />
             </header>
             <Post />

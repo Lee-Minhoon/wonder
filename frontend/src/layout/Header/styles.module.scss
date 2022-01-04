@@ -1,4 +1,4 @@
-@import "styles/util.module.scss";
+@import 'styles/util.module.scss';
 
 .header {
     display: flex;
@@ -9,9 +9,9 @@
 
 .userUtil {
     display: flex;
-    width: $content-width;
     justify-content: flex-end;
     margin-bottom: 10px;
+    @include responsive-width($content-width, 90%);
     ul {
         padding-inline-start: 0px;
     }
@@ -27,10 +27,10 @@
 
 .container {
     display: flex;
-    width: $content-width;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
+    @include responsive-width($content-width, 90%);
 }
 
 .logo {

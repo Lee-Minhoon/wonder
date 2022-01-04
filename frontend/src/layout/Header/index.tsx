@@ -1,12 +1,15 @@
-// import components
+// import packages, libraries
+import Link from 'next/link';
+
+// import hooks
+
+// import containers, components
 import UserMenu from './UserMenu';
-import Logo from './Logo';
 import SearchBar from 'components/SearchBar';
 import GNB from './GNB';
 
-// import styles
+// import styles, etc
 import styles from './styles.module.scss';
-import Link from 'next/link';
 
 const Header = () => {
     return (
