@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import wonder.backend.constants.ResponseCode;
 import wonder.backend.constants.ResponseMessage;
+import wonder.backend.dto.CommentInputDto;
+import wonder.backend.dto.PostInputDto;
 import wonder.backend.dto.Response;
 import wonder.backend.jwt.TokenProvider;
 import wonder.backend.service.CommentService;
@@ -30,15 +32,14 @@ public class CommentController {
     @PostMapping
     public ResponseEntity createComment(
             HttpServletRequest request,
-            @RequestParam("post") Long postId,
-            @RequestParam("content") String content
+            @RequestBody CommentInputDto comment
     ) {
-        logger.info("Request to create a comment : {}", content);
+        logger.info("Request to create a comment : {}", comment.getContent());
 
         String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
         String userEmail = tokenProvider.getUserEmail(jwt);
 
-        return commentService.createComment(userEmail, postId, content);
+        return commentService.createComment(userEmail, comment.getPost(), comment.getContent());
     }
 
     @GetMapping

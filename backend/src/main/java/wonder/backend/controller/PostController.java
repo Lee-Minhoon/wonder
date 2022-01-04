@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import wonder.backend.constants.ResponseCode;
 import wonder.backend.constants.ResponseMessage;
+import wonder.backend.domain.Post;
+import wonder.backend.dto.PostInputDto;
 import wonder.backend.dto.Response;
 import wonder.backend.jwt.TokenProvider;
 import wonder.backend.service.PostService;
@@ -29,16 +31,14 @@ public class PostController {
     @PostMapping
     public ResponseEntity createPost(
             HttpServletRequest request,
-            @RequestParam("category") Long categoryId,
-            @RequestParam("title") String title,
-            @RequestParam("content") String content
+            @RequestBody PostInputDto post
     ) {
-        logger.info("Request to create a post : {}", title);
+        logger.info("Request to create a post : {}", post.getTitle());
 
         String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
         String userEmail = tokenProvider.getUserEmail(jwt);
 
-        return postService.createPost(userEmail, categoryId, title, content);
+        return postService.createPost(userEmail, post.getCategory(), post.getTitle(), post.getContent());
     }
 
     @GetMapping

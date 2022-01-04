@@ -8,6 +8,7 @@ import styles from '../styles.module.scss';
 import { useRouter } from 'next/router';
 import createContent from 'service/comment/createContent';
 import useReadAllComment from 'hooks/comment/useReadAllComment';
+import useCreateComment from 'hooks/post/useCreateComment';
 
 export interface createCommentInput {
     post: any;
@@ -23,6 +24,7 @@ export interface readAllCommentInput {
 const Comment = () => {
     const content = useInput('');
     const router = useRouter();
+    const createComment = useCreateComment();
 
     const handleSubmit = useCallback(
         async (e) => {
@@ -31,13 +33,9 @@ const Comment = () => {
                 post: router.query.view,
                 content: content.value,
             };
-            const response = await createContent(createCommentInputValue);
-            if (response) {
-                console.log(response);
-                alert(response.message);
-            }
+            createComment.mutate(createCommentInputValue);
         },
-        [router, content]
+        [router.query.view, content.value, createComment]
     );
 
     const readAllCommentInputValue: readAllCommentInput = {
@@ -45,7 +43,7 @@ const Comment = () => {
         page: 0,
         size: 10,
     };
-    const { data, error, isLoading, isSuccess, isError } = useReadAllComment(readAllCommentInputValue);
+    const { data, error, isLoading, isError } = useReadAllComment(readAllCommentInputValue);
 
     if (isLoading) {
         return <p>Loading......</p>;

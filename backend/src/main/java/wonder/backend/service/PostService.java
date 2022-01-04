@@ -51,6 +51,7 @@ public class PostService {
         return ResponseEntity.ok()
                 .body(Response.builder()
                         .code(ResponseCode.SUCCESS)
+                        .data(post.getId())
                         .message(ResponseMessage.SUCCESS)
                         .build());
     }

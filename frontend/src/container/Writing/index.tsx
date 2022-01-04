@@ -16,8 +16,7 @@ import Editor from './Editor';
 
 // import styles
 import styles from './styles.module.scss';
-import useCategory from 'hooks/useCategory';
-import createPost from 'service/post/createPost';
+import useCreatePost from 'hooks/post/useCreatePost';
 
 export interface createPostInput {
     category: any;
@@ -27,33 +26,29 @@ export interface createPostInput {
 
 const Writing = () => {
     const router = useRouter();
-    const category = useCategory();
+    const main = category.find((item) => item.url === router.query.main);
+    const sub = main.sub.find((item) => item.url === router.query.sub);
     const title = useInput('');
     const content = useEditor('');
+    const createPost = useCreatePost();
 
     const handleSubmit = useCallback(
-        async (e) => {
+        (e) => {
             e.preventDefault();
-            console.log(category.sub.id);
             const createPostInputValue: createPostInput = {
-                category: category.sub.id,
+                category: sub.id,
                 title: title.value,
                 content: content.value,
             };
-            const response = await createPost(createPostInputValue);
-            if (response) {
-                console.log(response);
-                alert(response.message);
-                router.push('/');
-            }
+            createPost.mutate(createPostInputValue);
         },
-        [router, category, title, content]
+        [sub.id, title.value, content.value, createPost]
     );
 
     return (
         <div className={styles.writing}>
             <form onSubmit={handleSubmit}>
-                <BoardTitle title={category.main.title} url={category.main.url} />
+                <BoardTitle title={main.title} url={main.url} />
                 <Divider />
                 <input type="text" placeholder="제목을 입력하세요." {...title} />
                 <Editor height="600px" initialEditType="wysiwyg" {...content} />

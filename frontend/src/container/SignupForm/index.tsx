@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 
 // import service
-import signup from 'service/auth/signup';
 
 // import hooks
 import useInput from 'hooks/useInput';
@@ -9,6 +8,7 @@ import useInput from 'hooks/useInput';
 // import styles
 import styles from './styles.module.scss';
 import React, { useCallback } from 'react';
+import useSignup from 'hooks/auth/useSignup';
 
 export interface signupInput {
     email: any;
@@ -23,9 +23,10 @@ const Signup = () => {
     const password = useInput('');
     const check = useInput('');
     const nickname = useInput('');
+    const signup = useSignup();
 
     const handleSubmit = useCallback(
-        async (e) => {
+        (e) => {
             e.preventDefault();
             const signupInputValue: signupInput = {
                 email: email.value,
@@ -33,15 +34,21 @@ const Signup = () => {
                 check: check.value,
                 nickname: nickname.value,
             };
-            const response = await signup(signupInputValue);
-            if (response != undefined) {
-                console.log(response);
-                alert(response.message);
-                router.push('/');
-            }
+            signup.mutate(signupInputValue);
         },
-        [router, email, password, check, nickname]
+        [email.value, password.value, check.value, nickname.value, signup]
     );
+
+    // if (signup.isLoading) {
+    //     console.log('회원가입 시도중');
+    // }
+    // if (signup.isError) {
+    //     console.log(signup.error.response);
+    // }
+    // if (signup.isSuccess) {
+    //     console.log(signup.data);
+    //     router.push('/');
+    // }
 
     return (
         <div className={styles.signup}>

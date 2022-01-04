@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 
 // import service
-import login from 'service/auth/login';
 
 // import hooks
 import useInput from 'hooks/useInput';
@@ -35,16 +34,16 @@ const Login = () => {
         [email.value, login, password.value]
     );
 
-    if (login.isLoading) {
-        console.log('로그인 시도중');
-    }
-    if (login.isError) {
-        console.log(login.error.response);
-    }
-    if (login.isSuccess) {
-        console.log(login.data);
-        router.push('/');
-    }
+    // if (login.isLoading) {
+    //     console.log('로그인 시도중');
+    // }
+    // if (login.isError) {
+    //     console.log(login.error.response);
+    // }
+    // if (login.isSuccess) {
+    //     console.log(login.data);
+    //     router.push('/');
+    // }
 
     return (
         <div className={styles.login}>
