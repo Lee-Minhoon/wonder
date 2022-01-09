@@ -7,6 +7,9 @@ import styles from '../styles.module.scss';
 
 import { useRouter } from 'next/router';
 import useReadPost from 'hooks/post/useReadPost';
+import Span from 'components/Span/index';
+import Blank from 'components/Blank';
+import Emphasise from 'components/Emphasise';
 export interface readPostInput {
     id: any;
 }
@@ -27,6 +30,14 @@ const Post = () => {
     }
 
     const post = data.data;
+    const date = new Intl.DateTimeFormat('ko-KR', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+    }).format(new Date(post.createDate));
 
     return (
         <article className={styles.content}>
@@ -37,12 +48,17 @@ const Post = () => {
                         <Link href={`/user/${post.writerId}`}>
                             <a>{post.writer}</a>
                         </Link>
-                        <p>{post.createDate}</p>
+                        <Blank />
+                        <span>{date}</span>
                     </div>
                     <div>
-                        <p>{post.views}</p>
-                        <p>{post.likes}</p>
-                        <p>123</p>
+                        <Span>
+                            조회수 <Emphasise>{post.views}</Emphasise>
+                        </Span>
+                        <Blank />
+                        <Span>
+                            추천 <Emphasise>{post.likes}</Emphasise>
+                        </Span>
                     </div>
                 </div>
             </header>

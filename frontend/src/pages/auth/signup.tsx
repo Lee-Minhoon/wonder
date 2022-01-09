@@ -1,5 +1,7 @@
 import SignupForm from 'container/SignupForm';
 
-export default function signup() {
+const signup = () => {
     return <SignupForm />;
-}
+};
+
+export default signup;

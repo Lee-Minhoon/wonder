@@ -18,7 +18,7 @@ import wonder.backend.domain.User;
 import wonder.backend.dto.CommentDto;
 import wonder.backend.dto.PageDto;
 import wonder.backend.dto.Response;
-import wonder.backend.dto.mapper.CommentInterface;
+import wonder.backend.dto.mapper.CommentMapper;
 import wonder.backend.exception.CustomException;
 import wonder.backend.repository.CommentRepository;
 import wonder.backend.repository.PostRepository;
@@ -37,8 +37,9 @@ public class CommentService {
     private final CommentRepository commentRepository;
 
     public ResponseEntity createComment(String userEmail, Long postId, String content) {
-        User user = getUserByEmail(userEmail);
-        Post post = getPostById(postId);
+        User user = getOrElseThrow(userRepository.findByEmail(userEmail));
+        Post post = getOrElseThrow(postRepository.findById(postId));
+
 
         Comment comment = Comment.builder()
                 .content(content)
@@ -58,23 +59,46 @@ public class CommentService {
     @Transactional(readOnly = true)
     public PageDto readAllComment(Long postId, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<CommentInterface> result = commentRepository.findAllCommentByPost(postId, pageable);
+        Page<CommentMapper> result = commentRepository.findAllCommentByPost(postId, pageable);
         return PageDto.builder()
                 .pages(result.getTotalPages())
                 .count(result.getTotalElements())
-                .data(result.stream().map(CommentDto::new).collect(Collectors.toList()))
+                .data(result.stream().map(CommentDto.ReadCommentDto::new).collect(Collectors.toList()))
                 .build();
     }
 
-    public User getUserByEmail(String email) {
-        Optional<User> user = userRepository.findByEmail(email);
-        user.orElseThrow(() -> new CustomException(ExceptionEnum.NOT_FOUND));
-        return user.get();
+    public ResponseEntity updateComment(Long commentId, String userEmail, String content) {
+        Comment comment = getOrElseThrow(commentRepository.findById(commentId));
+        User user = getOrElseThrow(userRepository.findByEmail(userEmail));
+
+        if(comment.getUser().getId() != user.getId()) new CustomException(ExceptionEnum.UNAUTHORIZED);
+
+        comment.setContent(content);
+        commentRepository.save(comment);
+
+        return ResponseEntity.ok()
+                .body(Response.builder()
+                        .code(ResponseCode.SUCCESS)
+                        .message(ResponseMessage.SUCCESS)
+                        .build());
     }
 
-    public Post getPostById(Long id) {
-        Optional<Post> post = postRepository.findById(id);
-        post.orElseThrow(() -> new CustomException(ExceptionEnum.NOT_FOUND));
-        return post.get();
+    public ResponseEntity deleteComment(Long commentId, String userEmail) {
+        Comment comment = getOrElseThrow(commentRepository.findById(commentId));
+        User user = getOrElseThrow(userRepository.findByEmail(userEmail));
+
+        if(comment.getUser().getId() != user.getId()) new CustomException(ExceptionEnum.UNAUTHORIZED);
+
+        commentRepository.delete(comment);
+
+        return ResponseEntity.ok()
+                .body(Response.builder()
+                        .code(ResponseCode.SUCCESS)
+                        .message(ResponseMessage.SUCCESS)
+                        .build());
+    }
+
+    public <T> T getOrElseThrow(Optional<T> param) {
+        return param.orElseThrow(() -> new CustomException(ExceptionEnum.NOT_FOUND));
     }
 }

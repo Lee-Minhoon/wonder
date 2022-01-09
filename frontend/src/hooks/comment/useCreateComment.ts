@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { createCommentInput } from 'container/Content/Comment';
 
 const createComment = async (input: createCommentInput) => {
-    const { data } = await AxiosService.instance.post('comment', {
+    const { data } = await AxiosService.instance.post('comments', {
         post: input.post,
         content: input.content,
     });

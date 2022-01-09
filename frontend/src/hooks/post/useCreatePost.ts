@@ -4,7 +4,7 @@ import { createPostInput } from 'container/Writing';
 import { useRouter } from 'next/router';
 
 const createPost = async (input: createPostInput) => {
-    const { data } = await AxiosService.instance.post('post', {
+    const { data } = await AxiosService.instance.post('posts', {
         category: input.category,
         title: input.title,
         content: input.content,

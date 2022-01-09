@@ -51,18 +51,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
+
                 .antMatchers("/auth/signup").permitAll()
                 .antMatchers("/auth/login").permitAll()
-                .antMatchers(HttpMethod.GET, "/user").permitAll()
-                .antMatchers(HttpMethod.GET, "/user/{id}").permitAll()
-                .antMatchers(HttpMethod.GET, "/post").permitAll()
-                .antMatchers(HttpMethod.GET, "/post/{id}").permitAll()
-                .antMatchers(HttpMethod.GET, "/comment").permitAll()
+
+                .antMatchers(HttpMethod.GET, "/users").permitAll()
+                .antMatchers(HttpMethod.GET, "/users/{id}").permitAll()
+                .antMatchers(HttpMethod.GET, "/posts").permitAll()
+                .antMatchers(HttpMethod.GET, "/posts/{id}").permitAll()
+                .antMatchers(HttpMethod.GET, "/users/{id}/posts").permitAll()
+                .antMatchers(HttpMethod.GET, "/comments").permitAll()
 
                 .antMatchers("/recommendation").permitAll()
                 .antMatchers("/recommendation/test").permitAll()
 
-                .antMatchers(HttpMethod.POST, "/post").access("hasAnyRole('USER, ADMIN')")
+                .antMatchers(HttpMethod.POST, "/posts").access("hasAnyRole('USER, ADMIN')")
+                .antMatchers(HttpMethod.PUT, "/posts/{id}").access("hasAnyRole('USER, ADMIN')")
+                .antMatchers(HttpMethod.DELETE, "/posts/{id}").access("hasAnyRole('USER, ADMIN')")
+
                 .antMatchers(HttpMethod.POST, "/comment").access("hasAnyRole('USER, ADMIN')")
                 .anyRequest().authenticated();
     }

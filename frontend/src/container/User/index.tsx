@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { readUser } from 'hooks/user/useReadUser';
 
 import useReadUser from '../../hooks/user/useReadUser';
+import styles from './styles.module.scss';
 
 export interface readUserInput {
     id: any;
@@ -27,11 +28,17 @@ const User = () => {
     const user = data.data;
 
     return (
-        <>
-            <header></header>
-            <section>{user.nickname}</section>
+        <div className={styles.user}>
+            <header>
+                <div className={styles.profile}>프로필</div>
+                <div className={styles.info}>
+                    <p>{user.nickname}</p>
+                    <p>{user.grade}</p>
+                </div>
+            </header>
+            <section>가 쓴글</section>
             <footer></footer>
-        </>
+        </div>
     );
 };
 

@@ -1,7 +1,6 @@
 import { useMutation } from 'react-query';
 import { AxiosService } from '../../service/defaultAxiosService';
 import { signupInput } from 'container/SignupForm';
-import { useRouter } from 'next/router';
 
 const signup = async (input: signupInput) => {
     const { data } = await AxiosService.instance.post('auth/signup', {
@@ -13,7 +12,6 @@ const signup = async (input: signupInput) => {
 };
 
 const useSignup = () => {
-    const router = useRouter();
     return useMutation((input: signupInput) => signup(input), {
         onMutate: (variables) => {
             console.log(variables);
@@ -23,7 +21,6 @@ const useSignup = () => {
         },
         onSuccess: (data, variables, context) => {
             console.log(data);
-            router.push('/');
         },
     });
 };

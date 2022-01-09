@@ -8,11 +8,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import wonder.backend.constants.ResponseCode;
 import wonder.backend.constants.ResponseMessage;
+import wonder.backend.domain.PrincipalDetails;
+import wonder.backend.dto.AuthDto;
 import wonder.backend.dto.Response;
 import wonder.backend.dto.TokenDto;
 import wonder.backend.domain.User;
@@ -37,7 +40,7 @@ public class AuthController {
 
     @PostMapping("signup")
     public ResponseEntity signup(
-            @RequestBody User user
+            @RequestBody AuthDto.SignupDto user
     ) {
         logger.info("Request to signup : {}", user.getEmail());
 
@@ -51,7 +54,7 @@ public class AuthController {
     @PostMapping("login")
     public ResponseEntity login(
             HttpServletResponse response,
-            @RequestBody User user
+            @RequestBody AuthDto.LoginDto user
     ) {
         logger.info("Request to login : {}", user.getEmail());
 
@@ -59,6 +62,10 @@ public class AuthController {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
+
+
+        PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+        System.out.println(principalDetails.getNickname());
 
         // jwt 생성
         String jwt = tokenProvider.createToken(authentication);

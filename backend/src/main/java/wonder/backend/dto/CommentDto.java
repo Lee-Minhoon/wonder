@@ -2,23 +2,36 @@ package wonder.backend.dto;
 
 import lombok.Builder;
 import lombok.Getter;
-import wonder.backend.dto.mapper.CommentInterface;
-import wonder.backend.dto.mapper.PostInterface;
+import wonder.backend.dto.mapper.CommentMapper;
 
 import java.sql.Timestamp;
 
-@Getter
 public class CommentDto {
-    private Long id;
-    private String content;
-    private String writer;
-    private Timestamp createDate;
+    @Getter
+    public static class CreateCommentDto {
+        private Long post;
+        private String content;
+    }
 
-    @Builder
-    public CommentDto(CommentInterface commentInterface) {
-        this.id = commentInterface.getId();
-        this.content = commentInterface.getContent();
-        this.writer = commentInterface.getWriter();
-        this.createDate = commentInterface.getCreateDate();
+    @Getter
+    public static class ReadCommentDto {
+        private Long id;
+        private String content;
+        private String writer;
+        private Timestamp createDate;
+
+        @Builder
+        public ReadCommentDto(CommentMapper commentMapper) {
+            this.id = commentMapper.getId();
+            this.content = commentMapper.getContent();
+            this.writer = commentMapper.getWriter();
+            this.createDate = commentMapper.getCreateDate();
+        }
+    }
+
+    @Getter
+    public static class UpdatePostDto {
+        private String content;
+        private Timestamp updateDate;
     }
 }

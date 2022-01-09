@@ -12,13 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 import wonder.backend.constants.ExceptionEnum;
 import wonder.backend.constants.ResponseCode;
 import wonder.backend.constants.ResponseMessage;
-import wonder.backend.domain.Category;
 import wonder.backend.domain.Post;
 import wonder.backend.domain.User;
 import wonder.backend.dto.PageDto;
 import wonder.backend.dto.PostDto;
 import wonder.backend.dto.Response;
-import wonder.backend.dto.mapper.PostInterface;
+import wonder.backend.dto.mapper.PostMapper;
 import wonder.backend.exception.CustomException;
 import wonder.backend.repository.CategoryRepository;
 import wonder.backend.repository.PostRepository;
@@ -37,10 +36,10 @@ public class PostService {
     private final CategoryRepository categoryRepository;
 
     public ResponseEntity createPost(String userEmail, Long categoryId, String title, String content) {
-        User user = getUserByEmail(userEmail);
+        User user = getOrElseThrow(userRepository.findByEmail(userEmail));
 
         Post post = Post.builder()
-                .category(getCategoryById(categoryId))
+                .category(getOrElseThrow(categoryRepository.findById(categoryId)))
                 .title(title)
                 .content(content)
                 .build();
@@ -57,38 +56,67 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public PostDto readPost(Long id) {
-        return PostDto.builder()
-                .postInterface(getPostById(id))
+    public PostDto.ReadPostDto readPost(Long id) {
+        return PostDto.ReadPostDto.builder()
+                .postMapper(getOrElseThrow(postRepository.findPostInfoById(id)))
                 .build();
     }
 
     @Transactional(readOnly = true)
     public PageDto readAllPost(Long categoryId, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<PostInterface> result = postRepository.findAllPostByCategory(categoryId, pageable);
+        Page<PostMapper> result = postRepository.findAllPostByCategory(categoryId, pageable);
         return PageDto.builder()
                 .pages(result.getTotalPages())
                 .count(result.getTotalElements())
-                .data(result.stream().map(PostDto::new).collect(Collectors.toList()))
+                .data(result.stream().map(PostDto.ReadAllPostDto::new).collect(Collectors.toList()))
                 .build();
     }
 
-    public Category getCategoryById(Long id) {
-        Optional<Category> category = categoryRepository.findById(id);
-        category.orElseThrow(() -> new CustomException(ExceptionEnum.NOT_FOUND));
-        return category.get();
+    @Transactional(readOnly = true)
+    public PageDto readAllPostByUser(Long userId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<PostMapper> result = postRepository.findAllPostByUser(userId, pageable);
+        return PageDto.builder()
+                .pages(result.getTotalPages())
+                .count(result.getTotalElements())
+                .data(result.stream().map(PostDto.ReadAllPostDto::new).collect(Collectors.toList()))
+                .build();
     }
 
-    public User getUserByEmail(String email) {
-        Optional<User> user = userRepository.findByEmail(email);
-        user.orElseThrow(() -> new CustomException(ExceptionEnum.NOT_FOUND));
-        return user.get();
+    public ResponseEntity updatePost(Long postId, String userEmail, String title, String content) {
+        Post post = getOrElseThrow(postRepository.findById(postId));
+        User user = getOrElseThrow(userRepository.findByEmail(userEmail));
+
+        if(post.getUser().getId() != user.getId()) new CustomException(ExceptionEnum.UNAUTHORIZED);
+
+        post.setTitle(title);
+        post.setContent(content);
+        postRepository.save(post);
+
+        return ResponseEntity.ok()
+                .body(Response.builder()
+                        .code(ResponseCode.SUCCESS)
+                        .message(ResponseMessage.SUCCESS)
+                        .build());
     }
 
-    public PostInterface getPostById(Long id) {
-        Optional<PostInterface> post = postRepository.findPost(id);
-        post.orElseThrow(() -> new CustomException(ExceptionEnum.NOT_FOUND));
-        return post.get();
+    public ResponseEntity deletePost(Long postId, String userEmail) {
+        Post post = getOrElseThrow(postRepository.findById(postId));
+        User user = getOrElseThrow(userRepository.findByEmail(userEmail));
+
+        if(post.getUser().getId() != user.getId()) new CustomException(ExceptionEnum.UNAUTHORIZED);
+
+        postRepository.delete(post);
+
+        return ResponseEntity.ok()
+                .body(Response.builder()
+                        .code(ResponseCode.SUCCESS)
+                        .message(ResponseMessage.SUCCESS)
+                        .build());
+    }
+
+    public <T> T getOrElseThrow(Optional<T> param) {
+        return param.orElseThrow(() -> new CustomException(ExceptionEnum.NOT_FOUND));
     }
 }

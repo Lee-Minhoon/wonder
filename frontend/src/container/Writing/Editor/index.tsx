@@ -1,7 +1,7 @@
 import { useRef, forwardRef, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 
-const WrappedEditor = dynamic(() => import('./WrappedEditor'), { ssr: false });
+const WrappedEditor = dynamic(async () => await import('./WrappedEditor'), { ssr: false });
 
 // EditorWithForwardedRef는 전달된 ref를 얻는다.
 const EditorWithForwardedRef = forwardRef((props, ref) => (

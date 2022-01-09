@@ -1,0 +1,10 @@
+@import 'styles/util.module.scss';
+
+.button {
+    background-color: $theme-color;
+    border: none;
+    cursor: pointer;
+    @include font(white, normal, 300, 1.6rem);
+    box-shadow: 0 1px 3px 0 grey;
+    border-radius: 10%;
+}

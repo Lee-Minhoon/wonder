@@ -34,16 +34,15 @@ const Login = () => {
         [email.value, login, password.value]
     );
 
-    // if (login.isLoading) {
-    //     console.log('로그인 시도중');
-    // }
-    // if (login.isError) {
-    //     console.log(login.error.response);
-    // }
-    // if (login.isSuccess) {
-    //     console.log(login.data);
-    //     router.push('/');
-    // }
+    if (login.isLoading) {
+        console.log('로그인 시도중');
+    }
+    if (login.isError) {
+        console.log('에러 발생');
+    }
+    if (login.isSuccess) {
+        router.push('/');
+    }
 
     return (
         <div className={styles.login}>

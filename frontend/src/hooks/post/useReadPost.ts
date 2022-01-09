@@ -11,7 +11,7 @@ export interface readUserResponse {
 }
 
 const readPost = async (input: readPostInput) => {
-    const { data } = await AxiosService.instance.get(`post/${input.id}`);
+    const { data } = await AxiosService.instance.get(`posts/${input.id}`);
     return data;
 };
 

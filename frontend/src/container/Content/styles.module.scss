@@ -19,9 +19,6 @@
 .info {
     display: flex;
     justify-content: space-between;
-    div {
-        display: flex;
-    }
 }
 
 .comment {
@@ -29,20 +26,26 @@
         padding-bottom: 5px;
         border-bottom: 2px solid $theme-color;
     }
-    form div {
-        @include size(100%, 100px);
-        border: 1px solid $light-gray;
-        input {
-            @include font(black, normal, 300, 1.6rem);
-            padding: 0 10px;
-            @include size(100%, 100%);
-            border: none;
-            outline: none;
+    form {
+        .inputBox {
+            @include size(100%, 100px);
+            border: 1px solid $light-gray;
+            input {
+                @include font(black, normal, 300, 1.6rem);
+                padding: 0 10px;
+                @include size(100%, 100%);
+                border: none;
+                outline: none;
+            }
+            &:focus-within {
+                border: 1px solid $theme-color;
+            }
+            margin-bottom: 10px;
         }
-        &:focus-within {
-            border: 1px solid $theme-color;
+        .button {
+            display: flex;
+            justify-content: flex-end;
         }
-        margin-bottom: 10px;
     }
 }
 
@@ -55,6 +58,5 @@
 
 .item {
     border-bottom: 1px solid $light-gray;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding: 10px 0;
 }

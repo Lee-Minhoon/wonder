@@ -1,9 +1,7 @@
 import Link from 'next/link';
 import styles from './styles.module.scss';
 
-const BoardTitle = (props) => {
-    const { title, url } = props;
-
+const BoardTitle = ({ title, url }) => {
     return (
         <div className={styles.boardTitle}>
             <Link href={{ pathname: '/board/list', query: { main: url, sub: 'all', page: 1, size: 20 } }}>

@@ -1,0 +1,14 @@
+@import 'styles/util.module.scss';
+
+.user {
+    header {
+        display: flex;
+    }
+    .profile {
+        @include size(250px, 250px);
+        margin-right: 10px;
+    }
+    .info {
+        width: 910px;
+    }
+}

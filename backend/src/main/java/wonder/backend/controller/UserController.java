@@ -11,37 +11,22 @@ import wonder.backend.dto.Response;
 import wonder.backend.service.UserService;
 
 @RestController
-@RequestMapping("user")
+@RequestMapping("users")
 @AllArgsConstructor
 public class UserController {
     private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     private final UserService userService;
 
-//    @GetMapping
-//    public ResponseEntity signup(
-//            @RequestParam("page") int page,
-//            @RequestParam("size") int size
-//    ) {
-//        logger.info("Request to read all posts");
-//
-//        return ResponseEntity.ok()
-//                .body(Response.builder()
-//                        .code(ResponseCode.SUCCESS)
-//                        .message(ResponseMessage.SUCCESS)
-//                        .data(userService.readAllPost(page, size))
-//                        .build());
-//    }
-
     @GetMapping("{id}")
     public ResponseEntity readUser(
-            @PathVariable("id") Long id
+            @PathVariable("id") Long userId
     ) {
         return ResponseEntity.ok()
                 .body(Response.builder()
                         .code(ResponseCode.SUCCESS)
                         .message(ResponseMessage.SUCCESS)
-                        .data(userService.readUser(id))
+                        .data(userService.readUser(userId))
                         .build());
     }
 }

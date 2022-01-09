@@ -3,7 +3,7 @@ import { AxiosService } from '../../service/defaultAxiosService';
 import { readAllPostInput } from 'container/Board';
 
 const readAllPost = async (input: readAllPostInput) => {
-    const { data } = await AxiosService.instance.get('post', {
+    const { data } = await AxiosService.instance.get('posts', {
         params: {
             category: input.category,
             page: input.page,

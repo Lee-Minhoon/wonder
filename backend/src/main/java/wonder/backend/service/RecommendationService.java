@@ -37,8 +37,8 @@ public class RecommendationService {
 
         Recommendation recommendation = Recommendation.builder()
                 .recommendationId(recommendationId)
-                .post(getPostById(postId))
-                .user(getUserById(userId))
+                .post(getOrElseThrow(postRepository.findById(postId)))
+                .user(getOrElseThrow(userRepository.findById(userId)))
                 .build();
         recommendationRepository.save(recommendation);
 
@@ -62,15 +62,7 @@ public class RecommendationService {
         return like.isPresent() ? true : false;
     }
 
-    public User getUserById(Long id) {
-        Optional<User> user = userRepository.findById(id);
-        user.orElseThrow(() -> new CustomException(ExceptionEnum.NOT_FOUND));
-        return user.get();
-    }
-
-    public Post getPostById(Long id) {
-        Optional<Post> post = postRepository.findById(id);
-        post.orElseThrow(() -> new CustomException(ExceptionEnum.NOT_FOUND));
-        return post.get();
+    public <T> T getOrElseThrow(Optional<T> param) {
+        return param.orElseThrow(() -> new CustomException(ExceptionEnum.NOT_FOUND));
     }
 }

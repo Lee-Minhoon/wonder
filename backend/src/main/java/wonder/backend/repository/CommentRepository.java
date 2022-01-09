@@ -5,11 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import wonder.backend.domain.Comment;
-import wonder.backend.domain.Post;
-import wonder.backend.dto.mapper.CommentInterface;
-import wonder.backend.dto.mapper.PostInterface;
-
-import java.util.Optional;
+import wonder.backend.dto.mapper.CommentMapper;
 
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
@@ -22,5 +18,5 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
             countQuery = "SELECT * FROM comment as c " +
                     "WHERE c.post_id = :postId ",
             nativeQuery = true)
-    Page<CommentInterface> findAllCommentByPost(Long postId, Pageable pageable);
+    Page<CommentMapper> findAllCommentByPost(Long postId, Pageable pageable);
 }

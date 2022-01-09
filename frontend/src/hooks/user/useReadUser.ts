@@ -11,7 +11,7 @@ export interface readUserResponse {
 }
 
 export const readUser = async (input: readUserInput) => {
-    const { data } = await AxiosService.instance.get(`user/${input.id}`);
+    const { data } = await AxiosService.instance.get(`users/${input.id}`);
     return data;
 };
 

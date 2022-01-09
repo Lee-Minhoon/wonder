@@ -4,12 +4,17 @@ import Link from 'next/link';
 import styles from '../styles.module.scss';
 import { useRouter } from 'next/router';
 import category from 'constants/category';
+import Emphasise from 'components/Emphasise';
 
 const PostItem = (props) => {
     const router = useRouter();
     const main = category.find((item) => item.url === router.query.main);
-    const sub = main.sub.find((item) => item.url === router.query.sub);
-    const date = new Date(props.createDate);
+    const sub = main.sub.find((item) => item.title === props.category);
+    const date = new Intl.DateTimeFormat('ko-KR', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+    }).format(new Date(props.createDate));
 
     return (
         <tr className={styles.item}>
@@ -23,6 +28,7 @@ const PostItem = (props) => {
                 <Link href={{ pathname: `/board/${props.id}`, query: { ...router.query } }}>
                     <a>{props.title}</a>
                 </Link>
+                <Emphasise> [{props.comments}]</Emphasise>
             </td>
             <td>
                 <Link href={`/user/${props.writerId}`}>

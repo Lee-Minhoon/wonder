@@ -12,7 +12,6 @@ const login = async (input: loginInput) => {
 };
 
 const useLogin = () => {
-    const router = useRouter();
     return useMutation((input: loginInput) => login(input), {
         onMutate: (variables) => {
             console.log(variables);
@@ -23,7 +22,6 @@ const useLogin = () => {
         onSuccess: (data, variables, context) => {
             console.log(data);
             AxiosService.addHeaderToken(data.data.token);
-            router.push('/');
         },
     });
 };

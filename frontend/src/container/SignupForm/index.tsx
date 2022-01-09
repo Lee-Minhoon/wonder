@@ -39,16 +39,15 @@ const Signup = () => {
         [email.value, password.value, check.value, nickname.value, signup]
     );
 
-    // if (signup.isLoading) {
-    //     console.log('회원가입 시도중');
-    // }
-    // if (signup.isError) {
-    //     console.log(signup.error.response);
-    // }
-    // if (signup.isSuccess) {
-    //     console.log(signup.data);
-    //     router.push('/');
-    // }
+    if (signup.isLoading) {
+        console.log('회원가입 시도중');
+    }
+    if (signup.isError) {
+        console.log('에러 발생');
+    }
+    if (signup.isSuccess) {
+        router.push('/');
+    }
 
     return (
         <div className={styles.signup}>

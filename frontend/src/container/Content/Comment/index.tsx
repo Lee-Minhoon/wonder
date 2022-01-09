@@ -6,9 +6,9 @@ import useInput from 'hooks/useInput';
 // import styles
 import styles from '../styles.module.scss';
 import { useRouter } from 'next/router';
-import createContent from 'service/comment/createContent';
 import useReadAllComment from 'hooks/comment/useReadAllComment';
-import useCreateComment from 'hooks/post/useCreateComment';
+import useCreateComment from 'hooks/comment/useCreateComment';
+import Button from 'components/Button';
 
 export interface createCommentInput {
     post: any;
@@ -60,9 +60,11 @@ const Comment = () => {
             <header>{comments.count}개의 댓글 등록순</header>
             <CommentList comments={comments.data} />
             <form onSubmit={handleSubmit}>
-                <div>
+                <div className={styles.inputBox}>
                     <input type="text" placeholder="댓글을 입력하세요." {...content} />
-                    <button type="submit">＠</button>
+                </div>
+                <div className={styles.button}>
+                    <Button onClick={handleSubmit}>댓글 등록</Button>
                 </div>
             </form>
         </section>

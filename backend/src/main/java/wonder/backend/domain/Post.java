@@ -26,7 +26,7 @@ public class Post {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Category category;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private Set<Comment> comments = new HashSet<>();
 
     public void add(Comment comment) {
