@@ -1,6 +1,7 @@
 package wonder.backend.service;
 
 import lombok.RequiredArgsConstructor;
+import org.hibernate.engine.jdbc.WrappedNClob;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -23,6 +24,12 @@ import wonder.backend.repository.CategoryRepository;
 import wonder.backend.repository.PostRepository;
 import wonder.backend.repository.UserRepository;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
+import java.sql.Clob;
+import java.sql.SQLException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 

@@ -7,7 +7,9 @@ import Comment from './container/Content/Comment/index';
     }
 
     createPost(content) {
-        this.AxiosInstance.post()
+        this.AxiosInstance.post('/commnet', {
+            comment,
+        })
     }
 }
 
