@@ -2,7 +2,7 @@
 import PostItem from './PostItem';
 
 // import styles
-import styles from '../styles.module.scss';
+import styles from './styles.module.scss';
 
 const PostList = (props) => {
     return (

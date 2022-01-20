@@ -16,32 +16,10 @@
     }
 }
 
-.footer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 .item {
     height: 35px;
     @include font(black, normal, 300, 1.4rem);
     td:not(:nth-child(3)) {
         text-align: center;
-    }
-}
-
-.page {
-    margin-top: 5px;
-    height: 50px;
-    ul {
-        padding-inline-start: 0px;
-    }
-    li {
-        display: inline-flex;
-        margin: 0 10px;
-        @include font($dark-gray, normal, 400, 1.6rem);
-        &:hover {
-            color: $theme-color;
-        }
     }
 }

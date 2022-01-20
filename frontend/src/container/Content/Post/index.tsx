@@ -15,8 +15,6 @@ export interface readPostInput {
 }
 
 const Post = () => {
-    console.log('asdfsdf');
-
     const router = useRouter();
     const readPostInputValue: readPostInput = {
         id: router.query.view,

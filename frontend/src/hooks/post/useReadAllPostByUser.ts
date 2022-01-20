@@ -1,9 +1,9 @@
 import { useQuery } from 'react-query';
 import { AxiosService } from '../../service/defaultAxiosService';
-import { readAllPostInput } from 'container/Board';
+import { readAllPostByUserInput } from 'container/User';
 
-const readAllPostByUser = async (input: readAllPostInput) => {
-    const { data } = await AxiosService.instance.get(`users/${input.id}/posts`, {
+const readAllPostByUser = async (input: readAllPostByUserInput) => {
+    const { data } = await AxiosService.instance.get(`users/${input.user}/posts`, {
         params: {
             page: input.page,
             size: input.size,
@@ -12,7 +12,7 @@ const readAllPostByUser = async (input: readAllPostInput) => {
     return data;
 };
 
-const useReadAllPostByUser = (input: readAllPostInput) => {
+const useReadAllPostByUser = (input: readAllPostByUserInput) => {
     const response = useQuery(['read_all_post_by_user', input], async () => readAllPostByUser(input));
     return response;
 };

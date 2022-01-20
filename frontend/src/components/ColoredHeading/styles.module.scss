@@ -1,0 +1,5 @@
+@import 'styles/util.module.scss';
+
+.heading {
+    @include font($theme-color, normal, 400, 2.4rem);
+}
