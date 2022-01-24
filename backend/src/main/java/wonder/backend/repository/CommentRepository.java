@@ -9,7 +9,7 @@ import wonder.backend.dto.mapper.CommentMapper;
 
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
-    @Query(value = "SELECT c.id, c.content, c.create_date as createDate, u.nickname as writer " +
+    @Query(value = "SELECT c.id, c.content, c.created_at as createdAt, u.nickname as writer " +
             "FROM comment as c " +
             "LEFT JOIN user as u " +
             "ON c.user_id = u.id " +

@@ -1,14 +1,18 @@
-// import components
-import CommentList from './CommentList';
+// import package, library
 import { useCallback } from 'react';
-import useInput from 'hooks/useInput';
-
-// import styles
-import styles from '../styles.module.scss';
 import { useRouter } from 'next/router';
+
+// import utilities
 import useReadAllComment from 'hooks/comment/useReadAllComment';
 import useCreateComment from 'hooks/comment/useCreateComment';
+import useInput from 'hooks/useInput';
+
+// import components
+import CommentList from './CommentList';
 import Button from 'components/Button';
+
+// import etc
+import styles from '../styles.module.scss';
 
 export interface createCommentInput {
     post: any;

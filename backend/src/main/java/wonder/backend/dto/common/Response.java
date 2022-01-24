@@ -1,4 +1,4 @@
-package wonder.backend.dto;
+package wonder.backend.dto.common;
 
 import lombok.Builder;
 import lombok.Data;

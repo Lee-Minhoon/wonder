@@ -1,9 +1,12 @@
-import LinkList from 'components/LinkList';
+// import package, library
 import { useRouter } from 'next/router';
-// import constants
+
+// import utilities
 
 // import components
-// import styles
+import LinkList from 'components/LinkList';
+
+// import etc
 import styles from '../styles.module.scss';
 
 const Pagination = ({ pages }) => {

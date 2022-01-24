@@ -7,5 +7,5 @@ public interface CommentMapper {
     String getContent();
     Long getWriterId();
     String getWriter();
-    Timestamp getCreateDate();
+    Timestamp getCreateAt();
 }

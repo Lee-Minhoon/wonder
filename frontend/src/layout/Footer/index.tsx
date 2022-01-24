@@ -1,9 +1,12 @@
+// import package, library
 import Link from 'next/link';
+
+// import utilities
 
 // import components
 import footer from 'constants/footer';
 
-// import styles
+// import etc
 import styles from './styles.module.scss';
 
 const Footer = () => {

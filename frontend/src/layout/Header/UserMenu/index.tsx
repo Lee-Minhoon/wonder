@@ -1,6 +1,11 @@
+// import package, library
 import LinkList from 'components/LinkList';
 
-// import styles
+// import utilities
+
+// import components
+
+// import etc
 import styles from '../styles.module.scss';
 
 const UserMenu = () => {

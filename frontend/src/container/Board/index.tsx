@@ -1,20 +1,21 @@
+// import package, library
 import { useRouter } from 'next/router';
-// import constants
+
+// import utilities
+import useReadAllPost from 'hooks/post/useReadAllPost';
 
 // import components
+import Pagination from './Pagination';
+import PostUtil from 'components/PostUtil';
 import BoardTitle from 'components/BoardTitle';
 import Divider from 'components/Divider';
 import Banner from 'components/Banner';
 import PostList from 'components/PostList';
 import SearchBar from 'components/SearchBar';
 
-// import styles
+// import etc
 import styles from './styles.module.scss';
 import category from 'constants/category';
-import useReadAllPost from 'hooks/post/useReadAllPost';
-import Pagination from './Pagination';
-import PostUtil from 'components/PostUtil';
-import useCategory from 'hooks/useCategory';
 
 export interface readAllPostInput {
     category: number;

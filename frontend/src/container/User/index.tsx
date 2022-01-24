@@ -1,16 +1,16 @@
+// import package, library
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-// import constants
-import { readUser } from 'hooks/user/useReadUser';
+
+// import utilities
+import useReadAllPostByUser from 'hooks/post/useReadAllPostByUser';
+
+// import components
+import UserInfo from './UserInfo';
 import PostList from 'components/PostList';
 
-import useReadUser from '../../hooks/user/useReadUser';
+// import etc
 import styles from './styles.module.scss';
-import Heading from 'components/ColoredHeading';
-import Divider from 'components/Divider';
-import UserInfo from './UserInfo';
-import useReadAllPostByUser from 'hooks/post/useReadAllPostByUser';
-import PostUtil from 'components/PostUtil';
 
 export interface readUserInput {
     id: any;

@@ -1,10 +1,15 @@
+// import package, library
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 
-// import styles
-import styles from '../styles.module.scss';
-import { useRouter } from 'next/router';
-import category from 'constants/category';
+// import utilities
+
+// import components
 import Emphasise from 'components/Emphasise';
+
+// import etc
+import styles from '../styles.module.scss';
+import category from 'constants/category';
 
 const PostItem = (props) => {
     const router = useRouter();
@@ -13,7 +18,7 @@ const PostItem = (props) => {
         year: 'numeric',
         month: '2-digit',
         day: '2-digit',
-    }).format(new Date(props.createDate));
+    }).format(new Date(props.createdAt));
 
     return (
         <tr className={styles.item}>

@@ -1,20 +1,17 @@
 package wonder.backend.domain;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
+import wonder.backend.domain.common.BaseTimeEntity;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity @Getter @Setter @NoArgsConstructor
-public class User {
+public class User extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,10 +22,6 @@ public class User {
     private String nickname;
     private String grade = "NORMAL";
     private String role = "ROLE_USER";
-    @CreationTimestamp
-    private Timestamp loginDate;
-    @CreationTimestamp
-    private Timestamp createDate;
 
     @OneToMany(mappedBy = "user")
     private Set<Post> posts = new HashSet<>();

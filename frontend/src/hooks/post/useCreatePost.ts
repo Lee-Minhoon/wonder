@@ -1,7 +1,14 @@
+// import package, library
 import { useMutation } from 'react-query';
-import { AxiosService } from '../../service/defaultAxiosService';
-import { createPostInput } from 'container/Writing';
 import { useRouter } from 'next/router';
+
+// import utilities
+import { AxiosService } from 'service/defaultAxiosService';
+
+// import components
+
+// import etc
+import { createPostInput } from 'container/Writing';
 
 const createPost = async (input: createPostInput) => {
     const { data } = await AxiosService.instance.post('posts', {

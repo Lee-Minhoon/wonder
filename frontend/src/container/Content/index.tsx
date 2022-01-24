@@ -1,7 +1,7 @@
-import { useSelector } from 'react-redux';
-import { useState } from 'react';
+// import package, library
+import { useRouter } from 'next/router';
 
-// import constants
+// import utilities
 
 // import components
 import BoardTitle from 'components/BoardTitle';
@@ -9,10 +9,9 @@ import Divider from 'components/Divider';
 import Post from './Post';
 import Comment from './Comment';
 
-// import styles
+// import etc
 import styles from './styles.module.scss';
 import category from 'constants/category';
-import { useRouter } from 'next/router';
 
 const Content = () => {
     const router = useRouter();

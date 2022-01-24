@@ -1,5 +1,12 @@
+// import package, library
 import { useRef, forwardRef, useCallback } from 'react';
 import dynamic from 'next/dynamic';
+
+// import utilities
+
+// import components
+
+// import etc
 
 const WrappedEditor = dynamic(async () => await import('./WrappedEditor'), { ssr: false });
 

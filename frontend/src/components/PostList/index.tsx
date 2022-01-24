@@ -1,7 +1,11 @@
+// import package, library
+
+// import utilities
+
 // import components
 import PostItem from './PostItem';
 
-// import styles
+// import etc
 import styles from './styles.module.scss';
 
 const PostList = (props) => {
@@ -37,7 +41,7 @@ const PostList = (props) => {
                             title={item.title}
                             writerId={item.writerId}
                             writer={item.writer}
-                            createDate={item.createDate}
+                            createdAt={item.createdAt}
                             comments={item.comments}
                             views={item.views}
                             likes={item.likes}

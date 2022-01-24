@@ -4,20 +4,15 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
+import wonder.backend.domain.common.BaseTimeEntity;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 
 @Entity @Getter @Setter @NoArgsConstructor
-public class Comment {
+public class Comment extends BaseTimeEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String content;
-    @CreationTimestamp
-    private Timestamp updateDate;
-    @CreationTimestamp
-    private Timestamp createDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;

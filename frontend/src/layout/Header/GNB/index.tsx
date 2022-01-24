@@ -1,9 +1,13 @@
-// import constants
-import category from 'constants/category';
+// import package, library
 
-// import styles
-import styles from '../styles.module.scss';
+// import utilities
+
+// import components
 import LinkList from 'components/LinkList';
+
+// import etc
+import styles from '../styles.module.scss';
+import category from 'constants/category';
 
 const GNB = () => {
     return (

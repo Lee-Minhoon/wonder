@@ -1,8 +1,12 @@
-import Link from 'next/link';
+// import package, library
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
-// import styles
-import styles from './styles.module.scss';
+// import utilities
+
+// import components
+
+// import etc
 
 const LinkList = ({ pathname, query, text }) => {
     return (

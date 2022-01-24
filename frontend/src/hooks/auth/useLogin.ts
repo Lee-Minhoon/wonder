@@ -1,7 +1,13 @@
+// import package, library
 import { useMutation } from 'react-query';
-import { AxiosService } from '../../service/defaultAxiosService';
+
+// import utilities
+import { AxiosService } from 'service/defaultAxiosService';
+
+// import components
+
+// import etc
 import { loginInput } from 'container/LoginForm';
-import { useRouter } from 'next/router';
 
 const login = async (input: loginInput) => {
     const { data } = await AxiosService.instance.post('auth/login', {

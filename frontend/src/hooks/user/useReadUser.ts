@@ -1,5 +1,12 @@
+// import package, library
 import { useQuery } from 'react-query';
-import { AxiosService } from '../../service/defaultAxiosService';
+
+// import utilities
+import { AxiosService } from 'service/defaultAxiosService';
+
+// import components
+
+// import etc
 import { readUserInput } from 'container/User';
 
 export interface readUserResponse {

@@ -11,7 +11,7 @@ import java.util.Optional;
 
 
 public interface PostRepository extends JpaRepository<Post, Long> {
-    @Query(value = "SELECT category.name as category, p.id, p.title, p.views, p.create_date as createDate, " +
+    @Query(value = "SELECT category.name as category, p.id, p.title, p.views, p.created_at as createAt, " +
             "u.id as writerId, u.nickname as writer, count(c.id) as comments, count(r.post_id) as likes " +
             "FROM post as p " +
             "LEFT JOIN category " +
@@ -30,9 +30,9 @@ public interface PostRepository extends JpaRepository<Post, Long> {
                     "WHERE (:categoryId % 10 != 0 AND p.category_id = :categoryId) " +
                     "OR (:categoryId % 10 = 0 AND :categoryId + 10 > p.category_id AND p.category_id > :categoryId)",
             nativeQuery = true)
-    Page<PostMapper> findAllPostByCategory(Long categoryId, Pageable pageable);
+    Page<PostMapper> findAllPostsByCategory(Long categoryId, Pageable pageable);
 
-    @Query(value = "SELECT category.name as category, p.id, p.title, p.views, p.create_date as createDate, " +
+    @Query(value = "SELECT category.name as category, p.id, p.title, p.views, p.created_at as createAt, " +
             "u.id as writerId, u.nickname as writer, count(c.id) as comments, count(r.post_id) as likes " +
             "FROM post as p " +
             "LEFT JOIN category " +
@@ -50,9 +50,9 @@ public interface PostRepository extends JpaRepository<Post, Long> {
                     "WHERE (:categoryId % 10 != 0 AND p.category_id = :categoryId) " +
                     "OR (:categoryId % 10 = 0 AND :categoryId + 10 > p.category_id AND p.category_id > :categoryId)",
             nativeQuery = true)
-    Page<PostMapper> findAllPostByUser(Long userId, Pageable pageable);
+    Page<PostMapper> findAllPostsByUser(Long userId, Pageable pageable);
 
-    @Query(value = "SELECT p.id, p.title, p.content, p.views, p.create_date as createDate, " +
+    @Query(value = "SELECT p.id, p.title, p.content, p.views, p.created_at as createAt, " +
             "u.id as writerId, u.nickname as writer, count(r.post_id) as likes " +
             "FROM post as p " +
             "LEFT JOIN user as u " +

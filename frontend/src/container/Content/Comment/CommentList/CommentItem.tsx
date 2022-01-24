@@ -1,7 +1,13 @@
+// import package, library
+import Link from 'next/link';
+
+// import utilities
+
+// import components
+import Span from 'components/Span';
+
 // import styles
 import styles from '../../styles.module.scss';
-import Link from 'next/link';
-import Span from 'components/Span';
 
 const CommentItem = (props) => {
     const date = new Intl.DateTimeFormat('ko-KR', {

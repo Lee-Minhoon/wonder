@@ -1,8 +1,6 @@
 package wonder.backend.dto.mapper;
 
-import javax.persistence.Lob;
 import java.sql.Clob;
-import java.sql.NClob;
 import java.sql.Timestamp;
 
 public interface PostMapper {
@@ -12,7 +10,7 @@ public interface PostMapper {
     Clob getContent();
     Long getWriterId();
     String getWriter();
-    Timestamp getCreateDate();
+    Timestamp getCreateAt();
     int getComments();
     int getViews();
     int getLikes();

@@ -13,6 +13,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
+import wonder.backend.domain.PrincipalDetails;
 
 import java.security.Key;
 import java.util.Arrays;
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
 public class TokenProvider implements InitializingBean {
     private final Logger logger = LoggerFactory.getLogger(TokenProvider.class);
 
+    private static final String USER_ID = "userId";
     private static final String AUTHORITIES_KEY = "auth";
     private final String secret;
     private final long tokenValidityInMilliseconds;
@@ -55,9 +57,12 @@ public class TokenProvider implements InitializingBean {
         long now = (new Date()).getTime();
         Date validity = new Date(now + this.tokenValidityInMilliseconds);
 
+        PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+
         // 생성된 토큰 반환
         return Jwts.builder()
                 .setSubject(authentication.getName())
+                .claim(USER_ID, principalDetails.getId())
                 .claim(AUTHORITIES_KEY, authorities)
                 .setIssuedAt(new Date(now))
                 .setExpiration(validity)
@@ -96,6 +101,16 @@ public class TokenProvider implements InitializingBean {
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
+    }
+
+    public Long getUserId(String token) {
+        return Long.parseLong(Jwts
+                .parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .get(USER_ID).toString());
     }
 
     // Validate Token Method

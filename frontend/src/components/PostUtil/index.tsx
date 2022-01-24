@@ -1,24 +1,16 @@
-// import components
+// import package, library
 import { useRouter } from 'next/router';
-// import constants
+
+// import utilities
 
 // import components
-import BoardTitle from 'components/BoardTitle';
-import Divider from 'components/Divider';
-import Banner from 'components/Banner';
-import SearchBar from 'components/SearchBar';
-import Link from 'next/link';
-
-// import styles
-import category from 'constants/category';
-import useReadAllPost from 'hooks/post/useReadAllPost';
 import Button from 'components/Button';
 import Emphasise from 'components/Emphasise';
 import Span from 'components/Span/index';
 import SelectBox from 'components/SelectBox';
 import Blank from 'components/Blank';
 
-// import styles
+// import etc
 import styles from './styles.module.scss';
 
 const PostUtil = ({ pages, count, handleChange, handleClick }) => {

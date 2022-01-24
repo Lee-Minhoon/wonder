@@ -1,7 +1,11 @@
 package wonder.backend.domain;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import wonder.backend.domain.common.BaseTimeEntity;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -9,17 +13,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity @Getter @Setter @NoArgsConstructor
-public class Post {
+public class Post extends BaseTimeEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     @Lob
     private String content;
     private int views;
-    @CreationTimestamp
-    private Timestamp updateDate;
-    @CreationTimestamp
-    private Timestamp createDate;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private User user;

@@ -1,6 +1,10 @@
-import Link from 'next/link';
+// import package, library
 
-// import styles
+// import utilities
+
+// import components
+
+// import etc
 import styles from './styles.module.scss';
 
 const Right = () => {

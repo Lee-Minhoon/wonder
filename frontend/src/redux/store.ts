@@ -1,7 +1,14 @@
+// import package, library
 import { createStore, applyMiddleware, combineReducers, AnyAction } from 'redux';
 import { HYDRATE, createWrapper, MakeStore, Context } from 'next-redux-wrapper';
-import count from './count';
+
+// import utilities
+
+// import components
+
+// import etc
 import category from './category';
+import count from './count';
 
 // create a makeStore function
 const combinedReducer = combineReducers({

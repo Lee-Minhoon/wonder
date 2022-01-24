@@ -1,14 +1,15 @@
+// import package, library
+import { useCallback } from 'react';
 import { useRouter } from 'next/router';
 
-// import service
-
-// import hooks
+// import utilities
+import useSignup from 'hooks/auth/useSignup';
 import useInput from 'hooks/useInput';
 
-// import styles
+// import components
+
+// import etc
 import styles from './styles.module.scss';
-import React, { useCallback } from 'react';
-import useSignup from 'hooks/auth/useSignup';
 
 export interface signupInput {
     email: any;

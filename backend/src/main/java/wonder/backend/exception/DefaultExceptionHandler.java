@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import wonder.backend.dto.Response;
+import wonder.backend.dto.common.Response;
 import wonder.backend.jwt.TokenProvider;
 
 @RestControllerAdvice

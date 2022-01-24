@@ -1,15 +1,18 @@
-// import components
-
+// import package, library
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 
-// import styles
-import styles from '../styles.module.scss';
-
-import { useRouter } from 'next/router';
+// import utilities
 import useReadPost from 'hooks/post/useReadPost';
+
+// import components
 import Span from 'components/Span/index';
 import Blank from 'components/Blank';
 import Emphasise from 'components/Emphasise';
+
+// import etc
+import styles from '../styles.module.scss';
+
 export interface readPostInput {
     id: any;
 }
@@ -37,7 +40,7 @@ const Post = () => {
         hour: '2-digit',
         minute: '2-digit',
         second: '2-digit',
-    }).format(new Date(post.createDate));
+    }).format(new Date(post.createdAt));
 
     return (
         <article className={styles.content}>

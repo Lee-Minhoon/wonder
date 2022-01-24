@@ -17,6 +17,10 @@ public class PrincipalDetails implements UserDetails {
         this.user = user;
     }
 
+    public Long getId() {
+        return user.getId();
+    }
+
     public String getNickname() {
         return user.getNickname();
     }

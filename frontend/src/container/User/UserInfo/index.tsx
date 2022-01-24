@@ -1,7 +1,12 @@
+// import package, library
 import { useRouter } from 'next/router';
-// import constants
 
+// import utilities
 import useReadUser from 'hooks/user/useReadUser';
+
+// import components
+
+// import etc
 import styles from '../styles.module.scss';
 
 export interface readUserInput {

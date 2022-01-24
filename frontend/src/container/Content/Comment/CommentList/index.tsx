@@ -1,3 +1,7 @@
+// import package, library
+
+// import utilities
+
 // import components
 import CommentItem from './CommentItem';
 

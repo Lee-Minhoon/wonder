@@ -1,14 +1,14 @@
-// import packages, libraries
+// import package, library
 import Link from 'next/link';
 
-// import hooks
+// import utilities
 
-// import containers, components
+// import components
 import UserMenu from './UserMenu';
 import SearchBar from 'components/SearchBar';
 import GNB from './GNB';
 
-// import styles, etc
+// import etc
 import styles from './styles.module.scss';
 
 const Header = () => {

@@ -7,15 +7,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import wonder.backend.constants.ExceptionEnum;
 import wonder.backend.constants.ResponseCode;
 import wonder.backend.constants.ResponseMessage;
+import wonder.backend.domain.Comment;
+import wonder.backend.domain.Post;
+import wonder.backend.domain.User;
 import wonder.backend.dto.CommentDto;
-import wonder.backend.dto.PostDto;
-import wonder.backend.dto.Response;
+import wonder.backend.dto.common.Response;
+import wonder.backend.exception.CustomException;
 import wonder.backend.jwt.TokenProvider;
 import wonder.backend.service.CommentService;
+import wonder.backend.service.PostService;
+import wonder.backend.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("comments")
@@ -24,6 +31,8 @@ public class CommentController {
     private final Logger logger = LoggerFactory.getLogger(CommentController.class);
     public static final String AUTHORIZATION_HEADER = "Authorization";
 
+    private final UserService userService;
+    private final PostService postService;
     private final CommentService commentService;
 
     @Autowired
@@ -32,18 +41,28 @@ public class CommentController {
     @PostMapping
     public ResponseEntity createComment(
             HttpServletRequest request,
-            @RequestBody CommentDto.CreateCommentDto comment
+            @RequestBody CommentDto.CreateCommentDto createCommentDto
     ) {
-        logger.info("Request to create a comment : {}", comment.getContent());
+        logger.info("Request to create a comment : {}", createCommentDto.getContent());
 
         String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
-        String userEmail = tokenProvider.getUserEmail(jwt);
+        User user = getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
+        Post post = getOrElseThrow(postService.getPostById(createCommentDto.getPost()));
+        Comment comment = Comment.builder()
+                .content(createCommentDto.getContent())
+                .user(user)
+                .build();
 
-        return commentService.createComment(userEmail, comment.getPost(), comment.getContent());
+        return ResponseEntity.ok()
+                .body(Response.builder()
+                        .code(ResponseCode.SUCCESS)
+                        .data(commentService.createComment(comment, post))
+                        .message(ResponseMessage.SUCCESS)
+                        .build());
     }
 
     @GetMapping
-    public ResponseEntity readAllComment(
+    public ResponseEntity readAllComments(
             @RequestParam("post") Long postId,
             @RequestParam("page") int page,
             @RequestParam("size") int size
@@ -54,7 +73,7 @@ public class CommentController {
                 .body(Response.builder()
                         .code(ResponseCode.SUCCESS)
                         .message(ResponseMessage.SUCCESS)
-                        .data(commentService.readAllComment(postId, page, size))
+                        .data(commentService.readAllComments(postId, page, size))
                         .build());
     }
 
@@ -62,12 +81,21 @@ public class CommentController {
     public ResponseEntity updateComment(
             HttpServletRequest request,
             @PathVariable("id") Long commentId,
-            @RequestBody CommentDto.UpdatePostDto comment
+            @RequestBody CommentDto.UpdatePostDto updatePostDto
     ) {
-        String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
-        String userEmail = tokenProvider.getUserEmail(jwt);
+        logger.info("Request to update a post : {}", commentId);
 
-        return commentService.updateComment(commentId, userEmail, comment.getContent());
+        String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
+        User user = getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
+        Comment comment = getOrElseThrow(commentService.getCommentById(commentId));
+        comment.setContent(updatePostDto.getContent());
+
+        return ResponseEntity.ok()
+                .body(Response.builder()
+                        .code(ResponseCode.SUCCESS)
+                        .data(commentService.updateComment(comment, user))
+                        .message(ResponseMessage.SUCCESS)
+                        .build());
     }
 
     @DeleteMapping("{id}")
@@ -76,9 +104,21 @@ public class CommentController {
             @AuthenticationPrincipal String email,
             @PathVariable("id") Long commentId
     ) {
-        String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
-        String userEmail = tokenProvider.getUserEmail(jwt);
+        logger.info("Request to delete a post : {}", commentId);
 
-        return commentService.deleteComment(commentId, userEmail);
+        String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
+        User user = getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
+        Comment comment = getOrElseThrow(commentService.getCommentById(commentId));
+        commentService.deleteComment(comment, user);
+
+        return ResponseEntity.ok()
+                .body(Response.builder()
+                        .code(ResponseCode.SUCCESS)
+                        .message(ResponseMessage.SUCCESS)
+                        .build());
+    }
+
+    public <T> T getOrElseThrow(Optional<T> param) {
+        return param.orElseThrow(() -> new CustomException(ExceptionEnum.NOT_FOUND));
     }
 }

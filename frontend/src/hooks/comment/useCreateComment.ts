@@ -1,7 +1,12 @@
+// import package, library
 import { useMutation, useQueryClient } from 'react-query';
+
+// import utilities
 import { AxiosService } from '../../service/defaultAxiosService';
-import { createPostInput } from 'container/Writing';
-import { useRouter } from 'next/router';
+
+// import components
+
+// import etc
 import { createCommentInput } from 'container/Content/Comment';
 
 const createComment = async (input: createCommentInput) => {

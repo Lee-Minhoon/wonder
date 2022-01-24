@@ -1,8 +1,14 @@
-// import styles
-import Footer from '../Footer';
+// import package, library
+
+// import utilities
+
+// import components
 import Header from '../Header';
+import Footer from '../Footer';
 import Left from '../Left';
 import Right from '../Right';
+
+// import etc
 import styles from './styles.module.scss';
 
 const BoardLayout = ({ children }) => {

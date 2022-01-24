@@ -1,4 +1,11 @@
-import { useState, useEffect } from 'react';
+// import package, library
+import { useState } from 'react';
+
+// import utilities
+
+// import components
+
+// import etc
 
 const useInput = (initialValue) => {
     const [value, setValue] = useState(initialValue);

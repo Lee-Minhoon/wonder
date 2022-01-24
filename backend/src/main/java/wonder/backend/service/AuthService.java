@@ -3,17 +3,13 @@ package wonder.backend.service;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wonder.backend.constants.ExceptionEnum;
-import wonder.backend.constants.ResponseCode;
-import wonder.backend.constants.ResponseMessage;
 import wonder.backend.domain.PrincipalDetails;
-import wonder.backend.dto.Response;
 import wonder.backend.domain.User;
 import wonder.backend.exception.CustomException;
 import wonder.backend.repository.UserRepository;
@@ -25,15 +21,10 @@ public class AuthService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
-    public ResponseEntity signup(User user) {
+    public Long signup(User user) {
         validateDuplicateUser(user);
         userRepository.save(user);
-
-        return ResponseEntity.ok()
-                .body(Response.builder()
-                        .code(ResponseCode.SUCCESS)
-                        .message(ResponseMessage.SUCCESS)
-                        .build());
+        return user.getId();
     }
 
     private void validateDuplicateUser(User user) {

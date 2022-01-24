@@ -4,14 +4,10 @@ import lombok.Builder;
 import lombok.Getter;
 import wonder.backend.dto.mapper.PostMapper;
 
-import javax.persistence.Column;
-import javax.persistence.Lob;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.sql.Clob;
-import java.sql.NClob;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
@@ -31,7 +27,7 @@ public class PostDto {
         private String content;
         private Long writerId;
         private String writer;
-        private Timestamp createDate;
+        private Timestamp createdAt;
         private int views;
         private int likes;
 
@@ -43,7 +39,7 @@ public class PostDto {
             this.content = clobToString(postMapper.getContent());
             this.writerId = postMapper.getWriterId();
             this.writer = postMapper.getWriter();
-            this.createDate = postMapper.getCreateDate();
+            this.createdAt = postMapper.getCreateAt();
             this.views = postMapper.getViews();
             this.likes = postMapper.getLikes();
         }
@@ -56,7 +52,7 @@ public class PostDto {
         private String title;
         private Long writerId;
         private String writer;
-        private Timestamp createDate;
+        private Timestamp createdAt;
         private int comments;
         private int views;
         private int likes;
@@ -68,7 +64,7 @@ public class PostDto {
             this.title = postMapper.getTitle();
             this.writerId = postMapper.getWriterId();
             this.writer = postMapper.getWriter();
-            this.createDate = postMapper.getCreateDate();
+            this.createdAt = postMapper.getCreateAt();
             this.comments = postMapper.getComments();
             this.views = postMapper.getViews();
             this.likes = postMapper.getLikes();
@@ -79,7 +75,6 @@ public class PostDto {
     public static class UpdatePostDto {
         private String title;
         private String content;
-        private Timestamp updateDate;
     }
 
     public static String clobToString(Clob data) {

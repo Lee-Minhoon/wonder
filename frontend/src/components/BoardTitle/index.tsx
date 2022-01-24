@@ -1,5 +1,12 @@
-import ColoredHeading from 'components/ColoredHeading';
+// import package, library
 import Link from 'next/link';
+
+// import utilities
+
+// import components
+import ColoredHeading from 'components/ColoredHeading';
+
+// import etc
 import styles from './styles.module.scss';
 
 const BoardTitle = ({ title, url }) => {

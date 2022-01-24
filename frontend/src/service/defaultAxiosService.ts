@@ -1,5 +1,12 @@
+// import package, library
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import Cookies from 'js-cookie';
+
+// import utilities
+
+// import components
+
+// import etc
 
 export class AxiosService {
     static readonly instance: AxiosInstance = axios.create({

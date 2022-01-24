@@ -8,17 +8,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import wonder.backend.constants.ResponseCode;
 import wonder.backend.constants.ResponseMessage;
-import wonder.backend.domain.PrincipalDetails;
-import wonder.backend.dto.AuthDto;
-import wonder.backend.dto.Response;
-import wonder.backend.dto.TokenDto;
 import wonder.backend.domain.User;
+import wonder.backend.dto.AuthDto;
+import wonder.backend.dto.TokenDto;
+import wonder.backend.dto.common.Response;
 import wonder.backend.jwt.TokenProvider;
 import wonder.backend.service.AuthService;
 
@@ -40,38 +41,35 @@ public class AuthController {
 
     @PostMapping("signup")
     public ResponseEntity signup(
-            @RequestBody AuthDto.SignupDto user
+            @RequestBody AuthDto.SignupDto signupDto
     ) {
-        logger.info("Request to signup : {}", user.getEmail());
+        logger.info("Request to signup : {}", signupDto.getEmail());
 
-        return userService.signup(User.builder()
-                .email(user.getEmail())
-                .password(passwordEncoder.encode(user.getPassword()))
-                .nickname(user.getNickname())
-                .build());
+        User user = User.builder()
+                .email(signupDto.getEmail())
+                .password(passwordEncoder.encode(signupDto.getPassword()))
+                .nickname(signupDto.getNickname())
+                .build();
+
+        return ResponseEntity.ok()
+                .body(Response.builder()
+                        .code(ResponseCode.SUCCESS)
+                        .data(userService.signup(user))
+                        .message(ResponseMessage.SUCCESS)
+                        .build());
     }
 
     @PostMapping("login")
     public ResponseEntity login(
             HttpServletResponse response,
-            @RequestBody AuthDto.LoginDto user
+            @RequestBody AuthDto.LoginDto loginDto
     ) {
-        logger.info("Request to login : {}", user.getEmail());
+        logger.info("Request to login : {}", loginDto.getEmail());
 
-        // 인증 객체 생성 및 반환
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword());
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
-
-        PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
-        System.out.println(principalDetails.getNickname());
-
-        // jwt 생성
         String jwt = tokenProvider.createToken(authentication);
-        logger.info("Created jwt: {}", jwt);
-
-        // jwt 쿠키로 반환
         Cookie cookie = new Cookie("token", jwt);
         response.addCookie(cookie);
 

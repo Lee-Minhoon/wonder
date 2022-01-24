@@ -1,24 +1,21 @@
-import { useRef, useState, useEffect, forwardRef, useCallback } from 'react';
-import { useSelector } from 'react-redux';
-
-// import constants
-import category from 'constants/category';
+// import package, library
+import { useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
 
-// import hooks
+// import utilities
+import useCreatePost from 'hooks/post/useCreatePost';
 import useInput from 'hooks/useInput';
 import useEditor from 'hooks/useEditor';
 
 // import components
-import BoardTitle from 'components/BoardTitle';
 import Divider from 'components/Divider';
 import Editor from './Editor';
-
-// import styles
-import styles from './styles.module.scss';
-import useCreatePost from 'hooks/post/useCreatePost';
 import SelectBox from 'components/SelectBox';
 import ColoredHeading from 'components/ColoredHeading';
+
+// import etc
+import styles from './styles.module.scss';
+import category from 'constants/category';
 
 export interface createPostInput {
     category: any;
@@ -36,6 +33,7 @@ const Writing = () => {
     const content = useEditor('');
     const createPost = useCreatePost();
 
+    console.log(typeof mainCategory, typeof subCategory);
     console.log(mainCategory, subCategory);
 
     const handleSubmit = useCallback(

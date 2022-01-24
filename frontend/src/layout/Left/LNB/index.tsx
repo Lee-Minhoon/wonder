@@ -1,13 +1,15 @@
-// import constants
-import category from 'constants/category';
+// import package, library
+import { useRouter } from 'next/router';
+
+// import utilities
 
 // import components
+import LinkList from 'components/LinkList';
 import BoardTitle from 'components/BoardTitle';
 
-// import styles
+// import etc
 import styles from '../styles.module.scss';
-import LinkList from 'components/LinkList';
-import { useRouter } from 'next/router';
+import category from 'constants/category';
 
 const LNB = () => {
     const router = useRouter();

@@ -1,19 +1,22 @@
+// import package, library
 import { FC } from 'react';
-import { AppProps } from 'next/app';
-import wrapper from 'redux/store';
-import Header from 'layout/Header';
-import Footer from 'layout/Footer';
-import 'styles/globals.scss';
-import Left from 'layout/Left';
-import Right from 'layout/Right';
-import { useRouter } from 'next/router';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
+import { AppProps } from 'next/app';
+import { useRouter } from 'next/router';
+import wrapper from 'redux/store';
+
+// import utilities
+
+// import components
 import DefaultLayout from 'layout/DefaultLayout';
 import BoardLayout from 'layout/BoardLayout';
 
-const NOT_SIDE_BAR_PAGES = ['/auth/login', '/auth/signup', '/', '/user/[id]'];
-const SIDE_BAR_PAGES = ['/board/[view]', '/board/list', '/board/write'];
+// import etc
+import 'styles/globals.scss';
+
+const NOT_SIDE_BAR_PAGES = ['/auth/login', '/auth/signup', '/'];
+const SIDE_BAR_PAGES = ['/user/[id]', '/board/[view]', '/board/list', '/board/write'];
 
 const App: FC<AppProps> = ({ Component, pageProps }) => {
     const router = useRouter();

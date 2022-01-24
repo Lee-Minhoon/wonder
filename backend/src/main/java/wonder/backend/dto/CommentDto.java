@@ -18,14 +18,14 @@ public class CommentDto {
         private Long id;
         private String content;
         private String writer;
-        private Timestamp createDate;
+        private Timestamp createdAt;
 
         @Builder
         public ReadCommentDto(CommentMapper commentMapper) {
             this.id = commentMapper.getId();
             this.content = commentMapper.getContent();
             this.writer = commentMapper.getWriter();
-            this.createDate = commentMapper.getCreateDate();
+            this.createdAt = commentMapper.getCreateAt();
         }
     }
 
