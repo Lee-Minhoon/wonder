@@ -62,12 +62,6 @@ const Login = () => {
                     <a>아이디 찾기</a>
                     <a>비밀번호 찾기</a>
                 </footer>
-                <Link href={{ pathname: '/user/test' }}>
-                    <a>test</a>
-                </Link>
-                <Link href={{ pathname: '/user/cookie' }}>
-                    <a>test</a>
-                </Link>
             </form>
         </div>
     );

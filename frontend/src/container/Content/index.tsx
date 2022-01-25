@@ -18,7 +18,7 @@ const Content = () => {
     const main = category.find((item) => item.url === router.query.main);
 
     return (
-        <div className={styles.view}>
+        <div className={styles.post}>
             <header>
                 <BoardTitle title={main?.title} url={main?.url} />
                 <Divider />

@@ -15,9 +15,9 @@ const BoardLayout = ({ children }) => {
     return (
         <>
             <Header />
-            <div className={styles.layout}>
+            <div className={styles.boardLayout}>
                 <Left />
-                <div className={styles.board}>{children}</div>
+                <div className={styles.content}>{children}</div>
                 <Right />
             </div>
             <Footer />

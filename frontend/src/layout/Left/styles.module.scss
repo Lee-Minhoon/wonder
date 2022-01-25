@@ -1,18 +1,9 @@
 @import 'styles/util.module.scss';
 
 .left {
-    width: 190px;
-    border: 1px solid black;
+    width: 200px;
+    padding: 10px;
+    border: 1px solid $light-gray;
+    border-radius: 5px;
     margin-right: 10px;
-}
-
-.lnb {
-    ul {
-        padding-inline-start: 0px;
-        list-style-type: none;
-    }
-    li {
-        margin: 10px 0;
-        @include font(black, normal, 300, 1.6rem);
-    }
 }

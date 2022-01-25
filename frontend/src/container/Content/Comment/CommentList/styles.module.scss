@@ -1,0 +1,13 @@
+@import 'styles/util.module.scss';
+
+.list {
+    ul {
+        padding-inline-start: 0px;
+        list-style-type: none;
+    }
+}
+
+.item {
+    padding: 10px 0;
+    border-bottom: 1px solid $light-gray;
+}

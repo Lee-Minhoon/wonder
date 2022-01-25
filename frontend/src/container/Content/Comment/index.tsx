@@ -12,7 +12,7 @@ import CommentList from './CommentList';
 import Button from 'components/Button';
 
 // import etc
-import styles from '../styles.module.scss';
+import styles from './styles.module.scss';
 
 export interface createCommentInput {
     post: any;

@@ -2,34 +2,34 @@
 
 .login {
     width: 350px;
-    box-shadow: 0 1px 3px 0 $light-gray;
     border: 1px solid $light-gray;
+    box-shadow: 0 1px 3px 0 $light-gray;
     form {
+        width: 100%;
         padding: 30px;
         text-align: center;
-        width: 100%;
         header {
             margin-bottom: 20px;
         }
         div {
-            @include size(100%, 40px);
             border: 1px solid $light-gray;
+            margin-bottom: 10px;
+            @include size(100%, 40px);
             input {
-                @include font(black, normal, 300, 1.6rem);
                 padding: 0 10px;
-                @include size(100%, 100%);
                 border: none;
                 outline: none;
+                @include font(black, normal, 300, 1.6rem);
+                @include size(100%, 100%);
             }
             &:focus-within {
                 border: 1px solid $theme-color;
             }
-            margin-bottom: 10px;
         }
         button {
-            @include size(100%, 40px);
             border: 0px;
             background-color: $theme-color;
+            @include size(100%, 40px);
             @include font(white, normal, 300, 1.6rem);
             &:hover {
                 cursor: pointer;

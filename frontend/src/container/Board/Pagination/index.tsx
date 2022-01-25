@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import LinkList from 'components/LinkList';
 
 // import etc
-import styles from '../styles.module.scss';
+import styles from './styles.module.scss';
 
 const Pagination = ({ pages }) => {
     const router = useRouter();
@@ -46,7 +46,7 @@ const Pagination = ({ pages }) => {
     };
 
     return (
-        <nav className={styles.page}>
+        <nav className={styles.pagination}>
             <ul>{render()}</ul>
         </nav>
     );

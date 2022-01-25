@@ -11,7 +11,7 @@ import Blank from 'components/Blank';
 import Emphasise from 'components/Emphasise';
 
 // import etc
-import styles from '../styles.module.scss';
+import styles from './styles.module.scss';
 
 export interface readPostInput {
     id: any;
@@ -43,7 +43,7 @@ const Post = () => {
     }).format(new Date(post.createdAt));
 
     return (
-        <article className={styles.content}>
+        <article className={styles.post}>
             <header>
                 <h2>{post.title}</h2>
                 <div className={styles.info}>

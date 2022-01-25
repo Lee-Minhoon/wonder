@@ -7,7 +7,7 @@ import useReadUser from 'hooks/user/useReadUser';
 // import components
 
 // import etc
-import styles from '../styles.module.scss';
+import styles from './styles.module.scss';
 
 export interface readUserInput {
     id: any;

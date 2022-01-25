@@ -1,5 +1,4 @@
 // import package, library
-import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 // import utilities
@@ -7,10 +6,11 @@ import Link from 'next/link';
 // import components
 
 // import etc
+import styles from './styles.module.scss';
 
 const LinkList = ({ pathname, query, text }) => {
     return (
-        <li>
+        <li className={styles.linkList}>
             <Link href={{ pathname: pathname, query: query }}>
                 <a>{text}</a>
             </Link>

@@ -25,7 +25,7 @@ const PostUtil = ({ pages, count, handleChange, handleClick }) => {
     ];
 
     return (
-        <div className={styles.util}>
+        <div className={styles.postUtil}>
             <Span>
                 <Emphasise>{pages}</Emphasise>개의 페이지
             </Span>

@@ -1,0 +1,28 @@
+@import 'styles/util.module.scss';
+
+.userInfo {
+    display: flex;
+    width: 770px;
+    h1 {
+        @include font(black, normal, 400, 3rem);
+    }
+    th {
+        text-align: initial;
+    }
+}
+
+.profile {
+    @include size(250px, 200px);
+    margin-right: 10px;
+}
+.info {
+    width: 510px;
+}
+
+.basicInfo {
+    height: 90px;
+}
+.infoTable {
+    width: 100%;
+    height: 110px;
+}

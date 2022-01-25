@@ -10,7 +10,7 @@ import wrapper from 'redux/store';
 
 // import components
 import DefaultLayout from 'layout/DefaultLayout';
-import BoardLayout from 'layout/BoardLayout';
+import ContentLayout from 'layout/ContentLayout';
 
 // import etc
 import 'styles/globals.scss';
@@ -31,9 +31,9 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
         );
     } else if (SIDE_BAR_PAGES.find((item) => item === router.pathname)) {
         content = (
-            <BoardLayout>
+            <ContentLayout>
                 <Component {...pageProps} />
-            </BoardLayout>
+            </ContentLayout>
         );
     } else {
         content = <>잘못된 요청입니다.</>;

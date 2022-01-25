@@ -8,6 +8,7 @@ import useReadAllPostByUser from 'hooks/post/useReadAllPostByUser';
 // import components
 import UserInfo from './UserInfo';
 import PostList from 'components/PostList';
+import PostUtil from 'components/PostUtil';
 
 // import etc
 import styles from './styles.module.scss';

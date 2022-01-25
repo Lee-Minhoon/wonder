@@ -2,39 +2,38 @@
 
 .signup {
     width: 350px;
-    box-shadow: 0 1px 3px 0 $light-gray;
     border: 1px solid $light-gray;
+    box-shadow: 0 1px 3px 0 $light-gray;
     form {
-        padding: 30px;
         width: 100%;
+        padding: 30px;
         header {
-            margin-bottom: 20px;
             text-align: center;
+            margin-bottom: 20px;
         }
         label {
             @include font(black, normal, 300, 1.4rem);
         }
         div {
-            @include size(100%, 40px);
             border: 1px solid $light-gray;
+            margin-bottom: 10px;
+            @include size(100%, 40px);
             input {
-                @include font(black, normal, 300, 1.6rem);
                 padding: 0 10px;
-                @include size(100%, 100%);
                 border: none;
                 outline: none;
+                @include font(black, normal, 300, 1.6rem);
+                @include size(100%, 100%);
             }
             &:focus-within {
                 border: 1px solid $theme-color;
             }
-            margin-bottom: 10px;
-
         }
         button {
-            margin-top: 20px;
-            @include size(100%, 40px);
             border: 0px;
+            margin-top: 20px;
             background-color: $theme-color;
+            @include size(100%, 40px);
             @include font(white, normal, 300, 1.6rem);
             &:hover {
                 cursor: pointer;

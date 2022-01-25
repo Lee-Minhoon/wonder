@@ -1,0 +1,19 @@
+@import 'styles/util.module.scss';
+
+.userMenu {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+    @include responsive-width($content-width, 90%);
+    ul {
+        padding-inline-start: 0px;
+    }
+    li {
+        display: inline-flex;
+        margin-left: 10px;
+        @include font(black, normal, 300, 1.2rem);
+        &:hover {
+            color: $theme-color;
+        }
+    }
+}

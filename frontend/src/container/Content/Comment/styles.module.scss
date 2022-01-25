@@ -1,0 +1,29 @@
+@import 'styles/util.module.scss';
+
+.comment {
+    header {
+        padding-bottom: 5px;
+        border-bottom: 2px solid $theme-color;
+    }
+    form {
+        .inputBox {
+            border: 1px solid $light-gray;
+            margin-bottom: 10px;
+            @include size(100%, 100px);
+            input {
+                padding: 0 10px;
+                border: none;
+                outline: none;
+                @include font(black, normal, 300, 1.6rem);
+                @include size(100%, 100%);
+            }
+            &:focus-within {
+                border: 1px solid $theme-color;
+            }
+        }
+        .button {
+            display: flex;
+            justify-content: flex-end;
+        }
+    }
+}

@@ -1,7 +1,7 @@
 @import 'styles/util.module.scss';
 
-.list {
-    width: 770px;
+.postList {
+    width: 100%;
     border-top: 2px solid $theme-color;
     border-bottom: 1px solid $theme-color;
     th {
@@ -13,13 +13,5 @@
         td {
             border-bottom: 1px solid $light-gray;
         }
-    }
-}
-
-.item {
-    height: 35px;
-    @include font(black, normal, 300, 1.4rem);
-    td:not(:nth-child(3)) {
-        text-align: center;
     }
 }

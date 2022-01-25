@@ -6,7 +6,7 @@
 import LinkList from 'components/LinkList';
 
 // import etc
-import styles from '../styles.module.scss';
+import styles from './styles.module.scss';
 import category from 'constants/category';
 
 const GNB = () => {

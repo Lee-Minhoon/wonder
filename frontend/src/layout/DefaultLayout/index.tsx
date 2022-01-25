@@ -13,7 +13,7 @@ const DefaultLayout = ({ children }) => {
     return (
         <>
             <Header />
-            <div className={styles.layout}>{children}</div>
+            <div className={styles.defaultLayout}>{children}</div>
             <Footer />
         </>
     );

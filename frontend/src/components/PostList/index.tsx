@@ -10,7 +10,7 @@ import styles from './styles.module.scss';
 
 const PostList = (props) => {
     return (
-        <table className={styles.list} cellSpacing="0">
+        <table className={styles.postList} cellSpacing="0">
             <colgroup>
                 <col style={{ width: '100px' }} />
                 <col style={{ width: '80px' }} />

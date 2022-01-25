@@ -6,11 +6,11 @@ import LinkList from 'components/LinkList';
 // import components
 
 // import etc
-import styles from '../styles.module.scss';
+import styles from './styles.module.scss';
 
 const UserMenu = () => {
     return (
-        <nav className={styles.userUtil}>
+        <nav className={styles.userMenu}>
             <ul>
                 <LinkList pathname={'/auth/login'} query={{}} text="로그인" />
                 <LinkList pathname={'/auth/signup'} query={{}} text="회원가입" />

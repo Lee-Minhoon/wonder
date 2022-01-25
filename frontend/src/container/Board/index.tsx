@@ -59,7 +59,7 @@ const Board = () => {
     };
 
     return (
-        <>
+        <div className={styles.board}>
             <header>
                 <BoardTitle title={main.title} url={main.url} />
                 <Divider />
@@ -78,7 +78,7 @@ const Board = () => {
                 <Pagination pages={posts.pages} />
                 <SearchBar width="300px" height="30px" />
             </footer>
-        </>
+        </div>
     );
 };
 

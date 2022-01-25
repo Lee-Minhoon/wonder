@@ -8,7 +8,7 @@ import Link from 'next/link';
 import Emphasise from 'components/Emphasise';
 
 // import etc
-import styles from '../styles.module.scss';
+import styles from './styles.module.scss';
 import category from 'constants/category';
 
 const PostItem = (props) => {
@@ -21,7 +21,7 @@ const PostItem = (props) => {
     }).format(new Date(props.createdAt));
 
     return (
-        <tr className={styles.item}>
+        <tr className={styles.postItem}>
             <td>
                 <Link href={{ pathname: '/board/list', query: { ...router.query, sub: sub?.url, page: 1, size: 20 } }}>
                     <a>{props.category}</a>

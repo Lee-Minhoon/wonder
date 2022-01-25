@@ -1,47 +1,9 @@
 @import 'styles/util.module.scss';
 
-.list {
-    width: 770px;
-    border-top: 2px solid $theme-color;
-    border-bottom: 1px solid $theme-color;
-    th {
-        height: 35px;
-        border-bottom: 1px solid $dark-gray;
-        @include font($dark-gray, normal, 400, 1.6rem);
-    }
-    tr:not(:last-child) {
-        td {
-            border-bottom: 1px solid $light-gray;
-        }
-    }
-}
-
-.footer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.item {
-    height: 35px;
-    @include font(black, normal, 300, 1.4rem);
-    td:not(:nth-child(3)) {
-        text-align: center;
-    }
-}
-
-.page {
-    margin-top: 5px;
-    height: 50px;
-    ul {
-        padding-inline-start: 0px;
-    }
-    li {
-        display: inline-flex;
-        margin: 0 10px;
-        @include font($dark-gray, normal, 400, 1.6rem);
-        &:hover {
-            color: $theme-color;
-        }
+.board {
+    footer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 }
