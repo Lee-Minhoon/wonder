@@ -1,5 +1,6 @@
 // import package, library
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 // import utilities
 import useReadUser from 'hooks/user/useReadUser';
@@ -33,7 +34,11 @@ const UserInfo = () => {
     return (
         <>
             <div className={styles.userInfo}>
-                <div className={styles.profile}>프로필</div>
+                <div className={styles.profileWrapper}>
+                    <div className={styles.profile}>
+                        <Image src="/123.png" alt="profile" layout="fill" />
+                    </div>
+                </div>
                 <div className={styles.info}>
                     <div className={styles.basicInfo}>
                         <h1>{user.nickname}</h1>
@@ -49,7 +54,7 @@ const UserInfo = () => {
                         <tbody>
                             <tr>
                                 <th>팔로워</th>
-                                <td>1</td>
+                                <td>1000000000</td>
                                 <th>팔로잉</th>
                                 <td>1</td>
                             </tr>

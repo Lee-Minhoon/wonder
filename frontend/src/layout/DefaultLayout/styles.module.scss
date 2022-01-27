@@ -3,8 +3,8 @@
 .defaultLayout {
     display: flex;
     margin: 0px auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 40px;
+    margin-bottom: 40px;
     justify-content: center;
     @include responsive-width($content-width, 90%);
 }

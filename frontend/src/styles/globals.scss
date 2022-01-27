@@ -12,7 +12,7 @@ html {
 }
 
 body {
-    @include font(black, normal, 300, 1.6rem);
+    @include font($black, normal, 300, 1.4rem);
 }
 
 a {

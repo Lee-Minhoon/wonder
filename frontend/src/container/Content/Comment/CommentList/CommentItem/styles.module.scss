@@ -1,0 +1,27 @@
+@import 'styles/util.module.scss';
+
+.commentItem {
+    padding: 1rem 0;
+}
+
+.commentInfo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.writerProfile {
+    overflow: hidden;
+    position: relative;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+
+.basicInfo {
+    margin-right: auto;
+    a {
+        @include font($dark-gray, normal, 400, 1.6rem);
+    }
+}

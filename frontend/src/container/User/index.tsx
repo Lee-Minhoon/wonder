@@ -1,5 +1,4 @@
 // import package, library
-import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 // import utilities

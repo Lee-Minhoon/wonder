@@ -10,15 +10,10 @@ import styles from './styles.module.scss';
 
 const List = (props) => {
     return (
-        <section className={styles.list}>
+        <section className={styles.commentList}>
             <ul>
                 {props.comments.map((item) => (
-                    <CommentItem
-                        key={item.id}
-                        content={item.content}
-                        writer={item.writer}
-                        createDate={item.createDate}
-                    />
+                    <CommentItem key={item.id} content={item.content} writer={item.writer} createdAt={item.createdAt} />
                 ))}
             </ul>
         </section>

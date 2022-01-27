@@ -2,28 +2,30 @@
 
 .comment {
     header {
-        padding-bottom: 5px;
-        border-bottom: 2px solid $theme-color;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid $dark-gray;
+        @include font($dark-gray, normal, 300, 1.6rem);
     }
-    form {
-        .inputBox {
-            border: 1px solid $light-gray;
-            margin-bottom: 10px;
-            @include size(100%, 100px);
-            input {
-                padding: 0 10px;
-                border: none;
-                outline: none;
-                @include font(black, normal, 300, 1.6rem);
-                @include size(100%, 100%);
-            }
-            &:focus-within {
-                border: 1px solid $theme-color;
-            }
-        }
-        .button {
-            display: flex;
-            justify-content: flex-end;
-        }
+}
+
+.inputBox {
+    overflow: hidden;
+    border: 1px solid $light-gray;
+    margin-bottom: 1rem;
+    @include size(100%, 10rem);
+    textarea {
+        padding: 1rem;
+        border: none;
+        outline: none;
+        @include font(black, normal, 300, 1.6rem);
+        @include size(100%, 100%);
     }
+    &:focus-within {
+        border: 1px solid $black;
+    }
+}
+
+.buttonBox {
+    display: flex;
+    justify-content: flex-end;
 }

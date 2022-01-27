@@ -1,9 +1,13 @@
 @import 'styles/util.module.scss';
 
 .postItem {
-    height: 35px;
-    @include font(black, normal, 300, 1.4rem);
+    height: 3.5rem;
     td:not(:nth-child(3)) {
         text-align: center;
+    }
+    td {
+        em {
+            @include font(red, normal, 400, 1.4rem);
+        }
     }
 }

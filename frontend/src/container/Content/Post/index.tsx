@@ -1,14 +1,12 @@
 // import package, library
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 import Link from 'next/link';
 
 // import utilities
 import useReadPost from 'hooks/post/useReadPost';
 
 // import components
-import Span from 'components/Span/index';
-import Blank from 'components/Blank';
-import Emphasise from 'components/Emphasise';
 
 // import etc
 import styles from './styles.module.scss';
@@ -46,22 +44,23 @@ const Post = () => {
         <article className={styles.post}>
             <header>
                 <h2>{post.title}</h2>
-                <div className={styles.info}>
-                    <div>
-                        <Link href={`/user/${post.writerId}`}>
+                <div className={styles.postInfo}>
+                    <div className={styles.writerProfile}>
+                        <Image src="/123.png" alt="writerProfile" layout="fill" />
+                    </div>
+                    <div className={styles.basicInfo}>
+                        <Link href={{ pathname: `/user/${post.writerId}`, query: { page: 1, size: 20 } }}>
                             <a>{post.writer}</a>
                         </Link>
-                        <Blank />
-                        <span>{date}</span>
+                        <p>{date}</p>
                     </div>
-                    <div>
-                        <Span>
-                            조회수 <Emphasise>{post.views}</Emphasise>
-                        </Span>
-                        <Blank />
-                        <Span>
-                            추천 <Emphasise>{post.likes}</Emphasise>
-                        </Span>
+                    <div className={styles.etcInfo}>
+                        <span>
+                            조회수 <em>{post.views}</em>
+                        </span>
+                        <span>
+                            추천 <em>{post.likes}</em>
+                        </span>
                     </div>
                 </div>
             </header>

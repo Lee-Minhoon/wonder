@@ -3,5 +3,16 @@
 .postUtil {
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 5px;
+    margin-bottom: 0.5rem;
+    span {
+        line-height: 2.5rem;
+        margin-right: 0.5rem;
+        @include font($black, normal, 300, 1.4rem);
+        em {
+            @include font($black, normal, 600, 1.4rem);
+        }
+    }
+    select {
+        margin-right: 0.5rem;
+    }
 }

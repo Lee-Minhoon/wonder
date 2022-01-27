@@ -2,12 +2,12 @@
 
 .postList {
     width: 100%;
-    border-top: 2px solid $theme-color;
-    border-bottom: 1px solid $theme-color;
+    border-top: 2px solid $black;
+    border-bottom: 1px solid $black;
     th {
-        height: 35px;
-        border-bottom: 1px solid $dark-gray;
-        @include font($dark-gray, normal, 400, 1.6rem);
+        height: 3.5rem;
+        border-bottom: 1px solid $black;
+        @include font($black, normal, 400, 1.6rem);
     }
     tr:not(:last-child) {
         td {

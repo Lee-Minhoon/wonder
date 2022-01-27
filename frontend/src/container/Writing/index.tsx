@@ -8,10 +8,9 @@ import useInput from 'hooks/useInput';
 import useEditor from 'hooks/useEditor';
 
 // import components
-import Divider from 'components/Divider';
 import Editor from './Editor';
 import SelectBox from 'components/SelectBox';
-import ColoredHeading from 'components/ColoredHeading';
+import Button from 'components/Button';
 
 // import etc
 import styles from './styles.module.scss';
@@ -68,10 +67,9 @@ const Writing = () => {
 
     return (
         <div className={styles.writing}>
-            <form onSubmit={handleSubmit}>
-                <ColoredHeading>글쓰기</ColoredHeading>
-                <Divider />
-                <div>
+            <form>
+                <h1>글쓰기</h1>
+                <div className={styles.categorySelect}>
                     <SelectBox
                         options={mainOptions}
                         onChange={(e) => setMainCategory(parseInt(e.target.value))}
@@ -83,9 +81,13 @@ const Writing = () => {
                         selected={subCategory}
                     />
                 </div>
-                <input type="text" placeholder="제목을 입력하세요." {...title} />
+                <div className={styles.inputBox}>
+                    <input type="text" placeholder="제목을 입력하세요." {...title} />
+                </div>
                 <Editor height="600px" initialEditType="wysiwyg" {...content} />
-                <button type="submit">글쓰기</button>
+                <div className={styles.buttonBox}>
+                    <Button onClick={handleSubmit}>글 등록</Button>
+                </div>
             </form>
         </div>
     );

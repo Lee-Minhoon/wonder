@@ -35,7 +35,7 @@ const Comment = () => {
             e.preventDefault();
             const createCommentInputValue: createCommentInput = {
                 post: router.query.view,
-                content: content.value,
+                content: content.value.replace(/\n/g, '<br/>'),
             };
             createComment.mutate(createCommentInputValue);
         },
@@ -63,11 +63,11 @@ const Comment = () => {
         <section className={styles.comment}>
             <header>{comments.count}개의 댓글 등록순</header>
             <CommentList comments={comments.data} />
-            <form onSubmit={handleSubmit}>
+            <form>
                 <div className={styles.inputBox}>
-                    <input type="text" placeholder="댓글을 입력하세요." {...content} />
+                    <textarea placeholder="댓글을 입력하세요." {...content} />
                 </div>
-                <div className={styles.button}>
+                <div className={styles.buttonBox}>
                     <Button onClick={handleSubmit}>댓글 등록</Button>
                 </div>
             </form>

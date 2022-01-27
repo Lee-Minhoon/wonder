@@ -5,18 +5,15 @@ import { useRouter } from 'next/router';
 
 // import components
 import LinkList from 'components/LinkList';
-import BoardTitle from 'components/BoardTitle';
+import Divider from 'components/Divider';
 
 // import etc
 import styles from './styles.module.scss';
-import Divider from 'components/Divider';
 
 const LNBList = ({ category }) => {
-    const router = useRouter();
-
     return (
-        <>
-            <BoardTitle title={category.title} url={category.url} />
+        <li className={styles.lnbList}>
+            <h1 className={styles.title}>{category.title}</h1>
             <Divider />
             <ul>
                 {category.sub.map((item) => (
@@ -28,7 +25,7 @@ const LNBList = ({ category }) => {
                     />
                 ))}
             </ul>
-        </>
+        </li>
     );
 };
 

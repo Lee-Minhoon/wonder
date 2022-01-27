@@ -5,10 +5,7 @@ import { useRouter } from 'next/router';
 
 // import components
 import Button from 'components/Button';
-import Emphasise from 'components/Emphasise';
-import Span from 'components/Span/index';
 import SelectBox from 'components/SelectBox';
-import Blank from 'components/Blank';
 
 // import etc
 import styles from './styles.module.scss';
@@ -26,16 +23,13 @@ const PostUtil = ({ pages, count, handleChange, handleClick }) => {
 
     return (
         <div className={styles.postUtil}>
-            <Span>
-                <Emphasise>{pages}</Emphasise>개의 페이지
-            </Span>
-            <Blank />
-            <Span>
-                <Emphasise>{count}</Emphasise>개의 글
-            </Span>
-            <Blank />
+            <span>
+                <em>{pages}</em>개의 페이지
+            </span>
+            <span>
+                <em>{count}</em>개의 글
+            </span>
             <SelectBox options={options} onChange={handleChange} selected={router.query.size} />
-            <Blank />
             <Button onClick={handleClick}>글쓰기</Button>
         </div>
     );

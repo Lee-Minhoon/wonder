@@ -25,7 +25,7 @@ public class CommentDto {
             this.id = commentMapper.getId();
             this.content = commentMapper.getContent();
             this.writer = commentMapper.getWriter();
-            this.createdAt = commentMapper.getCreateAt();
+            this.createdAt = commentMapper.getCreatedAt();
         }
     }
 

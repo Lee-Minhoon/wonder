@@ -7,7 +7,6 @@ import useReadAllPost from 'hooks/post/useReadAllPost';
 // import components
 import Pagination from './Pagination';
 import PostUtil from 'components/PostUtil';
-import BoardTitle from 'components/BoardTitle';
 import Divider from 'components/Divider';
 import Banner from 'components/Banner';
 import PostList from 'components/PostList';
@@ -61,7 +60,9 @@ const Board = () => {
     return (
         <div className={styles.board}>
             <header>
-                <BoardTitle title={main.title} url={main.url} />
+                <h1 className={styles.title}>
+                    {main.title} – {sub.title}
+                </h1>
                 <Divider />
                 <Banner />
                 <PostUtil

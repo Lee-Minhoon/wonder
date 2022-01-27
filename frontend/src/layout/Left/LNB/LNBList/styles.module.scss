@@ -1,1 +1,20 @@
 @import 'styles/util.module.scss';
+
+.lnbList {
+    margin-bottom: 2rem;
+    ul {
+        li {
+            margin: 0.5rem 0;
+            a {
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}
+
+.title {
+    padding-bottom: 0.5rem;
+    @include font($theme-color, normal, 400, 1.6rem);
+}

@@ -5,7 +5,6 @@ import Link from 'next/link';
 // import utilities
 
 // import components
-import Emphasise from 'components/Emphasise';
 
 // import etc
 import styles from './styles.module.scss';
@@ -13,7 +12,8 @@ import category from 'constants/category';
 
 const PostItem = (props) => {
     const router = useRouter();
-    const sub = category.find((item) => item.sub.find((item) => item.title === props.category));
+    const main = category.find((item) => item.sub.find((item) => item.title === props.category));
+    const sub = main.sub.find((item) => item.title === props.category);
     const date = new Intl.DateTimeFormat('ko-KR', {
         year: 'numeric',
         month: '2-digit',
@@ -23,16 +23,26 @@ const PostItem = (props) => {
     return (
         <tr className={styles.postItem}>
             <td>
-                <Link href={{ pathname: '/board/list', query: { ...router.query, sub: sub?.url, page: 1, size: 20 } }}>
+                <Link
+                    href={{
+                        pathname: '/board/list',
+                        query: { main: main?.url, sub: sub?.url, page: 1, size: 20 },
+                    }}
+                >
                     <a>{props.category}</a>
                 </Link>
             </td>
             <td>{props.id}</td>
             <td>
-                <Link href={{ pathname: `/board/${props.id}`, query: { ...router.query } }}>
+                <Link
+                    href={{
+                        pathname: `/board/${props.id}`,
+                        query: { main: main?.url, sub: sub?.url, page: router.query?.page, size: router.query?.size },
+                    }}
+                >
                     <a>{props.title}</a>
                 </Link>
-                <Emphasise> [{props.comments}]</Emphasise>
+                {props.comments && <em> [{props.comments}]</em>}
             </td>
             <td>
                 <Link href={{ pathname: `/user/${props.writerId}`, query: { page: 1, size: 20 } }}>

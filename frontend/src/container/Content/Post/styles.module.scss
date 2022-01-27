@@ -2,18 +2,44 @@
 
 .post {
     header {
-        margin-top: 10px;
-        padding-bottom: 10px;
+        padding-bottom: 1rem;
         border-bottom: 1px solid $light-gray;
         h2 {
-            @include font(black, normal, 400, 1.6rem);
+            margin-bottom: 1rem;
+            @include font(black, normal, 400, 2.4rem);
         }
     }
 }
 
-.info {
+.postInfo {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+}
+
+.writerProfile {
+    overflow: hidden;
+    position: relative;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+
+.basicInfo {
+    margin-right: auto;
+    a {
+        @include font($dark-gray, normal, 400, 1.6rem);
+    }
+}
+
+.etcInfo {
+    align-self: flex-end;
+    span {
+        margin-left: 0.5rem;
+    }
+    em {
+        @include font($black, normal, 600, 1.4rem);
+    }
 }
 
 .article {

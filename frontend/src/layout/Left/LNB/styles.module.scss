@@ -5,8 +5,4 @@
         padding-inline-start: 0px;
         list-style-type: none;
     }
-    li {
-        margin: 10px 0;
-        @include font(black, normal, 300, 1.6rem);
-    }
 }

@@ -1,16 +1,39 @@
 @import 'styles/util.module.scss';
 
 .writing {
-    input {
-        width: 100%;
-        height: 40px;
-        padding: 0 10px;
-        border: 1px solid $light-gray;
-        margin-bottom: 10px;
-        @include font(black, normal, 300, 1.4rem);
-        outline: none;
-        &:focus {
-            border: 1px solid black;
-        }
+    h1 {
+        margin-bottom: 1rem;
+        border-bottom: 2px solid $black;
+        padding-bottom: 1rem;
+        @include font($theme-color, normal, 400, 2rem);
     }
+}
+
+.categorySelect {
+    margin-bottom: 1rem;
+    select {
+        margin-right: 0.5rem;
+    }
+}
+
+.inputBox {
+    border: 1px solid $light-gray;
+    margin-bottom: 1rem;
+    @include size(100%, 4rem);
+    input {
+        padding: 10px;
+        border: none;
+        outline: none;
+        @include font(black, normal, 300, 1.4rem);
+        @include size(100%, 100%);
+    }
+    &:focus-within {
+        border: 1px solid $black;
+    }
+}
+
+.buttonBox {
+    display: flex;
+    margin-top: 1rem;
+    justify-content: flex-end;
 }

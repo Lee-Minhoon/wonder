@@ -1,4 +1,10 @@
 @import 'styles/util.module.scss';
 
-.post {
+.content {
+    h1 {
+        margin-bottom: 1rem;
+        border-bottom: 2px solid $black;
+        padding-bottom: 1rem;
+        @include font($theme-color, normal, 400, 2rem);
+    }
 }

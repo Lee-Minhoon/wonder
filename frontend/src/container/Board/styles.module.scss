@@ -1,6 +1,12 @@
 @import 'styles/util.module.scss';
 
 .board {
+    header {
+        h1 {
+            @include font($theme-color, normal, 400, 2rem);
+            margin-bottom: 1rem;
+        }
+    }
     footer {
         display: flex;
         flex-direction: column;
