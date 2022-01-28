@@ -14,11 +14,11 @@ const PostUtil = ({ pages, count, handleChange, handleClick }) => {
     const router = useRouter();
 
     const options = [
-        { id: 1, value: 10, text: '10개씩' },
-        { id: 2, value: 20, text: '20개씩' },
-        { id: 3, value: 30, text: '30개씩' },
-        { id: 4, value: 40, text: '40개씩' },
-        { id: 5, value: 50, text: '50개씩' },
+        { id: 1, value: 20, text: '20개씩' },
+        { id: 2, value: 40, text: '40개씩' },
+        { id: 3, value: 60, text: '60개씩' },
+        { id: 4, value: 80, text: '80개씩' },
+        { id: 5, value: 100, text: '100개씩' },
     ];
 
     return (

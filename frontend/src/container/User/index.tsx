@@ -5,9 +5,11 @@ import { useRouter } from 'next/router';
 import useReadAllPostByUser from 'hooks/post/useReadAllPostByUser';
 
 // import components
-import UserInfo from './UserInfo';
+import UserInfo from 'components/UserInfo';
 import PostList from 'components/PostList';
 import PostUtil from 'components/PostUtil';
+import Pagination from 'components/Pagination';
+import SearchBar from 'components/SearchBar';
 
 // import etc
 import styles from './styles.module.scss';
@@ -56,12 +58,15 @@ const User = () => {
     const posts = data.data;
     return (
         <div className={styles.user}>
-            <UserInfo />
+            <UserInfo userId={router.query!.id} />
             <PostUtil pages={posts.pages} count={posts.count} handleChange={handleChange} handleClick={handleClick} />
             <section>
                 <PostList posts={posts.data} />
             </section>
-            <footer></footer>
+            <footer>
+                <Pagination pages={posts.pages} />
+                <SearchBar width="300px" height="30px" />
+            </footer>
         </div>
     );
 };

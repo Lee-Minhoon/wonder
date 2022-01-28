@@ -13,7 +13,7 @@ import category from 'constants/category';
 const PostItem = (props) => {
     const router = useRouter();
     const main = category.find((item) => item.sub.find((item) => item.title === props.category));
-    const sub = main.sub.find((item) => item.title === props.category);
+    const sub = main?.sub.find((item) => item.title === props.category);
     const date = new Intl.DateTimeFormat('ko-KR', {
         year: 'numeric',
         month: '2-digit',

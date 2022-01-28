@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import useReadAllPost from 'hooks/post/useReadAllPost';
 
 // import components
-import Pagination from './Pagination';
+import Pagination from 'components/Pagination';
 import PostUtil from 'components/PostUtil';
 import Divider from 'components/Divider';
 import Banner from 'components/Banner';

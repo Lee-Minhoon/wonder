@@ -15,7 +15,7 @@ export interface readPostInput {
     id: any;
 }
 
-const Post = () => {
+const Post = ({ setUser }) => {
     const router = useRouter();
     const readPostInputValue: readPostInput = {
         id: router.query.view,
@@ -39,6 +39,7 @@ const Post = () => {
         minute: '2-digit',
         second: '2-digit',
     }).format(new Date(post.createdAt));
+    setUser(post.writerId);
 
     return (
         <article className={styles.post}>

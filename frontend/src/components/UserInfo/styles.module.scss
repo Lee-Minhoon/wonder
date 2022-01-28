@@ -1,0 +1,60 @@
+@import 'styles/util.module.scss';
+
+.userInfo {
+    display: grid;
+    width: 70rem;
+    padding: 1rem;
+    border: 1px solid $light-gray;
+    border-radius: 0.5rem;
+    align-self: center;
+    grid-template-columns: 26rem auto;
+    grid-template-rows: 20rem auto;
+    margin-bottom: 2rem;
+}
+
+.profileWrapper {
+    margin-right: 1rem;
+    @include flex-center();
+    @include size(25rem, 20rem);
+}
+
+.profile {
+    overflow: hidden;
+    position: relative;
+    border-radius: 50%;
+    @include size(20rem, 20rem);
+}
+
+.info {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 7rem 5rem 8rem;
+}
+
+.intro {
+    padding: 1rem;
+    border: 1px solid $light-gray;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    min-height: 10rem;
+    grid-column: span 2;
+}
+
+.basicInfo {
+    h1 {
+        @include font(black, normal, 400, 3rem);
+    }
+}
+
+.buttonWrapper {
+    display: flex;
+    justify-content: flex-end;
+    button {
+        margin-left: 0.5rem;
+    }
+}
+
+.test {
+    grid-column: span 2;
+}

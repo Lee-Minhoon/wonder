@@ -1,0 +1,10 @@
+@import 'styles/util.module.scss';
+
+.infoTable {
+    grid-column: span 2;
+    width: 100%;
+    th {
+        text-align: initial;
+        @include font(black, normal, 600, 1.4rem);
+    }
+}
