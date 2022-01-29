@@ -20,6 +20,8 @@ const PostItem = (props) => {
         day: '2-digit',
     }).format(new Date(props.createdAt));
 
+    console.log(props.comments);
+
     return (
         <tr className={styles.postItem}>
             <td>
@@ -42,7 +44,7 @@ const PostItem = (props) => {
                 >
                     <a>{props.title}</a>
                 </Link>
-                {props.comments && <em> [{props.comments}]</em>}
+                {+props.comments !== 0 && <em> [{props.comments}]</em>}
             </td>
             <td>
                 <Link href={{ pathname: `/user/${props.writerId}`, query: { page: 1, size: 20 } }}>

@@ -47,8 +47,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
             "GROUP BY p.id, p.title " +
             "ORDER BY p.id DESC",
             countQuery = "SELECT * FROM post as p " +
-                    "WHERE (:categoryId % 10 != 0 AND p.category_id = :categoryId) " +
-                    "OR (:categoryId % 10 = 0 AND :categoryId + 10 > p.category_id AND p.category_id > :categoryId)",
+                    "WHERE p.user_id = :userId ",
             nativeQuery = true)
     Page<PostMapper> findAllPostsByUser(Long userId, Pageable pageable);
 
