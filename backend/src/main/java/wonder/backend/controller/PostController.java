@@ -45,6 +45,9 @@ public class PostController {
     ) {
         logger.info("Request to create a post : {}", createPostDto.getTitle());
 
+        System.out.println(request.getCookies());
+
+
         String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
         User user = getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
         Category category = getOrElseThrow(categoryService.getCategoryById(createPostDto.getCategory()));
@@ -80,11 +83,13 @@ public class PostController {
 
     @GetMapping("posts")
     public ResponseEntity readAllPosts(
+            HttpServletRequest request,
             @RequestParam("category") Long categoryId,
             @RequestParam("page") int page,
             @RequestParam("size") int size
     ) {
         logger.info("Request to read all posts");
+
 
         return ResponseEntity.ok()
                 .body(Response.builder()

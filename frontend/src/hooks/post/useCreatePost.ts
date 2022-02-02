@@ -11,11 +11,17 @@ import { AxiosService } from 'service/defaultAxiosService';
 import { createPostInput } from 'container/Writing';
 
 const createPost = async (input: createPostInput) => {
-    const { data } = await AxiosService.instance.post('posts', {
-        category: input.category,
-        title: input.title,
-        content: input.content,
-    });
+    const { data } = await AxiosService.instance.post(
+        'posts',
+        {
+            category: input.category,
+            title: input.title,
+            content: input.content,
+        },
+        {
+            withCredentials: true,
+        }
+    );
     return data;
 };
 
