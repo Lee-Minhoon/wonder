@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -24,6 +25,7 @@ import wonder.backend.jwt.TokenProvider;
 import wonder.backend.service.AuthService;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
@@ -31,6 +33,7 @@ import javax.servlet.http.HttpServletResponse;
 @AllArgsConstructor
 public class AuthController {
     private final Logger logger = LoggerFactory.getLogger(AuthController.class);
+    public static final String AUTHORIZATION_HEADER = "Authorization";
 
     private final AuthService userService;
     private final TokenProvider tokenProvider;
@@ -59,6 +62,16 @@ public class AuthController {
                         .build());
     }
 
+    @PostMapping("test")
+    public ResponseEntity signup() {
+
+        return ResponseEntity.ok()
+                .body(Response.builder()
+                        .code(ResponseCode.SUCCESS)
+                        .message(ResponseMessage.SUCCESS)
+                        .build());
+    }
+
     @PostMapping("login")
     public ResponseEntity login(
             HttpServletResponse response,
@@ -70,8 +83,13 @@ public class AuthController {
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = tokenProvider.createToken(authentication);
-        Cookie cookie = new Cookie("token", jwt);
-        response.addCookie(cookie);
+        ResponseCookie cookie = ResponseCookie.from("token", jwt)
+                .sameSite("None")
+                .secure(true)
+                .path("/")
+                .build();
+
+        response.addHeader("Set-Cookie", cookie.toString());
 
         return ResponseEntity.ok()
                 .body(Response.builder()
@@ -80,4 +98,16 @@ public class AuthController {
                         .data(new TokenDto(jwt))
                         .build());
     }
+//
+//    @PostMapping("logout")
+//    public ResponseEntity logout(
+//            HttpServletRequest request
+//    ) {
+//        String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
+//        Long userId = tokenProvider.getUserId(jwt);
+//
+//        logger.info("Request to logout : {}", userId);
+//
+//
+//    }
 }

@@ -3,6 +3,8 @@ package wonder.backend.jwt;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
+import wonder.backend.constants.ExceptionEnum;
+import wonder.backend.exception.CustomException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

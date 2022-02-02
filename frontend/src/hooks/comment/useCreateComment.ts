@@ -2,7 +2,7 @@
 import { useMutation, useQueryClient } from 'react-query';
 
 // import utilities
-import { AxiosService } from '../../service/defaultAxiosService';
+import { AxiosService } from 'service/defaultAxiosService';
 
 // import components
 

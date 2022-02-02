@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import wrapper from 'state/store';
 
 // import utilities
+import { RouterGuard } from 'dependecy';
 
 // import components
 import DefaultLayout from 'layout/DefaultLayout';
@@ -15,7 +16,7 @@ import ContentLayout from 'layout/ContentLayout';
 // import etc
 import 'styles/globals.scss';
 
-const NOT_SIDE_BAR_PAGES = ['/auth/login', '/auth/signup', '/'];
+const NOT_SIDE_BAR_PAGES = ['/auth/login', '/auth/signup', '/auth/logout', '/'];
 const SIDE_BAR_PAGES = ['/user/[id]', '/board/[view]', '/board/list', '/board/write'];
 
 const App: FC<AppProps> = ({ Component, pageProps }) => {
@@ -42,7 +43,7 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
     return (
         <QueryClientProvider client={queryClient}>
             <ReactQueryDevtools position="bottom-right" initialIsOpen={true} />
-            {content}
+            <RouterGuard>{content}</RouterGuard>
         </QueryClientProvider>
     );
 };

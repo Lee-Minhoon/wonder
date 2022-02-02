@@ -14,6 +14,7 @@ const UserMenu = () => {
             <ul>
                 <LinkList pathname={'/auth/login'} query={{}} text="로그인" />
                 <LinkList pathname={'/auth/signup'} query={{}} text="회원가입" />
+                <LinkList pathname={'/auth/logout'} query={{}} text="로그아웃" />
             </ul>
         </nav>
     );

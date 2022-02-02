@@ -1,9 +1,8 @@
 // import package, library
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { useRouter } from 'next/router';
 
 // import utilities
-import useReadAllComment from 'hooks/comment/useReadAllComment';
 import useCreateComment from 'hooks/comment/useCreateComment';
 import useInput from 'hooks/useInput';
 
@@ -26,9 +25,10 @@ export interface readAllCommentInput {
 }
 
 const Comment = () => {
-    const content = useInput('');
     const router = useRouter();
     const createComment = useCreateComment();
+    const content = useInput('');
+    const [commentCount, setCommentCount] = useState(0);
 
     const handleSubmit = useCallback(
         async (e) => {
@@ -42,27 +42,23 @@ const Comment = () => {
         [router.query.view, content.value, createComment]
     );
 
-    const readAllCommentInputValue: readAllCommentInput = {
-        post: router.query.view,
-        page: 0,
-        size: 10,
-    };
-    const { data, error, isLoading, isError } = useReadAllComment(readAllCommentInputValue);
-
-    if (isLoading) {
-        return <p>Loading......</p>;
+    if (createComment.isLoading) {
+        console.log('댓글 입력 중..');
     }
-
-    if (isError) {
-        return <p>{error.response.data.message}</p>;
+    if (createComment.isError) {
+        if (createComment.error.response.data.status == 401) {
+            console.log('로그인 되지 않음');
+            router.push('/auth/login');
+        }
     }
-
-    const comments = data.data;
+    if (createComment.isSuccess) {
+        console.log('댓글 입력 성공');
+    }
 
     return (
         <section className={styles.comment}>
-            <header>{comments.count}개의 댓글 등록순</header>
-            <CommentList comments={comments.data} />
+            <header>{commentCount}개의 댓글 등록순</header>
+            <CommentList setCommentCount={setCommentCount} />
             <form>
                 <div className={styles.inputBox}>
                     <textarea placeholder="댓글을 입력하세요." {...content} />

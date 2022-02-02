@@ -28,12 +28,9 @@ const Writing = () => {
     const sub = main?.sub.find((item) => item.url === router.query.sub);
     const [mainCategory, setMainCategory] = useState(main?.id);
     const [subCategory, setSubCategory] = useState(sub?.id);
+    const createPost = useCreatePost();
     const title = useInput('');
     const content = useEditor('');
-    const createPost = useCreatePost();
-
-    console.log(typeof mainCategory, typeof subCategory);
-    console.log(mainCategory, subCategory);
 
     const handleSubmit = useCallback(
         (e) => {
@@ -51,6 +48,19 @@ const Writing = () => {
         },
         [mainCategory, subCategory, title.value, content.value, createPost]
     );
+
+    if (createPost.isLoading) {
+        console.log('댓글 입력 중..');
+    }
+    if (createPost.isError) {
+        if (createPost.error.response.data.status == 401) {
+            console.log('로그인 되지 않음');
+            router.push('/auth/login');
+        }
+    }
+    if (createPost.isSuccess) {
+        console.log('댓글 입력 성공');
+    }
 
     const mainOptions = category.map((item) => {
         return { id: item.id, value: item.id, text: item.title };

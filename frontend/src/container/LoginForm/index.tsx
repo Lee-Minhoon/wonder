@@ -19,9 +19,9 @@ export interface loginInput {
 
 const Login = () => {
     const router = useRouter();
+    const login = useLogin();
     const email = useInput('');
     const password = useInput('');
-    const login = useLogin();
 
     const handleSubmit = useCallback(
         (e) => {
@@ -36,12 +36,13 @@ const Login = () => {
     );
 
     if (login.isLoading) {
-        console.log('로그인 시도중');
+        console.log('로그인 시도 중..');
     }
     if (login.isError) {
         console.log('에러 발생');
     }
     if (login.isSuccess) {
+        console.log('로그인 성공');
         router.push('/');
     }
 

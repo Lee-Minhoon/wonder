@@ -20,8 +20,6 @@ const PostItem = (props) => {
         day: '2-digit',
     }).format(new Date(props.createdAt));
 
-    console.log(props.comments);
-
     return (
         <tr className={styles.postItem}>
             <td>

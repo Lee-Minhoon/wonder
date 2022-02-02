@@ -1,6 +1,8 @@
 // import package, library
+import { useRouter } from 'next/router';
 
 // import utilities
+import useReadAllComment from 'hooks/comment/useReadAllComment';
 
 // import components
 import CommentItem from './CommentItem';
@@ -8,11 +10,31 @@ import CommentItem from './CommentItem';
 // import styles
 import styles from './styles.module.scss';
 
-const List = (props) => {
+const List = ({ setCommentCount }) => {
+    const router = useRouter();
+
+    const readAllCommentInputValue: readAllCommentInput = {
+        post: router.query.view,
+        page: 0,
+        size: 10,
+    };
+    const { data, error, isLoading, isError } = useReadAllComment(readAllCommentInputValue);
+
+    if (isLoading) {
+        return <p>Loading......</p>;
+    }
+
+    if (isError) {
+        return <p>{error.response.data.message}</p>;
+    }
+
+    const comments = data.data;
+    setCommentCount(comments.count);
+
     return (
         <section className={styles.commentList}>
             <ul>
-                {props.comments.map((item) => (
+                {comments.data.map((item) => (
                     <CommentItem key={item.id} content={item.content} writer={item.writer} createdAt={item.createdAt} />
                 ))}
             </ul>

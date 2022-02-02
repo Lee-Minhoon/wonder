@@ -1,21 +1,51 @@
-import { useState } from 'react';
-import { useEffect } from 'react';
+// import package, library
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
 
-const RouterGuard = ({ children }: any) => {
-    const [auth, setAuth] = useState(true);
+// import utilities
+
+// import components
+
+// import etc
+
+const RouterGuard = ({ children }: { children: JSX.Element }) => {
+    const [authorized, setAuthorized] = useState(false);
     const router = useRouter();
+
     useEffect(() => {
-        const token = cookies.get('token');
-        if (token) {
-            setAuth(true);
-        } else {
-            setAuth(false);
-            router.replace('/login');
-        }
+        // on initial load - run auth check
+        authCheck(router.asPath);
+
+        // on route change start - hide page content by setting authorized to false
+        const hideContent = () => setAuthorized(false);
+        router.events.on('routeChangeStart', hideContent);
+
+        // on route change complete - run auth check
+        router.events.on('routeChangeComplete', authCheck);
+
+        // unsubscribe from events in useEffect return function
+        return () => {
+            router.events.off('routeChangeStart', hideContent);
+            router.events.off('routeChangeComplete', authCheck);
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    return auth && children;
+    const authCheck = (url) => {
+        const token = Cookies.get('token');
+
+        if (!token && url != '/auth/login') {
+            setAuthorized(false);
+            router.push({
+                pathname: '/auth/login',
+            });
+        } else {
+            setAuthorized(true);
+        }
+    };
+
+    return authorized && children;
 };
 
 export { RouterGuard };
