@@ -28,7 +28,6 @@ AxiosService.instance.interceptors.request.use(
         if (!config.headers.common.Authorization && Cookies.get('token')) {
             const token = Cookies.get('token');
             AxiosService.addHeaderToken(token);
-            config.headers.common.Authorization = `Bearer ${token}`;
         }
         return config;
     },

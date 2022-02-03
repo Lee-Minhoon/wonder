@@ -14,17 +14,13 @@ const RouterGuard = ({ children }: { children: JSX.Element }) => {
     const router = useRouter();
 
     useEffect(() => {
-        // on initial load - run auth check
-        authCheck(router.asPath);
+        const url = router.pathname;
+        authCheck(url);
 
-        // on route change start - hide page content by setting authorized to false
         const hideContent = () => setAuthorized(false);
         router.events.on('routeChangeStart', hideContent);
-
-        // on route change complete - run auth check
         router.events.on('routeChangeComplete', authCheck);
 
-        // unsubscribe from events in useEffect return function
         return () => {
             router.events.off('routeChangeStart', hideContent);
             router.events.off('routeChangeComplete', authCheck);
@@ -33,12 +29,17 @@ const RouterGuard = ({ children }: { children: JSX.Element }) => {
     }, []);
 
     const authCheck = (url) => {
+        console.log('RouterGuard: ', router.pathname);
+        console.log('authCheck:', url);
         const token = Cookies.get('token');
+        const publicPaths = ['/auth/login'];
+        const path = url.split('?')[0];
 
-        if (!token && url != '/auth/login') {
+        if (!token && !publicPaths.includes(path)) {
             setAuthorized(false);
             router.push({
                 pathname: '/auth/login',
+                query: { redirect: url },
             });
         } else {
             setAuthorized(true);

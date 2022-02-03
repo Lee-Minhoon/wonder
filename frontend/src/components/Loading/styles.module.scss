@@ -1,0 +1,36 @@
+@import 'styles/util.module.scss';
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading {
+    @include flex-center();
+    span {
+        display: inline-block;
+        position: relative;
+        @include size(5rem, 5rem);
+        &::before {
+            position: absolute;
+            border: solid 5px $white;
+            border-radius: 50%;
+            content: '';
+            box-sizing: inherit;
+            z-index: -1;
+            border-top: solid 5px $theme-color;
+            @include location(0, 0, 0, 0);
+            @include size(inherit, inherit);
+            animation: {
+                name: spin;
+                duration: 1s;
+                iteration-count: infinite;
+                timing-function: linear;
+            }
+        }
+    }
+}

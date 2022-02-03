@@ -1,0 +1,21 @@
+@import 'styles/util.module.scss';
+
+.subMenu {
+    display: none;
+    position: absolute;
+    top: 125px;
+    width: 20rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid $light-gray;
+    border-radius: 0.5rem;
+    line-height: 30px;
+    background-color: $white;
+    li {
+        list-style: none;
+        a {
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}

@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import useReadAllPost from 'hooks/post/useReadAllPost';
 
 // import components
+import Loading from 'components/Loading';
 import Pagination from 'components/Pagination';
 import PostUtil from 'components/PostUtil';
 import Divider from 'components/Divider';
@@ -35,7 +36,7 @@ const Board = () => {
     const { data, error, isLoading, isError } = useReadAllPost(readAllPostInputValue);
 
     if (isLoading) {
-        return <p>Loading......</p>;
+        return <Loading />;
     }
     if (isError) {
         return <p>{error.response.data.message}</p>;

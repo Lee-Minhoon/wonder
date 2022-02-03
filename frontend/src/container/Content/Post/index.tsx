@@ -7,6 +7,7 @@ import Link from 'next/link';
 import useReadPost from 'hooks/post/useReadPost';
 
 // import components
+import Loading from 'components/Loading';
 
 // import etc
 import styles from './styles.module.scss';
@@ -23,7 +24,7 @@ const Post = ({ setUser }) => {
     const { data, error, isLoading, isSuccess, isError } = useReadPost(readPostInputValue);
 
     if (isLoading) {
-        return <p>Loading......</p>;
+        return <Loading />;
     }
 
     if (isError) {

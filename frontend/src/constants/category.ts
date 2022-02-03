@@ -49,10 +49,11 @@ const category = [
         title: '구인/구직',
         url: 'job',
         sub: [
-            { id: 40, title: '구인', url: 'offer' },
-            { id: 41, title: '구직', url: 'search' },
-            { id: 42, title: '외주/의뢰', url: 'outsourcing' },
-            { id: 43, title: '홍보', url: 'promotion' },
+            { id: 40, title: '전체보기', url: 'all' },
+            { id: 41, title: '구인', url: 'offer' },
+            { id: 42, title: '구직', url: 'search' },
+            { id: 43, title: '외주/의뢰', url: 'outsourcing' },
+            { id: 44, title: '홍보', url: 'promotion' },
         ],
     },
 ];

@@ -5,13 +5,25 @@
     border-bottom: 1px solid $light-gray;
     @include size(100%, 40px);
     @include flex-center();
-    ul {
-        padding-inline-start: 0px;
+}
+
+.mainMenu {
+    padding-inline-start: 0px;
+}
+
+.mainMenuList {
+    display: inline-flex;
+    width: 12rem;
+    margin: 0 10px;
+    line-height: 38px;
+    justify-content: center;
+    @include font($dark-gray, normal, 400, 1.6rem);
+    &:hover {
+        ul {
+            display: block;
+        }
     }
-    li {
-        display: inline-flex;
-        margin: 0 10px;
-        @include font($dark-gray, normal, 400, 1.6rem);
+    a {
         &:hover {
             color: $theme-color;
         }

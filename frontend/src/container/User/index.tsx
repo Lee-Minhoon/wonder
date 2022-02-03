@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import useReadAllPostByUser from 'hooks/post/useReadAllPostByUser';
 
 // import components
+import Loading from 'components/Loading';
 import UserInfo from 'components/UserInfo';
 import PostList from 'components/PostList';
 import PostUtil from 'components/PostUtil';
@@ -35,7 +36,7 @@ const User = () => {
     const { data, error, isLoading, isError } = useReadAllPostByUser(readAllPostInputValue);
 
     if (isLoading) {
-        return <p>Loading......</p>;
+        return <Loading />;
     }
     if (isError) {
         return <p>{error.response.data.message}</p>;

@@ -5,6 +5,7 @@ import Image from 'next/image';
 import useReadUser from 'hooks/user/useReadUser';
 
 // import components
+import Loading from 'components/Loading';
 
 // import etc
 import styles from './styles.module.scss';
@@ -22,7 +23,7 @@ const UserInfo = ({ userId }) => {
     const { data, error, isLoading, isSuccess, isError } = useReadUser(readUserInputValue);
 
     if (isLoading) {
-        return <p>Loading......</p>;
+        return <Loading />;
     }
     if (isError) {
         return <p>{error.response.data.message}</p>;

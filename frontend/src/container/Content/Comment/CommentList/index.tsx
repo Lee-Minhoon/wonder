@@ -6,6 +6,7 @@ import useReadAllComment from 'hooks/comment/useReadAllComment';
 
 // import components
 import CommentItem from './CommentItem';
+import Loading from 'components/Loading';
 
 // import styles
 import styles from './styles.module.scss';
@@ -21,7 +22,7 @@ const List = ({ setCommentCount }) => {
     const { data, error, isLoading, isError } = useReadAllComment(readAllCommentInputValue);
 
     if (isLoading) {
-        return <p>Loading......</p>;
+        return <Loading />;
     }
 
     if (isError) {
