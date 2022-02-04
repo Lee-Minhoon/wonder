@@ -7,7 +7,6 @@ import { AxiosService } from 'service/defaultAxiosService';
 // import components
 
 // import etc
-import { readPostInput } from 'container/Content/Post';
 
 export interface readUserResponse {
     id: number;
@@ -15,6 +14,10 @@ export interface readUserResponse {
     nickname: string;
     grade: string;
     role: string;
+}
+
+export interface readPostInput {
+    id: any;
 }
 
 const readPost = async (input: readPostInput) => {

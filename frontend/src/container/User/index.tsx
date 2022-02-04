@@ -2,28 +2,18 @@
 import { useRouter } from 'next/router';
 
 // import utilities
-import useReadAllPostByUser from 'hooks/post/useReadAllPostByUser';
+import useReadAllPostByUser, { readAllPostByUserInput } from 'hooks/post/useReadAllPostByUser';
 
 // import components
 import Loading from 'components/Loading';
 import UserInfo from 'components/UserInfo';
 import PostList from 'components/PostList';
-import PostUtil from 'components/PostUtil';
+import BoardUtil from 'components/BoardUtil';
 import Pagination from 'components/Pagination';
 import SearchBar from 'components/SearchBar';
 
 // import etc
 import styles from './styles.module.scss';
-
-export interface readUserInput {
-    id: any;
-}
-
-export interface readAllPostByUserInput {
-    user: any;
-    page: number;
-    size: number;
-}
 
 const User = () => {
     const router = useRouter();
@@ -60,7 +50,7 @@ const User = () => {
     return (
         <div className={styles.user}>
             <UserInfo userId={router.query!.id} />
-            <PostUtil pages={posts.pages} count={posts.count} handleChange={handleChange} handleClick={handleClick} />
+            <BoardUtil pages={posts.pages} count={posts.count} handleChange={handleChange} handleClick={handleClick} />
             <section>
                 <PostList posts={posts.data} />
             </section>

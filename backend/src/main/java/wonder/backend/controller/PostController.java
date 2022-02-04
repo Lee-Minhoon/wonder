@@ -14,7 +14,8 @@ import wonder.backend.domain.Post;
 import wonder.backend.domain.User;
 import wonder.backend.dto.PostDto;
 import wonder.backend.dto.common.Response;
-import wonder.backend.dto.mapper.PostMapper;
+import wonder.backend.dto.mapper.ReadAllPostMapper;
+import wonder.backend.dto.mapper.ReadPostMapper;
 import wonder.backend.exception.CustomException;
 import wonder.backend.jwt.TokenProvider;
 import wonder.backend.service.CategoryService;
@@ -68,7 +69,7 @@ public class PostController {
     ) {
         logger.info("Request to read a post : {}", postId);
 
-        PostMapper post = getOrElseThrow(postService.getPostInfoById(postId));
+        ReadPostMapper post = getOrElseThrow(postService.getPostInfoById(postId));
 
         return ResponseEntity.ok()
                 .body(Response.builder()
@@ -81,6 +82,7 @@ public class PostController {
     @GetMapping("posts")
     public ResponseEntity readAllPosts(
             @RequestParam("category") Long categoryId,
+            @RequestParam("title") String title,
             @RequestParam("page") int page,
             @RequestParam("size") int size
     ) {
@@ -90,7 +92,7 @@ public class PostController {
                 .body(Response.builder()
                         .code(ResponseCode.SUCCESS)
                         .message(ResponseMessage.SUCCESS)
-                        .data(postService.readAllPosts(categoryId, page, size))
+                        .data(postService.readAllPosts(categoryId, title, page, size))
                         .build());
     }
 

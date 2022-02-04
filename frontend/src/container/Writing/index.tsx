@@ -3,7 +3,8 @@ import { useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
 
 // import utilities
-import useCreatePost from 'hooks/post/useCreatePost';
+import useCreatePost, { createPostInput } from 'hooks/post/useCreatePost';
+import useReadPost, { readPostInput } from 'hooks/post/useReadPost';
 import useInput from 'hooks/useInput';
 import useEditor from 'hooks/useEditor';
 
@@ -11,16 +12,11 @@ import useEditor from 'hooks/useEditor';
 import Editor from './Editor';
 import SelectBox from 'components/SelectBox';
 import Button from 'components/Button';
+import Loading from 'components/Loading';
 
 // import etc
 import styles from './styles.module.scss';
 import category from 'constants/category';
-
-export interface createPostInput {
-    category: any;
-    title: any;
-    content: any;
-}
 
 const Writing = () => {
     const router = useRouter();
@@ -50,7 +46,7 @@ const Writing = () => {
     );
 
     if (createPost.isLoading) {
-        console.log('댓글 입력 중..');
+        console.log('글 작성 중..');
     }
     if (createPost.isError) {
         if (createPost.error.response.data.status == 401) {
@@ -59,7 +55,8 @@ const Writing = () => {
         }
     }
     if (createPost.isSuccess) {
-        console.log('댓글 입력 성공');
+        console.log('글 작성 성공');
+        router.push({ pathname: `/board/${createPost.data.data}`, query: { redirect: router.query?.redirect } });
     }
 
     const mainOptions = category.map((item) => {
@@ -74,6 +71,20 @@ const Writing = () => {
             if (item.id % 10 === 0) return { id: item.id, value: item.id, text: '카테고리' };
             return { id: item.id, value: item.id, text: item.title };
         });
+
+    // const readPostInputValue: readPostInput = {
+    //     id: router.query.update,
+    // };
+    // const { data, error, isLoading, isSuccess, isError } = useReadPost(readPostInputValue);
+    // if (isLoading) {
+    //     return <Loading />;
+    // }
+
+    // if (isError) {
+    //     return <p>{error.response.data.message}</p>;
+    // }
+    // const post = data.data;
+    // console.log(post);
 
     return (
         <div className={styles.writing}>

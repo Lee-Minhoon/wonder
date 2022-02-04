@@ -8,11 +8,11 @@ import { HYDRATE, createWrapper, MakeStore, Context } from 'next-redux-wrapper';
 
 // import etc
 import category from './category';
-import count from './count';
+import user from './user';
 
 // create a makeStore function
 const combinedReducer = combineReducers({
-    count,
+    user,
     category,
 });
 
@@ -28,6 +28,8 @@ const reducer = (state, action: AnyAction) => {
         return combinedReducer(state, action);
     }
 };
+
+export type RootState = ReturnType<typeof reducer>;
 
 const makeStore = (context: Context) => createStore(reducer);
 

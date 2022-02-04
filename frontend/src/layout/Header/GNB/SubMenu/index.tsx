@@ -15,7 +15,7 @@ const SubMenu = ({ main }) => {
                 <LinkList
                     key={sub.id}
                     pathname="/board/list"
-                    query={{ main: main.url, sub: sub.url, page: 1, size: 20 }}
+                    query={{ main: main.url, sub: sub.url, title: '', page: 1, size: 20 }}
                     text={sub.title}
                 />
             ))}

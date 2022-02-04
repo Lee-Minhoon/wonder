@@ -2,7 +2,7 @@
 import Image from 'next/image';
 
 // import utilities
-import useReadUser from 'hooks/user/useReadUser';
+import useReadUser, { readUserInput } from 'hooks/user/useReadUser';
 
 // import components
 import Loading from 'components/Loading';
@@ -11,10 +11,6 @@ import Loading from 'components/Loading';
 import styles from './styles.module.scss';
 import InfoTable from './InfoTable';
 import Button from 'components/Button';
-
-export interface readUserInput {
-    id: any;
-}
 
 const UserInfo = ({ userId }) => {
     const readUserInputValue: readUserInput = {

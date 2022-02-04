@@ -37,7 +37,7 @@ const PostItem = (props) => {
                 <Link
                     href={{
                         pathname: `/board/${props.id}`,
-                        query: { main: main?.url, sub: sub?.url, page: router.query?.page, size: router.query?.size },
+                        query: { redirect: router.asPath },
                     }}
                 >
                     <a>{props.title}</a>

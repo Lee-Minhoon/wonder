@@ -7,7 +7,12 @@ import { AxiosService } from 'service/defaultAxiosService';
 // import components
 
 // import etc
-import { readAllPostByUserInput } from 'container/User';
+
+export interface readAllPostByUserInput {
+    user: any;
+    page: number;
+    size: number;
+}
 
 const readAllPostByUser = async (input: readAllPostByUserInput) => {
     const { data } = await AxiosService.instance.get(`users/${input.user}/posts`, {

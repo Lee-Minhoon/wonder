@@ -3,20 +3,13 @@ import { useCallback } from 'react';
 import { useRouter } from 'next/router';
 
 // import utilities
-import useSignup from 'hooks/auth/useSignup';
+import useSignup, { signupInput } from 'hooks/auth/useSignup';
 import useInput from 'hooks/useInput';
 
 // import components
 
 // import etc
 import styles from './styles.module.scss';
-
-export interface signupInput {
-    email: any;
-    password: any;
-    check: any;
-    nickname: any;
-}
 
 const Signup = () => {
     const router = useRouter();

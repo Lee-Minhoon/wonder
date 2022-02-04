@@ -2,7 +2,7 @@
 import { useRouter } from 'next/router';
 
 // import utilities
-import useReadAllComment from 'hooks/comment/useReadAllComment';
+import useReadAllComment, { readAllCommentInput } from 'hooks/comment/useReadAllComment';
 
 // import components
 import CommentItem from './CommentItem';

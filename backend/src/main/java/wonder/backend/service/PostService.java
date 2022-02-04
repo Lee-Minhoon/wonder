@@ -13,7 +13,8 @@ import wonder.backend.domain.Post;
 import wonder.backend.domain.User;
 import wonder.backend.dto.common.ResponsePage;
 import wonder.backend.dto.PostDto;
-import wonder.backend.dto.mapper.PostMapper;
+import wonder.backend.dto.mapper.ReadAllPostMapper;
+import wonder.backend.dto.mapper.ReadPostMapper;
 import wonder.backend.exception.CustomException;
 import wonder.backend.repository.PostRepository;
 
@@ -34,31 +35,31 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public PostDto.ReadPostDto readPost(PostMapper post) {
+    public PostDto.ReadPostDto readPost(ReadPostMapper post) {
         return PostDto.ReadPostDto.builder()
                 .postMapper(post)
                 .build();
     }
 
     @Transactional(readOnly = true)
-    public ResponsePage readAllPosts(Long categoryId, int page, int size) {
+    public ResponsePage readAllPosts(Long categoryId, String title, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<PostMapper> result = postRepository.findAllPostsByCategory(categoryId, pageable);
+        Page<ReadAllPostMapper> result = postRepository.findAllPostsByCategory(categoryId, title, pageable);
         return ResponsePage.builder()
                 .pages(result.getTotalPages())
                 .count(result.getTotalElements())
-                .data(result.stream().map(PostDto.ReadAllPostDto::new).collect(Collectors.toList()))
+                .data(result.stream().map(PostDto.ReadAllPostsDto::new).collect(Collectors.toList()))
                 .build();
     }
 
     @Transactional(readOnly = true)
     public ResponsePage readAllPostsByUser(Long userId, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<PostMapper> result = postRepository.findAllPostsByUser(userId, pageable);
+        Page<ReadAllPostMapper> result = postRepository.findAllPostsByUser(userId, pageable);
         return ResponsePage.builder()
                 .pages(result.getTotalPages())
                 .count(result.getTotalElements())
-                .data(result.stream().map(PostDto.ReadAllPostDto::new).collect(Collectors.toList()))
+                .data(result.stream().map(PostDto.ReadAllPostsDto::new).collect(Collectors.toList()))
                 .build();
     }
 
@@ -78,7 +79,7 @@ public class PostService {
         if(post.getUser().getId() != user.getId()) new CustomException(ExceptionEnum.UNAUTHORIZED);
     }
 
-    public Optional<PostMapper> getPostInfoById(Long id) {
+    public Optional<ReadPostMapper> getPostInfoById(Long id) {
         return postRepository.findPostInfoById(id);
     }
 

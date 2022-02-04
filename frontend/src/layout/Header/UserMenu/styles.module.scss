@@ -12,8 +12,11 @@
         display: inline-flex;
         margin-left: 10px;
         @include font(black, normal, 300, 1.2rem);
-        &:hover {
-            color: $theme-color;
+        a {
+            &:hover {
+                color: $theme-color;
+                cursor: pointer;
+            }
         }
     }
 }

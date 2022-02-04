@@ -7,7 +7,10 @@ import { AxiosService } from 'service/defaultAxiosService';
 // import components
 
 // import etc
-import { readUserInput } from 'container/User';
+
+export interface readUserInput {
+    id: any;
+}
 
 export interface readUserResponse {
     id: number;

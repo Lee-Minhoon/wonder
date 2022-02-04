@@ -7,7 +7,11 @@ import { AxiosService } from 'service/defaultAxiosService';
 // import components
 
 // import etc
-import { createCommentInput } from 'container/Content/Comment';
+
+export interface createCommentInput {
+    post: any;
+    content: any;
+}
 
 const createComment = async (input: createCommentInput) => {
     const { data } = await AxiosService.instance.post('comments', {

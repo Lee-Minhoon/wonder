@@ -4,18 +4,13 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 // import utilities
-import useLogin from 'hooks/auth/useLogin';
+import useLogin, { loginInput } from 'hooks/auth/useLogin';
 import useInput from 'hooks/useInput';
 
 // import components
 
 // import etc
 import styles from './styles.module.scss';
-
-export interface loginInput {
-    email: any;
-    password: any;
-}
 
 const Login = () => {
     const router = useRouter();
@@ -43,7 +38,7 @@ const Login = () => {
     }
     if (login.isSuccess) {
         console.log('로그인 성공');
-        router.push(router.query.redirect.toString());
+        router.push(router.query?.redirect.toString());
     }
 
     return (

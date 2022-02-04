@@ -8,20 +8,19 @@ import { AxiosService } from 'service/defaultAxiosService';
 // import components
 
 // import etc
-import { createPostInput } from 'container/Writing';
+
+export interface createPostInput {
+    category: any;
+    title: any;
+    content: any;
+}
 
 const createPost = async (input: createPostInput) => {
-    const { data } = await AxiosService.instance.post(
-        'posts',
-        {
-            category: input.category,
-            title: input.title,
-            content: input.content,
-        },
-        {
-            withCredentials: true,
-        }
-    );
+    const { data } = await AxiosService.instance.post('posts', {
+        category: input.category,
+        title: input.title,
+        content: input.content,
+    });
     return data;
 };
 
@@ -36,7 +35,6 @@ const useCreatePost = () => {
         },
         onSuccess: (data, variables, context) => {
             console.log(data);
-            router.push({ pathname: `/board/${data.data}`, query: { ...router.query } });
         },
     });
 };

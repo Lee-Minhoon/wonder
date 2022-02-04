@@ -7,12 +7,19 @@ import { AxiosService } from 'service/defaultAxiosService';
 // import components
 
 // import etc
-import { readAllPostInput } from 'container/Board';
+
+export interface readAllPostInput {
+    category: number;
+    title: string;
+    page: number;
+    size: number;
+}
 
 const readAllPost = async (input: readAllPostInput) => {
     const { data } = await AxiosService.instance.get('posts', {
         params: {
             category: input.category,
+            title: input.title,
             page: input.page,
             size: input.size,
         },

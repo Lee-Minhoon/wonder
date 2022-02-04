@@ -4,19 +4,16 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 // import utilities
-import useReadPost from 'hooks/post/useReadPost';
+import useReadPost, { readPostInput } from 'hooks/post/useReadPost';
 
 // import components
 import Loading from 'components/Loading';
+import PostUtil from './PostUtil';
 
 // import etc
 import styles from './styles.module.scss';
 
-export interface readPostInput {
-    id: any;
-}
-
-const Post = ({ setUser }) => {
+const Post = ({ setCategoryId, setUserId }) => {
     const router = useRouter();
     const readPostInputValue: readPostInput = {
         id: router.query.view,
@@ -40,12 +37,17 @@ const Post = ({ setUser }) => {
         minute: '2-digit',
         second: '2-digit',
     }).format(new Date(post.createdAt));
-    setUser(post.writerId);
+
+    setCategoryId(post.categoryId);
+    setUserId(post.writerId);
 
     return (
         <article className={styles.post}>
             <header>
-                <h2>{post.title}</h2>
+                <div className={styles.topArea}>
+                    <h2>{post.title}</h2>
+                    <PostUtil postId={post.id} />
+                </div>
                 <div className={styles.postInfo}>
                     <div className={styles.writerProfile}>
                         <Image src="/123.png" alt="writerProfile" layout="fill" />

@@ -10,7 +10,7 @@ import SelectBox from 'components/SelectBox';
 // import etc
 import styles from './styles.module.scss';
 
-const PostUtil = ({ pages, count, handleChange, handleClick }) => {
+const BoardUtil = ({ pages, count, onChange, onClick }) => {
     const router = useRouter();
 
     const options = [
@@ -29,10 +29,10 @@ const PostUtil = ({ pages, count, handleChange, handleClick }) => {
             <span>
                 <em>{count}</em>개의 글
             </span>
-            <SelectBox options={options} onChange={handleChange} selected={router.query.size} />
-            <Button onClick={handleClick}>글쓰기</Button>
+            <SelectBox options={options} onChange={onChange} selected={router.query.size} />
+            <Button onClick={onClick}>글쓰기</Button>
         </div>
     );
 };
 
-export default PostUtil;
+export default BoardUtil;

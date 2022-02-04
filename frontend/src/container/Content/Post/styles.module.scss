@@ -4,10 +4,14 @@
     header {
         padding-bottom: 1rem;
         border-bottom: 1px solid $light-gray;
-        h2 {
-            margin-bottom: 1rem;
-            @include font(black, normal, 400, 2.4rem);
-        }
+    }
+}
+
+.topArea {
+    margin-bottom: 1rem;
+    display: flex;
+    h2 {
+        @include font(black, normal, 400, 2.4rem);
     }
 }
 

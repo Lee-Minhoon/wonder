@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react';
 import { useRouter } from 'next/router';
 
 // import utilities
-import useCreateComment from 'hooks/comment/useCreateComment';
+import useCreateComment, { createCommentInput } from 'hooks/comment/useCreateComment';
 import useInput from 'hooks/useInput';
 
 // import components
@@ -12,17 +12,6 @@ import Button from 'components/Button';
 
 // import etc
 import styles from './styles.module.scss';
-
-export interface createCommentInput {
-    post: any;
-    content: any;
-}
-
-export interface readAllCommentInput {
-    post: any;
-    page: any;
-    size: any;
-}
 
 const Comment = () => {
     const router = useRouter();

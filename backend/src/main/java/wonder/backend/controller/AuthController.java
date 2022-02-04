@@ -95,7 +95,7 @@ public class AuthController {
                 .body(Response.builder()
                         .code(ResponseCode.SUCCESS)
                         .message(ResponseMessage.SUCCESS)
-                        .data(new TokenDto(jwt))
+                        .data(new TokenDto(tokenProvider.getUserId(jwt), jwt))
                         .build());
     }
 //

@@ -17,7 +17,10 @@ const GNB = () => {
                 {category.map((main) => (
                     <li className={styles.mainMenuList} key={main.id}>
                         <Link
-                            href={{ pathname: '/board/list', query: { main: main.url, sub: 'all', page: 1, size: 20 } }}
+                            href={{
+                                pathname: '/board/list',
+                                query: { main: main.url, sub: 'all', title: '', page: 1, size: 20 },
+                            }}
                         >
                             <a>{main.title}</a>
                         </Link>

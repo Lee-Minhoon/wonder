@@ -7,7 +7,11 @@ import { AxiosService } from 'service/defaultAxiosService';
 // import components
 
 // import etc
-import { loginInput } from 'container/LoginForm';
+
+export interface loginInput {
+    email: any;
+    password: any;
+}
 
 const login = async (input: loginInput) => {
     const { data } = await AxiosService.instance.post('auth/login', {

@@ -7,7 +7,12 @@ import { AxiosService } from 'service/defaultAxiosService';
 // import components
 
 // import etc
-import { readAllCommentInput } from 'container/Content/Comment';
+
+export interface readAllCommentInput {
+    post: any;
+    page: any;
+    size: any;
+}
 
 const readAllComment = async (input: readAllCommentInput) => {
     const { data } = await AxiosService.instance.get('comments', {

@@ -20,7 +20,7 @@ const LNBList = ({ category }) => {
                     <LinkList
                         key={item.id}
                         pathname="/board/list"
-                        query={{ main: category.url, sub: item.url, page: 1, size: 20 }}
+                        query={{ main: category.url, sub: item.url, title: '', page: 1, size: 20 }}
                         text={item.title}
                     />
                 ))}
