@@ -3,7 +3,7 @@ package wonder.backend.dto.mapper;
 import java.sql.Clob;
 import java.sql.Timestamp;
 
-public interface ReadAllPostMapper {
+public interface ReadAllPostsMapper {
     String getCategory();
     Long getId();
     String getTitle();

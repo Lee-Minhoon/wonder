@@ -8,22 +8,20 @@ import { AxiosService } from 'service/defaultAxiosService';
 
 // import etc
 
-export interface createCommentInput {
+export interface createRecInput {
     postId: any;
-    content: any;
 }
 
-const createComment = async (input: createCommentInput) => {
-    const { data } = await AxiosService.instance.post('comments', {
+const createRec = async (input: createRecInput) => {
+    const { data } = await AxiosService.instance.post('recommendation', {
         postId: input.postId,
-        content: input.content,
     });
     return data;
 };
 
-const useCreateComment = () => {
+const useCreateRec = () => {
     const queryClient = useQueryClient();
-    return useMutation((input: createCommentInput) => createComment(input), {
+    return useMutation((input: createRecInput) => createRec(input), {
         onMutate: (variables) => {
             console.log(variables);
         },
@@ -32,17 +30,9 @@ const useCreateComment = () => {
         },
         onSuccess: (data, variables, context) => {
             console.log(data);
-            queryClient.invalidateQueries('read_all_comment');
+            queryClient.invalidateQueries('read_post');
         },
     });
 };
 
-const validate = (input: createCommentInput) => {
-    if (!input.content) {
-        alert('빈 칸이 있습니다.');
-        return false;
-    }
-    return true;
-};
-
-export default useCreateComment;
+export default useCreateRec;

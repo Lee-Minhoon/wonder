@@ -31,9 +31,18 @@ const UserMenu = () => {
         <nav className={styles.userMenu}>
             <ul>
                 {state ? (
-                    <li>
-                        <a onClick={handleLogoutClick}>로그아웃</a>
-                    </li>
+                    <>
+                        <LinkList
+                            pathname={'/auth/login'}
+                            query={{
+                                redirect: router.pathname == '/auth/login' ? router.query?.redirect : router.asPath,
+                            }}
+                            text="마이페이지"
+                        />
+                        <li>
+                            <a onClick={handleLogoutClick}>로그아웃</a>
+                        </li>
+                    </>
                 ) : (
                     <>
                         <LinkList

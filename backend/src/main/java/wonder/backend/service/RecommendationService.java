@@ -20,7 +20,7 @@ public class RecommendationService {
 
     private final RecommendationRepository recommendationRepository;
 
-    public void createLike(Recommendation recommendation) {
+    public void createRecommendation(Recommendation recommendation) {
         validateDuplicateRecommend(recommendation);
         recommendationRepository.save(recommendation);
         return;
@@ -33,7 +33,7 @@ public class RecommendationService {
     }
 
     @Transactional(readOnly = true)
-    public boolean readLike(RecommendationId recommendationId) {
+    public boolean readRecommendation(RecommendationId recommendationId) {
         Optional<Recommendation> like = recommendationRepository.findById(recommendationId);
 
         return like.isPresent() ? true : false;

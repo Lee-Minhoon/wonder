@@ -13,7 +13,7 @@ import wonder.backend.domain.Post;
 import wonder.backend.domain.User;
 import wonder.backend.dto.common.ResponsePage;
 import wonder.backend.dto.PostDto;
-import wonder.backend.dto.mapper.ReadAllPostMapper;
+import wonder.backend.dto.mapper.ReadAllPostsMapper;
 import wonder.backend.dto.mapper.ReadPostMapper;
 import wonder.backend.exception.CustomException;
 import wonder.backend.repository.PostRepository;
@@ -44,7 +44,7 @@ public class PostService {
     @Transactional(readOnly = true)
     public ResponsePage readAllPosts(Long categoryId, String title, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<ReadAllPostMapper> result = postRepository.findAllPostsByCategory(categoryId, title, pageable);
+        Page<ReadAllPostsMapper> result = postRepository.findAllPostsByCategory(categoryId, title, pageable);
         return ResponsePage.builder()
                 .pages(result.getTotalPages())
                 .count(result.getTotalElements())
@@ -53,9 +53,20 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public ResponsePage readAllPostsByUser(Long userId, int page, int size) {
+    public ResponsePage readAllPostsByUser(Long userId, String title, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<ReadAllPostMapper> result = postRepository.findAllPostsByUser(userId, pageable);
+        Page<ReadAllPostsMapper> result = postRepository.findAllPostsByUser(userId, title, pageable);
+        return ResponsePage.builder()
+                .pages(result.getTotalPages())
+                .count(result.getTotalElements())
+                .data(result.stream().map(PostDto.ReadAllPostsDto::new).collect(Collectors.toList()))
+                .build();
+    }
+
+    @Transactional(readOnly = true)
+    public ResponsePage readTest(Long categoryId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<ReadAllPostsMapper> result = postRepository.findTest(categoryId, pageable);
         return ResponsePage.builder()
                 .pages(result.getTotalPages())
                 .count(result.getTotalElements())

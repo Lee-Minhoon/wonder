@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 public class CommentDto {
     @Getter
     public static class CreateCommentDto {
-        private Long post;
+        private Long postId;
         private String content;
     }
 

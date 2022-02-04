@@ -47,7 +47,7 @@ public class CommentController {
 
         String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
         User user = getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
-        Post post = getOrElseThrow(postService.getPostById(createCommentDto.getPost()));
+        Post post = getOrElseThrow(postService.getPostById(createCommentDto.getPostId()));
         Comment comment = Comment.builder()
                 .content(createCommentDto.getContent())
                 .user(user)

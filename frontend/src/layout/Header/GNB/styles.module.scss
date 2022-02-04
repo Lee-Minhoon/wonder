@@ -9,13 +9,13 @@
 
 .mainMenu {
     padding-inline-start: 0px;
+    line-height: 38px;
 }
 
 .mainMenuList {
     display: inline-flex;
     width: 12rem;
     margin: 0 10px;
-    line-height: 38px;
     justify-content: center;
     @include font($dark-gray, normal, 400, 1.6rem);
     &:hover {

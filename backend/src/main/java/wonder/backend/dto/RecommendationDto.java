@@ -1,18 +1,13 @@
 package wonder.backend.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import wonder.backend.domain.Recommendation;
 
-@Data
 public class RecommendationDto {
-    private Long userId;
-    private Long postId;
 
-    @Builder
-    public RecommendationDto(Recommendation recommendation) {
-        this.userId = recommendation.getRecommendationId().getUserId();
-        this.postId = recommendation.getRecommendationId().getUserId();
+    @Getter
+    public static class CreateRecommendationDto {
+        private Long postId;
     }
 }

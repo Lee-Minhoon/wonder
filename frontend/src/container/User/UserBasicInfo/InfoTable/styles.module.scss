@@ -1,0 +1,9 @@
+@import 'styles/util.module.scss';
+
+.infoTable {
+    width: 100%;
+    th {
+        text-align: initial;
+        @include font(black, normal, 600, 1.4rem);
+    }
+}

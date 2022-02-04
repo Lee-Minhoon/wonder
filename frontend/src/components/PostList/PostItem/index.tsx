@@ -1,6 +1,7 @@
 // import package, library
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Image from 'next/image';
 
 // import utilities
 
@@ -45,9 +46,16 @@ const PostItem = (props) => {
                 {+props.comments !== 0 && <em> [{props.comments}]</em>}
             </td>
             <td>
-                <Link href={{ pathname: `/user/${props.writerId}`, query: { page: 1, size: 20 } }}>
-                    <a>{props.writer}</a>
-                </Link>
+                <div className={styles.profileData}>
+                    <span className={styles.profileWrapper}>
+                        <span className={styles.profile}>
+                            <Image src="/123.png" alt="profile" layout="fill" />
+                        </span>
+                    </span>
+                    <Link href={{ pathname: `/user/${props.writerId}`, query: { tabs: 'overview' } }}>
+                        <a>{props.writer}</a>
+                    </Link>
+                </div>
             </td>
             <td>{date}</td>
             <td>{props.views}</td>

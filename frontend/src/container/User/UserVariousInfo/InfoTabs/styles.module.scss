@@ -1,0 +1,16 @@
+@import 'styles/util.module.scss';
+
+.infoTabs {
+    height: 40px;
+    border: 1px solid $light-gray;
+}
+
+.tabsList {
+    padding-inline-start: 0px;
+
+    line-height: 38px;
+    li {
+        display: inline-flex;
+        margin: 0 10px;
+    }
+}

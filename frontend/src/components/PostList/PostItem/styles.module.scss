@@ -1,8 +1,8 @@
 @import 'styles/util.module.scss';
 
 .postItem {
-    height: 3.5rem;
-    td:not(:nth-child(3)) {
+    min-height: 3.5rem;
+    td:not(:nth-child(3), :nth-child(4)) {
         text-align: center;
     }
     td {
@@ -10,4 +10,24 @@
             @include font(red, normal, 400, 1.4rem);
         }
     }
+}
+
+.profileData {
+    min-height: 3.5rem;
+    display: grid;
+    grid-template-columns: 3.5rem auto;
+    align-items: center;
+}
+
+.profileWrapper {
+    @include flex-center();
+    @include size(3.5rem, 100%);
+}
+
+.profile {
+    overflow: hidden;
+    position: relative;
+    border: 1px solid $light-gray;
+    border-radius: 50%;
+    @include size(2rem, 2rem);
 }

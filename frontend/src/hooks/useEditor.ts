@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 // import etc
 
-const useInput = (initialValue) => {
+const useEditor = (initialValue) => {
     const [value, setValue] = useState(initialValue);
     const onChange = (event) => {
         setValue(event);
@@ -16,4 +16,4 @@ const useInput = (initialValue) => {
     return { value, onChange };
 };
 
-export default useInput;
+export default useEditor;

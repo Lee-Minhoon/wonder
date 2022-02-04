@@ -11,13 +11,13 @@ import { RouterGuard } from 'dependecy';
 
 // import components
 import DefaultLayout from 'layout/DefaultLayout';
-import ContentLayout from 'layout/ContentLayout';
+import BoardLayout from 'layout/BoardLayout';
 
 // import etc
 import 'styles/globals.scss';
 
-const NOT_SIDE_BAR_PAGES = ['/auth/login', '/auth/signup', '/auth/logout', '/'];
-const SIDE_BAR_PAGES = ['/user/[id]', '/board/[view]', '/board/list', '/board/write'];
+const NOT_SIDE_BAR_PAGES = ['/', '/auth/login', '/auth/signup', '/auth/logout', '/user/[id]'];
+const SIDE_BAR_PAGES = ['/board/[view]', '/board/list', '/board/write'];
 
 const App: FC<AppProps> = ({ Component, pageProps }) => {
     const router = useRouter();
@@ -32,9 +32,9 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
         );
     } else if (SIDE_BAR_PAGES.find((item) => item === router.pathname)) {
         content = (
-            <ContentLayout>
+            <BoardLayout>
                 <Component {...pageProps} />
-            </ContentLayout>
+            </BoardLayout>
         );
     } else {
         content = <>잘못된 요청입니다.</>;

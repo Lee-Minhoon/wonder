@@ -23,7 +23,7 @@ const Comment = () => {
         async (e) => {
             e.preventDefault();
             const createCommentInputValue: createCommentInput = {
-                post: router.query.view,
+                postId: router.query.view,
                 content: content.value.replace(/\n/g, '<br/>'),
             };
             createComment.mutate(createCommentInputValue);

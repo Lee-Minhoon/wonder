@@ -12,8 +12,7 @@ import java.util.Set;
 
 @Entity @Getter @Setter @NoArgsConstructor
 public class User extends BaseTimeEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true)

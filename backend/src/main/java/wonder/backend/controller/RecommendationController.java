@@ -13,6 +13,7 @@ import wonder.backend.domain.Post;
 import wonder.backend.domain.Recommendation;
 import wonder.backend.domain.User;
 import wonder.backend.domain.id.RecommendationId;
+import wonder.backend.dto.RecommendationDto;
 import wonder.backend.dto.common.Response;
 import wonder.backend.exception.CustomException;
 import wonder.backend.jwt.TokenProvider;
@@ -38,22 +39,22 @@ public class RecommendationController {
     private TokenProvider tokenProvider;
 
     @PostMapping
-    public ResponseEntity createRecommend(
+    public ResponseEntity createRecommendation(
             HttpServletRequest request,
-            @RequestParam("postId") Long postId
+            @RequestBody RecommendationDto.CreateRecommendationDto createRecommendationDto
     ) {
         logger.info("Request to create a recommend");
 
         String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
         User user = getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
-        Post post = getOrElseThrow(postService.getPostById(postId));
+        Post post = getOrElseThrow(postService.getPostById(createRecommendationDto.getPostId()));
         RecommendationId recommendationId = new RecommendationId(user.getId(), post.getId());
         Recommendation recommendation = Recommendation.builder()
                 .recommendationId(recommendationId)
                 .user(user)
                 .post(post)
                 .build();
-        recommendationService.createLike(recommendation);
+        recommendationService.createRecommendation(recommendation);
 
         return ResponseEntity.ok()
                 .body(Response.builder()
@@ -72,7 +73,7 @@ public class RecommendationController {
                 .body(Response.builder()
                         .code(ResponseCode.SUCCESS)
                         .message(ResponseMessage.SUCCESS)
-                        .data(recommendationService.readLike(recommendationId))
+                        .data(recommendationService.readRecommendation(recommendationId))
                         .build());
     }
 

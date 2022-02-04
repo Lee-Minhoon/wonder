@@ -1,20 +1,22 @@
 // import package, library
+import { useRouter } from 'next/router';
 import Image from 'next/image';
 
 // import utilities
 import useReadUser, { readUserInput } from 'hooks/user/useReadUser';
 
 // import components
+import InfoTable from './InfoTable';
 import Loading from 'components/Loading';
+import Button from 'components/Button';
 
 // import etc
 import styles from './styles.module.scss';
-import InfoTable from './InfoTable';
-import Button from 'components/Button';
 
-const UserInfo = ({ userId }) => {
+const UserBasicInfo = () => {
+    const rotuer = useRouter();
     const readUserInputValue: readUserInput = {
-        id: userId,
+        id: rotuer.query?.id,
     };
     const { data, error, isLoading, isSuccess, isError } = useReadUser(readUserInputValue);
 
@@ -27,32 +29,25 @@ const UserInfo = ({ userId }) => {
 
     const user = data.data;
 
-    const test = () => {
-        console.log('fd');
-    };
-
     return (
-        <div className={styles.userInfo}>
+        <div className={styles.userBasicInfo}>
             <div className={styles.profileWrapper}>
                 <div className={styles.profile}>
                     <Image src="/123.png" alt="profile" layout="fill" />
                 </div>
             </div>
-            <div className={styles.info}>
-                <div className={styles.basicInfo}>
-                    <h1>{user.nickname}</h1>
-                    <p>{user.grade}</p>
-                </div>
-                <div className={styles.buttonWrapper}>
-                    <Button onClick={test}>쪽지</Button>
-                    <Button onClick={test}>팔로우</Button>
-                </div>
-                <div>경험치 랭킹</div>
-                <InfoTable />
+            <div className={styles.basicInfo}>
+                <h1>{user.nickname}</h1>
+                <p>{user.grade}</p>
             </div>
-            <div className={styles.intro}>소개말</div>
+            <div className={styles.buttonWrapper}>
+                <Button onClick={() => console.log('test')}>쪽지</Button>
+                <Button onClick={() => console.log('test')}>팔로우</Button>
+            </div>
+            <div className={styles.expWrapper}>경험치 랭킹</div>
+            <InfoTable />
         </div>
     );
 };
 
-export default UserInfo;
+export default UserBasicInfo;

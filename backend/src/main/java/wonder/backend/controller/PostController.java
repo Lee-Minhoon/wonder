@@ -14,7 +14,6 @@ import wonder.backend.domain.Post;
 import wonder.backend.domain.User;
 import wonder.backend.dto.PostDto;
 import wonder.backend.dto.common.Response;
-import wonder.backend.dto.mapper.ReadAllPostMapper;
 import wonder.backend.dto.mapper.ReadPostMapper;
 import wonder.backend.exception.CustomException;
 import wonder.backend.jwt.TokenProvider;
@@ -99,6 +98,7 @@ public class PostController {
     @GetMapping("users/{id}/posts")
     public ResponseEntity readAllPostsByUser(
             @PathVariable("id") Long userId,
+            @RequestParam("title") String title,
             @RequestParam("page") int page,
             @RequestParam("size") int size
     ) {
@@ -108,7 +108,21 @@ public class PostController {
                 .body(Response.builder()
                         .code(ResponseCode.SUCCESS)
                         .message(ResponseMessage.SUCCESS)
-                        .data(postService.readAllPostsByUser(userId, page, size))
+                        .data(postService.readAllPostsByUser(userId, title, page, size))
+                        .build());
+    }
+
+    @GetMapping("posts/test")
+    public ResponseEntity readTest(
+            @RequestParam("category") Long categoryId,
+            @RequestParam("page") int page,
+            @RequestParam("size") int size
+    ) {
+        return ResponseEntity.ok()
+                .body(Response.builder()
+                        .code(ResponseCode.SUCCESS)
+                        .message(ResponseMessage.SUCCESS)
+                        .data(postService.readTest(categoryId, page, size))
                         .build());
     }
 

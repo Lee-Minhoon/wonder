@@ -26,7 +26,7 @@ const CommentItem = (props) => {
                     <Image src="/123.png" alt="writerProfile" layout="fill" />
                 </div>
                 <div className={styles.basicInfo}>
-                    <Link href={{ pathname: `/user/${props.writerId}`, query: { page: 1, size: 20 } }}>
+                    <Link href={{ pathname: `/user/${props.writerId}`, query: { tabs: 'overview' } }}>
                         <a>{props.writer}</a>
                     </Link>
                     <p>{date}</p>

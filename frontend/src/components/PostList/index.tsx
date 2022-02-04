@@ -8,14 +8,14 @@ import PostItem from './PostItem';
 // import etc
 import styles from './styles.module.scss';
 
-const PostList = (props) => {
+const PostList = ({ posts }) => {
     return (
         <table className={styles.postList} cellSpacing="0">
             <colgroup>
                 <col style={{ width: '100px' }} />
                 <col style={{ width: '80px' }} />
                 <col />
-                <col style={{ width: '100px' }} />
+                <col style={{ width: '120px' }} />
                 <col style={{ width: '100px' }} />
                 <col style={{ width: '80px' }} />
                 <col style={{ width: '40px' }} />
@@ -32,8 +32,8 @@ const PostList = (props) => {
                 </tr>
             </thead>
             <tbody>
-                {props.posts &&
-                    props.posts.map((item) => (
+                {posts &&
+                    posts.map((item) => (
                         <PostItem
                             key={item.id}
                             category={item.category}

@@ -1,0 +1,43 @@
+@import 'styles/util.module.scss';
+
+.userBasicInfo {
+    width: 300px;
+    margin-right: 1rem;
+}
+
+.profileWrapper {
+    margin-right: 1rem;
+    @include flex-center();
+    @include size(100%, 30rem);
+}
+
+.profile {
+    overflow: hidden;
+    position: relative;
+    border-radius: 50%;
+    box-shadow: 0 0 5px 3px $light-gray;
+    @include size(25rem, 25rem);
+}
+
+.basicInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1rem;
+    h1 {
+        @include font(black, normal, 400, 3rem);
+    }
+}
+
+.buttonWrapper {
+    display: flex;
+    justify-content: center;
+    button:first-child {
+        margin-right: 0.5rem;
+    }
+    margin-bottom: 1rem;
+}
+
+.expWrapper {
+    margin-bottom: 1rem;
+}

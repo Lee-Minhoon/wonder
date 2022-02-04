@@ -2,7 +2,7 @@ package wonder.backend.dto;
 
 import lombok.Builder;
 import lombok.Getter;
-import wonder.backend.dto.mapper.ReadAllPostMapper;
+import wonder.backend.dto.mapper.ReadAllPostsMapper;
 import wonder.backend.dto.mapper.ReadPostMapper;
 
 import java.io.BufferedReader;
@@ -59,7 +59,7 @@ public class PostDto {
         private int likes;
 
         @Builder
-        public ReadAllPostsDto(ReadAllPostMapper postMapper) {
+        public ReadAllPostsDto(ReadAllPostsMapper postMapper) {
             this.category = postMapper.getCategory();
             this.id = postMapper.getId();
             this.title = postMapper.getTitle();
