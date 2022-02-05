@@ -33,7 +33,7 @@ public class UserController {
     private TokenProvider tokenProvider;
 
     @GetMapping("/me")
-    public ResponseEntity readMyself(
+    public ResponseEntity readMe(
             HttpServletRequest request
     ) {
         logger.info("Request to read a user");

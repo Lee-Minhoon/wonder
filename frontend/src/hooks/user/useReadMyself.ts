@@ -16,14 +16,14 @@ export interface readUserResponse {
     role: string;
 }
 
-export const readMyself = async () => {
+export const readMe = async () => {
     const { data } = await AxiosService.instance.get('users/me');
     return data;
 };
 
-const useReadMyself = () => {
-    const response = useQuery(['read_myself'], async () => readMyself(), { enabled: false });
+const useReadMe = () => {
+    const response = useQuery(['read_myself'], async () => readMe(), { enabled: false });
     return response;
 };
 
-export default useReadMyself;
+export default useReadMe;

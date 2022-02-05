@@ -23,7 +23,7 @@ public class User extends BaseTimeEntity {
     private String role = "ROLE_USER";
 
     @OneToMany(mappedBy = "user")
-    private Set<Post> posts = new HashSet<>();
+    private Set<Post> posts = new HashSet<>();  // proxy <<
 
     public void add(Post post) {
         post.setUser(this);

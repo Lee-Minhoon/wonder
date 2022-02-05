@@ -10,6 +10,7 @@ import wonder.backend.constants.ExceptionEnum;
 import wonder.backend.constants.ResponseCode;
 import wonder.backend.constants.ResponseMessage;
 import wonder.backend.domain.Follow;
+import wonder.backend.domain.PrincipalDetails;
 import wonder.backend.domain.User;
 import wonder.backend.domain.id.FollowId;
 import wonder.backend.dto.common.Response;

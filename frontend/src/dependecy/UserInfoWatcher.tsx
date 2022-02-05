@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
 // import utilities
 import useTypedSelector from 'hooks/useTypedSelector';
 import { login, logout } from 'state/user/action';
-import useReadMyself from 'hooks/user/useReadMyself';
+import useReadMe from 'hooks/user/useReadMyself';
 
 // import components
 
@@ -17,7 +17,7 @@ const UserInfoWatcher = ({ children }: { children: JSX.Element }) => {
     const isLogin = useTypedSelector((state) => state.user.isLogin);
     const dispatch = useDispatch();
 
-    const { data, error, isLoading, isSuccess, isError, refetch } = useReadMyself();
+    const { data, error, isLoading, isSuccess, isError, refetch } = useReadMe();
 
     useEffect(() => {
         if (token && !isLogin) {
@@ -26,7 +26,7 @@ const UserInfoWatcher = ({ children }: { children: JSX.Element }) => {
         if (!token) {
             dispatch(logout());
         }
-    }, [data?.data, dispatch, isLogin, isSuccess, refetch, token]);
+    }, [dispatch, isLogin, refetch, token]);
 
     useEffect(() => {
         if (isSuccess && data?.data) {
