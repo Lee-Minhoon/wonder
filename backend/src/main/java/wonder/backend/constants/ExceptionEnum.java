@@ -8,6 +8,7 @@ import wonder.backend.constants.ResponseMessage;
 
 @Getter @AllArgsConstructor
 public enum ExceptionEnum {
+    BAD_REQUEST(HttpStatus.BAD_REQUEST, ResponseCode.BAD_REQUEST, ResponseMessage.BAD_REQUEST),
     DUPLICATE(HttpStatus.CONFLICT, ResponseCode.DUPLICATE, ResponseMessage.DUPLICATE),
     INVALID_ID(HttpStatus.FORBIDDEN, ResponseCode.INVALID_ID, ResponseMessage.INVALID_ID),
     INVALID_PASSWORD(HttpStatus.FORBIDDEN, ResponseCode.INVALID_PASSWORD, ResponseMessage.INVALID_PASSWORD),

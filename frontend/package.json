@@ -21,6 +21,7 @@
         "react-query": "^3.34.7",
         "react-redux": "^7.2.6",
         "react-use": "^17.3.2",
+        "redux-devtools-extension": "^2.13.9",
         "sass": "^1.43.4"
     },
     "devDependencies": {

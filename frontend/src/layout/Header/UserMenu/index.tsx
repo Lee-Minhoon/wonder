@@ -18,7 +18,7 @@ import Link from 'next/link';
 
 const UserMenu = () => {
     const router = useRouter();
-    const state = useTypedSelector((state) => state.user.isLogin);
+    const isLogin = useTypedSelector((state) => state.user.isLogin);
     const dispatch = useDispatch();
 
     const handleLogoutClick = useCallback(() => {
@@ -30,7 +30,7 @@ const UserMenu = () => {
     return (
         <nav className={styles.userMenu}>
             <ul>
-                {state ? (
+                {isLogin ? (
                     <>
                         <LinkList
                             pathname={'/auth/login'}

@@ -10,13 +10,13 @@ import java.io.Serializable;
 
 @Embeddable
 @Getter @Setter @NoArgsConstructor
-public class RecommendationId implements Serializable {
-    private Long userId;
-    private Long postId;
+public class FollowId implements Serializable {
+    private Long followerId;
+    private Long followeeId;
 
     @Builder
-    public RecommendationId(Long userId, Long postId) {
-        this.userId = userId;
-        this.postId = postId;
+    public FollowId(Long followerId, Long followeeId) {
+        this.followerId = followerId;
+        this.followeeId = followeeId;
     }
 }

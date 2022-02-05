@@ -23,10 +23,10 @@ const Post = ({ setCategoryId, setUserId }) => {
     const handleRecClick = useCallback(
         async (e) => {
             e.preventDefault();
-            const createRecommendationInputValue: createRecInput = {
+            const createRecInputValue: createRecInput = {
                 postId: router.query.view,
             };
-            createRecommendation.mutate(createRecommendationInputValue);
+            createRecommendation.mutate(createRecInputValue);
         },
         [router.query.view, createRecommendation]
     );

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import wonder.backend.constants.ResponseCode;
 import wonder.backend.constants.ResponseMessage;
+import wonder.backend.domain.PrincipalDetails;
 import wonder.backend.domain.User;
 import wonder.backend.dto.AuthDto;
 import wonder.backend.dto.TokenDto;
@@ -24,8 +25,6 @@ import wonder.backend.dto.common.Response;
 import wonder.backend.jwt.TokenProvider;
 import wonder.backend.service.AuthService;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
@@ -62,40 +61,37 @@ public class AuthController {
                         .build());
     }
 
-    @PostMapping("test")
-    public ResponseEntity signup() {
-
-        return ResponseEntity.ok()
-                .body(Response.builder()
-                        .code(ResponseCode.SUCCESS)
-                        .message(ResponseMessage.SUCCESS)
-                        .build());
-    }
-
     @PostMapping("login")
     public ResponseEntity login(
             HttpServletResponse response,
-            @RequestBody AuthDto.LoginDto loginDto
+            @RequestBody AuthDto.LoginRequestDto loginRequestDto
     ) {
-        logger.info("Request to login : {}", loginDto.getEmail());
+        logger.info("Request to login : {}", loginRequestDto.getEmail());
 
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword());
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginRequestDto.getEmail(), loginRequestDto.getPassword());
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
+
         String jwt = tokenProvider.createToken(authentication);
         ResponseCookie cookie = ResponseCookie.from("token", jwt)
                 .sameSite("None")
                 .secure(true)
                 .path("/")
                 .build();
-
         response.addHeader("Set-Cookie", cookie.toString());
+
+        PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+        AuthDto.LoginResponseDto loginResponseDto = AuthDto.LoginResponseDto.builder()
+                .id(principalDetails.getId())
+                .nickname(principalDetails.getNickname())
+                .token(jwt)
+                .build();
 
         return ResponseEntity.ok()
                 .body(Response.builder()
                         .code(ResponseCode.SUCCESS)
                         .message(ResponseMessage.SUCCESS)
-                        .data(new TokenDto(tokenProvider.getUserId(jwt), jwt))
+                        .data(loginResponseDto)
                         .build());
     }
 //

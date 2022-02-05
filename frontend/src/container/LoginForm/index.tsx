@@ -1,7 +1,7 @@
 // import package, library
 import { useCallback } from 'react';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
+import { useDispatch } from 'react-redux';
 
 // import utilities
 import useLogin, { loginInput } from 'hooks/auth/useLogin';
@@ -17,6 +17,7 @@ const Login = () => {
     const login = useLogin();
     const email = useInput('');
     const password = useInput('');
+    const dispatch = useDispatch();
 
     const handleSubmit = useCallback(
         (e) => {

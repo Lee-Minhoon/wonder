@@ -8,7 +8,8 @@ import wonder.backend.domain.common.BaseTimeEntity;
 
 import javax.persistence.*;
 
-@Entity @Getter @Setter @NoArgsConstructor
+@Entity
+@Getter @Setter @NoArgsConstructor
 public class Comment extends BaseTimeEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -32,18 +32,14 @@ public class RecommendationService {
         });
     }
 
-    @Transactional(readOnly = true)
-    public boolean readRecommendation(RecommendationId recommendationId) {
-        Optional<Recommendation> like = recommendationRepository.findById(recommendationId);
-
-        return like.isPresent() ? true : false;
-    }
+//    @Transactional(readOnly = true)
+//    public boolean readRecommendation(RecommendationId recommendationId) {
+//        Optional<Recommendation> like = recommendationRepository.findById(recommendationId);
+//
+//        return like.isPresent() ? true : false;
+//    }
 
     public Optional<Recommendation> getRecommendationById(RecommendationId id) {
         return recommendationRepository.findById(id);
-    }
-
-    public <T> T getOrElseThrow(Optional<T> param) {
-        return param.orElseThrow(() -> new CustomException(ExceptionEnum.NOT_FOUND));
     }
 }

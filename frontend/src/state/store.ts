@@ -1,6 +1,7 @@
 // import package, library
 import { createStore, applyMiddleware, combineReducers, AnyAction } from 'redux';
 import { HYDRATE, createWrapper, MakeStore, Context } from 'next-redux-wrapper';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 // import utilities
 
@@ -31,7 +32,7 @@ const reducer = (state, action: AnyAction) => {
 
 export type RootState = ReturnType<typeof reducer>;
 
-const makeStore = (context: Context) => createStore(reducer);
+const makeStore = (context: Context) => createStore(reducer, composeWithDevTools());
 
 // export an assembled wrapper
 const wrapper = createWrapper(makeStore, {

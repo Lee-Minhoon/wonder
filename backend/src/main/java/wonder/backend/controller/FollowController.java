@@ -9,55 +9,54 @@ import org.springframework.web.bind.annotation.*;
 import wonder.backend.constants.ExceptionEnum;
 import wonder.backend.constants.ResponseCode;
 import wonder.backend.constants.ResponseMessage;
-import wonder.backend.domain.Post;
-import wonder.backend.domain.Recommendation;
+import wonder.backend.domain.Follow;
 import wonder.backend.domain.User;
-import wonder.backend.domain.id.RecommendationId;
-import wonder.backend.dto.RecommendationDto;
+import wonder.backend.domain.id.FollowId;
 import wonder.backend.dto.common.Response;
 import wonder.backend.exception.CustomException;
 import wonder.backend.jwt.TokenProvider;
-import wonder.backend.service.PostService;
-import wonder.backend.service.RecommendationService;
+import wonder.backend.service.FollowService;
 import wonder.backend.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("recommendation")
+@RequestMapping("follow")
 @AllArgsConstructor
-public class RecommendationController {
-    private final Logger logger = LoggerFactory.getLogger(RecommendationController.class);
+public class FollowController {
+    private final Logger logger = LoggerFactory.getLogger(FollowController.class);
     public static final String AUTHORIZATION_HEADER = "Authorization";
 
     private final UserService userService;
-    private final PostService postService;
-    private final RecommendationService recommendationService;
+    private final FollowService followService;
 
     @Autowired
     private TokenProvider tokenProvider;
 
     @PostMapping("{id}")
-    public ResponseEntity createRecommendation(
+    public ResponseEntity createFollow(
             HttpServletRequest request,
-            @PathVariable("id") Long postId
+            @PathVariable("id") Long followeeId
     ) {
-        logger.info("Request to create a recommend");
+        logger.info("Request to create a follow");
 
         String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
-        User user = getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
-        Post post = getOrElseThrow(postService.getPostById(postId));
-        RecommendationId recommendationId = RecommendationId.builder()
-                .userId(user.getId())
-                .postId(post.getId())
+        User follower = getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
+        User followee = getOrElseThrow(userService.getUserById(followeeId));
+        if(follower.getId().equals(followee.getId())) {
+            throw new CustomException(ExceptionEnum.BAD_REQUEST);
+        }
+        FollowId followId = FollowId.builder()
+                .followerId(follower.getId())
+                .followeeId(followee.getId())
                 .build();
-        Recommendation recommendation = Recommendation.builder()
-                .recommendationId(recommendationId)
-                .user(user)
-                .post(post)
+        Follow follow = Follow.builder()
+                .followId(followId)
+                .follower(follower)
+                .followee(followee)
                 .build();
-        recommendationService.createRecommendation(recommendation);
+        followService.createFollow(follow);
 
         return ResponseEntity.ok()
                 .body(Response.builder()

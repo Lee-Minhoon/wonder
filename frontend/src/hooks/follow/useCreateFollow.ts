@@ -8,18 +8,18 @@ import { AxiosService } from 'service/defaultAxiosService';
 
 // import etc
 
-export interface createRecInput {
-    postId: any;
+export interface createFollowInput {
+    followeeId: any;
 }
 
-const createRec = async (input: createRecInput) => {
-    const { data } = await AxiosService.instance.post(`recommendation/${input.postId}`);
+const createFollow = async (input: createFollowInput) => {
+    const { data } = await AxiosService.instance.post(`follow/${input.followeeId}`);
     return data;
 };
 
-const useCreateRec = () => {
+const useCreateFollow = () => {
     const queryClient = useQueryClient();
-    return useMutation((input: createRecInput) => createRec(input), {
+    return useMutation((input: createFollowInput) => createFollow(input), {
         onMutate: (variables) => {
             console.log(variables);
         },
@@ -28,9 +28,9 @@ const useCreateRec = () => {
         },
         onSuccess: (data, variables, context) => {
             console.log(data);
-            queryClient.invalidateQueries('read_post');
+            // queryClient.invalidateQueries('read_post');
         },
     });
 };
 
-export default useCreateRec;
+export default useCreateFollow;
