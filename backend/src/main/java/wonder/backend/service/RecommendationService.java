@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wonder.backend.constants.ExceptionEnum;
+import wonder.backend.domain.Post;
 import wonder.backend.domain.Recommendation;
 import wonder.backend.domain.id.RecommendationId;
 import wonder.backend.exception.CustomException;
@@ -20,8 +21,9 @@ public class RecommendationService {
 
     private final RecommendationRepository recommendationRepository;
 
-    public void createRecommendation(Recommendation recommendation) {
+    public void createRecommendation(Recommendation recommendation, Post post) {
         validateDuplicateRecommend(recommendation);
+        post.add(recommendation);
         recommendationRepository.save(recommendation);
         return;
     }

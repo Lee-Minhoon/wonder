@@ -55,9 +55,8 @@ public class RecommendationController {
         Recommendation recommendation = Recommendation.builder()
                 .recommendationId(recommendationId)
                 .user(user)
-                .post(post)
                 .build();
-        recommendationService.createRecommendation(recommendation);
+        recommendationService.createRecommendation(recommendation, post);
 
         return ResponseEntity.ok()
                 .body(Response.builder()

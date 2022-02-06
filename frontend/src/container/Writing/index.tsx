@@ -72,19 +72,15 @@ const Writing = () => {
             return { id: item.id, value: item.id, text: item.title };
         });
 
-    // const readPostInputValue: readPostInput = {
-    //     id: router.query.update,
-    // };
-    // const { data, error, isLoading, isSuccess, isError } = useReadPost(readPostInputValue);
-    // if (isLoading) {
-    //     return <Loading />;
-    // }
-
-    // if (isError) {
-    //     return <p>{error.response.data.message}</p>;
-    // }
-    // const post = data.data;
-    // console.log(post);
+    const readPostInputValue: readPostInput = {
+        id: router.query?.update,
+    };
+    const { data, error, isLoading, isSuccess, isError, refetch } = useReadPost(readPostInputValue);
+    if (router.query?.update) refetch();
+    if (isLoading) return <Loading />;
+    if (isError) <p>{error.response.data.message}</p>;
+    const post = data.data;
+    console.log(post);
 
     return (
         <div className={styles.writing}>

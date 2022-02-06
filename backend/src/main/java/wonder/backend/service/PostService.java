@@ -42,8 +42,7 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public ResponsePage readAllPosts(Long categoryId, String title, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
+    public ResponsePage readAllPosts(Long categoryId, String title, Pageable pageable) {
         Page<ReadAllPostsMapper> result = postRepository.findAllPostsByCategory(categoryId, title, pageable);
         return ResponsePage.builder()
                 .pages(result.getTotalPages())
@@ -53,8 +52,7 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public ResponsePage readAllPostsByUser(Long userId, String title, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
+    public ResponsePage readAllPostsByUser(Long userId, String title, Pageable pageable) {
         Page<ReadAllPostsMapper> result = postRepository.findAllPostsByUser(userId, title, pageable);
         return ResponsePage.builder()
                 .pages(result.getTotalPages())

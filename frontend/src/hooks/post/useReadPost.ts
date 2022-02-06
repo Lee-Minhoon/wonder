@@ -26,7 +26,7 @@ const readPost = async (input: readPostInput) => {
 };
 
 const useReadPost = (input: readPostInput) => {
-    const response = useQuery(['read_post', input], async () => readPost(input));
+    const response = useQuery(['read_post', input], async () => readPost(input), { enabled: false });
     return response;
 };
 

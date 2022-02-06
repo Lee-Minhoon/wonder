@@ -6,14 +6,17 @@ import Cookies from 'js-cookie';
 
 // import utilities
 import { login, logout } from 'state/user/action';
+import useTypedSelector from 'hooks/useTypedSelector';
 
 // import components
 
 // import etc
 
 const RouterGuard = ({ children }: { children: JSX.Element }) => {
-    const [authorized, setAuthorized] = useState(false);
     const router = useRouter();
+    const [authorized, setAuthorized] = useState(false);
+    const isLogin = useTypedSelector((state) => state.user.isLogin);
+    console.log(isLogin);
 
     useEffect(() => {
         const url = router.pathname;
@@ -33,11 +36,12 @@ const RouterGuard = ({ children }: { children: JSX.Element }) => {
     const authCheck = (url) => {
         // console.log('RouterGuard: ', router.pathname);
         // console.log('authCheck:', url);
-        const token = Cookies.get('token');
         const publicPaths = ['/', '/auth/login', '/auth/signup', '/board/list', '/board/'];
         const path = url.split('?')[0];
 
-        if (!token && !publicPaths.includes(path)) {
+        if (!isLogin && !publicPaths.includes(path)) {
+            console.log('need login');
+            console.log(isLogin);
             setAuthorized(false);
             router.push({
                 pathname: '/auth/login',

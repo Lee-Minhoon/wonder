@@ -49,7 +49,8 @@ const Post = ({ setCategoryId, setUserId }) => {
     const readPostInputValue: readPostInput = {
         id: router.query.view,
     };
-    const { data, error, isLoading, isSuccess, isError } = useReadPost(readPostInputValue);
+    const { data, error, isLoading, isSuccess, isError, refetch } = useReadPost(readPostInputValue);
+    refetch();
 
     if (isLoading) return <Loading />;
     if (isError) return <p>{error.response.data.message}</p>;

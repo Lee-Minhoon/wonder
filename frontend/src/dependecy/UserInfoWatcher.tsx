@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
 // import utilities
 import useTypedSelector from 'hooks/useTypedSelector';
 import { login, logout } from 'state/user/action';
-import useReadMe from 'hooks/user/useReadMyself';
+import useReadMe from 'hooks/user/useReadMe';
 
 // import components
 
@@ -21,20 +21,27 @@ const UserInfoWatcher = ({ children }: { children: JSX.Element }) => {
 
     useEffect(() => {
         if (token && !isLogin) {
-            refetch();
+            console.log('refetching...');
+            // refetch();
+            refetch().then(() => {
+                const user = data?.data;
+                dispatch(login(user?.id, user?.nickname));
+                console.log('re-render');
+            });
         }
         if (!token) {
+            console.log('not exist token');
             dispatch(logout());
         }
-    }, [dispatch, isLogin, refetch, token]);
+    }, [data?.data, dispatch, isLogin, refetch, token]);
 
-    useEffect(() => {
-        if (isSuccess && data?.data) {
-            const user = data?.data;
-            dispatch(login(user.id, user.nickname));
-            console.log('re-render');
-        }
-    }, [data?.data, dispatch, isSuccess]);
+    // useEffect(() => {
+    //     if (isSuccess && data?.data) {
+    //         const user = data?.data;
+    //         dispatch(login(user.id, user.nickname));
+    //         console.log('re-render');
+    //     }
+    // }, [data?.data, dispatch, isSuccess]);
 
     return children;
 };

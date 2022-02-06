@@ -33,6 +33,14 @@ public class Post extends BaseTimeEntity {
         getComments().add(comment);
     }
 
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+    private Set<Recommendation> recommendations = new HashSet<>();
+
+    public void add(Recommendation recommendation) {
+        recommendation.setPost(this);
+        getRecommendations().add(recommendation);
+    }
+
     @Builder
     public Post(Category category, String title, String content) {
         this.category = category;

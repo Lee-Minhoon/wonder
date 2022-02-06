@@ -14,11 +14,11 @@ import LinkList from 'components/LinkList';
 
 // import etc
 import styles from './styles.module.scss';
-import Link from 'next/link';
 
 const UserMenu = () => {
     const router = useRouter();
     const isLogin = useTypedSelector((state) => state.user.isLogin);
+    const userId = useTypedSelector((state) => state.user.userId);
     const dispatch = useDispatch();
 
     const handleLogoutClick = useCallback(() => {
@@ -32,13 +32,7 @@ const UserMenu = () => {
             <ul>
                 {isLogin ? (
                     <>
-                        <LinkList
-                            pathname={'/auth/login'}
-                            query={{
-                                redirect: router.pathname == '/auth/login' ? router.query?.redirect : router.asPath,
-                            }}
-                            text="마이페이지"
-                        />
+                        <LinkList pathname={`/user/${userId}`} query={{ tabs: 'overview' }} text="마이페이지" />
                         <li>
                             <a onClick={handleLogoutClick}>로그아웃</a>
                         </li>

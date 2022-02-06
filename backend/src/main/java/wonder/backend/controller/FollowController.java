@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import wonder.backend.constants.ExceptionEnum;
@@ -23,7 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("follow")
 @AllArgsConstructor
 public class FollowController {
     private final Logger logger = LoggerFactory.getLogger(FollowController.class);
@@ -35,7 +36,7 @@ public class FollowController {
     @Autowired
     private TokenProvider tokenProvider;
 
-    @PostMapping("{id}")
+    @PostMapping("follow/{id}")
     public ResponseEntity createFollow(
             HttpServletRequest request,
             @PathVariable("id") Long followeeId
@@ -45,6 +46,7 @@ public class FollowController {
         String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
         User follower = getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
         User followee = getOrElseThrow(userService.getUserById(followeeId));
+        System.out.println(follower.getId() + "-> follow plz ->" + followee.getId());
         if(follower.getId().equals(followee.getId())) {
             throw new CustomException(ExceptionEnum.BAD_REQUEST);
         }
@@ -54,10 +56,47 @@ public class FollowController {
                 .build();
         Follow follow = Follow.builder()
                 .followId(followId)
-                .follower(follower)
-                .followee(followee)
                 .build();
-        followService.createFollow(follow);
+        followService.createFollow(follow, follower, followee);
+
+        return ResponseEntity.ok()
+                .body(Response.builder()
+                        .code(ResponseCode.SUCCESS)
+                        .message(ResponseMessage.SUCCESS)
+                        .build());
+    }
+
+    @GetMapping("users/{id}/followers")
+    public ResponseEntity readAllFollowersByUser(
+            @PathVariable("id") Long followeeId,
+            @RequestParam("page") int page,
+            @RequestParam("size") int size
+    ) {
+        logger.info("Request to read all followers by user");
+
+//        User followee = getOrElseThrow(userService.getUserById(followeeId));
+
+        Pageable pageable = PageRequest.of(page, size);
+
+        return ResponseEntity.ok()
+                .body(Response.builder()
+                        .code(ResponseCode.SUCCESS)
+                        .message(ResponseMessage.SUCCESS)
+                        .data(followService.readAllFollowersByUser(followeeId, pageable))
+                        .build());
+    }
+
+    @GetMapping("users/{id}/getFollowers")
+    public ResponseEntity getFollowers(
+            @PathVariable("id") Long followeeId,
+            @RequestParam("page") int page,
+            @RequestParam("size") int size
+    ) {
+        logger.info("Request to read all followers by user");
+
+        User followee = getOrElseThrow(userService.getUserById(followeeId));
+
+        followService.getFollowers(followee);
 
         return ResponseEntity.ok()
                 .body(Response.builder()

@@ -23,11 +23,27 @@ public class User extends BaseTimeEntity {
     private String role = "ROLE_USER";
 
     @OneToMany(mappedBy = "user")
-    private Set<Post> posts = new HashSet<>();  // proxy <<
+    private Set<Post> posts = new HashSet<>();
 
     public void add(Post post) {
         post.setUser(this);
         getPosts().add(post);
+    }
+
+    @OneToMany(mappedBy = "follower", fetch = FetchType.LAZY)
+    private Set<Follow> followees = new HashSet<>();
+
+    public void addFollowee(Follow follow) {
+        follow.setFollower(this);
+        getFollowees().add(follow);
+    }
+
+    @OneToMany(mappedBy = "followee", fetch = FetchType.LAZY)
+    private Set<Follow> followers = new HashSet<>();
+
+    public void addFollower(Follow follow) {
+        follow.setFollowee(this);
+        getFollowers().add(follow);
     }
 
     @Builder

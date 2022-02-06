@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import wonder.backend.constants.ExceptionEnum;
@@ -87,11 +89,13 @@ public class PostController {
     ) {
         logger.info("Request to read all posts");
 
+        Pageable pageable = PageRequest.of(page, size);
+
         return ResponseEntity.ok()
                 .body(Response.builder()
                         .code(ResponseCode.SUCCESS)
                         .message(ResponseMessage.SUCCESS)
-                        .data(postService.readAllPosts(categoryId, title, page, size))
+                        .data(postService.readAllPosts(categoryId, title, pageable))
                         .build());
     }
 
@@ -104,11 +108,13 @@ public class PostController {
     ) {
         logger.info("Request to read all posts by user : {}", userId);
 
+        Pageable pageable = PageRequest.of(page, size);
+
         return ResponseEntity.ok()
                 .body(Response.builder()
                         .code(ResponseCode.SUCCESS)
                         .message(ResponseMessage.SUCCESS)
-                        .data(postService.readAllPostsByUser(userId, title, page, size))
+                        .data(postService.readAllPostsByUser(userId, title, pageable))
                         .build());
     }
 

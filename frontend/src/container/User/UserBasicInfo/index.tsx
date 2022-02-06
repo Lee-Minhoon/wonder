@@ -4,6 +4,7 @@ import Image from 'next/image';
 
 // import utilities
 import useReadUser, { readUserInput } from 'hooks/user/useReadUser';
+import useTypedSelector from 'hooks/useTypedSelector';
 
 // import components
 import InfoTable from './InfoTable';
@@ -14,9 +15,11 @@ import Button from 'components/Button';
 import styles from './styles.module.scss';
 
 const UserBasicInfo = () => {
-    const rotuer = useRouter();
+    const router = useRouter();
+    const userId = useTypedSelector((state) => state.user.userId);
+
     const readUserInputValue: readUserInput = {
-        id: rotuer.query?.id,
+        id: router.query?.id,
     };
     const { data, error, isLoading, isSuccess, isError } = useReadUser(readUserInputValue);
 
@@ -41,8 +44,14 @@ const UserBasicInfo = () => {
                 <p>{user.grade}</p>
             </div>
             <div className={styles.buttonWrapper}>
-                <Button onClick={() => console.log('test')}>쪽지</Button>
-                <Button onClick={() => console.log('test')}>팔로우</Button>
+                {userId == router.query?.id ? (
+                    <Button onClick={() => console.log('test')}>설정</Button>
+                ) : (
+                    <>
+                        <Button onClick={() => console.log('test')}>쪽지</Button>
+                        <Button onClick={() => console.log('test')}>팔로우</Button>
+                    </>
+                )}
             </div>
             <div className={styles.expWrapper}>경험치 랭킹</div>
             <InfoTable />

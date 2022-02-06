@@ -32,10 +32,8 @@ const Pagination = ({ pages }) => {
         for (let i = startPage; i <= endPage; i++) {
             if (i == currentPage)
                 result.push(
-                    <li>
-                        <span key={i} className={styles.current}>
-                            {i}
-                        </span>
+                    <li key={i}>
+                        <span className={styles.current}>{i}</span>
                     </li>
                 );
             else result.push(<LinkList key={i} pathname="" query={{ ...router.query, page: i }} text={i} />);

@@ -39,7 +39,7 @@ const Login = () => {
     }
     if (login.isSuccess) {
         console.log('로그인 성공');
-        router.push(router.query?.redirect.toString());
+        router.push(router.query?.redirect?.toString());
     }
 
     return (
