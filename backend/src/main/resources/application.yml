@@ -18,6 +18,8 @@ spring:
       ddl.auto: create
     show_sql: true
     defer-datasource-initialization: true
+    properties:
+      default_batch_fetch_size: 1000
 
 jwt:
   header: Authorization

@@ -11,14 +11,12 @@ import wonder.backend.constants.ExceptionEnum;
 import wonder.backend.domain.Follow;
 import wonder.backend.domain.User;
 import wonder.backend.domain.id.FollowId;
-import wonder.backend.dto.FollowDto;
-import wonder.backend.dto.PostDto;
 import wonder.backend.dto.UserDto;
 import wonder.backend.dto.common.ResponsePage;
-import wonder.backend.dto.mapper.ReadAllPostsMapper;
 import wonder.backend.exception.CustomException;
 import wonder.backend.repository.FollowRepository;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -28,7 +26,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class FollowService {
     private final Logger logger = LoggerFactory.getLogger(FollowService.class);
-
+    private final EntityManager em;
     private final FollowRepository followRepository;
 
     public void createFollow(Follow follow, User Follower, User Followee) {
@@ -48,8 +46,6 @@ public class FollowService {
     @Transactional(readOnly = true)
     public ResponsePage readAllFollowersByUser(Long followeeId, Pageable pageable) {
         Page<Follow> result = followRepository.findByFolloweeId(followeeId, pageable);
-//        Set<Follow> followers = user.getFollowers();
-//        followers.stream().forEach((f)-> System.out.println("following to " + f.getFollowee().getId()));
         return ResponsePage.builder()
                 .pages(result.getTotalPages())
                 .count(result.getTotalElements())
@@ -57,9 +53,13 @@ public class FollowService {
                 .build();
     }
 
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true) //페이지처리랑 n+1문제 처리못해 <<
     public void getFollowers(User user) {
         Set<Follow> followers = user.getFollowers();
+//        List<Follow> followList = em.createQuery("SELECT u FROM user as u" +
+//                        " JOIN FETCH u.followers as uf WHERE uf.followerId = u.id", Follow.class)
+//                .setParameter("followeeId", user.getId())
+//                .setMaxResults(10).getResultList();
         followers.stream().forEach((f)-> System.out.println(f.getFollower().getId() + "-> follow plz ->" + f.getFollowee().getId()));
         return;
     }

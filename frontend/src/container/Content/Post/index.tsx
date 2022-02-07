@@ -1,5 +1,5 @@
 // import package, library
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -15,10 +15,12 @@ import Button from 'components/Button';
 
 // import etc
 import styles from './styles.module.scss';
+import { loadDefaultErrorComponents } from 'next/dist/server/load-components';
 
-const Post = ({ setCategoryId, setUserId }) => {
+const Post = ({ post }) => {
     const router = useRouter();
     const createRecommendation = useCreateRec();
+    const [date, setDate] = useState<any>();
 
     const handleRecClick = useCallback(
         async (e) => {
@@ -46,26 +48,18 @@ const Post = ({ setCategoryId, setUserId }) => {
         console.log('추천 성공');
     }
 
-    const readPostInputValue: readPostInput = {
-        id: router.query.view,
-    };
-    const { data, error, isLoading, isSuccess, isError, refetch } = useReadPost(readPostInputValue);
-    refetch();
-
-    if (isLoading) return <Loading />;
-    if (isError) return <p>{error.response.data.message}</p>;
-    const post = data.data;
-    const date = new Intl.DateTimeFormat('ko-KR', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-    }).format(new Date(post.createdAt));
-
-    setCategoryId(post.categoryId);
-    setUserId(post.writerId);
+    useEffect(() => {
+        setDate(
+            new Intl.DateTimeFormat('ko-KR', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+            }).format(new Date(post?.createdAt))
+        );
+    }, [post?.createdAt]);
 
     return (
         <article className={styles.post}>
