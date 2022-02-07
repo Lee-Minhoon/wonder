@@ -8,13 +8,13 @@ import { AxiosService } from 'service/defaultAxiosService';
 
 // import etc
 
-export interface readAllCommentInput {
+export interface readAllCommentsInput {
     post: any;
     page: any;
     size: any;
 }
 
-const readAllComment = async (input: readAllCommentInput) => {
+const readAllComments = async (input: readAllCommentsInput) => {
     const { data } = await AxiosService.instance.get('comments', {
         params: {
             post: input.post,
@@ -25,9 +25,9 @@ const readAllComment = async (input: readAllCommentInput) => {
     return data;
 };
 
-const useReadAllComment = (input: readAllCommentInput) => {
-    const response = useQuery(['read_all_comment', input], async () => readAllComment(input));
+const useReadAllComments = (input: readAllCommentsInput) => {
+    const response = useQuery(['read_all_comments', input], async () => readAllComments(input));
     return response;
 };
 
-export default useReadAllComment;
+export default useReadAllComments;

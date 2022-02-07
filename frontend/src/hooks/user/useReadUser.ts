@@ -9,7 +9,7 @@ import { AxiosService } from 'service/defaultAxiosService';
 // import etc
 
 export interface readUserInput {
-    id: any;
+    id: number;
 }
 
 export interface readUserResponse {
@@ -26,7 +26,9 @@ export const readUser = async (input: readUserInput) => {
 };
 
 const useReadUser = (input: readUserInput) => {
-    const response = useQuery(['read_user', input], async () => readUser(input));
+    const response = useQuery(['read_user', input], async () => {
+        if (input.id !== 0) return readUser(input);
+    });
     return response;
 };
 

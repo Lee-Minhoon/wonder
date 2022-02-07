@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import wrapper from 'state/store';
 
 // import utilities
-import { RouterGuard } from 'dependecy';
+import { UserInfoWatcher, RouterGuard } from 'dependecy';
 
 // import components
 import DefaultLayout from 'layout/DefaultLayout';
@@ -15,7 +15,6 @@ import BoardLayout from 'layout/BoardLayout';
 
 // import etc
 import 'styles/globals.scss';
-import UserInfoWatcher from 'dependecy/UserInfoWatcher';
 
 const NOT_SIDE_BAR_PAGES = ['/', '/auth/login', '/auth/signup', '/auth/logout', '/user/[id]'];
 const SIDE_BAR_PAGES = ['/board/[view]', '/board/list', '/board/write'];

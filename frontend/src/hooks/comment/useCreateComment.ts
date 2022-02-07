@@ -1,4 +1,5 @@
 // import package, library
+import { useRouter } from 'next/router';
 import { useMutation, useQueryClient } from 'react-query';
 
 // import utilities
@@ -22,16 +23,20 @@ const createComment = async (input: createCommentInput) => {
 };
 
 const useCreateComment = () => {
+    const router = useRouter();
     const queryClient = useQueryClient();
     return useMutation((input: createCommentInput) => createComment(input), {
         onMutate: (variables) => {
-            console.log(variables);
+            console.log('댓글 입력 중..', variables);
         },
         onError: (error, variables, context) => {
-            console.log(error.response);
+            if (error.response.data.status == 401) {
+                console.log('로그인 되지 않음', error.response);
+                router.push('/auth/login');
+            }
         },
         onSuccess: (data, variables, context) => {
-            console.log(data);
+            console.log('댓글 입력 성공', data);
             queryClient.invalidateQueries('read_all_comment');
         },
     });

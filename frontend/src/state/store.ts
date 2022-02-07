@@ -8,13 +8,11 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 // import components
 
 // import etc
-import category from './category';
 import user from './user';
 
 // create a makeStore function
 const combinedReducer = combineReducers({
     user,
-    category,
 });
 
 const reducer = (state, action: AnyAction) => {

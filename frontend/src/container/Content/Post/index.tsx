@@ -6,16 +6,13 @@ import Link from 'next/link';
 
 // import utilities
 import useCreateRec, { createRecInput } from 'hooks/recommendation/useCreateRec';
-import useReadPost, { readPostInput } from 'hooks/post/useReadPost';
 
 // import components
-import Loading from 'components/Loading';
 import PostUtil from './PostUtil';
 import Button from 'components/Button';
 
 // import etc
 import styles from './styles.module.scss';
-import { loadDefaultErrorComponents } from 'next/dist/server/load-components';
 
 const Post = ({ post }) => {
     const router = useRouter();
@@ -44,9 +41,12 @@ const Post = ({ post }) => {
             console.log('이미 추천 함');
         }
     }
-    if (createRecommendation.isSuccess) {
-        console.log('추천 성공');
-    }
+
+    useEffect(() => {
+        if (createRecommendation.data && createRecommendation.isSuccess) {
+            alert('추천');
+        }
+    }, [createRecommendation.data, createRecommendation.isSuccess]);
 
     useEffect(() => {
         setDate(

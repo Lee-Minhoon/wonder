@@ -20,6 +20,7 @@ const UserInfoWatcher = ({ children }: { children: JSX.Element }) => {
     const { data, error, isLoading, isSuccess, isError, refetch } = useReadMe();
 
     useEffect(() => {
+        console.log('token: ', token, ' / isLogin', isLogin);
         if (token && !isLogin) {
             console.log('refetching...');
             // refetch();
@@ -46,4 +47,4 @@ const UserInfoWatcher = ({ children }: { children: JSX.Element }) => {
     return children;
 };
 
-export default UserInfoWatcher;
+export { UserInfoWatcher };

@@ -29,3 +29,14 @@
     display: flex;
     justify-content: flex-end;
 }
+
+.commentList {
+    margin-bottom: 1rem;
+    ul {
+        padding-inline-start: 0;
+        list-style-type: none;
+    }
+    li:not(:last-child) {
+        border-bottom: 1px solid $light-gray;
+    }
+}

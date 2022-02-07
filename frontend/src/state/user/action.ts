@@ -3,10 +3,6 @@ export const types = {
     LOGOUT: 'LOGOUT',
 };
 
-// export const addCount = () => (dispatch) => {
-//     return dispatch({ type: types.ADD_COUNT })
-// }
-
 export const login = (userId, userNickname) => ({
     type: types.LOGIN,
     userId,
