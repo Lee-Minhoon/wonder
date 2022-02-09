@@ -7,6 +7,7 @@ import lombok.Setter;
 import wonder.backend.domain.common.BaseTimeEntity;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,6 +22,7 @@ public class User extends BaseTimeEntity {
     private String nickname;
     private String grade = "NORMAL";
     private String role = "ROLE_USER";
+    private Timestamp loggedInAt;
 
     @OneToMany(mappedBy = "user")
     private Set<Post> posts = new HashSet<>();

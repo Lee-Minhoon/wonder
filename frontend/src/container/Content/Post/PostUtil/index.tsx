@@ -10,6 +10,7 @@ import Button from 'components/Button';
 
 // import etc
 import styles from './styles.module.scss';
+import Requesting from 'components/Requesting';
 
 const PostUtil = ({ postId }: { postId: number }) => {
     const router = useRouter();
@@ -23,7 +24,6 @@ const PostUtil = ({ postId }: { postId: number }) => {
                     id: router.query?.view,
                 };
                 deletePost.mutate(deletePostInputValue);
-                router.push(router.query.redirect.toString());
             } else {
                 return;
             }
@@ -32,19 +32,22 @@ const PostUtil = ({ postId }: { postId: number }) => {
     );
 
     return (
-        <div className={styles.postUtil}>
-            <Button
-                onClick={() =>
-                    router.push({
-                        pathname: '/board/write',
-                        query: { redirect: router.query.redirect.toString(), update: postId },
-                    })
-                }
-            >
-                수정
-            </Button>
-            <Button onClick={handleSubmit}>삭제</Button>
-        </div>
+        <>
+            {deletePost.isLoading && <Requesting />}
+            <div className={styles.postUtil}>
+                <Button
+                    onClick={() =>
+                        router.push({
+                            pathname: '/board/write',
+                            query: { redirect: router.query.redirect.toString(), update: postId },
+                        })
+                    }
+                >
+                    수정
+                </Button>
+                <Button onClick={handleSubmit}>삭제</Button>
+            </div>
+        </>
     );
 };
 

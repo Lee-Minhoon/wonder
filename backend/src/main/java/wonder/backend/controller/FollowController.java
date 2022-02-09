@@ -4,15 +4,14 @@ import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 import wonder.backend.constants.ExceptionEnum;
 import wonder.backend.constants.ResponseCode;
 import wonder.backend.constants.ResponseMessage;
 import wonder.backend.domain.Follow;
-import wonder.backend.domain.PrincipalDetails;
 import wonder.backend.domain.User;
 import wonder.backend.domain.id.FollowId;
 import wonder.backend.dto.common.Response;
@@ -66,44 +65,24 @@ public class FollowController {
                         .build());
     }
 
-    @GetMapping("users/{id}/followers")
-    public ResponseEntity readAllFollowersByUser(
-            @PathVariable("id") Long followeeId,
-            @RequestParam("page") int page,
-            @RequestParam("size") int size
-    ) {
-        logger.info("Request to read all followers by user");
-
+//    @GetMapping("users/{id}/getFollowers")
+//    public ResponseEntity getFollowers(
+//            @PathVariable("id") Long followeeId,
+//            @RequestParam("page") int page,
+//            @RequestParam("size") int size
+//    ) {
+//        logger.info("Request to read all followers by user");
+//
 //        User followee = getOrElseThrow(userService.getUserById(followeeId));
-
-        Pageable pageable = PageRequest.of(page, size);
-
-        return ResponseEntity.ok()
-                .body(Response.builder()
-                        .code(ResponseCode.SUCCESS)
-                        .message(ResponseMessage.SUCCESS)
-                        .data(followService.readAllFollowersByUser(followeeId, pageable))
-                        .build());
-    }
-
-    @GetMapping("users/{id}/getFollowers")
-    public ResponseEntity getFollowers(
-            @PathVariable("id") Long followeeId,
-            @RequestParam("page") int page,
-            @RequestParam("size") int size
-    ) {
-        logger.info("Request to read all followers by user");
-
-        User followee = getOrElseThrow(userService.getUserById(followeeId));
-
-        followService.getFollowers(followee);
-
-        return ResponseEntity.ok()
-                .body(Response.builder()
-                        .code(ResponseCode.SUCCESS)
-                        .message(ResponseMessage.SUCCESS)
-                        .build());
-    }
+//
+//        followService.getFollowers(followee);
+//
+//        return ResponseEntity.ok()
+//                .body(Response.builder()
+//                        .code(ResponseCode.SUCCESS)
+//                        .message(ResponseMessage.SUCCESS)
+//                        .build());
+//    }
 
     public <T> T getOrElseThrow(Optional<T> param) {
         return param.orElseThrow(() -> new CustomException(ExceptionEnum.NOT_FOUND));

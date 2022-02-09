@@ -9,7 +9,7 @@
     }
 }
 
-.loading {
+.requesting {
     position: fixed;
     background-color: rgba(0, 0, 0, 0.5);
     @include location(0, 0, 0, 0);

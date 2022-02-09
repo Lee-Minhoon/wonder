@@ -2,8 +2,7 @@ package wonder.backend.dto;
 
 import lombok.Builder;
 import lombok.Getter;
-import wonder.backend.dto.mapper.ReadAllPostsMapper;
-import wonder.backend.dto.mapper.ReadPostMapper;
+import wonder.backend.dto.mapper.PostMapper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -30,19 +29,19 @@ public class PostDto {
         private String writer;
         private Timestamp createdAt;
         private int views;
-        private int likes;
+        private int countRecs;
 
         @Builder
-        public ReadPostDto(ReadPostMapper postMapper) {
+        public ReadPostDto(PostMapper.ReadPostMapper postMapper) {
             this.categoryId = postMapper.getCategoryId();
             this.id = postMapper.getId();
             this.title = postMapper.getTitle();
             this.content = clobToString(postMapper.getContent());
             this.writerId = postMapper.getWriterId();
             this.writer = postMapper.getWriter();
-            this.createdAt = postMapper.getCreateAt();
+            this.createdAt = postMapper.getCreatedAt();
             this.views = postMapper.getViews();
-            this.likes = postMapper.getLikes();
+            this.countRecs = postMapper.getCountRecs();
         }
     }
 
@@ -54,21 +53,21 @@ public class PostDto {
         private Long writerId;
         private String writer;
         private Timestamp createdAt;
-        private int comments;
         private int views;
-        private int likes;
+        private int countComments;
+        private int countRecs;
 
         @Builder
-        public ReadAllPostsDto(ReadAllPostsMapper postMapper) {
-            this.category = postMapper.getCategory();
-            this.id = postMapper.getId();
-            this.title = postMapper.getTitle();
-            this.writerId = postMapper.getWriterId();
-            this.writer = postMapper.getWriter();
-            this.createdAt = postMapper.getCreateAt();
-            this.comments = postMapper.getComments();
-            this.views = postMapper.getViews();
-            this.likes = postMapper.getLikes();
+        public ReadAllPostsDto(PostMapper.ReadAllPostsMapper postsMapper) {
+            this.category = postsMapper.getCategory();
+            this.id = postsMapper.getId();
+            this.title = postsMapper.getTitle();
+            this.writerId = postsMapper.getWriterId();
+            this.writer = postsMapper.getWriter();
+            this.createdAt = postsMapper.getCreatedAt();
+            this.views = postsMapper.getViews();
+            this.countComments = postsMapper.getCountComments();
+            this.countRecs = postsMapper.getCountRecs();
         }
     }
 

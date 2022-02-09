@@ -43,12 +43,12 @@ const PostItem = (props) => {
                 >
                     <a>{props.title}</a>
                 </Link>
-                {+props.comments !== 0 && <em> [{props.comments}]</em>}
+                {+props.comments !== 0 && <em> [{props.countComments}]</em>}
             </td>
             <td>
-                <div className={styles.profileData}>
-                    <span className={styles.profileWrapper}>
-                        <span className={styles.profile}>
+                <div className={styles.writerWrapper}>
+                    <span className={styles.imageWrapper}>
+                        <span className={styles.image}>
                             <Image src="/123.png" alt="profile" layout="fill" />
                         </span>
                     </span>
@@ -59,7 +59,7 @@ const PostItem = (props) => {
             </td>
             <td>{date}</td>
             <td>{props.views}</td>
-            <td>{props.likes}</td>
+            <td>{props.countRecs}</td>
         </tr>
     );
 };

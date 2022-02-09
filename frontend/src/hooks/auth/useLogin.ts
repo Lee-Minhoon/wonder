@@ -1,4 +1,5 @@
 // import package, library
+import { useRouter } from 'next/router';
 import { useMutation } from 'react-query';
 
 // import utilities
@@ -22,15 +23,19 @@ const login = async (input: loginInput) => {
 };
 
 const useLogin = () => {
+    const router = useRouter();
     return useMutation((input: loginInput) => login(input), {
         onMutate: (variables) => {
-            console.log(variables);
+            console.log('로그인 시도 중..', variables);
         },
         onError: (error, variables, context) => {
-            console.log(error.response);
+            if (error.response.data.status == 401) {
+                console.log('로그인 실패', error.response);
+            }
         },
         onSuccess: (data, variables, context) => {
-            console.log(data);
+            console.log('로그인 성공', data);
+            router.push(router.query?.redirect?.toString());
             AxiosService.addHeaderToken(data.data.token);
         },
     });

@@ -15,17 +15,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import wonder.backend.constants.ExceptionEnum;
 import wonder.backend.constants.ResponseCode;
 import wonder.backend.constants.ResponseMessage;
 import wonder.backend.domain.PrincipalDetails;
 import wonder.backend.domain.User;
 import wonder.backend.dto.AuthDto;
-import wonder.backend.dto.TokenDto;
 import wonder.backend.dto.common.Response;
+import wonder.backend.exception.CustomException;
 import wonder.backend.jwt.TokenProvider;
 import wonder.backend.service.AuthService;
+import wonder.backend.service.UserService;
 
 import javax.servlet.http.HttpServletResponse;
+import java.sql.Timestamp;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("auth")
@@ -34,7 +38,8 @@ public class AuthController {
     private final Logger logger = LoggerFactory.getLogger(AuthController.class);
     public static final String AUTHORIZATION_HEADER = "Authorization";
 
-    private final AuthService userService;
+    private final AuthService authService;
+    private final UserService userService;
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
@@ -56,7 +61,7 @@ public class AuthController {
         return ResponseEntity.ok()
                 .body(Response.builder()
                         .code(ResponseCode.SUCCESS)
-                        .data(userService.signup(user))
+                        .data(authService.signup(user))
                         .message(ResponseMessage.SUCCESS)
                         .build());
     }
@@ -80,6 +85,9 @@ public class AuthController {
                 .build();
         response.addHeader("Set-Cookie", cookie.toString());
 
+        User user = getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
+        user.setLoggedInAt(new Timestamp(System.currentTimeMillis()));
+
         PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
         AuthDto.LoginResponseDto loginResponseDto = AuthDto.LoginResponseDto.builder()
                 .id(principalDetails.getId())
@@ -94,16 +102,8 @@ public class AuthController {
                         .data(loginResponseDto)
                         .build());
     }
-//
-//    @PostMapping("logout")
-//    public ResponseEntity logout(
-//            HttpServletRequest request
-//    ) {
-//        String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
-//        Long userId = tokenProvider.getUserId(jwt);
-//
-//        logger.info("Request to logout : {}", userId);
-//
-//
-//    }
+
+    public <T> T getOrElseThrow(Optional<T> param) {
+        return param.orElseThrow(() -> new CustomException(ExceptionEnum.NOT_FOUND));
+    }
 }

@@ -1,4 +1,6 @@
 INSERT INTO user (email, password, nickname, grade, role) VALUES ('localtest', '$2a$10$6yVMypv00RigKDrWe4TTXukPKiZXektyAr161pA5isZe2.p351t6m', 'admin', 'NORMAL', 'ROLE_ADMIN');
+INSERT INTO user (email, password, nickname, grade, role) VALUES ('localtest2', '$2a$10$6yVMypv00RigKDrWe4TTXukPKiZXektyAr161pA5isZe2.p351t6m', 'admin2', 'NORMAL', 'ROLE_ADMIN');
+INSERT INTO user (email, password, nickname, grade, role) VALUES ('localtest3', '$2a$10$6yVMypv00RigKDrWe4TTXukPKiZXektyAr161pA5isZe2.p351t6m', 'admin3', 'NORMAL', 'ROLE_ADMIN');
 
 INSERT INTO category (id, parent_id, name) VALUES (1, null, 'Q&A');
 INSERT INTO category (id, parent_id, name) VALUES (2, null, '강의');
@@ -50,3 +52,45 @@ INSERT INTO post (title, content, views, updated_at, created_at, user_id, catego
 INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 1, 12);
 INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 1, 12);
 INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 1, 12);
+
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 2, 11);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 2, 11);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 2, 11);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 2, 11);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 2, 11);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 2, 11);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 2, 11);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 2, 11);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 2, 11);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 2, 11);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 2, 12);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 2, 12);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 2, 12);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 2, 12);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 2, 12);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 2, 12);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 2, 12);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 2, 12);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 2, 12);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 2, 12);
+
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 3, 11);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 3, 11);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 3, 11);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 3, 11);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 3, 11);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 3, 11);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 3, 11);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 3, 11);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 3, 11);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 3, 11);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 3, 12);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 3, 12);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 3, 12);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 3, 12);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 3, 12);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 3, 12);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 3, 12);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 3, 12);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 3, 12);
+INSERT INTO post (title, content, views, updated_at, created_at, user_id, category_id) VALUES ('안녕하세요', '<p>123<p>', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 3, 12);

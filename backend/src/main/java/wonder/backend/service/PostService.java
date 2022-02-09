@@ -13,8 +13,7 @@ import wonder.backend.domain.Post;
 import wonder.backend.domain.User;
 import wonder.backend.dto.common.ResponsePage;
 import wonder.backend.dto.PostDto;
-import wonder.backend.dto.mapper.ReadAllPostsMapper;
-import wonder.backend.dto.mapper.ReadPostMapper;
+import wonder.backend.dto.mapper.PostMapper;
 import wonder.backend.exception.CustomException;
 import wonder.backend.repository.PostRepository;
 
@@ -35,15 +34,15 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public PostDto.ReadPostDto readPost(ReadPostMapper post) {
+    public PostDto.ReadPostDto readPost(PostMapper.ReadPostMapper postMapper) {
         return PostDto.ReadPostDto.builder()
-                .postMapper(post)
+                .postMapper(postMapper)
                 .build();
     }
 
     @Transactional(readOnly = true)
-    public ResponsePage readAllPosts(Long categoryId, String title, Pageable pageable) {
-        Page<ReadAllPostsMapper> result = postRepository.findAllPostsByCategory(categoryId, title, pageable);
+    public ResponsePage readAllPostsByCategory(Long categoryId, String title, Pageable pageable) {
+        Page<PostMapper.ReadAllPostsMapper> result = postRepository.findAllPostsByCategory(categoryId, title, pageable);
         return ResponsePage.builder()
                 .pages(result.getTotalPages())
                 .count(result.getTotalElements())
@@ -53,7 +52,7 @@ public class PostService {
 
     @Transactional(readOnly = true)
     public ResponsePage readAllPostsByUser(Long userId, String title, Pageable pageable) {
-        Page<ReadAllPostsMapper> result = postRepository.findAllPostsByUser(userId, title, pageable);
+        Page<PostMapper.ReadAllPostsMapper> result = postRepository.findAllPostsByUser(userId, title, pageable);
         return ResponsePage.builder()
                 .pages(result.getTotalPages())
                 .count(result.getTotalElements())
@@ -64,7 +63,7 @@ public class PostService {
     @Transactional(readOnly = true)
     public ResponsePage readTest(Long categoryId, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<ReadAllPostsMapper> result = postRepository.findTest(categoryId, pageable);
+        Page<PostMapper.ReadAllPostsMapper> result = postRepository.findTest(categoryId, pageable);
         return ResponsePage.builder()
                 .pages(result.getTotalPages())
                 .count(result.getTotalElements())
@@ -88,7 +87,7 @@ public class PostService {
         if(post.getUser().getId() != user.getId()) new CustomException(ExceptionEnum.UNAUTHORIZED);
     }
 
-    public Optional<ReadPostMapper> getPostInfoById(Long id) {
+    public Optional<PostMapper.ReadPostMapper> getPostInfoById(Long id) {
         return postRepository.findPostInfoById(id);
     }
 

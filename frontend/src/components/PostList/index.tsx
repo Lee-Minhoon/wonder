@@ -42,9 +42,9 @@ const PostList = ({ posts }) => {
                             writerId={item.writerId}
                             writer={item.writer}
                             createdAt={item.createdAt}
-                            comments={item.comments}
                             views={item.views}
-                            likes={item.likes}
+                            countComments={item.countComments}
+                            countRecs={item.countRecs}
                         />
                     ))}
             </tbody>

@@ -12,19 +12,19 @@
     }
 }
 
-.profileData {
-    min-height: 3.5rem;
+.writerWrapper {
     display: grid;
+    min-height: 3.5rem;
     grid-template-columns: 3.5rem auto;
     align-items: center;
 }
 
-.profileWrapper {
+.imageWrapper {
     @include flex-center();
     @include size(3.5rem, 100%);
 }
 
-.profile {
+.image {
     overflow: hidden;
     position: relative;
     border: 1px solid $light-gray;

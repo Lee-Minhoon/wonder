@@ -22,14 +22,17 @@ const useDeletePost = () => {
     const router = useRouter();
     return useMutation((input: deletePostInput) => deletePost(input), {
         onMutate: (variables) => {
-            console.log(variables);
+            console.log('글 삭제 중..', variables);
         },
         onError: (error, variables, context) => {
-            console.log(error.response);
+            if (error.response.data.status == 401) {
+                console.log('로그인 되지 않음', error.response);
+                router.push('/auth/login');
+            }
         },
         onSuccess: (data, variables, context) => {
-            console.log(data);
-            // router.push({ pathname: `/board/${data.data}`, query: { ...router.query } });
+            console.log('글 삭제 성공', data);
+            router.push(router.query.redirect.toString());
         },
     });
 };

@@ -4,8 +4,8 @@ import { useRouter } from 'next/router';
 // import utilities
 
 // import components
-import Button from 'components/Button';
 import SelectBox from 'components/SelectBox';
+import Button from 'components/Button';
 
 // import etc
 import styles from './styles.module.scss';
@@ -22,7 +22,7 @@ const BoardUtil = ({ pages, count, onChange, onClick }) => {
     ];
 
     return (
-        <div className={styles.postUtil}>
+        <div className={styles.boardUtil}>
             <span>
                 <em>{pages}</em>개의 페이지
             </span>

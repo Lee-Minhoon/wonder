@@ -4,17 +4,17 @@
     margin: 0.5rem 0 3rem 0;
     ul {
         padding-inline-start: 0;
-    }
-    li {
-        display: inline-flex;
-        margin: 0 1rem;
-        @include font($dark-gray, normal, 400, 1.6rem);
-        &:hover {
-            color: $theme-color;
+        li {
+            display: inline-flex;
+            margin: 0 1rem;
+            @include font($dark-gray, normal, 400, 1.6rem);
+            &:hover {
+                color: $theme-color;
+            }
         }
     }
 }
 
-.current {
+.currentPage {
     @include font($theme-color, normal, 400, 1.6rem);
 }

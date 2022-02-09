@@ -2,15 +2,13 @@
 
 .infoTabs {
     height: 40px;
-    border: 1px solid $light-gray;
-}
-
-.tabsList {
-    padding-inline-start: 0px;
-
-    line-height: 38px;
-    li {
-        display: inline-flex;
-        margin: 0 10px;
+    border-bottom: 1px solid $light-gray;
+    ul {
+        line-height: 38px;
+        padding-inline-start: 0px;
+        li {
+            display: inline-flex;
+            margin: 0 10px;
+        }
     }
 }

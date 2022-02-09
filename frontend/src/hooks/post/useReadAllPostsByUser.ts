@@ -8,14 +8,14 @@ import { AxiosService } from 'service/defaultAxiosService';
 
 // import etc
 
-export interface readAllPostByUserInput {
+export interface readAllPostsByUserInput {
     user: number;
     title: string;
     page: number;
     size: number;
 }
 
-const readAllPostByUser = async (input: readAllPostByUserInput) => {
+const readAllPostsByUser = async (input: readAllPostsByUserInput) => {
     const { data } = await AxiosService.instance.get(`users/${input.user}/posts`, {
         params: {
             title: input.title,
@@ -26,9 +26,9 @@ const readAllPostByUser = async (input: readAllPostByUserInput) => {
     return data;
 };
 
-const useReadAllPostByUser = (input: readAllPostByUserInput) => {
-    const response = useQuery(['read_all_post_by_user', input], async () => readAllPostByUser(input));
+const useReadAllPostsByUser = (input: readAllPostsByUserInput) => {
+    const response = useQuery(['read_all_posts_by_user', input], async () => readAllPostsByUser(input));
     return response;
 };
 
-export default useReadAllPostByUser;
+export default useReadAllPostsByUser;

@@ -1,5 +1,5 @@
 // import package, library
-import { useRef, forwardRef, useCallback } from 'react';
+import { useRef, forwardRef, useCallback, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 
 // import utilities

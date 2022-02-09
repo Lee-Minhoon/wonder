@@ -16,7 +16,7 @@ import wonder.backend.domain.Post;
 import wonder.backend.domain.User;
 import wonder.backend.dto.PostDto;
 import wonder.backend.dto.common.Response;
-import wonder.backend.dto.mapper.ReadPostMapper;
+import wonder.backend.dto.mapper.PostMapper;
 import wonder.backend.exception.CustomException;
 import wonder.backend.jwt.TokenProvider;
 import wonder.backend.service.CategoryService;
@@ -70,13 +70,13 @@ public class PostController {
     ) {
         logger.info("Request to read a post : {}", postId);
 
-        ReadPostMapper post = getOrElseThrow(postService.getPostInfoById(postId));
+        PostMapper.ReadPostMapper postMapper = getOrElseThrow(postService.getPostInfoById(postId));
 
         return ResponseEntity.ok()
                 .body(Response.builder()
                         .code(ResponseCode.SUCCESS)
                         .message(ResponseMessage.SUCCESS)
-                        .data(postService.readPost(post))
+                        .data(postService.readPost(postMapper))
                         .build());
     }
 
@@ -95,7 +95,7 @@ public class PostController {
                 .body(Response.builder()
                         .code(ResponseCode.SUCCESS)
                         .message(ResponseMessage.SUCCESS)
-                        .data(postService.readAllPosts(categoryId, title, pageable))
+                        .data(postService.readAllPostsByCategory(categoryId, title, pageable))
                         .build());
     }
 

@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import { useRouter } from 'next/router';
 
 // import utilities
-import useReadAllPost, { readAllPostInput } from 'hooks/post/useReadAllPost';
+import useReadAllPosts, { readAllPostsInput } from 'hooks/post/useReadAllPosts';
 import useInput from 'hooks/useInput';
 
 // import components
@@ -42,52 +42,56 @@ const Board = () => {
         });
     }, [router]);
 
-    const handleSearchClick = useCallback(
-        (e) => {
-            router.push({
-                pathname: router.pathname,
-                query: { ...router.query, title: searchWord.value },
-            });
-        },
-        [router, searchWord.value]
-    );
+    const handleSearchClick = useCallback(() => {
+        router.push({
+            pathname: router.pathname,
+            query: { ...router.query, title: searchWord.value },
+        });
+    }, [router, searchWord.value]);
 
-    const readAllPostInputValue: readAllPostInput = {
+    const readAllPostInputValue: readAllPostsInput = {
         category: sub?.id,
         title: router.query?.title?.toString(),
         page: parseInt(router.query.page as string) - 1,
         size: parseInt(router.query.size as string),
     };
-    const { data, error, isLoading, isError } = useReadAllPost(readAllPostInputValue);
-
-    if (isLoading) return <Loading />;
-    if (isError) return <p>{error.response.data.message}</p>;
-
-    const posts = data.data;
+    const {
+        data: postsData,
+        error: postsError,
+        isLoading: postsIsLoading,
+        isError: postsIsError,
+        isSuccess: postsIsSucess,
+    } = useReadAllPosts(readAllPostInputValue);
 
     return (
-        <div className={styles.board}>
-            <header>
-                <h1 className={styles.title}>
-                    {main.title} – {sub.title}
-                </h1>
-                <Divider />
-                <Banner />
-                <BoardUtil
-                    pages={posts.pages}
-                    count={posts.count}
-                    onChange={handleOptionsChange}
-                    onClick={handleWritingClick}
-                />
-            </header>
-            <section>
-                <PostList posts={posts.data} />
-            </section>
-            <footer className={styles.footer}>
-                <Pagination pages={posts.pages} />
-                <SearchBar width="300px" height="30px" input={searchWord} onClick={handleSearchClick} />
-            </footer>
-        </div>
+        <>
+            {postsIsLoading && <Loading />}
+            {postsIsError && <p>{postsError.response.data.message}</p>}
+            {postsIsSucess && (
+                <div className={styles.board}>
+                    <header>
+                        <h1 className={styles.title}>
+                            {main.title} – {sub.title}
+                        </h1>
+                        <Divider />
+                        <Banner />
+                        <BoardUtil
+                            pages={postsData.data.pages}
+                            count={postsData.data.count}
+                            onChange={handleOptionsChange}
+                            onClick={handleWritingClick}
+                        />
+                    </header>
+                    <section>
+                        <PostList posts={postsData.data.data} />
+                    </section>
+                    <footer className={styles.footer}>
+                        <Pagination pages={postsData.data.pages} />
+                        <SearchBar width="300px" height="30px" input={searchWord} onClick={handleSearchClick} />
+                    </footer>
+                </div>
+            )}
+        </>
     );
 };
 

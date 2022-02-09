@@ -37,7 +37,7 @@ const useCreateComment = () => {
         },
         onSuccess: (data, variables, context) => {
             console.log('댓글 입력 성공', data);
-            queryClient.invalidateQueries('read_all_comment');
+            queryClient.invalidateQueries('read_all_comments');
         },
     });
 };

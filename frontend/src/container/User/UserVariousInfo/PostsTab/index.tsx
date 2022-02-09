@@ -1,9 +1,9 @@
 // import package, library
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback } from 'react';
 import { useRouter } from 'next/router';
 
 // import utilities
-import useReadAllPostByUser, { readAllPostByUserInput } from 'hooks/post/useReadAllPostByUser';
+import useReadAllPostsByUser, { readAllPostsByUserInput } from 'hooks/post/useReadAllPostsByUser';
 import useInput from 'hooks/useInput';
 
 // import components
@@ -47,38 +47,41 @@ const PostsTab = () => {
         [router, searchWord.value]
     );
 
-    const readAllPostInputValue: readAllPostByUserInput = {
+    const readAllPostInputValue: readAllPostsByUserInput = {
         user: parseInt(router.query.id.toString()),
         title: router.query.title.toString(),
         page: parseInt(router.query.page as string) - 1,
         size: parseInt(router.query.size as string),
     };
-    const { data, error, isLoading, isError } = useReadAllPostByUser(readAllPostInputValue);
-
-    if (isLoading) {
-        return <Loading />;
-    }
-    if (isError) {
-        return <p>{error.response.data.message}</p>;
-    }
-
-    const posts = data.data;
+    const {
+        data: postsData,
+        error: postsError,
+        isLoading: postsIsLoading,
+        isError: postsIsError,
+        isSuccess: postsIsSuccess,
+    } = useReadAllPostsByUser(readAllPostInputValue);
 
     return (
         <>
-            <BoardUtil
-                pages={posts.pages}
-                count={posts.count}
-                onChange={handleOptionsChange}
-                onClick={handleWritingClick}
-            />
-            <section>
-                <PostList posts={posts.data} />
-            </section>
-            <footer className={styles.footer}>
-                <Pagination pages={posts.pages} />
-                <SearchBar width="300px" height="30px" input={searchWord} onClick={handleSearchClick} />
-            </footer>
+            {postsIsLoading && <Loading />}
+            {postsIsError && <p>{postsError.response.data.message}</p>}
+            {postsIsSuccess && (
+                <div className={styles.postsTab}>
+                    <BoardUtil
+                        pages={postsData.data.pages}
+                        count={postsData.data.count}
+                        onChange={handleOptionsChange}
+                        onClick={handleWritingClick}
+                    />
+                    <section>
+                        <PostList posts={postsData.data.data} />
+                    </section>
+                    <footer className={styles.footer}>
+                        <Pagination pages={postsData.data.pages} />
+                        <SearchBar width="300px" height="30px" input={searchWord} onClick={handleSearchClick} />
+                    </footer>
+                </div>
+            )}
         </>
     );
 };

@@ -33,19 +33,24 @@ const UserInfo = ({ user }) => {
         <>
             {createFollow.isLoading && <Requesting />}
             <div className={styles.userInfo}>
-                <div className={styles.profileWrapper}>
-                    <div className={styles.profile}>
+                <div className={styles.imageWrapper}>
+                    <div>
                         <Image src="/123.png" alt="profile" layout="fill" />
                     </div>
                 </div>
-                <div className={styles.info}>
-                    <div className={styles.basicInfo}>
+                <div className={styles.gridWrapper}>
+                    <div className={styles.infoWrapper}>
                         <h1>{user.nickname}</h1>
                         <p>{user.grade}</p>
                     </div>
                     <div className={styles.buttonWrapper}>
                         {loginUserId == user.id ? (
                             <></>
+                        ) : user.followStatus ? (
+                            <>
+                                <Button onClick={() => console.log('test')}>쪽지</Button>
+                                <Button onClick={handleFollowClick}>언팔로우</Button>
+                            </>
                         ) : (
                             <>
                                 <Button onClick={() => console.log('test')}>쪽지</Button>
@@ -54,7 +59,7 @@ const UserInfo = ({ user }) => {
                         )}
                     </div>
                     <div>경험치 랭킹</div>
-                    <InfoTable />
+                    <InfoTable user={user} />
                 </div>
                 <div className={styles.intro}>소개말</div>
             </div>

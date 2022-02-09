@@ -19,8 +19,8 @@ import category from 'constants/category';
 
 const Content = () => {
     const router = useRouter();
-    const [main, setMain] = useState<any>({});
-    const [sub, setSub] = useState<any>({});
+    const [mainCategoryTitle, setMainCategoryTitle] = useState<string>();
+    const [subCategoryTitle, setSubCategoryTitle] = useState<string>();
 
     const readPostInputValue: readPostInput = {
         id: router.query?.view,
@@ -47,10 +47,10 @@ const Content = () => {
     useEffect(() => {
         if (postData && postData.data?.categoryId) {
             const temp = category.find((item) => item.id === Math.floor(postData.data?.categoryId / 10));
-            setMain(temp);
-            setSub(temp?.sub.find((item) => item.id === postData.data?.categoryId));
+            setMainCategoryTitle(temp.title);
+            setSubCategoryTitle(temp?.sub.find((item) => item.id === postData.data?.categoryId).title);
         }
-    }, [main.sub, postData]);
+    }, [postData]);
 
     return (
         <>
@@ -59,17 +59,17 @@ const Content = () => {
             {userIsError && <p>{userError.response.data.message}</p>}
             {postIsSuccess && userIsSuccess && (
                 <div className={styles.content}>
-                    <div className={styles.topArea}>
+                    <div className={styles.flexWrapper}>
                         <h1 className={styles.title}>
-                            {main?.title} – {sub?.title}
+                            {mainCategoryTitle} – {subCategoryTitle}
                         </h1>
-                        <div className={styles.topButtonArea}>
+                        <div className={styles.buttonWrapper}>
                             <Button onClick={() => router.push(router.query.redirect.toString())}>목록으로</Button>
                         </div>
                     </div>
                     {postData && <Post post={postData?.data} />}
                     {userData && (
-                        <div className={styles.userInfo}>
+                        <div className={styles.userInfoWrapper}>
                             <UserInfo user={userData?.data} />
                         </div>
                     )}

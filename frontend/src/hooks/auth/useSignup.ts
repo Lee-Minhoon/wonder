@@ -1,4 +1,5 @@
 // import package, library
+import { useRouter } from 'next/router';
 import { useMutation } from 'react-query';
 
 // import utilities
@@ -25,15 +26,17 @@ const signup = async (input: signupInput) => {
 };
 
 const useSignup = () => {
+    const router = useRouter();
     return useMutation((input: signupInput) => signup(input), {
         onMutate: (variables) => {
-            console.log(variables);
+            console.log('회원가입 시도 중..', variables);
         },
         onError: (error, variables, context) => {
             console.log(error.response);
         },
         onSuccess: (data, variables, context) => {
-            console.log(data);
+            console.log('회원가입 성공', data);
+            router.push('/');
         },
     });
 };

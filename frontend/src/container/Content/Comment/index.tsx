@@ -33,7 +33,7 @@ const Comment = () => {
         [router.query.view, content.value, createComment]
     );
 
-    const readAllCommentInputValue: readAllCommentsInput = {
+    const readAllCommentsInputValue: readAllCommentsInput = {
         post: router.query.view,
         page: 0,
         size: 10,
@@ -44,7 +44,7 @@ const Comment = () => {
         isLoading: commentsIsLoading,
         isSuccess: commentsIsSuccess,
         isError: commentsIsError,
-    } = useReadAllComments(readAllCommentInputValue);
+    } = useReadAllComments(readAllCommentsInputValue);
 
     return (
         <>

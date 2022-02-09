@@ -13,7 +13,7 @@ const useEditor = (initialValue) => {
         setValue(event);
     };
 
-    return { value, onChange };
+    return { value, setValue, onChange };
 };
 
 export default useEditor;

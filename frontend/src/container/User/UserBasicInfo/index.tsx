@@ -19,42 +19,50 @@ const UserBasicInfo = () => {
     const userId = useTypedSelector((state) => state.user.userId);
 
     const readUserInputValue: readUserInput = {
-        id: router.query?.id,
+        id: parseInt(router.query?.id.toString()),
     };
-    const { data, error, isLoading, isSuccess, isError } = useReadUser(readUserInputValue);
-
-    if (isLoading) {
-        return <Loading />;
-    }
-    if (isError) {
-        return <p>{error.response.data.message}</p>;
-    }
-
-    const user = data.data;
+    const {
+        data: userData,
+        error: userError,
+        isLoading: userIsLoading,
+        isSuccess: userIsSuccess,
+        isError: userIsError,
+    } = useReadUser(readUserInputValue);
 
     return (
         <div className={styles.userBasicInfo}>
-            <div className={styles.profileWrapper}>
-                <div className={styles.profile}>
-                    <Image src="/123.png" alt="profile" layout="fill" />
-                </div>
-            </div>
-            <div className={styles.basicInfo}>
-                <h1>{user.nickname}</h1>
-                <p>{user.grade}</p>
-            </div>
-            <div className={styles.buttonWrapper}>
-                {userId == router.query?.id ? (
-                    <Button onClick={() => console.log('test')}>설정</Button>
-                ) : (
-                    <>
-                        <Button onClick={() => console.log('test')}>쪽지</Button>
-                        <Button onClick={() => console.log('test')}>팔로우</Button>
-                    </>
-                )}
-            </div>
-            <div className={styles.expWrapper}>경험치 랭킹</div>
-            <InfoTable />
+            {userIsLoading && <Loading />}
+            {userIsError && <p>{userError.response.data.message}</p>}
+            {userIsSuccess && (
+                <>
+                    <div className={styles.imageWrapper}>
+                        <div>
+                            <Image src="/123.png" alt="profile" layout="fill" />
+                        </div>
+                    </div>
+                    <div className={styles.infoWrapper}>
+                        <h1>{userData.data.nickname}</h1>
+                        <p>{userData.data.grade}</p>
+                    </div>
+                    <div className={styles.buttonWrapper}>
+                        {userId == router.query?.id ? (
+                            <Button onClick={() => console.log('test')}>설정</Button>
+                        ) : userData.data.followStatus ? (
+                            <>
+                                <Button onClick={() => console.log('test')}>쪽지</Button>
+                                <Button onClick={() => console.log('test')}>언팔로우</Button>
+                            </>
+                        ) : (
+                            <>
+                                <Button onClick={() => console.log('test')}>쪽지</Button>
+                                <Button onClick={() => console.log('test')}>팔로우</Button>
+                            </>
+                        )}
+                    </div>
+                    <div className={styles.expWrapper}>경험치 랭킹</div>
+                    <InfoTable user={userData.data} />
+                </>
+            )}
         </div>
     );
 };

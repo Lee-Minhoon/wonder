@@ -28,13 +28,17 @@ const useCreatePost = () => {
     const router = useRouter();
     return useMutation((input: createPostInput) => createPost(input), {
         onMutate: (variables) => {
-            console.log(variables);
+            console.log('글 작성 중..', variables);
         },
         onError: (error, variables, context) => {
-            console.log(error.response);
+            if (error.response.data.status == 401) {
+                console.log('로그인 되지 않음', error.response);
+                router.push({ pathname: '/auth/login', query: { redirect: router.asPath } });
+            }
         },
         onSuccess: (data, variables, context) => {
-            console.log(data);
+            console.log('글 작성 성공..', data);
+            router.push({ pathname: `/board/${data.data}`, query: { redirect: router.query?.redirect } });
         },
     });
 };

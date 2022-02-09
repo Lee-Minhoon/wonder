@@ -1,0 +1,30 @@
+@import 'styles/util.module.scss';
+
+.followItem {
+    padding: 1rem 0;
+}
+
+.flexWrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.imageWrapper {
+    overflow: hidden;
+    position: relative;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+
+.infoWrapper {
+    margin-right: auto;
+    a {
+        @include font($dark-gray, normal, 400, 1.6rem);
+    }
+}
+
+.buttonWrapper {
+}

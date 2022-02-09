@@ -3,8 +3,8 @@
 .board {
     header {
         h1 {
-            @include font($theme-color, normal, 400, 2rem);
             margin-bottom: 1rem;
+            @include font($theme-color, normal, 400, 2rem);
         }
     }
 }

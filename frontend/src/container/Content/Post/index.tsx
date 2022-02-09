@@ -17,7 +17,6 @@ import styles from './styles.module.scss';
 const Post = ({ post }) => {
     const router = useRouter();
     const createRecommendation = useCreateRec();
-    const [date, setDate] = useState<any>();
 
     const handleRecClick = useCallback(
         async (e) => {
@@ -30,36 +29,20 @@ const Post = ({ post }) => {
         [router.query.view, createRecommendation]
     );
 
-    if (createRecommendation.isLoading) {
-        console.log('추천 중..');
-    }
-    if (createRecommendation.isError) {
-        if (createRecommendation.error.response.status == 401) {
-            console.log('로그인 되지 않음');
-            router.push('/auth/login');
-        } else if (createRecommendation.error.response.status == 409) {
-            console.log('이미 추천 함');
-        }
-    }
-
     useEffect(() => {
         if (createRecommendation.data && createRecommendation.isSuccess) {
-            alert('추천');
+            alert('추천 하였습니다.');
         }
     }, [createRecommendation.data, createRecommendation.isSuccess]);
 
-    useEffect(() => {
-        setDate(
-            new Intl.DateTimeFormat('ko-KR', {
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit',
-            }).format(new Date(post?.createdAt))
-        );
-    }, [post?.createdAt]);
+    const date = new Intl.DateTimeFormat('ko-KR', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+    }).format(new Date(post?.createdAt));
 
     return (
         <article className={styles.post}>
@@ -83,7 +66,7 @@ const Post = ({ post }) => {
                             조회수 <em>{post.views}</em>
                         </span>
                         <span>
-                            추천 <em>{post.likes}</em>
+                            추천 <em>{post.countRecs}</em>
                         </span>
                     </div>
                 </div>

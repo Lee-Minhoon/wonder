@@ -1,9 +1,10 @@
 @import 'styles/util.module.scss';
 
 .banner {
-    height: 100px;
-    background-color: $light-gray;
+    height: 10rem;
+    margin: 1rem 0 1rem 0;
+    line-height: 10rem;
     text-align: center;
+    background-color: $light-gray;
     @include font(white, normal, 400, 3rem);
-    margin: 10px 0 10px 0;
 }

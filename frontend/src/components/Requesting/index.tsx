@@ -9,7 +9,7 @@ import styles from './styles.module.scss';
 
 const Requesting = () => {
     return (
-        <div className={styles.loading}>
+        <div className={styles.requesting}>
             <span />
         </div>
     );

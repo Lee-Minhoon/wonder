@@ -39,7 +39,7 @@ const useCreateFollow = () => {
         },
         onSuccess: (data, variables, context) => {
             console.log('팔로우 성공', data);
-            // queryClient.invalidateQueries('read_post');
+            queryClient.invalidateQueries('read_user');
         },
     });
 };

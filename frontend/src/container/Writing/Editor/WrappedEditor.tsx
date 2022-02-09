@@ -4,6 +4,7 @@ import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-sy
 import { Editor, EditorProps } from '@toast-ui/react-editor';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import PropTypes from 'prop-types';
+import { useEffect } from 'react';
 
 // import utilities
 
@@ -13,6 +14,11 @@ import PropTypes from 'prop-types';
 
 const WrappedEditor = (props) => {
     const { forwardedRef } = props;
+
+    useEffect(() => {
+        const instance = forwardedRef.current.getInstance();
+        instance.setHTML(props.initValue);
+    }, [forwardedRef, props.initValue]);
 
     return <Editor {...props} ref={forwardedRef} plugins={[colorSyntax]} />;
 };
