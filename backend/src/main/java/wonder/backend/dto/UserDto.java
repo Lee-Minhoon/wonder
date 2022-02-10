@@ -45,6 +45,7 @@ public class UserDto {
         private String email;
         private String nickname;
         private String grade;
+        private Timestamp followedAt;
         private int followStatus;
 
         @Builder
@@ -53,6 +54,7 @@ public class UserDto {
             this.email = usersMapper.getEmail();
             this.nickname = usersMapper.getNickname();
             this.grade = usersMapper.getGrade();
+            this.followedAt = usersMapper.getFollowedAt();
             this.followStatus = usersMapper.getFollowStatus();
         }
     }

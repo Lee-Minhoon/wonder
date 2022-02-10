@@ -22,6 +22,7 @@ public class UserMapper {
         String getEmail();
         String getNickname();
         String getGrade();
+        Timestamp getFollowedAt();
         int getFollowStatus();
     }
 }

@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import useCreatePost, { createPostInput } from 'hooks/post/useCreatePost';
 import useUpdatePost, { updatePostInput } from 'hooks/post/useUpdatePost';
 import useReadPostEnabled, { readPostInput } from 'hooks/post/useReadPostEnabled';
-import useInput from 'hooks/useInput';
+import useInputWithSetValue from 'hooks/useInputWithSetValue';
 import useEditor from 'hooks/useEditor';
 
 // import components
@@ -29,7 +29,7 @@ const Writing = () => {
     const [subCategoryId, setSubCategoryId] = useState<number>(sub?.id);
     const createPost = useCreatePost();
     const updatePost = useUpdatePost();
-    const title = useInput('');
+    const title = useInputWithSetValue('');
     const content = useEditor('');
 
     const handleCreatePostSubmit = useCallback(

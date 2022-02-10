@@ -16,7 +16,9 @@ const RouterGuard = ({ children }: { children: JSX.Element }) => {
 
     useEffect(() => {
         const url = router.pathname;
-        authCheck(url, isLogin);
+        authCheck(url);
+        console.log('auth check');
+        console.log(isLogin);
 
         const hideContent = () => setAuthorized(false);
         router.events.on('routeChangeStart', hideContent);
@@ -27,13 +29,13 @@ const RouterGuard = ({ children }: { children: JSX.Element }) => {
             router.events.off('routeChangeComplete', authCheck);
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [isLogin, router]);
 
-    const authCheck = (url, isLogin) => {
+    const authCheck = (url) => {
         // console.log('RouterGuard: ', router.pathname);
         // console.log('authCheck:', url);
         console.log('url:', url, ' / isLogin:', isLogin);
-        const publicPaths = ['/', '/auth/login', '/auth/signup', '/board/list'];
+        const publicPaths = ['/', '/auth/login', '/auth/signup', '/board/list', '/message/write'];
         const path = url.split('?')[0];
 
         if (!isLogin && !publicPaths.includes(path)) {

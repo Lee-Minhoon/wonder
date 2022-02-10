@@ -1,0 +1,57 @@
+@import 'styles/util.module.scss';
+
+.message {
+    width: 500px;
+    form {
+        width: 100%;
+        padding: 3rem;
+        em {
+            @include font($black, normal, 600, 1.4rem);
+        }
+        label {
+            display: inline-block;
+            width: 10rem;
+            @include font($dark-gray, normal, 300, 1.4rem);
+        }
+        div:not(:last-child) {
+            margin-bottom: 1rem;
+        }
+        input {
+            padding: 0 10px;
+            border: 1px solid $light-gray;
+            outline: none;
+            @include font($dark-gray, normal, 300, 1.6rem);
+            &:focus-within {
+                border: 1px solid $theme-color;
+            }
+        }
+        .recipientWrapper {
+            @include size(100%, 40px);
+            input {
+                @include size(calc(100% - 10rem), 100%);
+            }
+        }
+        .titleWrapper {
+            @include size(100%, 40px);
+            input {
+                @include size(100%, 100%);
+            }
+        }
+        textarea {
+            padding: 8px 10px;
+            border: 1px solid $light-gray;
+            margin-bottom: 1rem;
+            outline: none;
+            @include size(100%, 300px);
+            @include font($dark-gray, normal, 300, 1.6rem);
+            &:focus-within {
+                border: 1px solid $theme-color;
+            }
+        }
+    }
+}
+
+.buttonWrapper {
+    display: flex;
+    justify-content: center;
+}

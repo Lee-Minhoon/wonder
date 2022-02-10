@@ -9,6 +9,7 @@ const initialState = {
 export default function reducer(state = initialState, action) {
     switch (action.type) {
         case types.LOGIN:
+            console.log('login');
             return {
                 ...state,
                 isLogin: true,

@@ -2,11 +2,9 @@
 
 .boardLayout {
     display: flex;
-    margin: 0px auto;
     margin-top: 20px;
     margin-bottom: 20px;
     justify-content: center;
-    @include responsive-width($content-width, 90%);
 }
 
 .content {

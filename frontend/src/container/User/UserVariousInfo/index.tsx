@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 // import utilities
 
 // import components
-import InfoTabs from './InfoTabs';
 import PostsTab from './PostsTab';
 import FolloweesTab from './FolloweesTab';
 import FollowersTab from './FollowersTab';
@@ -22,7 +21,6 @@ const UserVariousInfo = () => {
 
     return (
         <div className={styles.userVariousInfo}>
-            <InfoTabs />
             {tabs == 'posts' && <PostsTab />}
             {tabs == 'followers' && <FollowersTab />}
             {tabs == 'followees' && <FolloweesTab />}

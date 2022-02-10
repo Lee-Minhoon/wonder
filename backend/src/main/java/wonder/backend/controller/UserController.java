@@ -38,8 +38,7 @@ public class UserController {
     ) {
         logger.info("Request to read a user");
 
-        String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
-        Long loginUserId = tokenProvider.getUserId(jwt);
+        Long loginUserId = getLoginUserId(request.getHeader(AUTHORIZATION_HEADER));
         UserMapper.ReadUserMapper userMapper = getOrElseThrow(userService.getUserInfoById(0L, loginUserId));
 
         return ResponseEntity.ok()
@@ -57,8 +56,7 @@ public class UserController {
     ) {
         logger.info("Request to read a user : {}", userId);
 
-        String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
-        Long loginUserId = tokenProvider.getUserId(jwt) != null ? tokenProvider.getUserId(jwt) : 0;
+        Long loginUserId = getLoginUserId(request.getHeader(AUTHORIZATION_HEADER));
         UserMapper.ReadUserMapper userMapper = getOrElseThrow(userService.getUserInfoById(loginUserId, userId));
 
         return ResponseEntity.ok()
@@ -78,8 +76,7 @@ public class UserController {
     ) {
         logger.info("Request to read all followers by user");
 
-        String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
-        Long loginUserId = tokenProvider.getUserId(jwt) != null ? tokenProvider.getUserId(jwt) : 0;
+        Long loginUserId = getLoginUserId(request.getHeader(AUTHORIZATION_HEADER));
         Pageable pageable = PageRequest.of(page, size);
 
         return ResponseEntity.ok()
@@ -99,8 +96,7 @@ public class UserController {
     ) {
         logger.info("Request to read all followees by user");
 
-        String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
-        Long loginUserId = tokenProvider.getUserId(jwt) != null ? tokenProvider.getUserId(jwt) : 0;
+        Long loginUserId = getLoginUserId(request.getHeader(AUTHORIZATION_HEADER));
         Pageable pageable = PageRequest.of(page, size);
 
         return ResponseEntity.ok()
@@ -109,6 +105,10 @@ public class UserController {
                         .message(ResponseMessage.SUCCESS)
                         .data(userService.readAllFollowees(loginUserId, followerId, pageable))
                         .build());
+    }
+
+    public Long getLoginUserId(String header) {
+        return header != null ? tokenProvider.getUserId(header.substring(7)) : 0;
     }
 
     public <T> T getOrElseThrow(Optional<T> param) {

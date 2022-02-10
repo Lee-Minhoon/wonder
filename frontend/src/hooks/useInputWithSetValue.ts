@@ -7,13 +7,13 @@ import { useState } from 'react';
 
 // import etc
 
-const useInput = (initialValue) => {
+const useInputWithSetValue = (initialValue) => {
     const [value, setValue] = useState(initialValue);
     const onChange = (event) => {
         setValue(event.target.value);
     };
 
-    return { value, onChange };
+    return { value, setValue, onChange };
 };
 
-export default useInput;
+export default useInputWithSetValue;

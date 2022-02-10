@@ -20,13 +20,13 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class FollowService {
     private final Logger logger = LoggerFactory.getLogger(FollowService.class);
-    private final EntityManager em;
+
     private final FollowRepository followRepository;
 
-    public void createFollow(Follow follow, User Follower, User Followee) {
+    public void createFollow(Follow follow, User follower, User followee) {
         validateDuplicateFollow(follow);
-        Follower.addFollowee(follow);
-        Followee.addFollower(follow);
+        follower.addFollowee(follow);
+        followee.addFollower(follow);
         followRepository.save(follow);
         return;
     }

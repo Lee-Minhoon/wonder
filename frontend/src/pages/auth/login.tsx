@@ -1,7 +1,7 @@
 import LoginForm from 'container/LoginForm';
 
-const login = () => {
+const Login = () => {
     return <LoginForm />;
 };
 
-export default login;
+export default Login;

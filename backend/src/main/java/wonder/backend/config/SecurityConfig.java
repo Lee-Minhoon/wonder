@@ -52,25 +52,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
 
-                .antMatchers("/auth/signup").permitAll()
                 .antMatchers("/auth/login").permitAll()
+                .antMatchers("/auth/signup").permitAll()
                 .antMatchers("/test/**").permitAll()
 
                 .antMatchers(HttpMethod.GET, "/users").permitAll()
                 .antMatchers(HttpMethod.GET, "/users/{id}").permitAll()
+                .antMatchers(HttpMethod.GET, "/users/{id}/posts").permitAll()
+                .antMatchers(HttpMethod.GET, "/users/{id}/followers").permitAll()
+                .antMatchers(HttpMethod.GET, "/users/{id}/followees").permitAll()
                 .antMatchers(HttpMethod.GET, "/posts").permitAll()
                 .antMatchers(HttpMethod.GET, "/posts/{id}").permitAll()
-                .antMatchers(HttpMethod.GET, "/users/{id}/posts").permitAll()
                 .antMatchers(HttpMethod.GET, "/comments").permitAll()
-
-                .antMatchers("/recommendation").permitAll()
-                .antMatchers("/recommendation/test").permitAll()
+                .antMatchers(HttpMethod.GET, "/recommendation").permitAll()
 
                 .antMatchers(HttpMethod.POST, "/posts").access("hasAnyRole('USER, ADMIN')")
-                .antMatchers(HttpMethod.PUT, "/posts/{id}").access("hasAnyRole('USER, ADMIN')")
-                .antMatchers(HttpMethod.DELETE, "/posts/{id}").access("hasAnyRole('USER, ADMIN')")
+                .antMatchers(HttpMethod.POST, "/comments").access("hasAnyRole('USER, ADMIN')")
+                .antMatchers(HttpMethod.POST, "/recommendation").access("hasAnyRole('USER, ADMIN')")
 
-                .antMatchers(HttpMethod.POST, "/comment").access("hasAnyRole('USER, ADMIN')")
+                .antMatchers(HttpMethod.PUT, "/posts/{id}").access("hasAnyRole('USER, ADMIN')")
+                .antMatchers(HttpMethod.PUT, "/comments/{id}").access("hasAnyRole('USER, ADMIN')")
+
+                .antMatchers(HttpMethod.DELETE, "/posts/{id}").access("hasAnyRole('USER, ADMIN')")
+                .antMatchers(HttpMethod.DELETE, "/comments/{id}").access("hasAnyRole('USER, ADMIN')")
+                .antMatchers(HttpMethod.DELETE, "/recommendation/{id}").access("hasAnyRole('USER, ADMIN')")
                 .anyRequest().authenticated();
     }
 

@@ -11,28 +11,7 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByEmail(String email);
-
-    @Query(value = "SELECT u.id, u.email, u.grade, u.nickname, " +
-            "CASE WHEN f.follower_id = :loginUserId THEN 1 ELSE 0 END as followStatus " +
-            "FROM user as u " +
-            "LEFT JOIN follow as f " +
-            "ON f.follower_id = :followerId " +
-            "WHERE u.id = f.followee_id ",
-            countQuery = "SELECT * FROM follow as f  " +
-                    "WHERE u.id = f.followee_id",
-            nativeQuery = true)
-    Page<UserMapper.ReadAllUsersMapper> findAllFolloweesById(Long loginUserId, Long followerId, Pageable pageable);
-
-    @Query(value = "SELECT u.id, u.email, u.grade, u.nickname, " +
-            "CASE WHEN f.follower_id = :loginUserId THEN 1 ELSE 0 END as followStatus " +
-            "FROM user as u " +
-            "LEFT JOIN follow as f " +
-            "ON f.followee_id = :followeeId " +
-            "WHERE u.id = f.follower_id ",
-            countQuery = "SELECT * FROM follow as f  " +
-                    "WHERE u.id = f.follower_id",
-            nativeQuery = true)
-    Page<UserMapper.ReadAllUsersMapper> findAllFollowersById(Long loginUserId, Long followeeId, Pageable pageable);
+    Optional<User> findByNickname(String nickname);
 
     @Query(value = "SELECT u.id, u.email, u.grade, u.nickname, u.created_at as createdAt, u.logged_in_at as loggedInAt, " +
             "count(DISTINCT follow.followee_id) as followStatus, " +
@@ -54,4 +33,26 @@ public interface UserRepository extends JpaRepository<User, Long> {
                     "WHERE u.id = :id",
             nativeQuery = true)
     Optional<UserMapper.ReadUserMapper> findUserInfoById(Long loginUserId, Long id);
+
+    @Query(value = "SELECT u.id, u.email, u.grade, u.nickname, " +
+            "CASE WHEN f.follower_id = :loginUserId THEN 1 ELSE 0 END as followStatus, f.followed_at " +
+            "FROM user as u " +
+            "LEFT JOIN follow as f " +
+            "ON f.followee_id = :followeeId " +
+            "WHERE u.id = f.follower_id ",
+            countQuery = "SELECT * FROM follow as f  " +
+                    "WHERE u.id = f.follower_id",
+            nativeQuery = true)
+    Page<UserMapper.ReadAllUsersMapper> findAllFollowersById(Long loginUserId, Long followeeId, Pageable pageable);
+
+    @Query(value = "SELECT u.id, u.email, u.grade, u.nickname, " +
+            "CASE WHEN f.follower_id = :loginUserId THEN 1 ELSE 0 END as followStatus, f.followed_at " +
+            "FROM user as u " +
+            "LEFT JOIN follow as f " +
+            "ON f.follower_id = :followerId " +
+            "WHERE u.id = f.followee_id ",
+            countQuery = "SELECT * FROM follow as f  " +
+                    "WHERE u.id = f.followee_id",
+            nativeQuery = true)
+    Page<UserMapper.ReadAllUsersMapper> findAllFolloweesById(Long loginUserId, Long followerId, Pageable pageable);
 }

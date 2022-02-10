@@ -16,7 +16,7 @@ import BoardLayout from 'layout/BoardLayout';
 // import etc
 import 'styles/globals.scss';
 
-const NOT_SIDE_BAR_PAGES = ['/', '/auth/login', '/auth/signup', '/auth/logout', '/user/[id]'];
+const NOT_SIDE_BAR_PAGES = ['/', '/auth/login', '/auth/signup', '/auth/logout', '/user/[id]', '/message/write'];
 const SIDE_BAR_PAGES = ['/board/[view]', '/board/list', '/board/write'];
 
 const App: FC<AppProps> = ({ Component, pageProps }) => {

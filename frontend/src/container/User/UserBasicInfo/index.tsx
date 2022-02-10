@@ -32,7 +32,7 @@ const UserBasicInfo = () => {
     return (
         <div className={styles.userBasicInfo}>
             {userIsLoading && <Loading />}
-            {userIsError && <p>{userError.response.data.message}</p>}
+            {userIsError && <p>{userError.response.data?.message}</p>}
             {userIsSuccess && (
                 <>
                     <div className={styles.imageWrapper}>

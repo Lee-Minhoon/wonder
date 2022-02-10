@@ -42,12 +42,16 @@ const Board = () => {
         });
     }, [router]);
 
-    const handleSearchClick = useCallback(() => {
-        router.push({
-            pathname: router.pathname,
-            query: { ...router.query, title: searchWord.value },
-        });
-    }, [router, searchWord.value]);
+    const handleSearchSubmit = useCallback(
+        (e) => {
+            e.preventDefault();
+            router.push({
+                pathname: router.pathname,
+                query: { ...router.query, title: searchWord.value },
+            });
+        },
+        [router, searchWord.value]
+    );
 
     const readAllPostInputValue: readAllPostsInput = {
         category: sub?.id,
@@ -87,7 +91,7 @@ const Board = () => {
                     </section>
                     <footer className={styles.footer}>
                         <Pagination pages={postsData.data.pages} />
-                        <SearchBar width="300px" height="30px" input={searchWord} onClick={handleSearchClick} />
+                        <SearchBar width="300px" height="30px" input={searchWord} onSubmit={handleSearchSubmit} />
                     </footer>
                 </div>
             )}

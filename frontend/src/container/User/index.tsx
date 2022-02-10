@@ -3,6 +3,7 @@
 // import utilities
 
 // import components
+import InfoTabs from './InfoTabs';
 import UserBasicInfo from './UserBasicInfo';
 import UserVariousInfo from './UserVariousInfo';
 
@@ -12,8 +13,11 @@ import styles from './styles.module.scss';
 const User = () => {
     return (
         <div className={styles.user}>
-            <UserBasicInfo />
-            <UserVariousInfo />
+            <InfoTabs />
+            <div className={styles.flexWrapper}>
+                <UserBasicInfo />
+                <UserVariousInfo />
+            </div>
         </div>
     );
 };

@@ -1,5 +1,10 @@
 @import 'styles/util.module.scss';
 
 .user {
+    width: 100%;
+}
+
+.flexWrapper {
     display: flex;
+    justify-content: center;
 }

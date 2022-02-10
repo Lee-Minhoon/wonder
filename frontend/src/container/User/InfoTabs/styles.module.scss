@@ -1,11 +1,12 @@
 @import 'styles/util.module.scss';
 
 .infoTabs {
+    width: 100%;
     height: 40px;
     border-bottom: 1px solid $light-gray;
     ul {
         line-height: 38px;
-        padding-inline-start: 0px;
+        margin-left: 700px;
         li {
             display: inline-flex;
             margin: 0 10px;

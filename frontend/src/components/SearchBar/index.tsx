@@ -7,11 +7,11 @@
 // import etc
 import styles from './styles.module.scss';
 
-const SearchBar = ({ width, height, input, onClick }) => {
+const SearchBar = ({ width, height, input, onSubmit }) => {
     return (
-        <form className={styles.searchBar} style={{ '--width': width, '--height': height }}>
+        <form onSubmit={onSubmit} className={styles.searchBar} style={{ '--width': width, '--height': height }}>
             <input type="text" {...input}></input>
-            <button onClick={onClick}>＠</button>
+            <button type="button">＠</button>
         </form>
     );
 };

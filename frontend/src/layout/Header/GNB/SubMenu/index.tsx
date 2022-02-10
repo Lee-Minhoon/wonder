@@ -11,12 +11,12 @@ import styles from './styles.module.scss';
 const SubMenu = ({ main }) => {
     return (
         <ul className={styles.subMenu}>
-            {main.sub.map((sub) => (
+            {main.sub.map((item) => (
                 <LinkList
-                    key={sub.id}
+                    key={item.id}
                     pathname="/board/list"
-                    query={{ main: main.url, sub: sub.url, title: '', page: 1, size: 20 }}
-                    text={sub.title}
+                    query={{ main: main.url, sub: item.url, title: '', page: 1, size: 20 }}
+                    text={item.title}
                 />
             ))}
         </ul>

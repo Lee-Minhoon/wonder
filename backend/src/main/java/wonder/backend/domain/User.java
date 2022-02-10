@@ -1,9 +1,6 @@
 package wonder.backend.domain;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import wonder.backend.domain.common.BaseTimeEntity;
 
 import javax.persistence.*;
@@ -27,17 +24,25 @@ public class User extends BaseTimeEntity {
     @OneToMany(mappedBy = "user")
     private Set<Post> posts = new HashSet<>();
 
-    public void add(Post post) {
+    public void addPost(Post post) {
         post.setUser(this);
         getPosts().add(post);
     }
 
-    @OneToMany(mappedBy = "follower", fetch = FetchType.LAZY)
-    private Set<Follow> followees = new HashSet<>();
+    @OneToMany(mappedBy = "sender")
+    private Set<Message> sentMessages = new HashSet<>();
 
-    public void addFollowee(Follow follow) {
-        follow.setFollower(this);
-        getFollowees().add(follow);
+    public void addSentMessage(Message message) {
+        message.setSender(this);
+        getSentMessages().add(message);
+    }
+
+    @OneToMany(mappedBy = "recipient")
+    private Set<Message> receivedMessages = new HashSet<>();
+
+    public void addReceivedMessage(Message message) {
+        message.setRecipient(this);
+        getReceivedMessages().add(message);
     }
 
     @OneToMany(mappedBy = "followee", fetch = FetchType.LAZY)
@@ -46,6 +51,14 @@ public class User extends BaseTimeEntity {
     public void addFollower(Follow follow) {
         follow.setFollowee(this);
         getFollowers().add(follow);
+    }
+
+    @OneToMany(mappedBy = "follower", fetch = FetchType.LAZY)
+    private Set<Follow> followees = new HashSet<>();
+
+    public void addFollowee(Follow follow) {
+        follow.setFollower(this);
+        getFollowees().add(follow);
     }
 
     @Builder
