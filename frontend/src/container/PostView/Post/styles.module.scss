@@ -1,0 +1,57 @@
+@import 'styles/util.module.scss';
+
+.post {
+    header {
+        padding-bottom: 1rem;
+        border-bottom: 1px solid $light-gray;
+    }
+}
+
+.topArea {
+    margin-bottom: 1rem;
+    display: flex;
+    h2 {
+        @include font(black, normal, 400, 2.4rem);
+    }
+}
+
+.postInfo {
+    display: flex;
+    align-items: center;
+}
+
+.writerProfile {
+    overflow: hidden;
+    position: relative;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+
+.basicInfo {
+    margin-right: auto;
+    a {
+        @include font($dark-gray, normal, 400, 1.6rem);
+    }
+}
+
+.etcInfo {
+    align-self: flex-end;
+    span {
+        margin-left: 0.5rem;
+    }
+    em {
+        @include font($black, normal, 600, 1.4rem);
+    }
+}
+
+.mainText {
+    margin-top: 5rem;
+    margin-bottom: 10rem;
+}
+
+.recommendationArea {
+    @include flex-center();
+    margin-bottom: 1rem;
+}

@@ -1,6 +1,7 @@
 // import package, library
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
 
 // import utilities
 import useTypedSelector from 'hooks/useTypedSelector';
@@ -17,8 +18,6 @@ const RouterGuard = ({ children }: { children: JSX.Element }) => {
     useEffect(() => {
         const url = router.pathname;
         authCheck(url);
-        console.log('auth check');
-        console.log(isLogin);
 
         const hideContent = () => setAuthorized(false);
         router.events.on('routeChangeStart', hideContent);
@@ -29,16 +28,18 @@ const RouterGuard = ({ children }: { children: JSX.Element }) => {
             router.events.off('routeChangeComplete', authCheck);
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isLogin, router]);
+    }, [isLogin]);
 
     const authCheck = (url) => {
         // console.log('RouterGuard: ', router.pathname);
         // console.log('authCheck:', url);
-        console.log('url:', url, ' / isLogin:', isLogin);
-        const publicPaths = ['/', '/auth/login', '/auth/signup', '/board/list', '/message/write'];
+        console.log('url:', url);
+        console.log('isLogin:', isLogin);
+        const token = Cookies.get('token');
+        const publicPaths = ['/', '/auth/login', '/auth/signup', '/board', '/board/list', '/board/[content]'];
         const path = url.split('?')[0];
 
-        if (!isLogin && !publicPaths.includes(path)) {
+        if (!token && !isLogin && !publicPaths.includes(path)) {
             console.log('need login');
             setAuthorized(false);
             router.push({

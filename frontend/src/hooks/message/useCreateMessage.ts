@@ -16,7 +16,7 @@ export interface createMessageInput {
 }
 
 const createMessage = async (input: createMessageInput) => {
-    const { data } = await AxiosService.instance.post('message', {
+    const { data } = await AxiosService.instance.post('messages', {
         recipientNickname: input.recipientNickname,
         title: input.title,
         content: input.content,

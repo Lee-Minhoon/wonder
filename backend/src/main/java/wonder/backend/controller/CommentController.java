@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -69,11 +71,13 @@ public class CommentController {
     ) {
         logger.info("Request to read all posts");
 
+        Pageable pageable = PageRequest.of(page, size);
+
         return ResponseEntity.ok()
                 .body(Response.builder()
                         .code(ResponseCode.SUCCESS)
                         .message(ResponseMessage.SUCCESS)
-                        .data(commentService.readAllComments(postId, page, size))
+                        .data(commentService.readAllComments(postId, pageable))
                         .build());
     }
 

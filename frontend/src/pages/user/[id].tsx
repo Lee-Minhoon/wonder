@@ -1,7 +1,14 @@
-import User from 'container/User';
+import DefaultLayout from 'layout/DefaultLayout';
+import UserView from 'container/UserView';
 
-const Id = () => {
-    return <User />;
+export const userViewPagePath = '/user';
+
+const UserViewPage = () => {
+    return (
+        <DefaultLayout>
+            <UserView />
+        </DefaultLayout>
+    );
 };
 
-export default Id;
+export default UserViewPage;

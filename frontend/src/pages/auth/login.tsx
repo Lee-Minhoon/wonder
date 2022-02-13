@@ -1,7 +1,14 @@
-import LoginForm from 'container/LoginForm';
+import DefaultLayout from 'layout/DefaultLayout';
+import AuthLogin from 'container/AuthLogin';
 
-const Login = () => {
-    return <LoginForm />;
+export const authLoginPagePath = '/auth/login';
+
+const AuthLoginPage = () => {
+    return (
+        <DefaultLayout>
+            <AuthLogin />
+        </DefaultLayout>
+    );
 };
 
-export default Login;
+export default AuthLoginPage;

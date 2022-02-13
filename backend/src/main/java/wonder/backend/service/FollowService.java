@@ -12,7 +12,6 @@ import wonder.backend.domain.id.FollowId;
 import wonder.backend.exception.CustomException;
 import wonder.backend.repository.FollowRepository;
 
-import javax.persistence.EntityManager;
 import java.util.Optional;
 import java.util.Set;
 
@@ -35,6 +34,16 @@ public class FollowService {
         followRepository.findById(follow.getFollowId()).ifPresent(r -> {
             throw new CustomException(ExceptionEnum.DUPLICATE);
         });
+    }
+
+    public void deleteFollow(Follow follow, User follower) {
+        validateAuthor(follow, follower);
+        followRepository.delete(follow);
+        return;
+    }
+
+    public void validateAuthor(Follow follow, User follower) {
+        if(follow.getFollower().getId() != follower.getId()) new CustomException(ExceptionEnum.UNAUTHORIZED);
     }
 
     @Transactional(readOnly = true) //페이지처리랑 n+1문제 처리못해 <<

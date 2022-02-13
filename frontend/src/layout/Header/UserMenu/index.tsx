@@ -8,12 +8,16 @@ import Cookies from 'js-cookie';
 import { AxiosService } from 'service/defaultAxiosService';
 import useTypedSelector from 'hooks/useTypedSelector';
 import { logout } from 'state/user/action';
+import { messagePagePath } from 'pages/message';
+import { authLoginPagePath } from 'pages/auth/login';
 
 // import components
 import LinkList from 'components/LinkList';
 
 // import etc
 import styles from './styles.module.scss';
+import { authSignupPagePath } from 'pages/auth/signup';
+import { userViewPagePath } from 'pages/user/[id]';
 
 const UserMenu = () => {
     const router = useRouter();
@@ -32,7 +36,24 @@ const UserMenu = () => {
             <ul>
                 {isLogin ? (
                     <>
-                        <LinkList pathname={`/user/${userId}`} query={{ tabs: 'overview' }} text="마이페이지" />
+                        <LinkList
+                            pathname={`${userViewPagePath}/${userId}`}
+                            query={{ tabs: 'overview' }}
+                            text="마이페이지"
+                        />
+                        <li>
+                            <a
+                                onClick={() =>
+                                    window.open(
+                                        `${messagePagePath}?tabs=received&page=1`,
+                                        '_blank',
+                                        'width=600 height=800'
+                                    )
+                                }
+                            >
+                                쪽지함
+                            </a>
+                        </li>
                         <li>
                             <a onClick={handleLogoutClick}>로그아웃</a>
                         </li>
@@ -40,13 +61,13 @@ const UserMenu = () => {
                 ) : (
                     <>
                         <LinkList
-                            pathname={'/auth/login'}
+                            pathname={authLoginPagePath}
                             query={{
-                                redirect: router.pathname == '/auth/login' ? router.query?.redirect : router.asPath,
+                                redirect: router.pathname == authLoginPagePath ? router.query?.redirect : router.asPath,
                             }}
                             text="로그인"
                         />
-                        <LinkList pathname={'/auth/signup'} query={{}} text="회원가입" />
+                        <LinkList pathname={authSignupPagePath} query={{}} text="회원가입" />
                     </>
                 )}
             </ul>

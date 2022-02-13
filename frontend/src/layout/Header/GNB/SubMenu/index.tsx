@@ -1,6 +1,7 @@
 // import package, library
 
 // import utilities
+import { boardPagePath } from 'pages/board';
 
 // import components
 import LinkList from 'components/LinkList';
@@ -14,7 +15,7 @@ const SubMenu = ({ main }) => {
             {main.sub.map((item) => (
                 <LinkList
                     key={item.id}
-                    pathname="/board/list"
+                    pathname={boardPagePath}
                     query={{ main: main.url, sub: item.url, title: '', page: 1, size: 20 }}
                     text={item.title}
                 />

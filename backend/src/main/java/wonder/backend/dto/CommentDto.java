@@ -14,14 +14,14 @@ public class CommentDto {
     }
 
     @Getter
-    public static class ReadCommentDto {
+    public static class ReadAllCommentsDto {
         private Long id;
         private String content;
         private String writer;
         private Timestamp createdAt;
 
         @Builder
-        public ReadCommentDto(CommentMapper commentMapper) {
+        public ReadAllCommentsDto(CommentMapper.ReadAllCommentsMapper commentMapper) {
             this.id = commentMapper.getId();
             this.content = commentMapper.getContent();
             this.writer = commentMapper.getWriter();

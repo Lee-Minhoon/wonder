@@ -1,0 +1,18 @@
+@import 'styles/util.module.scss';
+
+.messageList {
+    width: 54rem;
+    margin: 3rem;
+    border-top: 2px solid $black;
+    border-bottom: 1px solid $black;
+    th {
+        height: 3.5rem;
+        border-bottom: 1px solid $black;
+        @include font($black, normal, 400, 1.6rem);
+    }
+    tr:not(:last-child) {
+        td {
+            border-bottom: 1px solid $light-gray;
+        }
+    }
+}

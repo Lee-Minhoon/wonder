@@ -7,12 +7,14 @@ import Cookies from 'js-cookie';
 import useTypedSelector from 'hooks/useTypedSelector';
 import { login, logout } from 'state/user/action';
 import useReadMe from 'hooks/user/useReadMe';
+import { useRouter } from 'next/router';
 
 // import components
 
 // import etc
 
 const UserInfoWatcher = ({ children }: { children: JSX.Element }) => {
+    const router = useRouter();
     const token = Cookies.get('token');
     const isLogin = useTypedSelector((state) => state.user.isLogin);
     const dispatch = useDispatch();
@@ -20,21 +22,24 @@ const UserInfoWatcher = ({ children }: { children: JSX.Element }) => {
     const { data, error, isLoading, isSuccess, isError, refetch } = useReadMe();
 
     useEffect(() => {
-        console.log('token: ', token, ' / isLogin', isLogin);
         if (token && !isLogin) {
             console.log('refetching...');
-            // refetch();
             refetch().then(() => {
                 const user = data?.data;
                 dispatch(login(user?.id, user?.nickname));
-                console.log('re-render');
+                console.log('login succeed');
+                console.log('fdfdfdf', router.pathname);
+                if (router.pathname === '/auth/login') {
+                    console.log('binggo');
+                    router.push(router.query?.redirect?.toString());
+                }
             });
         }
         if (!token) {
-            console.log('not exist token');
             dispatch(logout());
+            console.log('logout succeed');
         }
-    }, [data?.data, dispatch, isLogin, refetch, token]);
+    }, [data?.data, dispatch, isLogin, refetch, router, token]);
 
     // useEffect(() => {
     //     if (isSuccess && data?.data) {

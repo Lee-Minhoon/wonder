@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 // import utilities
 import useReadAllPosts, { readAllPostsInput } from 'hooks/post/useReadAllPosts';
 import useInput from 'hooks/useInput';
+import { postWritingPagePath } from 'pages/post/writing';
 
 // import components
 import Loading from 'components/Loading';
@@ -37,7 +38,7 @@ const Board = () => {
 
     const handleWritingClick = useCallback(() => {
         router.push({
-            pathname: '/board/write',
+            pathname: `${postWritingPagePath}`,
             query: { main: router.query.main, sub: router.query.sub, redirect: router.asPath },
         });
     }, [router]);

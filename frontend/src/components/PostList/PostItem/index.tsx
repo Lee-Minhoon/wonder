@@ -4,6 +4,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 // import utilities
+import { postViewPagePath } from 'pages/post/[id]';
+import { boardPagePath } from 'pages/board';
 
 // import components
 
@@ -26,7 +28,7 @@ const PostItem = (props) => {
             <td>
                 <Link
                     href={{
-                        pathname: '/board/list',
+                        pathname: `${boardPagePath}`,
                         query: { main: main?.url, sub: sub?.url, page: 1, size: 20 },
                     }}
                 >
@@ -37,7 +39,7 @@ const PostItem = (props) => {
             <td>
                 <Link
                     href={{
-                        pathname: `/board/${props.id}`,
+                        pathname: `${postViewPagePath}/${props.id}`,
                         query: { redirect: router.asPath },
                     }}
                 >

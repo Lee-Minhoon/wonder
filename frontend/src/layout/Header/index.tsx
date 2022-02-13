@@ -10,6 +10,7 @@ import GNB from './GNB';
 
 // import etc
 import styles from './styles.module.scss';
+import { mainPagePath } from 'pages';
 
 const Header = () => {
     return (
@@ -17,7 +18,7 @@ const Header = () => {
             <UserMenu />
             <div className={styles.container}>
                 <div className={styles.logo}>
-                    <Link href="/">
+                    <Link href={mainPagePath}>
                         <a>WONDER</a>
                     </Link>
                 </div>

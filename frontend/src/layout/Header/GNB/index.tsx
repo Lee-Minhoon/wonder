@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 // import utilities
+import { boardPagePath } from 'pages/board';
 
 // import components
 import SubMenu from './SubMenu';
@@ -25,7 +26,7 @@ const GNB = () => {
                         <li key={item.id} className={styles.mainMenuList} style={selected}>
                             <Link
                                 href={{
-                                    pathname: '/board/list',
+                                    pathname: `${boardPagePath}`,
                                     query: { main: item.url, sub: 'all', title: '', page: 1, size: 20 },
                                 }}
                             >

@@ -4,10 +4,10 @@ import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import wonder.backend.constants.ExceptionEnum;
 import wonder.backend.constants.ResponseCode;
 import wonder.backend.constants.ResponseMessage;
@@ -15,6 +15,7 @@ import wonder.backend.domain.Message;
 import wonder.backend.domain.User;
 import wonder.backend.dto.MessageDto;
 import wonder.backend.dto.common.Response;
+import wonder.backend.dto.mapper.MessageMapper;
 import wonder.backend.exception.CustomException;
 import wonder.backend.jwt.TokenProvider;
 import wonder.backend.service.MessageService;
@@ -35,7 +36,7 @@ public class MessageController {
     @Autowired
     private TokenProvider tokenProvider;
 
-    @PostMapping("message")
+    @PostMapping("messages")
     public ResponseEntity createMessage(
             HttpServletRequest request,
             @RequestBody MessageDto.CreateMessageDto createMessageDto
@@ -58,6 +59,63 @@ public class MessageController {
                 .body(Response.builder()
                         .code(ResponseCode.SUCCESS)
                         .message(ResponseMessage.SUCCESS)
+                        .build());
+    }
+
+    @GetMapping("messages/{id}")
+    public ResponseEntity readMessage(
+            @PathVariable("id") Long messageId
+    ) {
+        logger.info("Request to read a message : {}", messageId);
+
+        Message message = getOrElseThrow(messageService.getMessageById(messageId));
+        MessageMapper.ReadMessageMapper messageMapper = getOrElseThrow(messageService.getMessageInfoById(messageId));
+
+        return ResponseEntity.ok()
+                .body(Response.builder()
+                        .code(ResponseCode.SUCCESS)
+                        .message(ResponseMessage.SUCCESS)
+                        .data(messageService.readMessage(message, messageMapper))
+                        .build());
+    }
+
+    @GetMapping("users/{id}/receivedMessages")
+    public ResponseEntity readAllReceivedMessages(
+            HttpServletRequest request,
+            @RequestParam("page") int page,
+            @RequestParam("size") int size
+    ) {
+        logger.info("Request to read all received messages");
+
+        String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
+        User recipient = getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
+        Pageable pageable = PageRequest.of(page, size);
+
+        return ResponseEntity.ok()
+                .body(Response.builder()
+                        .code(ResponseCode.SUCCESS)
+                        .message(ResponseMessage.SUCCESS)
+                        .data(messageService.readAllReceivedMessages(recipient, pageable))
+                        .build());
+    }
+
+    @GetMapping("users/{id}/sentMessages")
+    public ResponseEntity readAllSentMessages(
+            HttpServletRequest request,
+            @RequestParam("page") int page,
+            @RequestParam("size") int size
+    ) {
+        logger.info("Request to read all received messages");
+
+        String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
+        User sender = getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
+        Pageable pageable = PageRequest.of(page, size);
+
+        return ResponseEntity.ok()
+                .body(Response.builder()
+                        .code(ResponseCode.SUCCESS)
+                        .message(ResponseMessage.SUCCESS)
+                        .data(messageService.readAllSentMessages(sender, pageable))
                         .build());
     }
 

@@ -1,9 +1,11 @@
 // import package, library
 import { useRouter } from 'next/router';
 import { useMutation } from 'react-query';
+import { useDispatch } from 'react-redux';
 
 // import utilities
 import { AxiosService } from 'service/defaultAxiosService';
+import { login, login as loginService } from 'state/user/action';
 
 // import components
 
@@ -14,7 +16,7 @@ export interface loginInput {
     password: any;
 }
 
-const login = async (input: loginInput) => {
+const loginService = async (input: loginInput) => {
     const { data } = await AxiosService.instance.post('auth/login', {
         email: input.email,
         password: input.password,
@@ -24,7 +26,8 @@ const login = async (input: loginInput) => {
 
 const useLogin = () => {
     const router = useRouter();
-    return useMutation((input: loginInput) => login(input), {
+    const dispatch = useDispatch();
+    return useMutation((input: loginInput) => loginService(input), {
         onMutate: (variables) => {
             console.log('로그인 시도 중..', variables);
         },
@@ -35,6 +38,8 @@ const useLogin = () => {
         },
         onSuccess: (data, variables, context) => {
             console.log('로그인 성공', data);
+            const user = data?.data;
+            dispatch(login(user?.id, user?.nickname));
             router.push(router.query?.redirect?.toString());
             AxiosService.addHeaderToken(data.data.token);
         },

@@ -4,6 +4,7 @@ import Image from 'next/image';
 
 // import utilities
 import useCreateFollow, { createFollowInput } from 'hooks/follow/useCreateFollow';
+import useDeleteFollow, { deleteFollowInput } from 'hooks/follow/useDeleteFollow';
 import useTypedSelector from 'hooks/useTypedSelector';
 
 // import components
@@ -17,8 +18,9 @@ import styles from './styles.module.scss';
 const UserInfo = ({ user }) => {
     const loginUserId = useTypedSelector((state) => state.user.userId);
     const createFollow = useCreateFollow();
+    const deleteFollow = useDeleteFollow();
 
-    const handleFollowClick = useCallback(
+    const handleCreateFollowClick = useCallback(
         async (e) => {
             e.preventDefault();
             const createFollowInputValue: createFollowInput = {
@@ -27,6 +29,17 @@ const UserInfo = ({ user }) => {
             createFollow.mutate(createFollowInputValue);
         },
         [user, createFollow]
+    );
+
+    const handleDeleteFollowClick = useCallback(
+        async (e) => {
+            e.preventDefault();
+            const deleteFollowInputValue: deleteFollowInput = {
+                followeeId: user.id,
+            };
+            deleteFollow.mutate(deleteFollowInputValue);
+        },
+        [user, deleteFollow]
     );
 
     return (
@@ -48,13 +61,21 @@ const UserInfo = ({ user }) => {
                             <></>
                         ) : user.followStatus ? (
                             <>
-                                <Button onClick={() => console.log('test')}>쪽지</Button>
-                                <Button onClick={handleFollowClick}>언팔로우</Button>
+                                <Button
+                                    onClick={() =>
+                                        window.open('/message?tabs=writing', '_blank', 'width=600 height=600')
+                                    }
+                                >
+                                    쪽지
+                                </Button>
+                                <Button onClick={handleDeleteFollowClick}>언팔로우</Button>
                             </>
                         ) : (
                             <>
-                                <Button onClick={() => console.log('test')}>쪽지</Button>
-                                <Button onClick={handleFollowClick}>팔로우</Button>
+                                <Button onClick={() => window.open('/message/write', '_blank', 'width=600 height=600')}>
+                                    쪽지
+                                </Button>
+                                <Button onClick={handleCreateFollowClick}>팔로우</Button>
                             </>
                         )}
                     </div>

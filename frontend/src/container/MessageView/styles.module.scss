@@ -1,0 +1,31 @@
+@import 'styles/util.module.scss';
+
+.messageView {
+    padding: 3rem;
+    header {
+        div {
+            height: 3.5rem;
+            line-height: 3.5rem;
+            border-bottom: 1px solid $light-gray;
+            @include font($dark-gray, normal, 300, 1.6rem);
+            span:not(:last-child) {
+                margin-right: 0.5rem;
+            }
+        }
+    }
+    article {
+        padding: 8px 0;
+        border-bottom: 1px solid $light-gray;
+        margin-bottom: 1rem;
+        @include size(100%, 500px);
+        @include font($dark-gray, normal, 300, 1.6rem);
+    }
+}
+
+.buttonWrapper {
+    display: flex;
+    justify-content: center;
+    button:not(:last-child) {
+        margin-right: 0.5rem;
+    }
+}

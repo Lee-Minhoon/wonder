@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -57,6 +58,30 @@ public class FollowController {
                 .followId(followId)
                 .build();
         followService.createFollow(follow, follower, followee);
+
+        return ResponseEntity.ok()
+                .body(Response.builder()
+                        .code(ResponseCode.SUCCESS)
+                        .message(ResponseMessage.SUCCESS)
+                        .build());
+    }
+
+    @DeleteMapping("follow/{id}")
+    public ResponseEntity deleteFollow(
+            HttpServletRequest request,
+            @PathVariable("id") Long followeeId
+    ) {
+        logger.info("Request to delete a follow : {}", followeeId);
+
+        String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
+        User follower = getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
+        User followee = getOrElseThrow(userService.getUserById(followeeId));
+        FollowId followId = FollowId.builder()
+                .followerId(follower.getId())
+                .followeeId(followee.getId())
+                .build();
+        Follow follow = getOrElseThrow(followService.getFollowById(followId));
+        followService.deleteFollow(follow, follower);
 
         return ResponseEntity.ok()
                 .body(Response.builder()

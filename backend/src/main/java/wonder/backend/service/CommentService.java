@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,13 +34,12 @@ public class CommentService {
     }
 
     @Transactional(readOnly = true)
-    public ResponsePage readAllComments(Long postId, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<CommentMapper> result = commentRepository.findAllCommentByPost(postId, pageable);
+    public ResponsePage readAllComments(Long postId, Pageable pageable) {
+        Page<CommentMapper.ReadAllCommentsMapper> result = commentRepository.findAllCommentByPost(postId, pageable);
         return ResponsePage.builder()
                 .pages(result.getTotalPages())
                 .count(result.getTotalElements())
-                .data(result.stream().map(CommentDto.ReadCommentDto::new).collect(Collectors.toList()))
+                .data(result.stream().map(CommentDto.ReadAllCommentsDto::new).collect(Collectors.toList()))
                 .build();
     }
 

@@ -21,13 +21,12 @@ public class Message {
 
     private Timestamp receivedAt;
 
-//    @MapsId("sent_messages")
-    @JoinColumn(name = "sent_messages")
+    private int senderDeleteStatus = 0;
+    private int recipientDeleteStatus = 0;
+
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     private User sender;
 
-//    @MapsId("received_messages")
-    @JoinColumn(name = "received_messages")
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     private User recipient;
 

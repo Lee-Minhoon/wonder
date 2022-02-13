@@ -16,7 +16,7 @@ export interface signupInput {
     nickname: any;
 }
 
-const signup = async (input: signupInput) => {
+const signupService = async (input: signupInput) => {
     const { data } = await AxiosService.instance.post('auth/signup', {
         email: input.email,
         password: input.password,
@@ -27,7 +27,7 @@ const signup = async (input: signupInput) => {
 
 const useSignup = () => {
     const router = useRouter();
-    return useMutation((input: signupInput) => signup(input), {
+    return useMutation((input: signupInput) => signupService(input), {
         onMutate: (variables) => {
             console.log('회원가입 시도 중..', variables);
         },

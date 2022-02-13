@@ -2,6 +2,7 @@
 import { useRouter } from 'next/router';
 
 // import utilities
+import { boardPagePath } from 'pages/board';
 
 // import components
 import LinkList from 'components/LinkList';
@@ -19,7 +20,7 @@ const LNBList = ({ category }) => {
                 {category.sub.map((item) => (
                     <LinkList
                         key={item.id}
-                        pathname="/board/list"
+                        pathname={boardPagePath}
                         query={{ main: category.url, sub: item.url, title: '', page: 1, size: 20 }}
                         text={item.title}
                     />

@@ -18,5 +18,5 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
             countQuery = "SELECT * FROM comment as c " +
                     "WHERE c.post_id = :postId ",
             nativeQuery = true)
-    Page<CommentMapper> findAllCommentByPost(Long postId, Pageable pageable);
+    Page<CommentMapper.ReadAllCommentsMapper> findAllCommentByPost(Long postId, Pageable pageable);
 }

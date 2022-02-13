@@ -1,7 +1,14 @@
-import SignupForm from 'container/SignupForm';
+import DefaultLayout from 'layout/DefaultLayout';
+import AuthSignup from 'container/AuthSignup';
 
-const Signup = () => {
-    return <SignupForm />;
+export const authSignupPagePath = '/auth/signup';
+
+const AuthSignupPage = () => {
+    return (
+        <DefaultLayout>
+            <AuthSignup />
+        </DefaultLayout>
+    );
 };
 
-export default Signup;
+export default AuthSignupPage;

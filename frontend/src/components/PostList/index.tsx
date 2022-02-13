@@ -32,21 +32,20 @@ const PostList = ({ posts }) => {
                 </tr>
             </thead>
             <tbody>
-                {posts &&
-                    posts.map((item) => (
-                        <PostItem
-                            key={item.id}
-                            category={item.category}
-                            id={item.id}
-                            title={item.title}
-                            writerId={item.writerId}
-                            writer={item.writer}
-                            createdAt={item.createdAt}
-                            views={item.views}
-                            countComments={item.countComments}
-                            countRecs={item.countRecs}
-                        />
-                    ))}
+                {posts.map((item) => (
+                    <PostItem
+                        key={item.id}
+                        category={item.category}
+                        id={item.id}
+                        title={item.title}
+                        writerId={item.writerId}
+                        writer={item.writer}
+                        createdAt={item.createdAt}
+                        views={item.views}
+                        countComments={item.countComments}
+                        countRecs={item.countRecs}
+                    />
+                ))}
             </tbody>
         </table>
     );
