@@ -33,11 +33,12 @@ const RouterGuard = ({ children }: { children: JSX.Element }) => {
     const authCheck = (url) => {
         // console.log('RouterGuard: ', router.pathname);
         // console.log('authCheck:', url);
-        console.log('url:', url);
-        console.log('isLogin:', isLogin);
         const token = Cookies.get('token');
-        const publicPaths = ['/', '/auth/login', '/auth/signup', '/board', '/board/list', '/board/[content]'];
+        const publicPaths = ['/', '/auth/login', '/auth/signup', '/board', '/post/[id]', '/user/[id]'];
         const path = url.split('?')[0];
+
+        console.log('path:', path);
+        console.log('isLogin:', isLogin);
 
         if (!token && !isLogin && !publicPaths.includes(path)) {
             console.log('need login');

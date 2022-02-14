@@ -8,8 +8,8 @@ import useTypedSelector from 'hooks/useTypedSelector';
 
 // import components
 import InfoTable from './InfoTable';
-import Loading from 'components/Loading';
 import Button from 'components/Button';
+import Loading from 'components/Loading';
 
 // import etc
 import styles from './styles.module.scss';

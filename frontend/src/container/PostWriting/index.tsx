@@ -10,11 +10,11 @@ import useInputWithSetValue from 'hooks/useInputWithSetValue';
 import useEditor from 'hooks/useEditor';
 
 // import components
-import Editor from './Editor';
-import SelectBox from 'components/SelectBox';
 import Button from 'components/Button';
 import Loading from 'components/Loading';
+import Editor from './Editor';
 import Requesting from 'components/Requesting';
+import SelectBox from 'components/SelectBox';
 
 // import etc
 import styles from './styles.module.scss';

@@ -1,10 +1,28 @@
 @import 'styles/util.module.scss';
 
 .user {
+    display: flex;
     width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tabsWrapper {
+    width: 1170px;
+    display: flex;
+}
+
+.blank {
+    width: 300px;
+    margin-right: 1rem;
+}
+
+.tabs {
+    width: 860px;
 }
 
 .flexWrapper {
     display: flex;
+    width: 1170px;
     justify-content: center;
 }

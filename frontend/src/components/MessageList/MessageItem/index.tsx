@@ -5,6 +5,7 @@ import Image from 'next/image';
 
 // import utilities
 import { messageViewPagePath } from 'pages/message/[id]';
+import * as dateService from 'service/format';
 
 // import components
 
@@ -13,11 +14,15 @@ import styles from './styles.module.scss';
 
 const MessageItem = (props) => {
     const router = useRouter();
-    const sentAt = new Intl.DateTimeFormat('ko-KR', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-    }).format(new Date(props.sentAt));
+
+    const sentAt = dateService.isToday(new Date(props.sentAt))
+        ? dateService.formatTime(new Date(props.sentAt))
+        : dateService.formatDate(new Date(props.sentAt));
+    const receivedAt = props.receivedAt
+        ? dateService.isToday(new Date(props.receivedAt))
+            ? dateService.formatTime(new Date(props.receivedAt))
+            : dateService.formatDate(new Date(props.receivedAt))
+        : null;
 
     const title = (
         <Link
@@ -32,6 +37,9 @@ const MessageItem = (props) => {
 
     return (
         <tr className={styles.messageItem}>
+            <td>
+                <input type="checkbox" onClick={(e) => props.handleCheckClick(props.index, e.target.checked)}></input>
+            </td>
             <td>
                 <div className={styles.writerWrapper}>
                     <span className={styles.imageWrapper}>
@@ -60,7 +68,7 @@ const MessageItem = (props) => {
                 <td>{title}</td>
             )}
             <td>{sentAt}</td>
-            <td>{props.receivedAt}</td>
+            <td>{receivedAt}</td>
         </tr>
     );
 };

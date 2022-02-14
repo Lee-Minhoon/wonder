@@ -8,13 +8,13 @@ import useReadAllComments, { readAllCommentsInput } from 'hooks/comment/useReadA
 import useInput from 'hooks/useInput';
 
 // import components
-import CommentItem from './CommentItem';
 import Button from 'components/Button';
 
 // import etc
 import styles from './styles.module.scss';
 import Requesting from 'components/Requesting';
 import Loading from 'components/Loading';
+import CommentList from 'components/CommentList';
 
 const Comment = () => {
     const router = useRouter();
@@ -54,18 +54,7 @@ const Comment = () => {
             {commentsIsSuccess && (
                 <section className={styles.comment}>
                     <header>{commentsData.data.count}개의 댓글 등록순</header>
-                    <section className={styles.commentList}>
-                        <ul>
-                            {commentsData.data.data.map((item) => (
-                                <CommentItem
-                                    key={item.id}
-                                    content={item.content}
-                                    writer={item.writer}
-                                    createdAt={item.createdAt}
-                                />
-                            ))}
-                        </ul>
-                    </section>
+                    <CommentList comments={commentsData.data.data} />
                     <form>
                         <div className={styles.inputBox}>
                             <textarea placeholder="댓글을 입력하세요." {...content} />

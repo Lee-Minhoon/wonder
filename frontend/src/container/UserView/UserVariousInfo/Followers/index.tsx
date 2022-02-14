@@ -5,8 +5,8 @@ import { useRouter } from 'next/router';
 import useReadAllFollowers, { readAllFollowersInput } from 'hooks/user/useReadAllFollowers';
 
 // import components
-import Loading from 'components/Loading';
 import FollowList from 'components/FollowList';
+import Loading from 'components/Loading';
 
 // import etc
 import styles from './styles.module.scss';

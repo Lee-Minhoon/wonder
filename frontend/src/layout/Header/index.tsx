@@ -4,9 +4,9 @@ import Link from 'next/link';
 // import utilities
 
 // import components
+import GNB from './GNB';
 import UserMenu from './UserMenu';
 import SearchBar from 'components/SearchBar';
-import GNB from './GNB';
 
 // import etc
 import styles from './styles.module.scss';

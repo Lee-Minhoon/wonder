@@ -3,10 +3,13 @@ package wonder.backend.repository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 import wonder.backend.domain.Message;
 import wonder.backend.dto.mapper.MessageMapper;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -31,7 +34,8 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
             "LEFT JOIN user as u " +
             "ON m.sender_id = u.id " +
             "WHERE m.recipient_id = :recipientId " +
-            "AND recipient_delete_status = 0",
+            "AND recipient_delete_status = 0 " +
+            "ORDER BY sentAt DESC",
             countQuery = "SELECT * FROM message as m  " +
                     "WHERE m.recipient_id = :recipientId " +
                     "AND recipient_delete_status = 0",
@@ -44,10 +48,19 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
             "LEFT JOIN user as u " +
             "ON m.recipient_id = u.id " +
             "WHERE m.sender_id = :senderId " +
-            "AND sender_delete_status = 0",
+            "AND sender_delete_status = 0 " +
+            "ORDER BY sentAt DESC",
             countQuery = "SELECT * FROM message as m  " +
                     "WHERE m.sender_id = :senderId " +
                     "AND sender_delete_status = 0",
             nativeQuery = true)
     Page<MessageMapper.ReadAllSentMessagesMapper> findAllSentMessageById(Long senderId, Pageable pageable);
+
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE " +
+            "FROM message as m " +
+            "WHERE m.id in :messages",
+            nativeQuery = true)
+    void deleteByIdIn(List<Long> messages);
 }

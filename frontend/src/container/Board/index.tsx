@@ -8,11 +8,11 @@ import useInput from 'hooks/useInput';
 import { postWritingPagePath } from 'pages/post/writing';
 
 // import components
-import Loading from 'components/Loading';
-import Pagination from 'components/Pagination';
+import Banner from 'components/Banner';
 import BoardUtil from 'components/BoardUtil';
 import Divider from 'components/Divider';
-import Banner from 'components/Banner';
+import Loading from 'components/Loading';
+import Pagination from 'components/Pagination';
 import PostList from 'components/PostList';
 import SearchBar from 'components/SearchBar';
 

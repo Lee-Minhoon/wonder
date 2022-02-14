@@ -22,7 +22,13 @@ import wonder.backend.service.MessageService;
 import wonder.backend.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
@@ -64,10 +70,13 @@ public class MessageController {
 
     @GetMapping("messages/{id}")
     public ResponseEntity readMessage(
+            HttpServletRequest request,
             @PathVariable("id") Long messageId
     ) {
         logger.info("Request to read a message : {}", messageId);
 
+        String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
+        User reader = getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
         Message message = getOrElseThrow(messageService.getMessageById(messageId));
         MessageMapper.ReadMessageMapper messageMapper = getOrElseThrow(messageService.getMessageInfoById(messageId));
 
@@ -75,7 +84,7 @@ public class MessageController {
                 .body(Response.builder()
                         .code(ResponseCode.SUCCESS)
                         .message(ResponseMessage.SUCCESS)
-                        .data(messageService.readMessage(message, messageMapper))
+                        .data(messageService.readMessage(reader, message, messageMapper))
                         .build());
     }
 
@@ -116,6 +125,21 @@ public class MessageController {
                         .code(ResponseCode.SUCCESS)
                         .message(ResponseMessage.SUCCESS)
                         .data(messageService.readAllSentMessages(sender, pageable))
+                        .build());
+    }
+
+    @DeleteMapping("messages/{id}")
+    public ResponseEntity deleteMessages(
+            HttpServletRequest request,
+            @PathVariable("id") String messagesId
+    ) {
+        String split[] = messagesId.split(",");
+        List<Long> messages = Arrays.stream(split).map(message -> Long.parseLong(message)).collect(Collectors.toList());
+        messageService.deleteMessages(messages);
+        return ResponseEntity.ok()
+                .body(Response.builder()
+                        .code(ResponseCode.SUCCESS)
+                        .message(ResponseMessage.SUCCESS)
                         .build());
     }
 

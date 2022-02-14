@@ -3,10 +3,11 @@ import { useRouter } from 'next/router';
 
 // import utilities
 import useReadMessage, { readMessageInput } from 'hooks/message/useReadMessage';
+import * as dateService from 'service/format';
 
 // import components
-import Loading from 'components/Loading';
 import Button from 'components/Button';
+import Loading from 'components/Loading';
 
 // import etc
 import styles from './styles.module.scss';
@@ -25,6 +26,11 @@ const MessageView = () => {
         isError: messageIsError,
     } = useReadMessage(readMessageInputValue);
 
+    const sentAt = messageData?.data?.sentAt ? dateService.formatDateTime(new Date(messageData.data.sentAt)) : null;
+    const receivedAt = messageData?.data?.receivedAt
+        ? dateService.formatDateTime(new Date(messageData.data.receivedAt))
+        : null;
+
     return (
         <>
             {messageIsLoading && <Loading />}
@@ -35,12 +41,12 @@ const MessageView = () => {
                         <div>
                             <span>보낸이</span>
                             <span>{messageData.data.sender}</span>
-                            <span>({messageData.data.sentAt})</span>
+                            <span>{sentAt}</span>
                         </div>
                         <div>
                             <span>받는이</span>
                             <span>{messageData.data.recipient}</span>
-                            <span>({messageData.data.receivedAt})</span>
+                            <span>{receivedAt}</span>
                         </div>
                         <div>{messageData.data.title}</div>
                     </header>

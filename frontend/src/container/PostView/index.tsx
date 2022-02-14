@@ -7,11 +7,11 @@ import useReadPost, { readPostInput } from 'hooks/post/useReadPost';
 import useReadUser, { readUserInput } from 'hooks/user/useReadUser';
 
 // import components
-import Post from './Post';
-import Comment from './Comment';
-import UserInfo from 'components/UserInfo';
 import Button from 'components/Button';
+import Comment from './Comment';
 import Loading from 'components/Loading';
+import Post from './Post';
+import UserInfo from 'components/UserInfo';
 
 // import etc
 import styles from './styles.module.scss';

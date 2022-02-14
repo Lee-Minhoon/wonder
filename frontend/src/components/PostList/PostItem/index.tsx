@@ -4,24 +4,24 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 // import utilities
-import { postViewPagePath } from 'pages/post/[id]';
-import { boardPagePath } from 'pages/board';
+import * as dateService from 'service/format';
 
 // import components
 
 // import etc
 import styles from './styles.module.scss';
 import category from 'constants/category';
+import { boardPagePath } from 'pages/board';
+import { postViewPagePath } from 'pages/post/[id]';
 
 const PostItem = (props) => {
     const router = useRouter();
     const main = category.find((item) => item.sub.find((item) => item.title === props.category));
     const sub = main?.sub.find((item) => item.title === props.category);
-    const date = new Intl.DateTimeFormat('ko-KR', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-    }).format(new Date(props.createdAt));
+
+    const createdAt = dateService.isToday(new Date(props.createdAt))
+        ? dateService.formatTime(new Date(props.createdAt))
+        : dateService.formatDate(new Date(props.createdAt));
 
     return (
         <tr className={styles.postItem}>
@@ -59,7 +59,7 @@ const PostItem = (props) => {
                     </Link>
                 </div>
             </td>
-            <td>{date}</td>
+            <td>{createdAt}</td>
             <td>{props.views}</td>
             <td>{props.countRecs}</td>
         </tr>

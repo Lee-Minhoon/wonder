@@ -2,20 +2,18 @@
 
 .userInfo {
     display: grid;
-    width: 70rem;
+    width: 66rem;
     padding: 1rem;
     border: 1px solid $light-gray;
     border-radius: 0.5rem;
     align-self: center;
-    grid-template-columns: 26rem auto;
+    grid-template-columns: 21rem auto;
     grid-template-rows: 20rem auto;
     margin-bottom: 2rem;
 }
 
 .imageWrapper {
-    margin-right: 1rem;
-    @include flex-center();
-    @include size(25rem, 20rem);
+    @include size(21rem, 20rem);
     div {
         overflow: hidden;
         position: relative;
@@ -50,6 +48,6 @@
     border: 1px solid $light-gray;
     border-radius: 0.5rem;
     margin-top: 1rem;
-    min-height: 10rem;
+    min-height: 12rem;
     grid-column: span 2;
 }

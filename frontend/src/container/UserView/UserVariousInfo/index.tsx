@@ -5,9 +5,10 @@ import { useEffect, useState } from 'react';
 // import utilities
 
 // import components
-import WrittenPosts from './WrittenPosts';
 import Followees from './Followees';
 import Followers from './Followers';
+import WrittenPosts from './WrittenPosts';
+
 // import etc
 import styles from './styles.module.scss';
 

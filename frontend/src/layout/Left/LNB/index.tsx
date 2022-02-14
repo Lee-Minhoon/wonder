@@ -3,11 +3,11 @@
 // import utilities
 
 // import components
+import LNBList from './LNBList';
 
 // import etc
 import styles from './styles.module.scss';
 import category from 'constants/category';
-import LNBList from './LNBList';
 
 const LNB = () => {
     return (

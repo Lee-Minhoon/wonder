@@ -4,10 +4,10 @@ import Link from 'next/link';
 // import utilities
 
 // import components
-import footer from 'constants/footer';
 
 // import etc
 import styles from './styles.module.scss';
+import footer from 'constants/footer';
 
 const Footer = () => {
     return (

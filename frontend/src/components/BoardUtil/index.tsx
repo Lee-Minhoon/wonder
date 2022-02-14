@@ -4,8 +4,8 @@ import { useRouter } from 'next/router';
 // import utilities
 
 // import components
-import SelectBox from 'components/SelectBox';
 import Button from 'components/Button';
+import SelectBox from 'components/SelectBox';
 
 // import etc
 import styles from './styles.module.scss';

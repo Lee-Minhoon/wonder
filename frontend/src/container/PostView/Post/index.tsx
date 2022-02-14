@@ -6,6 +6,7 @@ import Link from 'next/link';
 
 // import utilities
 import useCreateRecommendation, { createRecommendationInput } from 'hooks/recommendation/useCreateRecommendation';
+import * as dateService from 'service/format';
 
 // import components
 import PostUtil from './PostUtil';
@@ -23,11 +24,11 @@ const Post = ({ post }) => {
         async (e) => {
             e.preventDefault();
             const createRecommendationInputValue: createRecommendationInput = {
-                postId: router.query.content,
+                postId: router.query.id,
             };
             createRecommendation.mutate(createRecommendationInputValue);
         },
-        [router.query.content, createRecommendation]
+        [router.query.id, createRecommendation]
     );
 
     useEffect(() => {
@@ -36,14 +37,7 @@ const Post = ({ post }) => {
         }
     }, [createRecommendation.data, createRecommendation.isSuccess]);
 
-    const date = new Intl.DateTimeFormat('ko-KR', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-    }).format(new Date(post?.createdAt));
+    const date = dateService.formatDateTime(new Date(post?.createdAt));
 
     return (
         <>

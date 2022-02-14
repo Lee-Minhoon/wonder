@@ -28,9 +28,7 @@ const UserInfoWatcher = ({ children }: { children: JSX.Element }) => {
                 const user = data?.data;
                 dispatch(login(user?.id, user?.nickname));
                 console.log('login succeed');
-                console.log('fdfdfdf', router.pathname);
                 if (router.pathname === '/auth/login') {
-                    console.log('binggo');
                     router.push(router.query?.redirect?.toString());
                 }
             });

@@ -16,7 +16,7 @@ const PostUtil = ({ postId }: { postId: number }) => {
     const router = useRouter();
     const deletePost = useDeletePost();
 
-    const handleSubmit = useCallback(
+    const handleDeleteClick = useCallback(
         (e) => {
             e.preventDefault();
             if (confirm('삭제하시겠습니까?')) {
@@ -45,7 +45,7 @@ const PostUtil = ({ postId }: { postId: number }) => {
                 >
                     수정
                 </Button>
-                <Button onClick={handleSubmit}>삭제</Button>
+                <Button onClick={handleDeleteClick}>삭제</Button>
             </div>
         </>
     );

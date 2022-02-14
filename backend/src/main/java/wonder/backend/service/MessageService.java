@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wonder.backend.domain.Message;
+import wonder.backend.domain.Post;
 import wonder.backend.domain.User;
 import wonder.backend.dto.MessageDto;
 import wonder.backend.dto.common.ResponsePage;
@@ -15,6 +16,7 @@ import wonder.backend.dto.mapper.MessageMapper;
 import wonder.backend.repository.MessageRepository;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -32,11 +34,18 @@ public class MessageService {
         return;
     }
 
-    public MessageDto.ReadMessageDto readMessage(Message message, MessageMapper.ReadMessageMapper messageMapper) {
-        message.setReceivedAt(new Timestamp(System.currentTimeMillis()));
+    public MessageDto.ReadMessageDto readMessage(User reader, Message message, MessageMapper.ReadMessageMapper messageMapper) {
+        readConfirm(reader, message);
         return MessageDto.ReadMessageDto.builder()
                 .messageMapper(messageMapper)
                 .build();
+    }
+
+    public void readConfirm(User reader, Message message) {
+        if(reader.getId().equals(message.getRecipient().getId()) && message.getReceivedAt() == null) {
+            message.setReceivedAt(new Timestamp(System.currentTimeMillis()));
+        }
+        return;
     }
 
     @Transactional(readOnly = true)
@@ -57,6 +66,11 @@ public class MessageService {
                 .count(result.getTotalElements())
                 .data(result.stream().map(MessageDto.ReadAllSentMessagesDto::new).collect(Collectors.toList()))
                 .build();
+    }
+
+    public void deleteMessages(List<Long> messages) {
+        messageRepository.deleteByIdIn(messages);
+        return;
     }
 
     public Optional<MessageMapper.ReadMessageMapper> getMessageInfoById(Long id) {

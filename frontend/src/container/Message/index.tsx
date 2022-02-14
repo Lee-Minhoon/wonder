@@ -6,9 +6,10 @@ import { useRouter } from 'next/router';
 
 // import components
 import MessageWriting from './MessageWriting/index';
-import Tabs from 'components/Tabs';
 import ReceivedMessages from './ReceivedMessages';
 import SentMessages from './SentMessages';
+import Divider from 'components/Divider';
+import Tabs from 'components/Tabs';
 
 // import etc
 import styles from './styles.module.scss';
@@ -30,6 +31,7 @@ const Message = () => {
     return (
         <div className={styles.message}>
             <Tabs tabs={tabs} />
+            <Divider />
             {selectedTab == 'received' && <ReceivedMessages />}
             {selectedTab == 'sent' && <SentMessages />}
             {selectedTab == 'writing' && <MessageWriting />}

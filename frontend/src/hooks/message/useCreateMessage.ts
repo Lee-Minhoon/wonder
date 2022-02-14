@@ -26,7 +26,6 @@ const createMessage = async (input: createMessageInput) => {
 
 const useCreateMessage = () => {
     const router = useRouter();
-    const queryClient = useQueryClient();
     return useMutation((input: createMessageInput) => createMessage(input), {
         onMutate: (variables) => {
             console.log('쪽지 발신 중..', variables);
@@ -39,7 +38,6 @@ const useCreateMessage = () => {
         },
         onSuccess: (data, variables, context) => {
             console.log('쪽지 발신 성공', data);
-            // queryClient.invalidateQueries('read_all_comments');
         },
     });
 };

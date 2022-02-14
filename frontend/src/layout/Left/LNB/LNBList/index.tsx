@@ -5,8 +5,8 @@ import { useRouter } from 'next/router';
 import { boardPagePath } from 'pages/board';
 
 // import components
-import LinkList from 'components/LinkList';
 import Divider from 'components/Divider';
+import LinkList from 'components/LinkList';
 
 // import etc
 import styles from './styles.module.scss';

@@ -8,6 +8,7 @@ import { AxiosService } from 'service/defaultAxiosService';
 // import components
 
 // import etc
+import { postViewPagePath } from 'pages/post/[id]';
 
 export interface createPostInput {
     category: any;
@@ -38,7 +39,7 @@ const useCreatePost = () => {
         },
         onSuccess: (data, variables, context) => {
             console.log('글 작성 성공..', data);
-            router.push({ pathname: `/board/${data.data}`, query: { redirect: router.query?.redirect } });
+            router.push({ pathname: `${postViewPagePath}/${data.data}`, query: { redirect: router.query?.redirect } });
         },
     });
 };
