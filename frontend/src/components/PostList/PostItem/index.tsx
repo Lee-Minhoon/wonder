@@ -51,7 +51,11 @@ const PostItem = (props) => {
                 <div className={styles.writerWrapper}>
                     <span className={styles.imageWrapper}>
                         <span className={styles.image}>
-                            <Image src="/123.png" alt="profile" layout="fill" />
+                            <Image
+                                src={props.writerProfileImageUrl ? props.writerProfileImageUrl : '/defaultProfile.png'}
+                                alt="profile"
+                                layout="fill"
+                            />
                         </span>
                     </span>
                     <Link href={{ pathname: `/user/${props.writerId}`, query: { tabs: 'overview' } }}>

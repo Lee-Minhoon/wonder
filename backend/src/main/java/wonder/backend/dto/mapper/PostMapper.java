@@ -11,6 +11,7 @@ public class PostMapper {
         Clob getContent();
         Long getWriterId();
         String getWriter();
+        String getWriterProfileImageUrl();
         Timestamp getCreatedAt();
         int getViews();
         int getCountRecs();
@@ -23,6 +24,7 @@ public class PostMapper {
         Clob getContent();
         Long getWriterId();
         String getWriter();
+        String getWriterProfileImageUrl();
         Timestamp getCreatedAt();
         int getViews();
         int getCountComments();

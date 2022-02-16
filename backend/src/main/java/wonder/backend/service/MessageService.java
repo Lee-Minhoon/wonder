@@ -68,8 +68,13 @@ public class MessageService {
                 .build();
     }
 
-    public void deleteMessages(List<Long> messages) {
-        messageRepository.deleteByIdIn(messages);
+    public void deleteReceivedMessages(List<Long> messages) {
+        messageRepository.deleteReceivedMessagesByIdIn(messages);
+        return;
+    }
+
+    public void deleteSentMessages(List<Long> messages) {
+        messageRepository.deleteSentMessagesByIdIn(messages);
         return;
     }
 

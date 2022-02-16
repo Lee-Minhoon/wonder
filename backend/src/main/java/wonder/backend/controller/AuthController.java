@@ -42,9 +42,7 @@ public class AuthController {
     private final UserService userService;
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     @PostMapping("signup")
     public ResponseEntity signup(
@@ -87,6 +85,8 @@ public class AuthController {
 
         User user = getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
         user.setLoggedInAt(new Timestamp(System.currentTimeMillis()));
+        user.setExp(user.getExp() + 1);
+        userService.updateUser(user);
 
         PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
         AuthDto.LoginResponseDto loginResponseDto = AuthDto.LoginResponseDto.builder()

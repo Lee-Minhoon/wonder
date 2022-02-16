@@ -2,7 +2,7 @@
 import { useQuery } from 'react-query';
 
 // import utilities
-import { AxiosService } from 'service/defaultAxiosService';
+import { DefaultAxiosService } from 'service/defaultAxiosService';
 
 // import components
 
@@ -21,7 +21,7 @@ export interface readPostInput {
 }
 
 const readPost = async (input: readPostInput) => {
-    const { data } = await AxiosService.instance.get(`posts/${input.id}`);
+    const { data } = await DefaultAxiosService.instance.get(`posts/${input.id}`);
     return data;
 };
 

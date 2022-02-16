@@ -2,7 +2,7 @@
 import { useQuery } from 'react-query';
 
 // import utilities
-import { AxiosService } from 'service/defaultAxiosService';
+import { DefaultAxiosService } from 'service/defaultAxiosService';
 
 // import components
 
@@ -17,7 +17,7 @@ export interface readUserResponse {
 }
 
 export const readMe = async () => {
-    const { data } = await AxiosService.instance.get('users/me');
+    const { data } = await DefaultAxiosService.instance.get('users/me');
     return data;
 };
 

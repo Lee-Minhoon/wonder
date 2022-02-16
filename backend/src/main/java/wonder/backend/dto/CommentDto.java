@@ -18,6 +18,7 @@ public class CommentDto {
         private Long id;
         private String content;
         private String writer;
+        private String writerProfileImageUrl;
         private Timestamp createdAt;
 
         @Builder
@@ -25,6 +26,7 @@ public class CommentDto {
             this.id = commentMapper.getId();
             this.content = commentMapper.getContent();
             this.writer = commentMapper.getWriter();
+            this.writerProfileImageUrl = commentMapper.getWriterProfileImageUrl();
             this.createdAt = commentMapper.getCreatedAt();
         }
     }

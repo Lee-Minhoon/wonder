@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 // import utilities
 import useReadAllReceivedMessages, { readAllReceivedMessagesInput } from 'hooks/message/useReadAllReceivedMessages';
-import useDeleteMessages, { deleteMessagesInput } from 'hooks/message/useDeleteMessages';
+import useDeleteReceivedMessages, { deleteReceivedMessagesInput } from 'hooks/message/useDeleteReceivedMessages';
 
 // import components
 import Button from 'components/Button';
@@ -16,10 +16,10 @@ import Requesting from 'components/Requesting';
 // import etc
 import styles from './styles.module.scss';
 
-const getMessagesParams = (messages, checks) => {
+const getMessagesParams = (messages, isChecked) => {
     const array = [];
     messages.forEach((item, index) => {
-        if (checks[index]) {
+        if (isChecked[index]) {
             array.push(item.id);
         }
     });
@@ -29,29 +29,18 @@ const getMessagesParams = (messages, checks) => {
 const ReceivedMessages = () => {
     const router = useRouter();
 
-    const [checks, setChecks] = useState([
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-    ]);
+    const [allIsChecked, setAllIsChecked] = useState(false);
+    const [isChecked, setIsChecked] = useState(Array.from({ length: 15 }, () => false));
 
-    const deleteMessages = useDeleteMessages();
+    const deleteMessages = useDeleteReceivedMessages();
 
     const handleCheckClick = (index, value) => {
-        const newCheck = checks.map((item, i) => (i === index ? value : item));
-        setChecks(newCheck);
+        setIsChecked(isChecked.map((item, i) => (i === index ? value : item)));
+    };
+
+    const handleAllCheckClick = (value) => {
+        setAllIsChecked(value);
+        setIsChecked(Array.from({ length: 15 }, () => value));
     };
 
     const readAllReceivedMessagesInputValue: readAllReceivedMessagesInput = {
@@ -70,16 +59,21 @@ const ReceivedMessages = () => {
         (e) => {
             e.preventDefault();
             if (confirm('삭제하시겠습니까?')) {
-                const deleteMessagesInputValue: deleteMessagesInput = {
-                    messages: getMessagesParams(messagesData.data.data, checks),
+                const deleteMessagesInputValue: deleteReceivedMessagesInput = {
+                    messages: getMessagesParams(messagesData.data.data, isChecked),
                 };
                 deleteMessages.mutate(deleteMessagesInputValue);
             } else {
                 return;
             }
         },
-        [checks, deleteMessages, messagesData?.data?.data]
+        [isChecked, deleteMessages, messagesData?.data?.data]
     );
+
+    useEffect(() => {
+        setAllIsChecked(false);
+        setIsChecked(Array.from({ length: 15 }, () => false));
+    }, [messagesData]);
 
     useEffect(() => {
         if (deleteMessages.data && deleteMessages.isSuccess) {
@@ -97,6 +91,9 @@ const ReceivedMessages = () => {
                     <MessageList
                         messages={messagesData.data.data}
                         isReceived={true}
+                        allIsChecked={allIsChecked}
+                        isChecked={isChecked}
+                        handleAllCheckClick={handleAllCheckClick}
                         handleCheckClick={handleCheckClick}
                     />
                     <footer className={styles.footer}>

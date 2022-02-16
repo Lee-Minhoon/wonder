@@ -1,6 +1,7 @@
 // import package, library
 
 // import utilities
+import * as dateService from 'service/format';
 
 // import components
 
@@ -8,16 +9,12 @@
 import styles from './styles.module.scss';
 
 const InfoTable = ({ user }) => {
-    const createdAt = new Intl.DateTimeFormat('ko-KR', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-    }).format(new Date(user.createdAt));
-    const loggedInAt = new Intl.DateTimeFormat('ko-KR', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-    }).format(new Date(user.createdAt));
+    const createdAt = dateService.isToday(new Date(user.createdAt))
+        ? dateService.formatTime(new Date(user.createdAt))
+        : dateService.formatDate(new Date(user.createdAt));
+    const loggedInAt = dateService.isToday(new Date(user.loggedInAt))
+        ? dateService.formatTime(new Date(user.loggedInAt))
+        : dateService.formatDate(new Date(user.loggedInAt));
 
     return (
         <table className={styles.infoTable} cellSpacing="0">

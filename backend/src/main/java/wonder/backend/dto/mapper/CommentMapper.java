@@ -7,6 +7,7 @@ public class CommentMapper {
         Long getId();
         String getContent();
         String getWriter();
+        String getWriterProfileImageUrl();
         Timestamp getCreatedAt();
     }
 }

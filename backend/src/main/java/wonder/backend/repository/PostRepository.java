@@ -12,7 +12,7 @@ import java.util.Optional;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
     @Query(value = "SELECT category.name as category, p.id, p.title, p.views, p.created_at as createdAt, " +
-            "u.id as writerId, u.nickname as writer, " +
+            "u.id as writerId, u.nickname as writer, u.profile_image_url as writerProfileImageUrl, " +
             "count(DISTINCT c.id) as countComments, count(DISTINCT r.post_id) as countRecs " +
             "FROM post as p " +
             "LEFT JOIN category " +
@@ -36,7 +36,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     Page<PostMapper.ReadAllPostsMapper> findAllPostsByCategory(Long categoryId, String title, Pageable pageable);
 
     @Query(value = "SELECT category.name as category, p.id, p.title, p.views, p.created_at as createdAt, " +
-            "u.id as writerId, u.nickname as writer, " +
+            "u.id as writerId, u.nickname as writer, u.profile_image_url as writerProfileImageUrl, " +
             "count(DISTINCT c.id) as countComments, count(DISTINCT r.post_id) as countRecs " +
             "FROM post as p " +
             "LEFT JOIN category " +
@@ -58,7 +58,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     Page<PostMapper.ReadAllPostsMapper> findAllPostsByUser(Long userId, String title, Pageable pageable);
 
     @Query(value = "SELECT category.id as categoryId, p.id, p.title, p.content, p.views, p.created_at as createdAt, " +
-            "u.id as writerId, u.nickname as writer, count(DISTINCT r.post_id) as countRecs " +
+            "u.id as writerId, u.nickname as writer, u.profile_image_url as writerProfileImageUrl, " +
+            "count(DISTINCT r.post_id) as countRecs " +
             "FROM post as p " +
             "LEFT JOIN category " +
             "ON p.category_id = category.id " +

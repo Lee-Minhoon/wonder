@@ -50,7 +50,11 @@ const Post = ({ post }) => {
                     </div>
                     <div className={styles.postInfo}>
                         <div className={styles.writerProfile}>
-                            <Image src="/123.png" alt="writerProfile" layout="fill" />
+                            <Image
+                                src={post.writerProfileImageUrl ? post.writerProfileImageUrl : '/defaultProfile.png'}
+                                alt="writerProfile"
+                                layout="fill"
+                            />
                         </div>
                         <div className={styles.basicInfo}>
                             <Link href={{ pathname: `/user/${post.writerId}`, query: { tabs: 'overview' } }}>

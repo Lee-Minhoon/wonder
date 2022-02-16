@@ -5,18 +5,18 @@ import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 
 // import utilities
-import { AxiosService } from 'service/defaultAxiosService';
+import { DefaultAxiosService } from 'service/defaultAxiosService';
 import useTypedSelector from 'hooks/useTypedSelector';
 import { logout } from 'state/user/action';
-import { messagePagePath } from 'pages/message';
-import { authLoginPagePath } from 'pages/auth/login';
 
 // import components
 import LinkList from 'components/LinkList';
 
 // import etc
 import styles from './styles.module.scss';
+import { authLoginPagePath } from 'pages/auth/login';
 import { authSignupPagePath } from 'pages/auth/signup';
+import { messagePagePath } from 'pages/message';
 import { userViewPagePath } from 'pages/user/[id]';
 
 const UserMenu = () => {
@@ -27,7 +27,7 @@ const UserMenu = () => {
 
     const handleLogoutClick = useCallback(() => {
         Cookies.remove('token');
-        AxiosService.addHeaderToken('');
+        DefaultAxiosService.addHeaderToken('');
         dispatch(logout());
     }, [dispatch]);
 

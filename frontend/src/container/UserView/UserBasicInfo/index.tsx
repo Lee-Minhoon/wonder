@@ -1,68 +1,105 @@
 // import package, library
+import { useCallback } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 
 // import utilities
-import useReadUser, { readUserInput } from 'hooks/user/useReadUser';
 import useTypedSelector from 'hooks/useTypedSelector';
+import useCreateFollow, { createFollowInput } from 'hooks/follow/useCreateFollow';
+import useDeleteFollow, { deleteFollowInput } from 'hooks/follow/useDeleteFollow';
 
 // import components
 import InfoTable from './InfoTable';
 import Button from 'components/Button';
-import Loading from 'components/Loading';
 
 // import etc
 import styles from './styles.module.scss';
+import { messagePagePath } from 'pages/message';
+import { settingPagePath } from 'pages/setting';
 
-const UserBasicInfo = () => {
+const UserBasicInfo = ({ user }) => {
     const router = useRouter();
     const userId = useTypedSelector((state) => state.user.userId);
+    const createFollow = useCreateFollow();
 
-    const readUserInputValue: readUserInput = {
-        id: parseInt(router.query?.id.toString()),
-    };
-    const {
-        data: userData,
-        error: userError,
-        isLoading: userIsLoading,
-        isSuccess: userIsSuccess,
-        isError: userIsError,
-    } = useReadUser(readUserInputValue);
+    const handleCreateFollowClick = useCallback(
+        async (e) => {
+            e.preventDefault();
+            const createFollowInputValue: createFollowInput = {
+                followeeId: user.id,
+            };
+            createFollow.mutate(createFollowInputValue);
+        },
+        [user.id, createFollow]
+    );
+    const deleteFollow = useDeleteFollow();
+
+    const handleDeleteFollowClick = useCallback(
+        async (e) => {
+            e.preventDefault();
+            const deleteFollowInputValue: deleteFollowInput = {
+                followeeId: user.id,
+            };
+            deleteFollow.mutate(deleteFollowInputValue);
+        },
+        [user.id, deleteFollow]
+    );
 
     return (
         <div className={styles.userBasicInfo}>
-            {userIsLoading && <Loading />}
-            {userIsError && <p>{userError.response.data?.message}</p>}
-            {userIsSuccess && (
-                <>
-                    <div className={styles.imageWrapper}>
-                        <div>
-                            <Image src="/123.png" alt="profile" layout="fill" />
-                        </div>
-                    </div>
-                    <div className={styles.infoWrapper}>
-                        <h1>{userData.data.nickname}</h1>
-                        <p>{userData.data.grade}</p>
-                    </div>
-                    <div className={styles.buttonWrapper}>
-                        {userId == router.query?.id ? (
-                            <Button onClick={() => console.log('test')}>설정</Button>
-                        ) : userData.data.followStatus ? (
-                            <>
-                                <Button onClick={() => console.log('test')}>쪽지</Button>
-                                <Button onClick={() => console.log('test')}>언팔로우</Button>
-                            </>
-                        ) : (
-                            <>
-                                <Button onClick={() => console.log('test')}>쪽지</Button>
-                                <Button onClick={() => console.log('test')}>팔로우</Button>
-                            </>
-                        )}
-                    </div>
-                    <div className={styles.expWrapper}>경험치 랭킹</div>
-                    <InfoTable user={userData.data} />
-                </>
-            )}
+            <div className={styles.imageWrapper}>
+                <figure>
+                    <Image
+                        src={user.profileImageUrl ? user.profileImageUrl : '/defaultProfile.png'}
+                        alt="profile"
+                        layout="fill"
+                    />
+                </figure>
+            </div>
+            <div className={styles.infoWrapper}>
+                <h1>{user.nickname}</h1>
+                <p>{user.grade}</p>
+            </div>
+            <div className={styles.buttonWrapper}>
+                {userId == router.query?.id ? (
+                    <Button onClick={() => router.push(`${settingPagePath}?tabs=basic`)}>설정</Button>
+                ) : user.followStatus ? (
+                    <>
+                        <Button
+                            onClick={() =>
+                                window.open(
+                                    `${messagePagePath}?tabs=writing&target=${user.nickname}`,
+                                    '_blank',
+                                    'width=600 height=800'
+                                )
+                            }
+                        >
+                            쪽지
+                        </Button>
+                        <Button onClick={handleDeleteFollowClick}>언팔로우</Button>
+                    </>
+                ) : (
+                    <>
+                        <Button
+                            onClick={() =>
+                                window.open(
+                                    `${messagePagePath}?tabs=writing&target=${user.nickname}`,
+                                    '_blank',
+                                    'width=600 height=800'
+                                )
+                            }
+                        >
+                            쪽지
+                        </Button>
+                        <Button onClick={handleCreateFollowClick}>팔로우</Button>
+                    </>
+                )}
+            </div>
+            <div className={styles.expWrapper}>
+                <span>경험치 : {user.exp}</span>
+                <span>랭킹 : {user.rank}</span>
+            </div>
+            <InfoTable user={user} />
         </div>
     );
 };

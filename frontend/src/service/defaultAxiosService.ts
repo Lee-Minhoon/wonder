@@ -8,7 +8,7 @@ import Cookies from 'js-cookie';
 
 // import etc
 
-export class AxiosService {
+export class DefaultAxiosService {
     static readonly instance: AxiosInstance = axios.create({
         withCredentials: true,
         baseURL: process.env.NEXT_PUBLIC_SERVER_URL,
@@ -23,11 +23,11 @@ export class AxiosService {
     }
 }
 
-AxiosService.instance.interceptors.request.use(
+DefaultAxiosService.instance.interceptors.request.use(
     function (config: AxiosRequestConfig) {
         if (!config.headers.common.Authorization && Cookies.get('token')) {
             const token = Cookies.get('token');
-            AxiosService.addHeaderToken(token);
+            DefaultAxiosService.addHeaderToken(token);
         }
         return config;
     },

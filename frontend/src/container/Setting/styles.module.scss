@@ -1,0 +1,26 @@
+@import 'styles/util.module.scss';
+
+.setting {
+    display: flex;
+}
+
+.settingMenu {
+    width: 300px;
+    margin-right: 1rem;
+    nav {
+        border: 1px solid $light-gray;
+        border-radius: 0.5rem;
+    }
+    ul {
+        padding-inline-start: 1rem;
+    }
+    li {
+        line-height: 3.5rem;
+        list-style-type: none;
+        @include size(100%, 3.5rem);
+    }
+}
+
+.settingView {
+    width: 860px;
+}

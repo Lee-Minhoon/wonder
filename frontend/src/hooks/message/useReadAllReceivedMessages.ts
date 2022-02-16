@@ -2,7 +2,7 @@
 import { useQuery } from 'react-query';
 
 // import utilities
-import { AxiosService } from 'service/defaultAxiosService';
+import { DefaultAxiosService } from 'service/defaultAxiosService';
 
 // import components
 
@@ -14,7 +14,7 @@ export interface readAllReceivedMessagesInput {
 }
 
 const readAllReceivedMessages = async (input: readAllReceivedMessagesInput) => {
-    const { data } = await AxiosService.instance.get('users/1/receivedMessages', {
+    const { data } = await DefaultAxiosService.instance.get('receivedMessages', {
         params: {
             page: input.page,
             size: input.size,

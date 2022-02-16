@@ -24,9 +24,10 @@ const UserInfoWatcher = ({ children }: { children: JSX.Element }) => {
     useEffect(() => {
         if (token && !isLogin) {
             console.log('refetching...');
-            refetch().then(() => {
-                const user = data?.data;
-                dispatch(login(user?.id, user?.nickname));
+            console.log(data?.data);
+            refetch().then((data) => {
+                const loginUser = data?.data?.data;
+                dispatch(login(loginUser?.id, loginUser?.nickname));
                 console.log('login succeed');
                 if (router.pathname === '/auth/login') {
                     router.push(router.query?.redirect?.toString());

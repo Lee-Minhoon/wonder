@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import { useRouter } from 'next/router';
 
 // import utilities
-import { AxiosService } from 'service/defaultAxiosService';
+import { DefaultAxiosService } from 'service/defaultAxiosService';
 
 // import components
 
@@ -14,7 +14,7 @@ export interface deleteFollowInput {
 }
 
 const deleteFollow = async (input: deleteFollowInput) => {
-    const { data } = await AxiosService.instance.delete(`follow/${input.followeeId}`);
+    const { data } = await DefaultAxiosService.instance.delete(`follow/${input.followeeId}`);
     return data;
 };
 

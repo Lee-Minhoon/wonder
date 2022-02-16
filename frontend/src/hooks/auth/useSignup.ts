@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useMutation } from 'react-query';
 
 // import utilities
-import { AxiosService } from 'service/defaultAxiosService';
+import { DefaultAxiosService } from 'service/defaultAxiosService';
 
 // import components
 
@@ -17,7 +17,7 @@ export interface signupInput {
 }
 
 const signupService = async (input: signupInput) => {
-    const { data } = await AxiosService.instance.post('auth/signup', {
+    const { data } = await DefaultAxiosService.instance.post('auth/signup', {
         email: input.email,
         password: input.password,
         nickname: input.nickname,

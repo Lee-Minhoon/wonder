@@ -2,7 +2,7 @@
 import { useQuery } from 'react-query';
 
 // import utilities
-import { AxiosService } from 'service/defaultAxiosService';
+import { DefaultAxiosService } from 'service/defaultAxiosService';
 
 // import components
 
@@ -16,7 +16,7 @@ export interface readAllPostsByUserInput {
 }
 
 const readAllPostsByUser = async (input: readAllPostsByUserInput) => {
-    const { data } = await AxiosService.instance.get(`users/${input.user}/posts`, {
+    const { data } = await DefaultAxiosService.instance.get(`users/${input.user}/posts`, {
         params: {
             title: input.title,
             page: input.page,

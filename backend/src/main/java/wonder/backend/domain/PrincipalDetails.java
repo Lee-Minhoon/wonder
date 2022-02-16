@@ -25,10 +25,6 @@ public class PrincipalDetails implements UserDetails {
         return user.getNickname();
     }
 
-    public String getGrade() {
-        return user.getGrade();
-    }
-
     @Override
     public String getPassword() {
         return user.getPassword();

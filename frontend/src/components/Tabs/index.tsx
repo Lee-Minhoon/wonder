@@ -25,7 +25,7 @@ const Tabs = ({ tabs }) => {
                             <Link
                                 href={{
                                     pathname: router.pathname,
-                                    query: { id: router.query.id, tabs: item.value, ...item.query },
+                                    query: { tabs: item.value, ...item.query },
                                 }}
                             >
                                 <a>{item.text}</a>

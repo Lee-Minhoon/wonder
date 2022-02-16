@@ -38,7 +38,11 @@ const MessageItem = (props) => {
     return (
         <tr className={styles.messageItem}>
             <td>
-                <input type="checkbox" onClick={(e) => props.handleCheckClick(props.index, e.target.checked)}></input>
+                <input
+                    type="checkbox"
+                    checked={props.isChecked}
+                    onChange={(e) => props.handleCheckClick(props.index, e.target.checked)}
+                ></input>
             </td>
             <td>
                 <div className={styles.writerWrapper}>

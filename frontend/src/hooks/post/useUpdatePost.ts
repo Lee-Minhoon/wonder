@@ -3,7 +3,7 @@ import { useMutation } from 'react-query';
 import { useRouter } from 'next/router';
 
 // import utilities
-import { AxiosService } from 'service/defaultAxiosService';
+import { DefaultAxiosService } from 'service/defaultAxiosService';
 
 // import components
 
@@ -17,7 +17,7 @@ export interface updatePostInput {
 }
 
 const updatePost = async (input: updatePostInput) => {
-    const { data } = await AxiosService.instance.put(`posts/${input.id}`, {
+    const { data } = await DefaultAxiosService.instance.put(`posts/${input.id}`, {
         category: input.category,
         title: input.title,
         content: input.content,

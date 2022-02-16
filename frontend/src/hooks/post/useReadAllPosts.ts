@@ -2,7 +2,7 @@
 import { useQuery } from 'react-query';
 
 // import utilities
-import { AxiosService } from 'service/defaultAxiosService';
+import { DefaultAxiosService } from 'service/defaultAxiosService';
 
 // import components
 
@@ -16,7 +16,7 @@ export interface readAllPostsInput {
 }
 
 const readAllPosts = async (input: readAllPostsInput) => {
-    const { data } = await AxiosService.instance.get('posts', {
+    const { data } = await DefaultAxiosService.instance.get('posts', {
         params: {
             category: input.category,
             title: input.title,

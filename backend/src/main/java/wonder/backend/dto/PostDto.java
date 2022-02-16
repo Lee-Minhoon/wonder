@@ -27,6 +27,7 @@ public class PostDto {
         private String content;
         private Long writerId;
         private String writer;
+        private String writerProfileImageUrl;
         private Timestamp createdAt;
         private int views;
         private int countRecs;
@@ -39,6 +40,7 @@ public class PostDto {
             this.content = clobToString(postMapper.getContent());
             this.writerId = postMapper.getWriterId();
             this.writer = postMapper.getWriter();
+            this.writerProfileImageUrl = postMapper.getWriterProfileImageUrl();
             this.createdAt = postMapper.getCreatedAt();
             this.views = postMapper.getViews();
             this.countRecs = postMapper.getCountRecs();
@@ -52,6 +54,7 @@ public class PostDto {
         private String title;
         private Long writerId;
         private String writer;
+        private String writerProfileImageUrl;
         private Timestamp createdAt;
         private int views;
         private int countComments;
@@ -64,6 +67,7 @@ public class PostDto {
             this.title = postsMapper.getTitle();
             this.writerId = postsMapper.getWriterId();
             this.writer = postsMapper.getWriter();
+            this.writerProfileImageUrl = postsMapper.getWriterProfileImageUrl();
             this.createdAt = postsMapper.getCreatedAt();
             this.views = postsMapper.getViews();
             this.countComments = postsMapper.getCountComments();

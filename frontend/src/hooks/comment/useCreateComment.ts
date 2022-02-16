@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useMutation, useQueryClient } from 'react-query';
 
 // import utilities
-import { AxiosService } from 'service/defaultAxiosService';
+import { DefaultAxiosService } from 'service/defaultAxiosService';
 
 // import components
 
@@ -15,7 +15,7 @@ export interface createCommentInput {
 }
 
 const createComment = async (input: createCommentInput) => {
-    const { data } = await AxiosService.instance.post('comments', {
+    const { data } = await DefaultAxiosService.instance.post('comments', {
         postId: input.postId,
         content: input.content,
     });

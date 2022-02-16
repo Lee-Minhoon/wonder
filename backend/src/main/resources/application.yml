@@ -29,6 +29,8 @@ jwt:
 firebase:
   config-file: ./serviceAccountKey.json
   bucket: wonder-d0e26.appspot.com
+  private-url: https://storage.googleapis.com/download/storage/v1
+  public-url: https://firebasestorage.googleapis.com/v0
 
 #logging:
 #  level:

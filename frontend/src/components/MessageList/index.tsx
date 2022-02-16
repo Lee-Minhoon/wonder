@@ -1,7 +1,4 @@
 // import package, library
-import { useState } from 'react';
-import useCheckbox from 'hooks/useCheckbox';
-import { useRouter } from 'next/router';
 import MessageItem from './MessageItem';
 
 // import utilities
@@ -11,9 +8,7 @@ import MessageItem from './MessageItem';
 // import etc
 import styles from './styles.module.scss';
 
-const MessageList = ({ messages, isReceived, handleCheckClick }) => {
-    const router = useRouter();
-
+const MessageList = ({ messages, isReceived, allIsChecked, isChecked, handleAllCheckClick, handleCheckClick }) => {
     return (
         <table className={styles.messageList} cellSpacing="0">
             <colgroup>
@@ -26,7 +21,11 @@ const MessageList = ({ messages, isReceived, handleCheckClick }) => {
             <thead>
                 <tr>
                     <th>
-                        <input type="checkbox" onClick={(e) => console.log(e.target.checked)}></input>
+                        <input
+                            type="checkbox"
+                            checked={allIsChecked}
+                            onChange={(e) => handleAllCheckClick(e.target.checked)}
+                        ></input>
                     </th>
                     {isReceived ? <th>보낸이</th> : <th>받는이</th>}
                     <th>제목</th>
@@ -46,6 +45,7 @@ const MessageList = ({ messages, isReceived, handleCheckClick }) => {
                               sentAt={item.sentAt}
                               receivedAt={item.receivedAt}
                               isReceived={isReceived}
+                              isChecked={isChecked[index]}
                               index={index}
                               handleCheckClick={handleCheckClick}
                           />
@@ -60,6 +60,7 @@ const MessageList = ({ messages, isReceived, handleCheckClick }) => {
                               sentAt={item.sentAt}
                               receivedAt={item.receivedAt}
                               isReceived={isReceived}
+                              isChecked={isChecked[index]}
                               index={index}
                               handleCheckClick={handleCheckClick}
                           />

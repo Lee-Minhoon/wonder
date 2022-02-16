@@ -1,3 +1,7 @@
 module.exports = {
-  reactStrictMode: true,
-}
+    reactStrictMode: true,
+    images: {
+        domains: ['firebasestorage.googleapis.com'],
+        formats: ['image/avif', 'image/webp'],
+    },
+};

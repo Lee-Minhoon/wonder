@@ -2,7 +2,7 @@
 import { useQuery } from 'react-query';
 
 // import utilities
-import { AxiosService } from 'service/defaultAxiosService';
+import { DefaultAxiosService } from 'service/defaultAxiosService';
 
 // import components
 
@@ -15,7 +15,7 @@ export interface readAllFolloweesInput {
 }
 
 const readAllFollowees = async (input: readAllFolloweesInput) => {
-    const { data } = await AxiosService.instance.get(`users/${input.followerId}/followees`, {
+    const { data } = await DefaultAxiosService.instance.get(`users/${input.followerId}/followees`, {
         params: {
             page: input.page,
             size: input.size,

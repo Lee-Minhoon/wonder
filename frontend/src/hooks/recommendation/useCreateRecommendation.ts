@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useMutation, useQueryClient } from 'react-query';
 
 // import utilities
-import { AxiosService } from 'service/defaultAxiosService';
+import { DefaultAxiosService } from 'service/defaultAxiosService';
 
 // import components
 
@@ -14,7 +14,7 @@ export interface createRecommendationInput {
 }
 
 const createRecommendation = async (input: createRecommendationInput) => {
-    const { data } = await AxiosService.instance.post(`recommendation/${input.postId}`);
+    const { data } = await DefaultAxiosService.instance.post(`recommendation/${input.postId}`);
     return data;
 };
 

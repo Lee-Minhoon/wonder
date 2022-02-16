@@ -88,7 +88,7 @@ public class MessageController {
                         .build());
     }
 
-    @GetMapping("users/{id}/receivedMessages")
+    @GetMapping("receivedMessages")
     public ResponseEntity readAllReceivedMessages(
             HttpServletRequest request,
             @RequestParam("page") int page,
@@ -108,7 +108,7 @@ public class MessageController {
                         .build());
     }
 
-    @GetMapping("users/{id}/sentMessages")
+    @GetMapping("sentMessages")
     public ResponseEntity readAllSentMessages(
             HttpServletRequest request,
             @RequestParam("page") int page,
@@ -128,14 +128,29 @@ public class MessageController {
                         .build());
     }
 
-    @DeleteMapping("messages/{id}")
-    public ResponseEntity deleteMessages(
+    @DeleteMapping("receivedMessages/{id}")
+    public ResponseEntity deleteReceivedMessages(
             HttpServletRequest request,
             @PathVariable("id") String messagesId
     ) {
         String split[] = messagesId.split(",");
         List<Long> messages = Arrays.stream(split).map(message -> Long.parseLong(message)).collect(Collectors.toList());
-        messageService.deleteMessages(messages);
+        messageService.deleteReceivedMessages(messages);
+        return ResponseEntity.ok()
+                .body(Response.builder()
+                        .code(ResponseCode.SUCCESS)
+                        .message(ResponseMessage.SUCCESS)
+                        .build());
+    }
+
+    @DeleteMapping("sentMessages/{id}")
+    public ResponseEntity deleteSentMessages(
+            HttpServletRequest request,
+            @PathVariable("id") String messagesId
+    ) {
+        String split[] = messagesId.split(",");
+        List<Long> messages = Arrays.stream(split).map(message -> Long.parseLong(message)).collect(Collectors.toList());
+        messageService.deleteSentMessages(messages);
         return ResponseEntity.ok()
                 .body(Response.builder()
                         .code(ResponseCode.SUCCESS)

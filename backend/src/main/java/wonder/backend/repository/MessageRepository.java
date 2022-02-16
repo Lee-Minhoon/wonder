@@ -58,9 +58,17 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
 
     @Transactional
     @Modifying
-    @Query(value = "DELETE " +
-            "FROM message as m " +
+    @Query(value = "UPDATE message as m " +
+            "SET m.recipient_delete_status = 1 " +
             "WHERE m.id in :messages",
             nativeQuery = true)
-    void deleteByIdIn(List<Long> messages);
+    void deleteReceivedMessagesByIdIn(List<Long> messages);
+
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE message as m " +
+            "SET m.sender_delete_status = 1 " +
+            "WHERE m.id in :messages",
+            nativeQuery = true)
+    void deleteSentMessagesByIdIn(List<Long> messages);
 }

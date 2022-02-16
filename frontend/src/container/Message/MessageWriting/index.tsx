@@ -1,9 +1,12 @@
 // import package, library
 import { useCallback, useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 // import utilities
 import useCreateMessage, { createMessageInput } from 'hooks/message/useCreateMessage';
+import useInputWithSetValue from 'hooks/useInputWithSetValue';
 import useInput from 'hooks/useInput';
+import useTypedSelector from 'hooks/useTypedSelector';
 
 // import components
 import Button from 'components/Button';
@@ -13,8 +16,10 @@ import Requesting from 'components/Requesting';
 import styles from './styles.module.scss';
 
 const MessageWriting = () => {
+    const router = useRouter();
     const createMessage = useCreateMessage();
-    const recipientNickname = useInput('');
+    const userNickname = useTypedSelector((state) => state.user.userNickname);
+    const recipientNickname = useInputWithSetValue('');
     const title = useInput('');
     const content = useInput('');
 
@@ -32,6 +37,13 @@ const MessageWriting = () => {
     );
 
     useEffect(() => {
+        if (router.query?.target) {
+            recipientNickname.setValue(router.query?.target);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [router.query?.target]);
+
+    useEffect(() => {
         if (createMessage.data && createMessage.isSuccess) {
             alert('쪽지를 전송 하였습니다.');
         }
@@ -44,7 +56,7 @@ const MessageWriting = () => {
                 <form>
                     <div>
                         <label>보내는 사람</label>
-                        <em>한예리</em>
+                        <em>{userNickname}</em>
                     </div>
                     <div className={styles.recipientWrapper}>
                         <label>받는 사람</label>

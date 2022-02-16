@@ -43,6 +43,12 @@
     }
 }
 
+.expWrapper {
+    span:not(:last-child) {
+        margin-right: 0.5rem;
+    }
+}
+
 .intro {
     padding: 1rem;
     border: 1px solid $light-gray;

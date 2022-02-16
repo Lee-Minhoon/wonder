@@ -14,6 +14,7 @@ import Requesting from 'components/Requesting';
 
 // import etc
 import styles from './styles.module.scss';
+import { messagePagePath } from 'pages/message';
 
 const UserInfo = ({ user }) => {
     const loginUserId = useTypedSelector((state) => state.user.userId);
@@ -48,7 +49,11 @@ const UserInfo = ({ user }) => {
             <div className={styles.userInfo}>
                 <div className={styles.imageWrapper}>
                     <div>
-                        <Image src="/123.png" alt="profile" layout="fill" />
+                        <Image
+                            src={user.profileImageUrl ? user.profileImageUrl : '/defaultProfile.png'}
+                            alt="profile"
+                            layout="fill"
+                        />
                     </div>
                 </div>
                 <div className={styles.gridWrapper}>
@@ -63,7 +68,11 @@ const UserInfo = ({ user }) => {
                             <>
                                 <Button
                                     onClick={() =>
-                                        window.open('/message?tabs=writing', '_blank', 'width=600 height=600')
+                                        window.open(
+                                            `${messagePagePath}?tabs=writing&target=${user.nickname}`,
+                                            '_blank',
+                                            'width=600 height=800'
+                                        )
                                     }
                                 >
                                     쪽지
@@ -72,17 +81,28 @@ const UserInfo = ({ user }) => {
                             </>
                         ) : (
                             <>
-                                <Button onClick={() => window.open('/message/write', '_blank', 'width=600 height=600')}>
+                                <Button
+                                    onClick={() =>
+                                        window.open(
+                                            `${messagePagePath}?tabs=writing&target=${user.nickname}`,
+                                            '_blank',
+                                            'width=600 height=800'
+                                        )
+                                    }
+                                >
                                     쪽지
                                 </Button>
                                 <Button onClick={handleCreateFollowClick}>팔로우</Button>
                             </>
                         )}
                     </div>
-                    <div>경험치 랭킹</div>
+                    <div className={styles.expWrapper}>
+                        <span>경험치 : {user.exp}</span>
+                        <span>랭킹 : {user.rank}</span>
+                    </div>
                     <InfoTable user={user} />
                 </div>
-                <div className={styles.intro}>소개말</div>
+                <div className={styles.intro}>{user.intro}</div>
             </div>
         </>
     );

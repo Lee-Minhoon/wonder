@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import wonder.backend.domain.Post;
 import wonder.backend.domain.User;
 import wonder.backend.dto.UserDto;
 import wonder.backend.dto.common.ResponsePage;
@@ -48,6 +49,11 @@ public class UserService {
                 .count(result.getTotalElements())
                 .data(result.stream().map(UserDto.ReadAllUsersDto::new).collect(Collectors.toList()))
                 .build();
+    }
+
+    public void updateUser(User user) {
+        userRepository.save(user);
+        return;
     }
 
     public Optional<UserMapper.ReadUserMapper> getUserInfoById(Long loginUserId, Long id) {

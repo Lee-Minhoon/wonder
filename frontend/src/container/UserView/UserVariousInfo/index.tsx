@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 // import utilities
 
 // import components
+import Overview from './Overview';
 import Followees from './Followees';
 import Followers from './Followers';
 import WrittenPosts from './WrittenPosts';
@@ -12,7 +13,7 @@ import WrittenPosts from './WrittenPosts';
 // import etc
 import styles from './styles.module.scss';
 
-const UserVariousInfo = () => {
+const UserVariousInfo = ({ user }) => {
     const router = useRouter();
     const [tabs, setTabs] = useState('');
 
@@ -22,6 +23,7 @@ const UserVariousInfo = () => {
 
     return (
         <div className={styles.userVariousInfo}>
+            {tabs == 'overview' && <Overview intro={user.intro} />}
             {tabs == 'posts' && <WrittenPosts />}
             {tabs == 'followers' && <Followers />}
             {tabs == 'followees' && <Followees />}

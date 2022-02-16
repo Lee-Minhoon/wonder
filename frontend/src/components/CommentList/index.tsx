@@ -12,7 +12,13 @@ const CommentList = ({ comments }) => {
     return (
         <ul className={styles.commentList}>
             {comments.map((item) => (
-                <CommentItem key={item.id} content={item.content} writer={item.writer} createdAt={item.createdAt} />
+                <CommentItem
+                    key={item.id}
+                    content={item.content}
+                    writer={item.writer}
+                    writerProfileImageUrl={item.writerProfileImageUrl}
+                    createdAt={item.createdAt}
+                />
             ))}
         </ul>
     );

@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useMutation, useQueryClient } from 'react-query';
 
 // import utilities
-import { AxiosService } from 'service/defaultAxiosService';
+import { DefaultAxiosService } from 'service/defaultAxiosService';
 
 // import components
 
@@ -14,7 +14,7 @@ export interface createFollowInput {
 }
 
 const createFollow = async (input: createFollowInput) => {
-    const { data } = await AxiosService.instance.post(`follow/${input.followeeId}`);
+    const { data } = await DefaultAxiosService.instance.post(`follow/${input.followeeId}`);
     return data;
 };
 

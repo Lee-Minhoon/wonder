@@ -23,7 +23,11 @@ const CommentItem = (props) => {
         <li className={styles.commentItem}>
             <div className={styles.commentInfo}>
                 <div className={styles.writerProfile}>
-                    <Image src="/123.png" alt="writerProfile" layout="fill" />
+                    <Image
+                        src={props.writerProfileImageUrl ? props.writerProfileImageUrl : '/defaultProfile.png'}
+                        alt="writerProfile"
+                        layout="fill"
+                    />
                 </div>
                 <div className={styles.basicInfo}>
                     <Link href={{ pathname: `/user/${props.writerId}`, query: { tabs: 'overview' } }}>

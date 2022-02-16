@@ -1,6 +1,6 @@
-INSERT INTO user (email, password, nickname, grade, role) VALUES ('localtest', '$2a$10$6yVMypv00RigKDrWe4TTXukPKiZXektyAr161pA5isZe2.p351t6m', 'admin', 'NORMAL', 'ROLE_ADMIN');
-INSERT INTO user (email, password, nickname, grade, role) VALUES ('localtest2', '$2a$10$6yVMypv00RigKDrWe4TTXukPKiZXektyAr161pA5isZe2.p351t6m', 'admin2', 'NORMAL', 'ROLE_ADMIN');
-INSERT INTO user (email, password, nickname, grade, role) VALUES ('localtest3', '$2a$10$6yVMypv00RigKDrWe4TTXukPKiZXektyAr161pA5isZe2.p351t6m', 'admin3', 'NORMAL', 'ROLE_ADMIN');
+INSERT INTO user (email, password, nickname, role, exp, created_at) VALUES ('localtest', '$2a$10$6yVMypv00RigKDrWe4TTXukPKiZXektyAr161pA5isZe2.p351t6m', 'admin', 'ROLE_ADMIN', 0, CURRENT_TIMESTAMP());
+INSERT INTO user (email, password, nickname, role, exp, created_at) VALUES ('localtest2', '$2a$10$6yVMypv00RigKDrWe4TTXukPKiZXektyAr161pA5isZe2.p351t6m', 'admin2', 'ROLE_ADMIN', 0, CURRENT_TIMESTAMP());
+INSERT INTO user (email, password, nickname, role, exp, created_at) VALUES ('localtest3', '$2a$10$6yVMypv00RigKDrWe4TTXukPKiZXektyAr161pA5isZe2.p351t6m', 'admin3', 'ROLE_ADMIN', 0, CURRENT_TIMESTAMP());
 
 INSERT INTO category (id, parent_id, name) VALUES (1, null, 'Q&A');
 INSERT INTO category (id, parent_id, name) VALUES (2, null, '강의');

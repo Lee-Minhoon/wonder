@@ -12,13 +12,15 @@ import java.util.Set;
 public class User extends BaseTimeEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private Long exp = 0L;
 
     @Column(unique = true)
     private String email;
     private String password;
     private String nickname;
-    private String grade = "NORMAL";
+    private String profileImageUrl;
     private String role = "ROLE_USER";
+    private String intro;
     private Timestamp loggedInAt;
 
     @OneToMany(mappedBy = "user")

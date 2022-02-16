@@ -9,20 +9,20 @@ import { DefaultAxiosService } from 'service/defaultAxiosService';
 
 // import etc
 
-export interface deletePostInput {
-    id: any;
+export interface deleteSentMessagesInput {
+    messages: any;
 }
 
-const deletePost = async (input: deletePostInput) => {
-    const { data } = await DefaultAxiosService.instance.delete(`posts/${input.id}`);
+const deleteSentMessages = async (input: deleteSentMessagesInput) => {
+    const { data } = await DefaultAxiosService.instance.delete(`sentMessages/${input.messages}`);
     return data;
 };
 
-const useDeletePost = () => {
+const useDeleteSentMessages = () => {
     const router = useRouter();
-    return useMutation((input: deletePostInput) => deletePost(input), {
+    return useMutation((input: deleteSentMessagesInput) => deleteSentMessages(input), {
         onMutate: (variables) => {
-            console.log('글 삭제 중..', variables);
+            console.log('메시지 삭제 중..', variables);
         },
         onError: (error, variables, context) => {
             if (error.response.data.status == 401) {
@@ -31,10 +31,9 @@ const useDeletePost = () => {
             }
         },
         onSuccess: (data, variables, context) => {
-            console.log('글 삭제 성공', data);
-            router.push(router.query.redirect.toString());
+            console.log('메시지 삭제 성공', data);
         },
     });
 };
 
-export default useDeletePost;
+export default useDeleteSentMessages;

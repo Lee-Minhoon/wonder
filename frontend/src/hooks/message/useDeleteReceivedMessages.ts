@@ -3,23 +3,24 @@ import { useMutation } from 'react-query';
 import { useRouter } from 'next/router';
 
 // import utilities
-import { AxiosService } from 'service/defaultAxiosService';
+import { DefaultAxiosService } from 'service/defaultAxiosService';
 
 // import components
 
 // import etc
 
-export interface deleteMessagesInput {
+export interface deleteReceivedMessagesInput {
     messages: any;
 }
 
-const deleteMessages = async (input: deleteMessagesInput) => {
-    const { data } = await AxiosService.instance.delete(`messages/${input.messages}`);
+const deleteReceivedMessages = async (input: deleteReceivedMessagesInput) => {
+    const { data } = await DefaultAxiosService.instance.delete(`receivedMessages/${input.messages}`);
     return data;
 };
 
-const useDeleteMessages = () => {
-    return useMutation((input: deleteMessagesInput) => deleteMessages(input), {
+const useDeleteReceivedMessages = () => {
+    const router = useRouter();
+    return useMutation((input: deleteReceivedMessagesInput) => deleteReceivedMessages(input), {
         onMutate: (variables) => {
             console.log('메시지 삭제 중..', variables);
         },
@@ -35,4 +36,4 @@ const useDeleteMessages = () => {
     });
 };
 
-export default useDeleteMessages;
+export default useDeleteReceivedMessages;

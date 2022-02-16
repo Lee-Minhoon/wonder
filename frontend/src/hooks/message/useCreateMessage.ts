@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useMutation, useQueryClient } from 'react-query';
 
 // import utilities
-import { AxiosService } from 'service/defaultAxiosService';
+import { DefaultAxiosService } from 'service/defaultAxiosService';
 
 // import components
 
@@ -16,7 +16,7 @@ export interface createMessageInput {
 }
 
 const createMessage = async (input: createMessageInput) => {
-    const { data } = await AxiosService.instance.post('messages', {
+    const { data } = await DefaultAxiosService.instance.post('messages', {
         recipientNickname: input.recipientNickname,
         title: input.title,
         content: input.content,

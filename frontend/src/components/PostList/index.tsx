@@ -40,6 +40,7 @@ const PostList = ({ posts }) => {
                         title={item.title}
                         writerId={item.writerId}
                         writer={item.writer}
+                        writerProfileImageUrl={item.writerProfileImageUrl}
                         createdAt={item.createdAt}
                         views={item.views}
                         countComments={item.countComments}

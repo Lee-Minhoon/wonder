@@ -4,7 +4,7 @@ import { useMutation } from 'react-query';
 import { useDispatch } from 'react-redux';
 
 // import utilities
-import { AxiosService } from 'service/defaultAxiosService';
+import { DefaultAxiosService } from 'service/defaultAxiosService';
 import { login, login as loginService } from 'state/user/action';
 
 // import components
@@ -17,7 +17,7 @@ export interface loginInput {
 }
 
 const loginService = async (input: loginInput) => {
-    const { data } = await AxiosService.instance.post('auth/login', {
+    const { data } = await DefaultAxiosService.instance.post('auth/login', {
         email: input.email,
         password: input.password,
     });
@@ -41,7 +41,7 @@ const useLogin = () => {
             const user = data?.data;
             dispatch(login(user?.id, user?.nickname));
             router.push(router.query?.redirect?.toString());
-            AxiosService.addHeaderToken(data.data.token);
+            DefaultAxiosService.addHeaderToken(data.data.token);
         },
     });
 };
