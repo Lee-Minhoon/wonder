@@ -12,7 +12,13 @@ const FollowList = ({ users }) => {
     return (
         <ul className={styles.followList}>
             {users.data.map((item) => (
-                <FollowItem key={item.id} id={item.id} nickname={item.nickname} followStatus={item.followStatus} />
+                <FollowItem
+                    key={item.id}
+                    id={item.id}
+                    nickname={item.nickname}
+                    profileImageUrl={item.profileImageUrl}
+                    followStatus={item.followStatus}
+                />
             ))}
         </ul>
     );

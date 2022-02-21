@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 
 // import utilities
 import { DefaultAxiosService } from 'service/defaultAxiosService';
+import { postViewPagePath } from 'pages/post/[id]';
 
 // import components
 
@@ -39,7 +40,7 @@ const useUpdatePost = () => {
         },
         onSuccess: (data, variables, context) => {
             console.log('글 수정 성공..', data);
-            router.push({ pathname: `/board/${data.data}`, query: { redirect: router.query?.redirect } });
+            router.push({ pathname: `${postViewPagePath}/${data.data}`, query: { redirect: router.query?.redirect } });
         },
     });
 };

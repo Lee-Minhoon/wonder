@@ -8,8 +8,10 @@ public class MessageMapper {
         Long getId();
         Long getSenderId();
         String getSender();
+        String getSenderProfileImageUrl();
         Long getRecipientId();
         String getRecipient();
+        String getRecipientProfileImageUrl();
         String getTitle();
         String getContent();
         Timestamp getSentAt();
@@ -20,6 +22,7 @@ public class MessageMapper {
         Long getId();
         Long getSenderId();
         String getSender();
+        String getSenderProfileImageUrl();
         String getTitle();
         Timestamp getSentAt();
         Timestamp getReceivedAt();
@@ -29,6 +32,7 @@ public class MessageMapper {
         Long getId();
         Long getRecipientId();
         String getRecipient();
+        String getRecipientProfileImageUrl();
         String getTitle();
         Timestamp getSentAt();
         Timestamp getReceivedAt();

@@ -15,6 +15,7 @@ import java.util.Optional;
 
 public interface MessageRepository extends JpaRepository<Message, Long> {
     @Query(value = "SELECT m.id, m.title, m.content, sender.id as senderId, sender.nickname as sender, " +
+            "sender.profile_imageUrl as senderProfileImageUrl, recipient.profile_image_url as recipientProfileImageUrl " +
             "recipient.id as recipientId, recipient.nickname as recipient, " +
             "m.sent_at as sentAt, m.received_at as receivedAt " +
             "FROM message as m " +
@@ -29,6 +30,7 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
     Optional<MessageMapper.ReadMessageMapper> findMessageInfoById(Long id);
 
     @Query(value = "SELECT m.id, m.title, u.id as senderId, u.nickname as sender, " +
+            "u.profile_image_url as senderProfileImageUrl, " +
             "m.sent_at as sentAt, m.received_at as receivedAt " +
             "FROM message as m " +
             "LEFT JOIN user as u " +
@@ -43,6 +45,7 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
     Page<MessageMapper.ReadAllReceivedMessagesMapper> findAllReceivedMessageById(Long recipientId, Pageable pageable);
 
     @Query(value = "SELECT m.id, m.title, u.id as recipientId, u.nickname as recipient, " +
+            "u.profile_image_url as recipientProfileImageUrl, " +
             "m.sent_at as sentAt, m.received_at as receivedAt " +
             "FROM message as m " +
             "LEFT JOIN user as u " +

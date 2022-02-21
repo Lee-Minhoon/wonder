@@ -84,7 +84,9 @@ public class PostService {
     }
 
     public void validateAuthor(Post post, User user) {
-        if(post.getUser().getId() != user.getId()) new CustomException(ExceptionEnum.UNAUTHORIZED);
+        if(post.getUser().getId() != user.getId()) {
+            throw new CustomException(ExceptionEnum.UNAUTHORIZED);
+        }
     }
 
     public Optional<PostMapper.ReadPostMapper> getPostInfoById(Long id) {

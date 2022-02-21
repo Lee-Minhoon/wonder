@@ -11,6 +11,7 @@ import Button from 'components/Button';
 // import etc
 import styles from './styles.module.scss';
 import Requesting from 'components/Requesting';
+import { postWritingPagePath } from 'pages/post/writing';
 
 const PostUtil = ({ postId }: { postId: number }) => {
     const router = useRouter();
@@ -38,7 +39,7 @@ const PostUtil = ({ postId }: { postId: number }) => {
                 <Button
                     onClick={() =>
                         router.push({
-                            pathname: '/board/write',
+                            pathname: `${postWritingPagePath}`,
                             query: { redirect: router.query.redirect.toString(), update: postId },
                         })
                     }

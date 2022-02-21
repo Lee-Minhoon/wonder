@@ -30,7 +30,9 @@ const Message = () => {
 
     return (
         <div className={styles.message}>
-            <Tabs tabs={tabs} />
+            <div className={styles.tabsWrapper}>
+                <Tabs tabs={tabs} />
+            </div>
             <Divider />
             {selectedTab == 'received' && <ReceivedMessages />}
             {selectedTab == 'sent' && <SentMessages />}

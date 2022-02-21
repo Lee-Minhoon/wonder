@@ -90,7 +90,7 @@ const SentMessages = () => {
                 <div className={styles.sentMessages}>
                     <MessageList
                         messages={messagesData.data.data}
-                        isReceived={true}
+                        isReceived={false}
                         allIsChecked={allIsChecked}
                         isChecked={isChecked}
                         handleAllCheckClick={handleAllCheckClick}

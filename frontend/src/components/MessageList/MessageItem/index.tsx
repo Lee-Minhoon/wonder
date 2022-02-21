@@ -48,7 +48,19 @@ const MessageItem = (props) => {
                 <div className={styles.writerWrapper}>
                     <span className={styles.imageWrapper}>
                         <span className={styles.image}>
-                            <Image src="/123.png" alt="profile" layout="fill" />
+                            <Image
+                                src={
+                                    props.isReceived
+                                        ? props.senderProfileImageUrl
+                                            ? props.senderProfileImageUrl
+                                            : '/defaultProfile.png'
+                                        : props.receivedProfileImageUrl
+                                        ? props.receivedProfileImageUrl
+                                        : '/defaultProfile.png'
+                                }
+                                alt="profile"
+                                layout="fill"
+                            />
                         </span>
                     </span>
                     {props.isReceived ? (

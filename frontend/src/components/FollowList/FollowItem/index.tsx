@@ -52,7 +52,11 @@ const FollowItem = (props) => {
         <li className={styles.followItem}>
             <div className={styles.flexWrapper}>
                 <div className={styles.imageWrapper}>
-                    <Image src="/123.png" alt="followProfile" layout="fill" />
+                    <Image
+                        src={props.profileImageUrl ? props.profileImageUrl : '/defaultProfile.png'}
+                        alt="profile"
+                        layout="fill"
+                    />
                 </div>
                 <div className={styles.infoWrapper}>
                     <Link href={{ pathname: `/user/${props.id}`, query: { tabs: 'overview' } }}>

@@ -21,8 +21,10 @@ public class MessageDto {
         private Long id;
         private Long senderId;
         private String sender;
+        private String senderProfileImageUrl;
         private Long recipientId;
         private String recipient;
+        private String recipientProfileImageUrl;
         private String title;
         private String content;
         private Timestamp sentAt;
@@ -33,8 +35,10 @@ public class MessageDto {
             this.id = messageMapper.getId();
             this.senderId = messageMapper.getSenderId();
             this.sender = messageMapper.getSender();
+            this.senderProfileImageUrl = messageMapper.getSenderProfileImageUrl();
             this.recipientId = messageMapper.getRecipientId();
             this.recipient = messageMapper.getRecipient();
+            this.recipientProfileImageUrl = messageMapper.getRecipientProfileImageUrl();
             this.title = messageMapper.getTitle();
             this.content = messageMapper.getContent();
             this.sentAt = messageMapper.getSentAt();
@@ -48,6 +52,7 @@ public class MessageDto {
         private String title;
         private Long senderId;
         private String sender;
+        private String senderProfileImageUrl;
         private Timestamp sentAt;
         private Timestamp receivedAt;
 
@@ -57,6 +62,7 @@ public class MessageDto {
             this.title = messagesMapper.getTitle();
             this.senderId = messagesMapper.getSenderId();
             this.sender = messagesMapper.getSender();
+            this.senderProfileImageUrl = messagesMapper.getSenderProfileImageUrl();
             this.sentAt = messagesMapper.getSentAt();
             this.receivedAt = messagesMapper.getReceivedAt();
         }
@@ -68,6 +74,7 @@ public class MessageDto {
         private String title;
         private Long recipientId;
         private String recipient;
+        private String recipientProfileImageUrl;
         private Timestamp sentAt;
         private Timestamp receivedAt;
 
@@ -77,6 +84,7 @@ public class MessageDto {
             this.title = messagesMapper.getTitle();
             this.recipientId = messagesMapper.getRecipientId();
             this.recipient = messagesMapper.getRecipient();
+            this.recipientProfileImageUrl = messagesMapper.getRecipientProfileImageUrl();
             this.sentAt = messagesMapper.getSentAt();
             this.receivedAt = messagesMapper.getReceivedAt();
         }
