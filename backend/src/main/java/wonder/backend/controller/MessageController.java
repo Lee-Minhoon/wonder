@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import wonder.backend.common.Utilities;
 import wonder.backend.constants.ExceptionEnum;
 import wonder.backend.constants.ResponseCode;
 import wonder.backend.constants.ResponseMessage;
@@ -23,11 +24,8 @@ import wonder.backend.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -38,6 +36,7 @@ public class MessageController {
 
     private final UserService userService;
     private final MessageService messageService;
+    private final Utilities utilities;
 
     @Autowired
     private TokenProvider tokenProvider;
@@ -50,8 +49,8 @@ public class MessageController {
         logger.info("Request to create a message");
 
         String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
-        User sender = getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
-        User recipient = getOrElseThrow(userService.getUserByNickname(createMessageDto.getRecipientNickname()));
+        User sender = utilities.getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
+        User recipient = utilities.getOrElseThrow(userService.getUserByNickname(createMessageDto.getRecipientNickname()));
         if(sender.getId().equals(recipient.getId())) {
             throw new CustomException(ExceptionEnum.BAD_REQUEST);
         }
@@ -61,11 +60,10 @@ public class MessageController {
                 .build();
         messageService.createMessage(message, sender, recipient);
 
-        return ResponseEntity.ok()
-                .body(Response.builder()
-                        .code(ResponseCode.SUCCESS)
-                        .message(ResponseMessage.SUCCESS)
-                        .build());
+        return ResponseEntity.ok().body(Response.builder()
+                .code(ResponseCode.CREATE_MESSAGE)
+                .message(ResponseMessage.CREATE_MESSAGE)
+                .build());
     }
 
     @GetMapping("messages/{id}")
@@ -76,20 +74,19 @@ public class MessageController {
         logger.info("Request to read a message : {}", messageId);
 
         String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
-        User reader = getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
-        Message message = getOrElseThrow(messageService.getMessageById(messageId));
-        MessageMapper.ReadMessageMapper messageMapper = getOrElseThrow(messageService.getMessageInfoById(messageId));
+        User reader = utilities.getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
+        Message message = utilities.getOrElseThrow(messageService.getMessageById(messageId));
+        MessageMapper.ReadMessageMapper messageMapper = utilities.getOrElseThrow(messageService.getMessageInfoById(messageId));
 
-        return ResponseEntity.ok()
-                .body(Response.builder()
-                        .code(ResponseCode.SUCCESS)
-                        .message(ResponseMessage.SUCCESS)
-                        .data(messageService.readMessage(reader, message, messageMapper))
-                        .build());
+        return ResponseEntity.ok().body(Response.builder()
+                .code(ResponseCode.READ_MESSAGE)
+                .message(ResponseMessage.READ_MESSAGE)
+                .data(messageService.readMessage(reader, message, messageMapper))
+                .build());
     }
 
     @GetMapping("receivedMessages")
-    public ResponseEntity readAllReceivedMessages(
+    public ResponseEntity readReceivedMessages(
             HttpServletRequest request,
             @RequestParam("page") int page,
             @RequestParam("size") int size
@@ -97,19 +94,18 @@ public class MessageController {
         logger.info("Request to read all received messages");
 
         String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
-        User recipient = getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
+        User recipient = utilities.getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
         Pageable pageable = PageRequest.of(page, size);
 
-        return ResponseEntity.ok()
-                .body(Response.builder()
-                        .code(ResponseCode.SUCCESS)
-                        .message(ResponseMessage.SUCCESS)
-                        .data(messageService.readAllReceivedMessages(recipient, pageable))
-                        .build());
+        return ResponseEntity.ok().body(Response.builder()
+                .code(ResponseCode.READ_RECEIVED_MESSAGES)
+                .message(ResponseMessage.READ_RECEIVED_MESSAGES)
+                .data(messageService.readReceivedMessages(recipient, pageable))
+                .build());
     }
 
     @GetMapping("sentMessages")
-    public ResponseEntity readAllSentMessages(
+    public ResponseEntity readSentMessages(
             HttpServletRequest request,
             @RequestParam("page") int page,
             @RequestParam("size") int size
@@ -117,15 +113,14 @@ public class MessageController {
         logger.info("Request to read all received messages");
 
         String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
-        User sender = getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
+        User sender = utilities.getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
         Pageable pageable = PageRequest.of(page, size);
 
-        return ResponseEntity.ok()
-                .body(Response.builder()
-                        .code(ResponseCode.SUCCESS)
-                        .message(ResponseMessage.SUCCESS)
-                        .data(messageService.readAllSentMessages(sender, pageable))
-                        .build());
+        return ResponseEntity.ok().body(Response.builder()
+                .code(ResponseCode.READ_SENT_MESSAGES)
+                .message(ResponseMessage.READ_SENT_MESSAGES)
+                .data(messageService.readSentMessages(sender, pageable))
+                .build());
     }
 
     @DeleteMapping("receivedMessages/{id}")
@@ -136,11 +131,10 @@ public class MessageController {
         String split[] = messagesId.split(",");
         List<Long> messages = Arrays.stream(split).map(message -> Long.parseLong(message)).collect(Collectors.toList());
         messageService.deleteReceivedMessages(messages);
-        return ResponseEntity.ok()
-                .body(Response.builder()
-                        .code(ResponseCode.SUCCESS)
-                        .message(ResponseMessage.SUCCESS)
-                        .build());
+        return ResponseEntity.ok().body(Response.builder()
+                .code(ResponseCode.DELETE_RECEIVED_MESSAGES)
+                .message(ResponseMessage.DELETE_RECEIVED_MESSAGES)
+                .build());
     }
 
     @DeleteMapping("sentMessages/{id}")
@@ -151,33 +145,9 @@ public class MessageController {
         String split[] = messagesId.split(",");
         List<Long> messages = Arrays.stream(split).map(message -> Long.parseLong(message)).collect(Collectors.toList());
         messageService.deleteSentMessages(messages);
-        return ResponseEntity.ok()
-                .body(Response.builder()
-                        .code(ResponseCode.SUCCESS)
-                        .message(ResponseMessage.SUCCESS)
-                        .build());
-    }
-
-//    @GetMapping("users/{id}/getFollowers")
-//    public ResponseEntity getFollowers(
-//            @PathVariable("id") Long followeeId,
-//            @RequestParam("page") int page,
-//            @RequestParam("size") int size
-//    ) {
-//        logger.info("Request to read all followers by user");
-//
-//        User followee = getOrElseThrow(userService.getUserById(followeeId));
-//
-//        followService.getFollowers(followee);
-//
-//        return ResponseEntity.ok()
-//                .body(Response.builder()
-//                        .code(ResponseCode.SUCCESS)
-//                        .message(ResponseMessage.SUCCESS)
-//                        .build());
-//    }
-
-    public <T> T getOrElseThrow(Optional<T> param) {
-        return param.orElseThrow(() -> new CustomException(ExceptionEnum.NOT_FOUND));
+        return ResponseEntity.ok().body(Response.builder()
+                .code(ResponseCode.DELETE_SENT_MESSAGES)
+                .message(ResponseMessage.DELETE_SENT_MESSAGES)
+                .build());
     }
 }

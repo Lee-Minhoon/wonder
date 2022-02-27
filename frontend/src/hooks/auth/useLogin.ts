@@ -5,7 +5,8 @@ import { useDispatch } from 'react-redux';
 
 // import utilities
 import { DefaultAxiosService } from 'service/defaultAxiosService';
-import { login, login as loginService } from 'state/user/action';
+import { FormTypeAxiosService } from 'service/formTypeAxiosService';
+import { login } from 'state/user/action';
 
 // import components
 
@@ -42,6 +43,7 @@ const useLogin = () => {
             dispatch(login(user?.id, user?.nickname));
             router.push(router.query?.redirect?.toString());
             DefaultAxiosService.addHeaderToken(data.data.token);
+            FormTypeAxiosService.addHeaderToken(data.data.token);
         },
     });
 };

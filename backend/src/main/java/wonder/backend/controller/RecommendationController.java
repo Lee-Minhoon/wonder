@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import wonder.backend.common.Utilities;
 import wonder.backend.constants.ExceptionEnum;
 import wonder.backend.constants.ResponseCode;
 import wonder.backend.constants.ResponseMessage;
@@ -34,6 +35,7 @@ public class RecommendationController {
     private final UserService userService;
     private final PostService postService;
     private final RecommendationService recommendationService;
+    private final Utilities utilities;
 
     @Autowired
     private TokenProvider tokenProvider;
@@ -43,11 +45,11 @@ public class RecommendationController {
             HttpServletRequest request,
             @PathVariable("id") Long postId
     ) {
-        logger.info("Request to create a recommend");
+        logger.info("Request to create recommend in {}", postId);
 
         String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
-        User user = getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
-        Post post = getOrElseThrow(postService.getPostById(postId));
+        User user = utilities.getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
+        Post post = utilities.getOrElseThrow(postService.getPostById(postId));
         RecommendationId recommendationId = RecommendationId.builder()
                 .userId(user.getId())
                 .postId(post.getId())
@@ -58,14 +60,9 @@ public class RecommendationController {
                 .build();
         recommendationService.createRecommendation(recommendation, post);
 
-        return ResponseEntity.ok()
-                .body(Response.builder()
-                        .code(ResponseCode.SUCCESS)
-                        .message(ResponseMessage.SUCCESS)
-                        .build());
-    }
-
-    public <T> T getOrElseThrow(Optional<T> param) {
-        return param.orElseThrow(() -> new CustomException(ExceptionEnum.NOT_FOUND));
+        return ResponseEntity.ok().body(Response.builder()
+                .code(ResponseCode.CREATE_RECOMMENDATION)
+                .message(ResponseMessage.CREATE_RECOMMENDATION)
+                .build());
     }
 }

@@ -11,20 +11,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import wonder.backend.constants.ExceptionEnum;
+import wonder.backend.common.Utilities;
 import wonder.backend.constants.ResponseCode;
 import wonder.backend.constants.ResponseMessage;
 import wonder.backend.domain.User;
 import wonder.backend.dto.common.Response;
 import wonder.backend.dto.mapper.UserMapper;
-import wonder.backend.exception.CustomException;
 import wonder.backend.jwt.TokenProvider;
 import wonder.backend.service.FirebaseService;
 import wonder.backend.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("users")
@@ -37,28 +35,27 @@ public class UserController {
     private final FirebaseService firebaseService;
     private final TokenProvider tokenProvider;
     private final PasswordEncoder passwordEncoder;
+    private final Utilities utilities;
 
-    @Value("${firebase.private-url}")
+    @Value("${app.firebase.private-url}")
     private String fireBasePrivateUrl;
-
-    @Value("${firebase.public-url}")
+    @Value("${app.firebase.public-url}")
     private String fireBasePublicUrl;
 
     @GetMapping("/me")
     public ResponseEntity readMe(
             HttpServletRequest request
     ) {
-        logger.info("Request to read a user");
-
         Long loginUserId = getLoginUserId(request.getHeader(AUTHORIZATION_HEADER));
-        UserMapper.ReadUserMapper userMapper = getOrElseThrow(userService.getUserInfoById(0L, loginUserId));
+        logger.info("Request to read me : {}", loginUserId);
 
-        return ResponseEntity.ok()
-                .body(Response.builder()
-                        .code(ResponseCode.SUCCESS)
-                        .message(ResponseMessage.SUCCESS)
-                        .data(userService.readUser(userMapper))
-                        .build());
+        UserMapper.ReadUserMapper userMapper = utilities.getOrElseThrow(userService.getUserInfoById(0L, loginUserId));
+
+        return ResponseEntity.ok().body(Response.builder()
+                .code(ResponseCode.READ_ME_SUCCESS)
+                .message(ResponseMessage.READ_ME_SUCCESS)
+                .data(userService.readUser(userMapper))
+                .build());
     }
 
     @GetMapping("{id}")
@@ -66,72 +63,68 @@ public class UserController {
             HttpServletRequest request,
             @PathVariable("id") Long userId
     ) {
-        logger.info("Request to read a user : {}", userId);
+        logger.info("Request to read user : {}", userId);
 
         Long loginUserId = getLoginUserId(request.getHeader(AUTHORIZATION_HEADER));
-        UserMapper.ReadUserMapper userMapper = getOrElseThrow(userService.getUserInfoById(loginUserId, userId));
+        UserMapper.ReadUserMapper userMapper = utilities.getOrElseThrow(userService.getUserInfoById(loginUserId, userId));
 
-        return ResponseEntity.ok()
-                .body(Response.builder()
-                        .code(ResponseCode.SUCCESS)
-                        .message(ResponseMessage.SUCCESS)
-                        .data(userService.readUser(userMapper))
-                        .build());
+        return ResponseEntity.ok().body(Response.builder()
+                .code(ResponseCode.READ_USER_SUCCESS)
+                .message(ResponseMessage.READ_USER_SUCCESS)
+                .data(userService.readUser(userMapper))
+                .build());
     }
 
     @GetMapping("{id}/followers")
-    public ResponseEntity readAllFollowers(
+    public ResponseEntity readFollowers(
             HttpServletRequest request,
             @PathVariable("id") Long followeeId,
             @RequestParam("page") int page,
             @RequestParam("size") int size
     ) {
-        logger.info("Request to read all followers by user");
+        logger.info("Request to read followers : {}", followeeId);
 
         Long loginUserId = getLoginUserId(request.getHeader(AUTHORIZATION_HEADER));
         Pageable pageable = PageRequest.of(page, size);
 
-        return ResponseEntity.ok()
-                .body(Response.builder()
-                        .code(ResponseCode.SUCCESS)
-                        .message(ResponseMessage.SUCCESS)
-                        .data(userService.readAllFollowers(loginUserId, followeeId, pageable))
-                        .build());
+        return ResponseEntity.ok().body(Response.builder()
+                .code(ResponseCode.READ_FOLLOWERS_SUCCESS)
+                .message(ResponseMessage.READ_FOLLOWERS_SUCCESS)
+                .data(userService.readFollowers(loginUserId, followeeId, pageable))
+                .build());
     }
 
     @GetMapping("{id}/followees")
-    public ResponseEntity readAllFollowees(
+    public ResponseEntity readFollowees(
             HttpServletRequest request,
             @PathVariable("id") Long followerId,
             @RequestParam("page") int page,
             @RequestParam("size") int size
     ) {
-        logger.info("Request to read all followees by user");
+        logger.info("Request to read followees : {}", followerId);
 
         Long loginUserId = getLoginUserId(request.getHeader(AUTHORIZATION_HEADER));
         Pageable pageable = PageRequest.of(page, size);
 
-        return ResponseEntity.ok()
-                .body(Response.builder()
-                        .code(ResponseCode.SUCCESS)
-                        .message(ResponseMessage.SUCCESS)
-                        .data(userService.readAllFollowees(loginUserId, followerId, pageable))
-                        .build());
+        return ResponseEntity.ok().body(Response.builder()
+                .code(ResponseCode.READ_FOLLOWEES_SUCCESS)
+                .message(ResponseMessage.READ_FOLLOWEES_SUCCESS)
+                .data(userService.readFollowees(loginUserId, followerId, pageable))
+                .build());
     }
 
     @PutMapping("me")
     public ResponseEntity updateMe(
             MultipartHttpServletRequest request
     ) throws IOException {
-        logger.info("Request to update a user");
+        Long loginUserId = getLoginUserId(request.getHeader(AUTHORIZATION_HEADER));
+        logger.info("Request to update user : {}", loginUserId);
 
-        String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
-        Long userId = tokenProvider.getUserId(jwt);
-        User user = getOrElseThrow(userService.getUserById(userId));
+        User user = utilities.getOrElseThrow(userService.getUserById(loginUserId));
 
         MultipartFile profile = request.getFile("profileImageFile");
         if(profile != null) {
-            String profileImageUrl = firebaseService.uploadFiles(profile, profile.getName() + userId);
+            String profileImageUrl = firebaseService.uploadFiles(profile, profile.getName() + loginUserId);
             String publicImageUrl = profileImageUrl.replace(fireBasePrivateUrl, fireBasePublicUrl);
             user.setProfileImageUrl(publicImageUrl);
         }
@@ -149,18 +142,13 @@ public class UserController {
 
         userService.updateUser(user);
 
-        return ResponseEntity.ok()
-                .body(Response.builder()
-                        .code(ResponseCode.SUCCESS)
-                        .message(ResponseMessage.SUCCESS)
-                        .build());
+        return ResponseEntity.ok().body(Response.builder()
+                .code(ResponseCode.UPDATE_ME_SUCCESS)
+                .message(ResponseMessage.UPDATE_ME_SUCCESS)
+                .build());
     }
 
     public Long getLoginUserId(String header) {
         return header != null ? tokenProvider.getUserId(header.substring(7)) : 0;
-    }
-
-    public <T> T getOrElseThrow(Optional<T> param) {
-        return param.orElseThrow(() -> new CustomException(ExceptionEnum.NOT_FOUND));
     }
 }

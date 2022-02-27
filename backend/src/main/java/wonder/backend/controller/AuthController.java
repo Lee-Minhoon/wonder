@@ -3,7 +3,6 @@ package wonder.backend.controller;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,21 +14,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import wonder.backend.constants.ExceptionEnum;
+import wonder.backend.common.Utilities;
 import wonder.backend.constants.ResponseCode;
 import wonder.backend.constants.ResponseMessage;
-import wonder.backend.domain.PrincipalDetails;
 import wonder.backend.domain.User;
 import wonder.backend.dto.AuthDto;
 import wonder.backend.dto.common.Response;
-import wonder.backend.exception.CustomException;
 import wonder.backend.jwt.TokenProvider;
 import wonder.backend.service.AuthService;
 import wonder.backend.service.UserService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.sql.Timestamp;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("auth")
@@ -43,6 +39,7 @@ public class AuthController {
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final PasswordEncoder passwordEncoder;
+    private final Utilities utilities;
 
     @PostMapping("signup")
     public ResponseEntity signup(
@@ -56,12 +53,11 @@ public class AuthController {
                 .nickname(signupDto.getNickname())
                 .build();
 
-        return ResponseEntity.ok()
-                .body(Response.builder()
-                        .code(ResponseCode.SUCCESS)
-                        .data(authService.signup(user))
-                        .message(ResponseMessage.SUCCESS)
-                        .build());
+        return ResponseEntity.ok().body(Response.builder()
+                .code(ResponseCode.SIGNUP_SUCCESS)
+                .message(ResponseMessage.SIGNUP_SUCCESS)
+                .data(authService.signup(user))
+                .build());
     }
 
     @PostMapping("login")
@@ -83,27 +79,21 @@ public class AuthController {
                 .build();
         response.addHeader("Set-Cookie", cookie.toString());
 
-        User user = getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
+        User user = utilities.getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
         user.setLoggedInAt(new Timestamp(System.currentTimeMillis()));
         user.setExp(user.getExp() + 1);
         userService.updateUser(user);
 
-        PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
         AuthDto.LoginResponseDto loginResponseDto = AuthDto.LoginResponseDto.builder()
-                .id(principalDetails.getId())
-                .nickname(principalDetails.getNickname())
+                .id(user.getId())
+                .nickname(user.getNickname())
                 .token(jwt)
                 .build();
 
-        return ResponseEntity.ok()
-                .body(Response.builder()
-                        .code(ResponseCode.SUCCESS)
-                        .message(ResponseMessage.SUCCESS)
-                        .data(loginResponseDto)
-                        .build());
-    }
-
-    public <T> T getOrElseThrow(Optional<T> param) {
-        return param.orElseThrow(() -> new CustomException(ExceptionEnum.NOT_FOUND));
+        return ResponseEntity.ok().body(Response.builder()
+                .code(ResponseCode.LOGIN_SUCCESS)
+                .message(ResponseMessage.LOGIN_SUCCESS)
+                .data(loginResponseDto)
+                .build());
     }
 }

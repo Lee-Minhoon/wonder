@@ -47,7 +47,7 @@ public class MessageDto {
     }
 
     @Getter
-    public static class ReadAllReceivedMessagesDto {
+    public static class ReadReceivedMessagesDto {
         private Long id;
         private String title;
         private Long senderId;
@@ -57,7 +57,7 @@ public class MessageDto {
         private Timestamp receivedAt;
 
         @Builder
-        public ReadAllReceivedMessagesDto(MessageMapper.ReadAllReceivedMessagesMapper messagesMapper) {
+        public ReadReceivedMessagesDto(MessageMapper.ReadAllReceivedMessagesMapper messagesMapper) {
             this.id = messagesMapper.getId();
             this.title = messagesMapper.getTitle();
             this.senderId = messagesMapper.getSenderId();
@@ -69,7 +69,7 @@ public class MessageDto {
     }
 
     @Getter
-    public static class ReadAllSentMessagesDto {
+    public static class ReadSentMessagesDto {
         private Long id;
         private String title;
         private Long recipientId;
@@ -79,7 +79,7 @@ public class MessageDto {
         private Timestamp receivedAt;
 
         @Builder
-        public ReadAllSentMessagesDto(MessageMapper.ReadAllSentMessagesMapper messagesMapper) {
+        public ReadSentMessagesDto(MessageMapper.ReadAllSentMessagesMapper messagesMapper) {
             this.id = messagesMapper.getId();
             this.title = messagesMapper.getTitle();
             this.recipientId = messagesMapper.getRecipientId();

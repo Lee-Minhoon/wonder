@@ -20,7 +20,7 @@ public class UserMapper {
         int getCountComments();
     }
 
-    public interface ReadAllUsersMapper {
+    public interface ReadUsersMapper {
         Long getId();
         Long getExp();
         String getEmail();

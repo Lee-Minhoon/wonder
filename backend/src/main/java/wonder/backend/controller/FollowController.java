@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import wonder.backend.common.Utilities;
 import wonder.backend.constants.ExceptionEnum;
 import wonder.backend.constants.ResponseCode;
 import wonder.backend.constants.ResponseMessage;
@@ -32,6 +33,7 @@ public class FollowController {
 
     private final UserService userService;
     private final FollowService followService;
+    private final Utilities utilities;
 
     @Autowired
     private TokenProvider tokenProvider;
@@ -44,8 +46,8 @@ public class FollowController {
         logger.info("Request to create a follow");
 
         String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
-        User follower = getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
-        User followee = getOrElseThrow(userService.getUserById(followeeId));
+        User follower = utilities.getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
+        User followee = utilities.getOrElseThrow(userService.getUserById(followeeId));
         System.out.println(follower.getId() + "-> follow plz ->" + followee.getId());
         if(follower.getId().equals(followee.getId())) {
             throw new CustomException(ExceptionEnum.BAD_REQUEST);
@@ -59,11 +61,10 @@ public class FollowController {
                 .build();
         followService.createFollow(follow, follower, followee);
 
-        return ResponseEntity.ok()
-                .body(Response.builder()
-                        .code(ResponseCode.SUCCESS)
-                        .message(ResponseMessage.SUCCESS)
-                        .build());
+        return ResponseEntity.ok().body(Response.builder()
+                .code(ResponseCode.CREATE_FOLLWER)
+                .message(ResponseMessage.CREATE_FOLLWER)
+                .build());
     }
 
     @DeleteMapping("follow/{id}")
@@ -74,42 +75,18 @@ public class FollowController {
         logger.info("Request to delete a follow : {}", followeeId);
 
         String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
-        User follower = getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
-        User followee = getOrElseThrow(userService.getUserById(followeeId));
+        User follower = utilities.getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
+        User followee = utilities.getOrElseThrow(userService.getUserById(followeeId));
         FollowId followId = FollowId.builder()
                 .followerId(follower.getId())
                 .followeeId(followee.getId())
                 .build();
-        Follow follow = getOrElseThrow(followService.getFollowById(followId));
+        Follow follow = utilities.getOrElseThrow(followService.getFollowById(followId));
         followService.deleteFollow(follow, follower);
 
-        return ResponseEntity.ok()
-                .body(Response.builder()
-                        .code(ResponseCode.SUCCESS)
-                        .message(ResponseMessage.SUCCESS)
-                        .build());
-    }
-
-//    @GetMapping("users/{id}/getFollowers")
-//    public ResponseEntity getFollowers(
-//            @PathVariable("id") Long followeeId,
-//            @RequestParam("page") int page,
-//            @RequestParam("size") int size
-//    ) {
-//        logger.info("Request to read all followers by user");
-//
-//        User followee = getOrElseThrow(userService.getUserById(followeeId));
-//
-//        followService.getFollowers(followee);
-//
-//        return ResponseEntity.ok()
-//                .body(Response.builder()
-//                        .code(ResponseCode.SUCCESS)
-//                        .message(ResponseMessage.SUCCESS)
-//                        .build());
-//    }
-
-    public <T> T getOrElseThrow(Optional<T> param) {
-        return param.orElseThrow(() -> new CustomException(ExceptionEnum.NOT_FOUND));
+        return ResponseEntity.ok().body(Response.builder()
+                .code(ResponseCode.DELETE_FOLLWER)
+                .message(ResponseMessage.DELETE_FOLLWER)
+                .build());
     }
 }

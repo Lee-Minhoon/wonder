@@ -7,6 +7,7 @@ import Link from 'next/link';
 // import utilities
 import useCreateRecommendation, { createRecommendationInput } from 'hooks/recommendation/useCreateRecommendation';
 import * as dateService from 'service/format';
+import useTypedSelector from 'hooks/useTypedSelector';
 
 // import components
 import PostUtil from './PostUtil';
@@ -15,9 +16,11 @@ import Requesting from 'components/Requesting';
 
 // import etc
 import styles from './styles.module.scss';
+import { writer } from 'repl';
 
 const Post = ({ post }) => {
     const router = useRouter();
+    const loginUserId = useTypedSelector((state) => state.user.userId);
     const createRecommendation = useCreateRecommendation();
 
     const handleRecClick = useCallback(
@@ -46,7 +49,7 @@ const Post = ({ post }) => {
                 <header>
                     <div className={styles.topArea}>
                         <h2>{post.title}</h2>
-                        <PostUtil postId={post.id} />
+                        {loginUserId == post.writerId && <PostUtil postId={post.id} />}
                     </div>
                     <div className={styles.postInfo}>
                         <div className={styles.writerProfile}>

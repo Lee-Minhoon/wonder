@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import wonder.backend.domain.Post;
 import wonder.backend.domain.User;
 import wonder.backend.dto.UserDto;
 import wonder.backend.dto.common.ResponsePage;
@@ -32,22 +31,22 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public ResponsePage readAllFollowers(Long loginUserId, Long followeeId, Pageable pageable) {
-        Page<UserMapper.ReadAllUsersMapper> result = userRepository.findAllFollowersById(loginUserId, followeeId, pageable);
+    public ResponsePage readFollowers(Long loginUserId, Long followeeId, Pageable pageable) {
+        Page<UserMapper.ReadUsersMapper> result = userRepository.findAllFollowersById(loginUserId, followeeId, pageable);
         return ResponsePage.builder()
                 .pages(result.getTotalPages())
                 .count(result.getTotalElements())
-                .data(result.stream().map(UserDto.ReadAllUsersDto::new).collect(Collectors.toList()))
+                .data(result.stream().map(UserDto.ReadUsersDto::new).collect(Collectors.toList()))
                 .build();
     }
 
     @Transactional(readOnly = true)
-    public ResponsePage readAllFollowees(Long loginUserId, Long followerId, Pageable pageable) {
-        Page<UserMapper.ReadAllUsersMapper> result = userRepository.findAllFolloweesById(loginUserId, followerId, pageable);
+    public ResponsePage readFollowees(Long loginUserId, Long followerId, Pageable pageable) {
+        Page<UserMapper.ReadUsersMapper> result = userRepository.findAllFolloweesById(loginUserId, followerId, pageable);
         return ResponsePage.builder()
                 .pages(result.getTotalPages())
                 .count(result.getTotalElements())
-                .data(result.stream().map(UserDto.ReadAllUsersDto::new).collect(Collectors.toList()))
+                .data(result.stream().map(UserDto.ReadUsersDto::new).collect(Collectors.toList()))
                 .build();
     }
 

@@ -34,12 +34,12 @@ public class CommentService {
     }
 
     @Transactional(readOnly = true)
-    public ResponsePage readAllComments(Long postId, Pageable pageable) {
+    public ResponsePage readComments(Long postId, Pageable pageable) {
         Page<CommentMapper.ReadAllCommentsMapper> result = commentRepository.findAllCommentByPost(postId, pageable);
         return ResponsePage.builder()
                 .pages(result.getTotalPages())
                 .count(result.getTotalElements())
-                .data(result.stream().map(CommentDto.ReadAllCommentsDto::new).collect(Collectors.toList()))
+                .data(result.stream().map(CommentDto.ReadCommentsDto::new).collect(Collectors.toList()))
                 .build();
     }
 

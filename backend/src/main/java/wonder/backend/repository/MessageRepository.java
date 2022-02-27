@@ -15,7 +15,7 @@ import java.util.Optional;
 
 public interface MessageRepository extends JpaRepository<Message, Long> {
     @Query(value = "SELECT m.id, m.title, m.content, sender.id as senderId, sender.nickname as sender, " +
-            "sender.profile_imageUrl as senderProfileImageUrl, recipient.profile_image_url as recipientProfileImageUrl " +
+            "sender.profile_image_url as senderProfileImageUrl, recipient.profile_image_url as recipientProfileImageUrl, " +
             "recipient.id as recipientId, recipient.nickname as recipient, " +
             "m.sent_at as sentAt, m.received_at as receivedAt " +
             "FROM message as m " +

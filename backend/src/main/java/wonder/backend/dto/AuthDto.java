@@ -2,7 +2,6 @@ package wonder.backend.dto;
 
 import lombok.Builder;
 import lombok.Getter;
-import wonder.backend.dto.mapper.CommentMapper;
 
 public class AuthDto {
     @Getter

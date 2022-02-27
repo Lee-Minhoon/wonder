@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import wonder.backend.common.Utilities;
 import wonder.backend.constants.ExceptionEnum;
 import wonder.backend.constants.ResponseCode;
 import wonder.backend.constants.ResponseMessage;
@@ -36,6 +37,7 @@ public class PostController {
     private final UserService userService;
     private final PostService postService;
     private final CategoryService categoryService;
+    private final Utilities utilities;
 
     @Autowired
     private TokenProvider tokenProvider;
@@ -45,91 +47,73 @@ public class PostController {
             HttpServletRequest request,
             @RequestBody PostDto.CreatePostDto createPostDto
     ) {
-        logger.info("Request to create a post : {}", createPostDto.getTitle());
+        logger.info("Request to create post : {}", createPostDto.getTitle());
 
         String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
-        User user = getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
-        Category category = getOrElseThrow(categoryService.getCategoryById(createPostDto.getCategory()));
+        User user = utilities.getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
+        Category category = utilities.getOrElseThrow(categoryService.getCategoryById(createPostDto.getCategory()));
         Post post = Post.builder()
                 .category(category)
                 .title(createPostDto.getTitle())
                 .content(createPostDto.getContent())
                 .build();
 
-        return ResponseEntity.ok()
-                .body(Response.builder()
-                        .code(ResponseCode.SUCCESS)
-                        .data(postService.createPost(post, user))
-                        .message(ResponseMessage.SUCCESS)
-                        .build());
+        return ResponseEntity.ok().body(Response.builder()
+                .code(ResponseCode.CREATE_POST)
+                .message(ResponseMessage.CREATE_POST)
+                .data(postService.createPost(post, user))
+                .build());
     }
 
     @GetMapping("posts/{id}")
     public ResponseEntity readPost(
             @PathVariable("id") Long postId
     ) {
-        logger.info("Request to read a post : {}", postId);
+        logger.info("Request to read post : {}", postId);
 
-        PostMapper.ReadPostMapper postMapper = getOrElseThrow(postService.getPostInfoById(postId));
+        PostMapper.ReadPostMapper postMapper = utilities.getOrElseThrow(postService.getPostInfoById(postId));
 
-        return ResponseEntity.ok()
-                .body(Response.builder()
-                        .code(ResponseCode.SUCCESS)
-                        .message(ResponseMessage.SUCCESS)
-                        .data(postService.readPost(postMapper))
-                        .build());
+        return ResponseEntity.ok().body(Response.builder()
+                .code(ResponseCode.READ_POST)
+                .message(ResponseMessage.READ_POST)
+                .data(postService.readPost(postMapper))
+                .build());
     }
 
     @GetMapping("posts")
-    public ResponseEntity readAllPosts(
+    public ResponseEntity readPostsByCategory(
             @RequestParam("category") Long categoryId,
             @RequestParam("title") String title,
             @RequestParam("page") int page,
             @RequestParam("size") int size
     ) {
-        logger.info("Request to read all posts");
+        logger.info("Request to read posts by category : {}", categoryId);
 
         Pageable pageable = PageRequest.of(page, size);
 
-        return ResponseEntity.ok()
-                .body(Response.builder()
-                        .code(ResponseCode.SUCCESS)
-                        .message(ResponseMessage.SUCCESS)
-                        .data(postService.readAllPostsByCategory(categoryId, title, pageable))
-                        .build());
+        return ResponseEntity.ok().body(Response.builder()
+                .code(ResponseCode.READ_POSTS_BY_CATEGORY)
+                .message(ResponseMessage.READ_POSTS_BY_CATEGORY)
+                .data(postService.readPostsByCategory(categoryId, title, pageable))
+                .build());
     }
 
     @GetMapping("users/{id}/posts")
-    public ResponseEntity readAllPostsByUser(
+    public ResponseEntity readPostsByUser(
             @PathVariable("id") Long userId,
             @RequestParam("title") String title,
             @RequestParam("page") int page,
             @RequestParam("size") int size
     ) {
-        logger.info("Request to read all posts by user : {}", userId);
+        logger.info("Request to read posts by user : {}", userId);
 
         Pageable pageable = PageRequest.of(page, size);
 
-        return ResponseEntity.ok()
-                .body(Response.builder()
-                        .code(ResponseCode.SUCCESS)
-                        .message(ResponseMessage.SUCCESS)
-                        .data(postService.readAllPostsByUser(userId, title, pageable))
-                        .build());
-    }
-
-    @GetMapping("posts/test")
-    public ResponseEntity readTest(
-            @RequestParam("category") Long categoryId,
-            @RequestParam("page") int page,
-            @RequestParam("size") int size
-    ) {
-        return ResponseEntity.ok()
-                .body(Response.builder()
-                        .code(ResponseCode.SUCCESS)
-                        .message(ResponseMessage.SUCCESS)
-                        .data(postService.readTest(categoryId, page, size))
-                        .build());
+        return ResponseEntity.ok().body(Response.builder()
+                .code(ResponseCode.READ_POSTS_BY_USER)
+                .message(ResponseMessage.READ_POSTS_BY_USER)
+                .data(postService.readPostsByUser(userId, title, pageable))
+                .build());
     }
 
     @PutMapping("posts/{id}")
@@ -138,20 +122,19 @@ public class PostController {
             @PathVariable("id") Long postId,
             @RequestBody PostDto.UpdatePostDto updatePostDto
     ) {
-        logger.info("Request to update a post : {}", postId);
+        logger.info("Request to update post : {}", postId);
 
         String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
-        User user = getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
-        Post post = getOrElseThrow(postService.getPostById(postId));
+        User user = utilities.getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
+        Post post = utilities.getOrElseThrow(postService.getPostById(postId));
         post.setTitle(updatePostDto.getTitle());
         post.setContent(updatePostDto.getContent());
 
-        return ResponseEntity.ok()
-                .body(Response.builder()
-                        .code(ResponseCode.SUCCESS)
-                        .data(postService.updatePost(post, user))
-                        .message(ResponseMessage.SUCCESS)
-                        .build());
+        return ResponseEntity.ok().body(Response.builder()
+                .code(ResponseCode.UPDATE_POST)
+                .message(ResponseMessage.UPDATE_POST)
+                .data(postService.updatePost(post, user))
+                .build());
     }
 
     @DeleteMapping("posts/{id}")
@@ -159,21 +142,30 @@ public class PostController {
             HttpServletRequest request,
             @PathVariable("id") Long postId
     ) {
-        logger.info("Request to delete a post : {}", postId);
+        logger.info("Request to delete post : {}", postId);
 
         String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
-        User user = getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
-        Post post = getOrElseThrow(postService.getPostById(postId));
+        User user = utilities.getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
+        Post post = utilities.getOrElseThrow(postService.getPostById(postId));
         postService.deletePost(post, user);
 
-        return ResponseEntity.ok()
-                .body(Response.builder()
-                        .code(ResponseCode.SUCCESS)
-                        .message(ResponseMessage.SUCCESS)
-                        .build());
+        return ResponseEntity.ok().body(Response.builder()
+                .code(ResponseCode.DELETE_POST)
+                .message(ResponseMessage.DELETE_POST)
+                .build());
     }
 
-    public <T> T getOrElseThrow(Optional<T> param) {
-        return param.orElseThrow(() -> new CustomException(ExceptionEnum.NOT_FOUND));
+
+    @GetMapping("posts/test")
+    public ResponseEntity readTest(
+            @RequestParam("category") Long categoryId,
+            @RequestParam("page") int page,
+            @RequestParam("size") int size
+    ) {
+        return ResponseEntity.ok().body(Response.builder()
+                .code(ResponseCode.SUCCESS)
+                .message(ResponseMessage.SUCCESS)
+                .data(postService.readTest(categoryId, page, size))
+                .build());
     }
 }

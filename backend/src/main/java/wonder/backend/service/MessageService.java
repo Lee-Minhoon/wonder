@@ -8,7 +8,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wonder.backend.domain.Message;
-import wonder.backend.domain.Post;
 import wonder.backend.domain.User;
 import wonder.backend.dto.MessageDto;
 import wonder.backend.dto.common.ResponsePage;
@@ -49,22 +48,22 @@ public class MessageService {
     }
 
     @Transactional(readOnly = true)
-    public ResponsePage readAllReceivedMessages(User recipient, Pageable pageable) {
+    public ResponsePage readReceivedMessages(User recipient, Pageable pageable) {
         Page<MessageMapper.ReadAllReceivedMessagesMapper> result = messageRepository.findAllReceivedMessageById(recipient.getId(), pageable);
         return ResponsePage.builder()
                 .pages(result.getTotalPages())
                 .count(result.getTotalElements())
-                .data(result.stream().map(MessageDto.ReadAllReceivedMessagesDto::new).collect(Collectors.toList()))
+                .data(result.stream().map(MessageDto.ReadReceivedMessagesDto::new).collect(Collectors.toList()))
                 .build();
     }
 
     @Transactional(readOnly = true)
-    public ResponsePage readAllSentMessages(User sender, Pageable pageable) {
+    public ResponsePage readSentMessages(User sender, Pageable pageable) {
         Page<MessageMapper.ReadAllSentMessagesMapper> result = messageRepository.findAllSentMessageById(sender.getId(), pageable);
         return ResponsePage.builder()
                 .pages(result.getTotalPages())
                 .count(result.getTotalElements())
-                .data(result.stream().map(MessageDto.ReadAllSentMessagesDto::new).collect(Collectors.toList()))
+                .data(result.stream().map(MessageDto.ReadSentMessagesDto::new).collect(Collectors.toList()))
                 .build();
     }
 

@@ -26,7 +26,7 @@ const useDeleteFollow = () => {
             console.log('언팔로우 중..', variables);
         },
         onError: (error, variables, context) => {
-            if (error.response.data.status == 401) {
+            if (error.response.status == 401) {
                 console.log('로그인 되지 않음', error.response);
                 router.push('/auth/login');
             }

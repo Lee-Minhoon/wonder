@@ -22,7 +22,7 @@ const PostUtil = ({ postId }: { postId: number }) => {
             e.preventDefault();
             if (confirm('삭제하시겠습니까?')) {
                 const deletePostInputValue: deletePostInput = {
-                    id: router.query?.view,
+                    id: router.query?.id,
                 };
                 deletePost.mutate(deletePostInputValue);
             } else {

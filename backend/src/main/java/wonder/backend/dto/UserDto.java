@@ -45,7 +45,7 @@ public class UserDto {
     }
 
     @Getter
-    public static class ReadAllUsersDto {
+    public static class ReadUsersDto {
         private Long id;
         private Long exp;
         private String email;
@@ -55,7 +55,7 @@ public class UserDto {
         private int followStatus;
 
         @Builder
-        public ReadAllUsersDto(UserMapper.ReadAllUsersMapper usersMapper) {
+        public ReadUsersDto(UserMapper.ReadUsersMapper usersMapper) {
             this.id = usersMapper.getId();
             this.exp = usersMapper.getExp();
             this.email = usersMapper.getEmail();

@@ -14,7 +14,7 @@ public class CommentDto {
     }
 
     @Getter
-    public static class ReadAllCommentsDto {
+    public static class ReadCommentsDto {
         private Long id;
         private String content;
         private String writer;
@@ -22,7 +22,7 @@ public class CommentDto {
         private Timestamp createdAt;
 
         @Builder
-        public ReadAllCommentsDto(CommentMapper.ReadAllCommentsMapper commentMapper) {
+        public ReadCommentsDto(CommentMapper.ReadAllCommentsMapper commentMapper) {
             this.id = commentMapper.getId();
             this.content = commentMapper.getContent();
             this.writer = commentMapper.getWriter();
