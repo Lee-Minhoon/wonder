@@ -17,7 +17,7 @@ import java.io.InputStream;
 public class FirebaseService {
     private final Logger logger = LoggerFactory.getLogger(FirebaseService.class);
 
-    @Value("${firebase.bucket}")
+    @Value("${app.firebase.bucket}")
     private String firebaseBucket;
 
     public String uploadFiles(MultipartFile file, String filename) throws IOException {

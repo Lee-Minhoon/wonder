@@ -45,10 +45,10 @@ public class RecommendationController {
             HttpServletRequest request,
             @PathVariable("id") Long postId
     ) {
-        logger.info("Request to create recommend in {}", postId);
+        Long loginUserId = getLoginUserId(request.getHeader(AUTHORIZATION_HEADER));
+        logger.info("Request to create recommendation in : {} / Request user : {}", postId, loginUserId);
 
-        String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
-        User user = utilities.getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
+        User user = utilities.getOrElseThrow(userService.getUserById(loginUserId));
         Post post = utilities.getOrElseThrow(postService.getPostById(postId));
         RecommendationId recommendationId = RecommendationId.builder()
                 .userId(user.getId())
@@ -64,5 +64,9 @@ public class RecommendationController {
                 .code(ResponseCode.CREATE_RECOMMENDATION)
                 .message(ResponseMessage.CREATE_RECOMMENDATION)
                 .build());
+    }
+
+    public Long getLoginUserId(String header) {
+        return header != null ? tokenProvider.getUserId(header.substring(7)) : 0;
     }
 }

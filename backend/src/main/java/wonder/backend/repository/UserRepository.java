@@ -46,7 +46,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
             countQuery = "SELECT * FROM follow as f  " +
                     "WHERE u.id = f.follower_id",
             nativeQuery = true)
-    Page<UserMapper.ReadUsersMapper> findAllFollowersById(Long loginUserId, Long followeeId, Pageable pageable);
+    Page<UserMapper.ReadUsersMapper> findFollowersById(Long loginUserId, Long followeeId, Pageable pageable);
 
     @Query(value = "SELECT u.id, u.exp, u.email, u.nickname, u.profile_image_url as profileImageUrl, " +
             "CASE WHEN f.follower_id = :loginUserId THEN 1 ELSE 0 END as followStatus, f.followed_at " +
@@ -57,5 +57,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
             countQuery = "SELECT * FROM follow as f  " +
                     "WHERE u.id = f.followee_id",
             nativeQuery = true)
-    Page<UserMapper.ReadUsersMapper> findAllFolloweesById(Long loginUserId, Long followerId, Pageable pageable);
+    Page<UserMapper.ReadUsersMapper> findFolloweesById(Long loginUserId, Long followerId, Pageable pageable);
 }

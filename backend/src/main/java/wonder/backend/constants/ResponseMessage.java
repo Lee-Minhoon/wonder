@@ -20,8 +20,8 @@ public class ResponseMessage {
     public static final String READ_FOLLOWEES_SUCCESS = "팔로잉 정보를 성공적으로 읽어왔습니다.";
     public static final String UPDATE_ME_SUCCESS = "내 정보를 수정하였습니다.";
 
-    public static final String CREATE_FOLLWER = "팔로우 하였습니다.";
-    public static final String DELETE_FOLLWER = "팔로우를 취소하였습니다.";
+    public static final String CREATE_FOLLOW = "팔로우 하였습니다.";
+    public static final String DELETE_FOLLOW = "팔로우를 취소하였습니다.";
 
     public static final String CREATE_POST = "게시글 작성을 성공하였습니다.";
     public static final String READ_POST = "게시글을 읽어왔습니다.";

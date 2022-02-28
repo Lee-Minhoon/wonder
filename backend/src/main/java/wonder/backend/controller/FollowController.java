@@ -23,7 +23,6 @@ import wonder.backend.service.FollowService;
 import wonder.backend.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
@@ -43,12 +42,11 @@ public class FollowController {
             HttpServletRequest request,
             @PathVariable("id") Long followeeId
     ) {
-        logger.info("Request to create a follow");
+        Long loginUserId = getLoginUserId(request.getHeader(AUTHORIZATION_HEADER));
+        logger.info("Request to create follow : {}, Requested user : {}", followeeId, loginUserId);
 
-        String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
-        User follower = utilities.getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
+        User follower = utilities.getOrElseThrow(userService.getUserById(loginUserId));
         User followee = utilities.getOrElseThrow(userService.getUserById(followeeId));
-        System.out.println(follower.getId() + "-> follow plz ->" + followee.getId());
         if(follower.getId().equals(followee.getId())) {
             throw new CustomException(ExceptionEnum.BAD_REQUEST);
         }
@@ -62,8 +60,8 @@ public class FollowController {
         followService.createFollow(follow, follower, followee);
 
         return ResponseEntity.ok().body(Response.builder()
-                .code(ResponseCode.CREATE_FOLLWER)
-                .message(ResponseMessage.CREATE_FOLLWER)
+                .code(ResponseCode.CREATE_FOLLOW)
+                .message(ResponseMessage.CREATE_FOLLOW)
                 .build());
     }
 
@@ -72,10 +70,10 @@ public class FollowController {
             HttpServletRequest request,
             @PathVariable("id") Long followeeId
     ) {
-        logger.info("Request to delete a follow : {}", followeeId);
+        Long loginUserId = getLoginUserId(request.getHeader(AUTHORIZATION_HEADER));
+        logger.info("Request to delete follow : {}, Requested user : {}", followeeId, loginUserId);
 
-        String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
-        User follower = utilities.getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
+        User follower = utilities.getOrElseThrow(userService.getUserById(loginUserId));
         User followee = utilities.getOrElseThrow(userService.getUserById(followeeId));
         FollowId followId = FollowId.builder()
                 .followerId(follower.getId())
@@ -85,8 +83,12 @@ public class FollowController {
         followService.deleteFollow(follow, follower);
 
         return ResponseEntity.ok().body(Response.builder()
-                .code(ResponseCode.DELETE_FOLLWER)
-                .message(ResponseMessage.DELETE_FOLLWER)
+                .code(ResponseCode.DELETE_FOLLOW)
+                .message(ResponseMessage.DELETE_FOLLOW)
                 .build());
+    }
+
+    public Long getLoginUserId(String header) {
+        return header != null ? tokenProvider.getUserId(header.substring(7)) : 0;
     }
 }

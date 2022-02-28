@@ -49,7 +49,7 @@ public class MessageService {
 
     @Transactional(readOnly = true)
     public ResponsePage readReceivedMessages(User recipient, Pageable pageable) {
-        Page<MessageMapper.ReadAllReceivedMessagesMapper> result = messageRepository.findAllReceivedMessageById(recipient.getId(), pageable);
+        Page<MessageMapper.ReadAllReceivedMessagesMapper> result = messageRepository.findReceivedMessages(recipient.getId(), pageable);
         return ResponsePage.builder()
                 .pages(result.getTotalPages())
                 .count(result.getTotalElements())
@@ -59,7 +59,7 @@ public class MessageService {
 
     @Transactional(readOnly = true)
     public ResponsePage readSentMessages(User sender, Pageable pageable) {
-        Page<MessageMapper.ReadAllSentMessagesMapper> result = messageRepository.findAllSentMessageById(sender.getId(), pageable);
+        Page<MessageMapper.ReadAllSentMessagesMapper> result = messageRepository.findSentMessages(sender.getId(), pageable);
         return ResponsePage.builder()
                 .pages(result.getTotalPages())
                 .count(result.getTotalElements())

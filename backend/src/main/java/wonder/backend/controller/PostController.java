@@ -47,10 +47,10 @@ public class PostController {
             HttpServletRequest request,
             @RequestBody PostDto.CreatePostDto createPostDto
     ) {
-        logger.info("Request to create post : {}", createPostDto.getTitle());
+        Long loginUserId = getLoginUserId(request.getHeader(AUTHORIZATION_HEADER));
+        logger.info("Request to create post : {} / Requested user : {}", createPostDto.getTitle(), loginUserId);
 
-        String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
-        User user = utilities.getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
+        User user = utilities.getOrElseThrow(userService.getUserById(loginUserId));
         Category category = utilities.getOrElseThrow(categoryService.getCategoryById(createPostDto.getCategory()));
         Post post = Post.builder()
                 .category(category)
@@ -67,9 +67,11 @@ public class PostController {
 
     @GetMapping("posts/{id}")
     public ResponseEntity readPost(
+            HttpServletRequest request,
             @PathVariable("id") Long postId
     ) {
-        logger.info("Request to read post : {}", postId);
+        Long loginUserId = getLoginUserId(request.getHeader(AUTHORIZATION_HEADER));
+        logger.info("Request to read post : {} / Requested user : {}", postId, loginUserId);
 
         PostMapper.ReadPostMapper postMapper = utilities.getOrElseThrow(postService.getPostInfoById(postId));
 
@@ -82,12 +84,14 @@ public class PostController {
 
     @GetMapping("posts")
     public ResponseEntity readPostsByCategory(
+            HttpServletRequest request,
             @RequestParam("category") Long categoryId,
             @RequestParam("title") String title,
             @RequestParam("page") int page,
             @RequestParam("size") int size
     ) {
-        logger.info("Request to read posts by category : {}", categoryId);
+        Long loginUserId = getLoginUserId(request.getHeader(AUTHORIZATION_HEADER));
+        logger.info("Request to read posts by category : {} / Requested user : {}", categoryId, loginUserId);
 
         Pageable pageable = PageRequest.of(page, size);
 
@@ -100,12 +104,14 @@ public class PostController {
 
     @GetMapping("users/{id}/posts")
     public ResponseEntity readPostsByUser(
+            HttpServletRequest request,
             @PathVariable("id") Long userId,
             @RequestParam("title") String title,
             @RequestParam("page") int page,
             @RequestParam("size") int size
     ) {
-        logger.info("Request to read posts by user : {}", userId);
+        Long loginUserId = getLoginUserId(request.getHeader(AUTHORIZATION_HEADER));
+        logger.info("Request to read posts by user : {} / Requested user : {}", userId, loginUserId);
 
         Pageable pageable = PageRequest.of(page, size);
 
@@ -122,10 +128,10 @@ public class PostController {
             @PathVariable("id") Long postId,
             @RequestBody PostDto.UpdatePostDto updatePostDto
     ) {
-        logger.info("Request to update post : {}", postId);
+        Long loginUserId = getLoginUserId(request.getHeader(AUTHORIZATION_HEADER));
+        logger.info("Request to update post : {} / Requested user : {}", postId, loginUserId);
 
-        String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
-        User user = utilities.getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
+        User user = utilities.getOrElseThrow(userService.getUserById(loginUserId));
         Post post = utilities.getOrElseThrow(postService.getPostById(postId));
         post.setTitle(updatePostDto.getTitle());
         post.setContent(updatePostDto.getContent());
@@ -142,10 +148,10 @@ public class PostController {
             HttpServletRequest request,
             @PathVariable("id") Long postId
     ) {
+        Long loginUserId = getLoginUserId(request.getHeader(AUTHORIZATION_HEADER));
         logger.info("Request to delete post : {}", postId);
 
-        String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
-        User user = utilities.getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
+        User user = utilities.getOrElseThrow(userService.getUserById(loginUserId));
         Post post = utilities.getOrElseThrow(postService.getPostById(postId));
         postService.deletePost(post, user);
 
@@ -167,5 +173,9 @@ public class PostController {
                 .message(ResponseMessage.SUCCESS)
                 .data(postService.readTest(categoryId, page, size))
                 .build());
+    }
+
+    public Long getLoginUserId(String header) {
+        return header != null ? tokenProvider.getUserId(header.substring(7)) : 0;
     }
 }

@@ -11,7 +11,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -66,17 +65,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/posts").permitAll()
                 .antMatchers(HttpMethod.GET, "/posts/{id}").permitAll()
                 .antMatchers(HttpMethod.GET, "/comments").permitAll()
-                .antMatchers(HttpMethod.GET, "/recommendation").permitAll()
+                .antMatchers(HttpMethod.GET, "/messages").permitAll()
 
+                .antMatchers(HttpMethod.POST, "/follow").access("hasAnyRole('USER, ADMIN')")
                 .antMatchers(HttpMethod.POST, "/posts").access("hasAnyRole('USER, ADMIN')")
                 .antMatchers(HttpMethod.POST, "/comments").access("hasAnyRole('USER, ADMIN')")
+                .antMatchers(HttpMethod.POST, "/messages").access("hasAnyRole('USER, ADMIN')")
                 .antMatchers(HttpMethod.POST, "/recommendation").access("hasAnyRole('USER, ADMIN')")
 
                 .antMatchers(HttpMethod.PUT, "/posts/{id}").access("hasAnyRole('USER, ADMIN')")
                 .antMatchers(HttpMethod.PUT, "/comments/{id}").access("hasAnyRole('USER, ADMIN')")
 
+                .antMatchers(HttpMethod.DELETE, "/follow").access("hasAnyRole('USER, ADMIN')")
                 .antMatchers(HttpMethod.DELETE, "/posts/{id}").access("hasAnyRole('USER, ADMIN')")
                 .antMatchers(HttpMethod.DELETE, "/comments/{id}").access("hasAnyRole('USER, ADMIN')")
+                .antMatchers(HttpMethod.DELETE, "/messages").access("hasAnyRole('USER, ADMIN')")
                 .antMatchers(HttpMethod.DELETE, "/recommendation/{id}").access("hasAnyRole('USER, ADMIN')")
                 .anyRequest().authenticated();
     }
@@ -88,7 +91,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         configuration.setAllowCredentials(true);
-        configuration.setExposedHeaders(Arrays.asList("Authorization", "Set-Cookie"));
+//        configuration.setExposedHeaders(Arrays.asList("Authorization", "Set-Cookie"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

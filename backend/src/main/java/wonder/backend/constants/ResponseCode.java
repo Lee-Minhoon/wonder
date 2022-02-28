@@ -20,8 +20,8 @@ public class ResponseCode {
     public static final String READ_FOLLOWEES_SUCCESS = "READ_FOLLOWEES_SUCCESS";
     public static final String UPDATE_ME_SUCCESS = "UPDATE_ME_SUCCESS";
 
-    public static final String CREATE_FOLLWER = "CREATE_FOLLWER";
-    public static final String DELETE_FOLLWER = "DELETE_FOLLWER";
+    public static final String CREATE_FOLLOW = "CREATE_FOLLOW";
+    public static final String DELETE_FOLLOW = "DELETE_FOLLOW";
 
     public static final String CREATE_POST = "CREATE_POST";
     public static final String READ_POST = "READ_POST";
@@ -39,7 +39,7 @@ public class ResponseCode {
 
     public static final String CREATE_MESSAGE = "CREATE_MESSAGE";
     public static final String READ_MESSAGE = "READ_MESSAGE";
-    public static final String READ_RECEIVED_MESSAGES = "READ_ECEIVED_MESSAGES";
+    public static final String READ_RECEIVED_MESSAGES = "READ_RECEIVED_MESSAGES";
     public static final String READ_SENT_MESSAGES = "READ_SENT_MESSAGES";
     public static final String DELETE_RECEIVED_MESSAGES = "DELETE_RECEIVED_MESSAGE";
     public static final String DELETE_SENT_MESSAGES = "DELETE_SENT_MESSAGE";

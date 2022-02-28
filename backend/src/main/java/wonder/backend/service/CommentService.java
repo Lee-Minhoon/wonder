@@ -35,7 +35,7 @@ public class CommentService {
 
     @Transactional(readOnly = true)
     public ResponsePage readComments(Long postId, Pageable pageable) {
-        Page<CommentMapper.ReadAllCommentsMapper> result = commentRepository.findAllCommentByPost(postId, pageable);
+        Page<CommentMapper.ReadAllCommentsMapper> result = commentRepository.findComments(postId, pageable);
         return ResponsePage.builder()
                 .pages(result.getTotalPages())
                 .count(result.getTotalElements())

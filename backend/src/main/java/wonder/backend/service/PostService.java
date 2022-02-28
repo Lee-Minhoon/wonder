@@ -42,21 +42,21 @@ public class PostService {
 
     @Transactional(readOnly = true)
     public ResponsePage readPostsByCategory(Long categoryId, String title, Pageable pageable) {
-        Page<PostMapper.ReadAllPostsMapper> result = postRepository.findAllPostsByCategory(categoryId, title, pageable);
+        Page<PostMapper.ReadAllPostsMapper> result = postRepository.findPostsByCategory(categoryId, title, pageable);
         return ResponsePage.builder()
                 .pages(result.getTotalPages())
                 .count(result.getTotalElements())
-                .data(result.stream().map(PostDto.ReadAllPostsDto::new).collect(Collectors.toList()))
+                .data(result.stream().map(PostDto.ReadPostsDto::new).collect(Collectors.toList()))
                 .build();
     }
 
     @Transactional(readOnly = true)
     public ResponsePage readPostsByUser(Long userId, String title, Pageable pageable) {
-        Page<PostMapper.ReadAllPostsMapper> result = postRepository.findAllPostsByUser(userId, title, pageable);
+        Page<PostMapper.ReadAllPostsMapper> result = postRepository.findPostsByUser(userId, title, pageable);
         return ResponsePage.builder()
                 .pages(result.getTotalPages())
                 .count(result.getTotalElements())
-                .data(result.stream().map(PostDto.ReadAllPostsDto::new).collect(Collectors.toList()))
+                .data(result.stream().map(PostDto.ReadPostsDto::new).collect(Collectors.toList()))
                 .build();
     }
 
@@ -67,7 +67,7 @@ public class PostService {
         return ResponsePage.builder()
                 .pages(result.getTotalPages())
                 .count(result.getTotalElements())
-                .data(result.stream().map(PostDto.ReadAllPostsDto::new).collect(Collectors.toList()))
+                .data(result.stream().map(PostDto.ReadPostsDto::new).collect(Collectors.toList()))
                 .build();
     }
 

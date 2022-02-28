@@ -41,10 +41,10 @@ public class CommentController {
             HttpServletRequest request,
             @RequestBody CommentDto.CreateCommentDto createCommentDto
     ) {
-        logger.info("Request to create comment : {}", createCommentDto.getContent());
+        Long loginUserId = getLoginUserId(request.getHeader(AUTHORIZATION_HEADER));
+        logger.info("Request to create comment : {} / Requested user : {}", createCommentDto.getContent(), loginUserId);
 
-        String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
-        User user = utilities.getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
+        User user = utilities.getOrElseThrow(userService.getUserById(loginUserId));
         Post post = utilities.getOrElseThrow(postService.getPostById(createCommentDto.getPostId()));
         Comment comment = Comment.builder()
                 .content(createCommentDto.getContent())
@@ -60,11 +60,13 @@ public class CommentController {
 
     @GetMapping
     public ResponseEntity readComments(
+            HttpServletRequest request,
             @RequestParam("post") Long postId,
             @RequestParam("page") int page,
             @RequestParam("size") int size
     ) {
-        logger.info("Request to read comments by post : {}", postId);
+        Long loginUserId = getLoginUserId(request.getHeader(AUTHORIZATION_HEADER));
+        logger.info("Request to read comments in : {} / Requested user : {}", postId, loginUserId);
 
         Pageable pageable = PageRequest.of(page, size);
 
@@ -81,10 +83,10 @@ public class CommentController {
             @PathVariable("id") Long commentId,
             @RequestBody CommentDto.UpdatePostDto updatePostDto
     ) {
-        logger.info("Request to update comment : {}", commentId);
+        Long loginUserId = getLoginUserId(request.getHeader(AUTHORIZATION_HEADER));
+        logger.info("Request to update comment : {} / Requested user : {}", commentId, loginUserId);
 
-        String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
-        User user = utilities.getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
+        User user = utilities.getOrElseThrow(userService.getUserById(loginUserId));
         Comment comment = utilities.getOrElseThrow(commentService.getCommentById(commentId));
         comment.setContent(updatePostDto.getContent());
 
@@ -101,10 +103,10 @@ public class CommentController {
             @AuthenticationPrincipal String email,
             @PathVariable("id") Long commentId
     ) {
-        logger.info("Request to delete comment : {}", commentId);
+        Long loginUserId = getLoginUserId(request.getHeader(AUTHORIZATION_HEADER));
+        logger.info("Request to delete comment : {} / Requested user : {}", commentId, loginUserId);
 
-        String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
-        User user = utilities.getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
+        User user = utilities.getOrElseThrow(userService.getUserById(loginUserId));
         Comment comment = utilities.getOrElseThrow(commentService.getCommentById(commentId));
         commentService.deleteComment(comment, user);
 
@@ -112,5 +114,9 @@ public class CommentController {
                 .code(ResponseCode.DELETE_COMMENT)
                 .message(ResponseMessage.DELETE_COMMENT)
                 .build());
+    }
+
+    public Long getLoginUserId(String header) {
+        return header != null ? tokenProvider.getUserId(header.substring(7)) : 0;
     }
 }

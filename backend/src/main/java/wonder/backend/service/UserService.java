@@ -32,7 +32,7 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public ResponsePage readFollowers(Long loginUserId, Long followeeId, Pageable pageable) {
-        Page<UserMapper.ReadUsersMapper> result = userRepository.findAllFollowersById(loginUserId, followeeId, pageable);
+        Page<UserMapper.ReadUsersMapper> result = userRepository.findFollowersById(loginUserId, followeeId, pageable);
         return ResponsePage.builder()
                 .pages(result.getTotalPages())
                 .count(result.getTotalElements())
@@ -42,7 +42,7 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public ResponsePage readFollowees(Long loginUserId, Long followerId, Pageable pageable) {
-        Page<UserMapper.ReadUsersMapper> result = userRepository.findAllFolloweesById(loginUserId, followerId, pageable);
+        Page<UserMapper.ReadUsersMapper> result = userRepository.findFolloweesById(loginUserId, followerId, pageable);
         return ResponsePage.builder()
                 .pages(result.getTotalPages())
                 .count(result.getTotalElements())

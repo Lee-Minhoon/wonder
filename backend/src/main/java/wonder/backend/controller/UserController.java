@@ -47,7 +47,7 @@ public class UserController {
             HttpServletRequest request
     ) {
         Long loginUserId = getLoginUserId(request.getHeader(AUTHORIZATION_HEADER));
-        logger.info("Request to read me : {}", loginUserId);
+        logger.info("Request to read me : {} / Requested user : {}", loginUserId, loginUserId);
 
         UserMapper.ReadUserMapper userMapper = utilities.getOrElseThrow(userService.getUserInfoById(0L, loginUserId));
 
@@ -63,9 +63,9 @@ public class UserController {
             HttpServletRequest request,
             @PathVariable("id") Long userId
     ) {
-        logger.info("Request to read user : {}", userId);
-
         Long loginUserId = getLoginUserId(request.getHeader(AUTHORIZATION_HEADER));
+        logger.info("Request to read user : {} / Requested user : {}", userId, loginUserId);
+
         UserMapper.ReadUserMapper userMapper = utilities.getOrElseThrow(userService.getUserInfoById(loginUserId, userId));
 
         return ResponseEntity.ok().body(Response.builder()
@@ -82,9 +82,9 @@ public class UserController {
             @RequestParam("page") int page,
             @RequestParam("size") int size
     ) {
-        logger.info("Request to read followers : {}", followeeId);
-
         Long loginUserId = getLoginUserId(request.getHeader(AUTHORIZATION_HEADER));
+        logger.info("Request to read followers : {} / Requested user : {}", followeeId, loginUserId);
+
         Pageable pageable = PageRequest.of(page, size);
 
         return ResponseEntity.ok().body(Response.builder()
@@ -101,9 +101,9 @@ public class UserController {
             @RequestParam("page") int page,
             @RequestParam("size") int size
     ) {
-        logger.info("Request to read followees : {}", followerId);
-
         Long loginUserId = getLoginUserId(request.getHeader(AUTHORIZATION_HEADER));
+        logger.info("Request to read followees : {} / Requested user : {}", followerId, loginUserId);
+
         Pageable pageable = PageRequest.of(page, size);
 
         return ResponseEntity.ok().body(Response.builder()
@@ -118,7 +118,7 @@ public class UserController {
             MultipartHttpServletRequest request
     ) throws IOException {
         Long loginUserId = getLoginUserId(request.getHeader(AUTHORIZATION_HEADER));
-        logger.info("Request to update user : {}", loginUserId);
+        logger.info("Request to update user : {} / Requested user : {}", loginUserId, loginUserId);
 
         User user = utilities.getOrElseThrow(userService.getUserById(loginUserId));
 

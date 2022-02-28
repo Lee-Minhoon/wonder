@@ -48,7 +48,7 @@ public class PostDto {
     }
 
     @Getter
-    public static class ReadAllPostsDto {
+    public static class ReadPostsDto {
         private String category;
         private Long id;
         private String title;
@@ -61,7 +61,7 @@ public class PostDto {
         private int countRecs;
 
         @Builder
-        public ReadAllPostsDto(PostMapper.ReadAllPostsMapper postsMapper) {
+        public ReadPostsDto(PostMapper.ReadAllPostsMapper postsMapper) {
             this.category = postsMapper.getCategory();
             this.id = postsMapper.getId();
             this.title = postsMapper.getTitle();

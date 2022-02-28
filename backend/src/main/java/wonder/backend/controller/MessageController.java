@@ -46,10 +46,10 @@ public class MessageController {
             HttpServletRequest request,
             @RequestBody MessageDto.CreateMessageDto createMessageDto
     ) {
-        logger.info("Request to create a message");
+        Long loginUserId = getLoginUserId(request.getHeader(AUTHORIZATION_HEADER));
+        logger.info("Request to create message : {} / Requested user : {}", createMessageDto.getTitle(), loginUserId);
 
-        String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
-        User sender = utilities.getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
+        User sender = utilities.getOrElseThrow(userService.getUserById(loginUserId));
         User recipient = utilities.getOrElseThrow(userService.getUserByNickname(createMessageDto.getRecipientNickname()));
         if(sender.getId().equals(recipient.getId())) {
             throw new CustomException(ExceptionEnum.BAD_REQUEST);
@@ -71,10 +71,10 @@ public class MessageController {
             HttpServletRequest request,
             @PathVariable("id") Long messageId
     ) {
-        logger.info("Request to read a message : {}", messageId);
+        Long loginUserId = getLoginUserId(request.getHeader(AUTHORIZATION_HEADER));
+        logger.info("Request to read message : {} / Requested user : {}", messageId, loginUserId);
 
-        String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
-        User reader = utilities.getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
+        User reader = utilities.getOrElseThrow(userService.getUserById(loginUserId));
         Message message = utilities.getOrElseThrow(messageService.getMessageById(messageId));
         MessageMapper.ReadMessageMapper messageMapper = utilities.getOrElseThrow(messageService.getMessageInfoById(messageId));
 
@@ -91,10 +91,10 @@ public class MessageController {
             @RequestParam("page") int page,
             @RequestParam("size") int size
     ) {
-        logger.info("Request to read all received messages");
+        Long loginUserId = getLoginUserId(request.getHeader(AUTHORIZATION_HEADER));
+        logger.info("Request to read received messages / Requested user : {}", loginUserId);
 
-        String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
-        User recipient = utilities.getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
+        User recipient = utilities.getOrElseThrow(userService.getUserById(loginUserId));
         Pageable pageable = PageRequest.of(page, size);
 
         return ResponseEntity.ok().body(Response.builder()
@@ -110,10 +110,10 @@ public class MessageController {
             @RequestParam("page") int page,
             @RequestParam("size") int size
     ) {
-        logger.info("Request to read all received messages");
+        Long loginUserId = getLoginUserId(request.getHeader(AUTHORIZATION_HEADER));
+        logger.info("Request to read received messages / Requested user : {}");
 
-        String jwt = request.getHeader(AUTHORIZATION_HEADER).substring(7);
-        User sender = utilities.getOrElseThrow(userService.getUserById(tokenProvider.getUserId(jwt)));
+        User sender = utilities.getOrElseThrow(userService.getUserById(loginUserId));
         Pageable pageable = PageRequest.of(page, size);
 
         return ResponseEntity.ok().body(Response.builder()
@@ -128,6 +128,9 @@ public class MessageController {
             HttpServletRequest request,
             @PathVariable("id") String messagesId
     ) {
+        Long loginUserId = getLoginUserId(request.getHeader(AUTHORIZATION_HEADER));
+        logger.info("Request to delete received messages : {} / Requested user : {}", messagesId, loginUserId);
+
         String split[] = messagesId.split(",");
         List<Long> messages = Arrays.stream(split).map(message -> Long.parseLong(message)).collect(Collectors.toList());
         messageService.deleteReceivedMessages(messages);
@@ -142,6 +145,9 @@ public class MessageController {
             HttpServletRequest request,
             @PathVariable("id") String messagesId
     ) {
+        Long loginUserId = getLoginUserId(request.getHeader(AUTHORIZATION_HEADER));
+        logger.info("Request to delete received messages : {} / Requested user : {}", messagesId, loginUserId);
+
         String split[] = messagesId.split(",");
         List<Long> messages = Arrays.stream(split).map(message -> Long.parseLong(message)).collect(Collectors.toList());
         messageService.deleteSentMessages(messages);
@@ -149,5 +155,9 @@ public class MessageController {
                 .code(ResponseCode.DELETE_SENT_MESSAGES)
                 .message(ResponseMessage.DELETE_SENT_MESSAGES)
                 .build());
+    }
+
+    public Long getLoginUserId(String header) {
+        return header != null ? tokenProvider.getUserId(header.substring(7)) : 0;
     }
 }

@@ -33,7 +33,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
                     "OR (:categoryId % 10 = 0 AND :categoryId + 10 > p.category_id AND p.category_id > :categoryId)" +
                     "AND p.title LIKE %:title%",
             nativeQuery = true)
-    Page<PostMapper.ReadAllPostsMapper> findAllPostsByCategory(Long categoryId, String title, Pageable pageable);
+    Page<PostMapper.ReadAllPostsMapper> findPostsByCategory(Long categoryId, String title, Pageable pageable);
 
     @Query(value = "SELECT category.name as category, p.id, p.title, p.views, p.created_at as createdAt, " +
             "u.id as writerId, u.nickname as writer, u.profile_image_url as writerProfileImageUrl, " +
@@ -55,7 +55,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
                     "WHERE p.user_id = :userId " +
                     "AND p.title LIKE %:title%",
             nativeQuery = true)
-    Page<PostMapper.ReadAllPostsMapper> findAllPostsByUser(Long userId, String title, Pageable pageable);
+    Page<PostMapper.ReadAllPostsMapper> findPostsByUser(Long userId, String title, Pageable pageable);
 
     @Query(value = "SELECT category.id as categoryId, p.id, p.title, p.content, p.views, p.created_at as createdAt, " +
             "u.id as writerId, u.nickname as writer, u.profile_image_url as writerProfileImageUrl, " +

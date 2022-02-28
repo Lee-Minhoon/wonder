@@ -42,7 +42,7 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
                     "WHERE m.recipient_id = :recipientId " +
                     "AND recipient_delete_status = 0",
             nativeQuery = true)
-    Page<MessageMapper.ReadAllReceivedMessagesMapper> findAllReceivedMessageById(Long recipientId, Pageable pageable);
+    Page<MessageMapper.ReadAllReceivedMessagesMapper> findReceivedMessages(Long recipientId, Pageable pageable);
 
     @Query(value = "SELECT m.id, m.title, u.id as recipientId, u.nickname as recipient, " +
             "u.profile_image_url as recipientProfileImageUrl, " +
@@ -57,7 +57,7 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
                     "WHERE m.sender_id = :senderId " +
                     "AND sender_delete_status = 0",
             nativeQuery = true)
-    Page<MessageMapper.ReadAllSentMessagesMapper> findAllSentMessageById(Long senderId, Pageable pageable);
+    Page<MessageMapper.ReadAllSentMessagesMapper> findSentMessages(Long senderId, Pageable pageable);
 
     @Transactional
     @Modifying
