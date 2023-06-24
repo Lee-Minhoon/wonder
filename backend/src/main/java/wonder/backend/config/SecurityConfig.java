@@ -14,6 +14,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import wonder.backend.common.Utilities;
 import wonder.backend.jwt.JwtAccessDeniedHandler;
 import wonder.backend.jwt.JwtAuthenticationEntryPoint;
 import wonder.backend.jwt.JwtFilter;

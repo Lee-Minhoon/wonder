@@ -49,7 +49,7 @@ public class UserController {
         Long loginUserId = getLoginUserId(request.getHeader(AUTHORIZATION_HEADER));
         logger.info("Request to read me : {} / Requested user : {}", loginUserId, loginUserId);
 
-        UserMapper.ReadUserMapper userMapper = utilities.getOrElseThrow(userService.getUserInfoById(0L, loginUserId));
+        UserMapper.ReadUserMapper userMapper = Utilities.getOrElseThrow(userService.getUserInfoById(0L, loginUserId));
 
         return ResponseEntity.ok().body(Response.builder()
                 .code(ResponseCode.READ_ME_SUCCESS)
